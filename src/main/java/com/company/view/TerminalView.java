@@ -1,6 +1,7 @@
 package com.company.view;
 
 import com.company.service.Colour;
+import com.company.service.TerminalManager;
 
 import java.awt.*;
 import java.io.File;
