@@ -16,6 +16,7 @@ public class ConnectionFactory {
         }
 
         protected Connection con;
+//        protected Statement stmt = null;
         protected Statement stmt = null;
         protected ResultSet rs = null;
 
@@ -59,8 +60,10 @@ public class ConnectionFactory {
 
         public void close() throws SQLException {
             try {
-                this.stmt.close();
+                // REMEMBER TO: close stmt!!!!
+//                this.stmt.close();
                 this.con.close();
+                System.out.println("Connection closed");
             }catch (SQLException e) {
                 System.out.println("Error! Can't connect with the database." );
             }
