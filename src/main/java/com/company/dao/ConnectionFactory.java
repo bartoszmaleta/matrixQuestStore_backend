@@ -5,10 +5,14 @@ import java.sql.*;
 public class ConnectionFactory {
         private String databaseUrl;
         private String jdbcDriver;
+        private String userLogin;
+        private String userPassword;
 
         public ConnectionFactory() {
-            this.databaseUrl = "jdbc:sqlite:src/main/resources/sqliteDB/AllteregoDB";
-            this.jdbcDriver = "org.sqlite.JDBC";
+            this.databaseUrl = "jdbc:postgresql://ec2-54-246-85-151.eu-west-1.compute.amazonaws.com:5432/dcmgt3tfcp4n6o";
+            this.jdbcDriver = "org.postgresql.Driver";
+            this.userLogin = "tilcavmrsuhbzj";
+            this.userPassword = "37e3925b366710ece9a679ad72d401e74bc6bb4ed1239676aaffef00ed27fc52";
         }
 
         protected Connection con;
@@ -18,12 +22,13 @@ public class ConnectionFactory {
         public Connection getConnection() {
             try {
                 Class.forName(this.jdbcDriver);
-                this.con = DriverManager.getConnection(this.databaseUrl);
+                this.con = DriverManager.getConnection(this.databaseUrl, userLogin, userPassword);
             } catch (SQLException e) {
                 System.out.println("Error! Cannot connect with the database." );
             } catch (ClassNotFoundException e) {
                 System.out.println("Error! Cannot find JDBC Driver!");
             }
+            System.out.println("Connection returned");
             return this.con;
         }
 

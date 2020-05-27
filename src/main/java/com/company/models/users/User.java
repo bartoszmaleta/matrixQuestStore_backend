@@ -20,6 +20,9 @@ public abstract class User {
         this.role = role;
     }
 
+    public User() {
+    }
+
     public int getId() {
         return id;
     }
@@ -58,5 +61,17 @@ public abstract class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public void setRoleEnum(int userNumber) {
+        if (userNumber == 1) {
+            this.role = Role.ADMIN;
+        } else if (userNumber == 2) {
+            this.role = Role.MENTOR;
+        } else if (userNumber == 3) {
+            this.role = Role.STUDENT;
+        } else {
+            System.out.println("Wrong userNumber");
+        }
     }
 }
