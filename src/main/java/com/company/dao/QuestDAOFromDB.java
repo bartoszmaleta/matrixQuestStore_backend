@@ -62,11 +62,17 @@ public class QuestDAOFromDB {
                 String imageSrc = rs.getString("image");
                 int mentorId = rs.getInt("mentor_id");
 
-                listOfQuests.add(new Quest(title, description, price, imageSrc, mentorId));
+                listOfQuests.add(new Quest(id, title, description, price, imageSrc, mentorId));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return listOfQuests;
+    }
+
+    public void viewQuests(ArrayList<Quest> listOfQuests) {
+        for(Quest quest: listOfQuests) {
+            System.out.println(quest);
+        }
     }
 }

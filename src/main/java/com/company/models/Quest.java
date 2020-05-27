@@ -8,7 +8,8 @@ public class Quest {
     private String imageSrc;
     private int mentorId;
 
-    public Quest(String title, String description, int price, String imageSrc, int mentorId) {
+    public Quest(int id, String title, String description, int price, String imageSrc, int mentorId) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.price = price;
@@ -62,5 +63,15 @@ public class Quest {
 
     public void setMentorId(int mentorId) {
         this.mentorId = mentorId;
+    }
+
+    public String toString() {
+        return "Quest:\n" +
+                "Id: " + id +
+                " Title: " + title +
+                " Description: " + description +
+                " Price: " + price +
+                " Img_src: " + imageSrc +
+                " Mentor_id: " + mentorId;
     }
 }
