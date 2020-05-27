@@ -1,6 +1,8 @@
 package com.company.controllers;
 
 import com.company.models.users.User;
+import com.company.service.TerminalManager;
+import com.company.view.TerminalView;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
