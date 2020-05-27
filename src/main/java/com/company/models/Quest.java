@@ -6,13 +6,14 @@ public class Quest {
     private String description;
     private int price;
     private String imageSrc;
+    private int mentorId;
 
-    public Quest(int id, String title, String description, int price, String imageSrc) {
-        this.id = id;
+    public Quest(String title, String description, int price, String imageSrc, int mentorId) {
         this.title = title;
         this.description = description;
         this.price = price;
         this.imageSrc = imageSrc;
+        this.mentorId = mentorId;
     }
 
     public int getId() {
@@ -53,5 +54,13 @@ public class Quest {
 
     public void setImageSrc(String imageSrc) {
         this.imageSrc = imageSrc;
+    }
+
+    public int getMentorId() {
+        return mentorId;
+    }
+
+    public void setMentorId(int mentorId) {
+        this.mentorId = mentorId;
     }
 }
