@@ -1,5 +1,7 @@
 package com.company.view;
 
+import com.company.service.Colour;
+
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
