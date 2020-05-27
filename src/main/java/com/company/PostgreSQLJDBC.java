@@ -20,7 +20,11 @@ public class PostgreSQLJDBC {
 //                            "postgres", "admin");
 
             Statement stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery( "SELECT * FROM \"Users\";" );
+//            ResultSet rs = stmt.executeQuery( "SELECT * FROM \"Users\";" );
+            String userEmail = "test@test.pl";
+            String userPassword = "testPassword";
+            ResultSet rs = stmt.executeQuery("SELECT * FROM \"Users\" WHERE \"email\" = '"+userEmail+"' AND \"password\" = '"+userPassword+"';");
+
 
             while (rs.next() ) {
                 int id = rs.getInt("id");
@@ -30,9 +34,14 @@ public class PostgreSQLJDBC {
                 String password = rs.getString("password");
                 String email = rs.getString("email");
                 int role_id = rs.getInt("role_id");
+//                int user_detail_id = rs.getInt("user_detail_id");
+//                System.out.printf(id + " " + name + " " + surname + " " + login + " " + password
+//                        + " " + email + " " + role_id + " " + user_detail_id +  "\n");
+
                 int user_detail_id = rs.getInt("user_detail_id");
                 System.out.printf(id + " " + name + " " + surname + " " + login + " " + password
                         + " " + email + " " + role_id + " " + user_detail_id +  "\n");
+
             }
             rs.close();
             stmt.close();

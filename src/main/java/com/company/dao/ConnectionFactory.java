@@ -34,8 +34,8 @@ public class ConnectionFactory {
         }
 
         public ResultSet executeQuery(String sql) {
-            ConnectionFactory dbsqlite = new ConnectionFactory();
-            this.con = dbsqlite.getConnection();
+            ConnectionFactory connectionFactory = new ConnectionFactory();
+            this.con = connectionFactory.getConnection();
             try {
                 this.stmt = this.con.createStatement();
                 this.rs = this.stmt.executeQuery(sql);
@@ -60,6 +60,7 @@ public class ConnectionFactory {
 
         public void close() throws SQLException {
             try {
+                // TODO:
                 // REMEMBER TO: close stmt!!!!
 //                this.stmt.close();
                 this.con.close();
