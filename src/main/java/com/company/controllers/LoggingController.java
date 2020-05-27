@@ -3,6 +3,8 @@ package com.company.controllers;
 import com.company.models.users.User;
 import com.company.service.TerminalManager;
 import com.company.view.TerminalView;
+import com.company.view.menu.LoginMenu;
+import com.github.tomaslanger.chalk.Chalk;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
