@@ -11,7 +11,9 @@ public class App
         System.out.println( "Hello World!" );
     PostgreSQLJDBC pc = new PostgreSQLJDBC();
     DAO dao = new DAO();
-    pc.Connect();
-    dao.Table();
+    //dao.CreateTable();
+   // dao.InsertTable();
+    //dao.ViewTable();
+    dao.TableView();
     }
 }
