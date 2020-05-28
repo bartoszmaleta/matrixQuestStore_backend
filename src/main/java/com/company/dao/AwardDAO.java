@@ -50,6 +50,7 @@ public class AwardDAO {
                 String format = "|%1$-4s|%2$-25s|%3$-70s|%4$-7s|%5$-10s|%6$-25s|%7$-7s\n";
                 System.out.printf(format, id, title, description, price, imgSrc, dataCreation, creatorId);
             }
+            rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -90,6 +91,7 @@ public class AwardDAO {
                 String format = "|%1$-4s|%2$-25s|%3$-70s|%4$-7s|%5$-10s|%6$-25s|%7$-7s\n";
                 System.out.printf(format, id, title, description, price, imgSrc, dataCreation, creatorId);
             }
+            rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -104,18 +106,55 @@ public class AwardDAO {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
                 String description = rs.getString("description");
-                int price = rs.getInt("coins");
+                int price = rs.getInt("price");
                 String imageSrc = rs.getString("image");
                 Timestamp dataCreation = rs.getTimestamp("data_creation");
                 int creatorId = rs.getInt("creator_id");
 
                 listOfAwards.add(new Award(id, title, description, price, imageSrc, dataCreation, creatorId));
             }
+            rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return listOfAwards;
     }
+
+        public void deleteAwardById(int id) {
+        PreparedStatement ps = null;
+
+        try {
+            ps = conFactory.getConnection().prepareStatement("DELETE FROM \"Awards\" WHERE id =" + id + ";");
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+        public void addAward(Award award) {
+        PreparedStatement ps = null;
+        try {
+            ps = conFactory.getConnection().prepareStatement("INSERT INTO \"Awards\" (id, title, description, price, image, data_creation, creator_id)" +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?);");
+            ps.setInt(1, award.getId());
+            ps.setString(2, award.getTitle());
+            ps.setString(3, award.getDescription());
+            ps.setInt(4, award.getPrice());
+            ps.setString(5, award.getImageSrc());
+            ps.setTimestamp(6, award.getDataCreation());
+            ps.setInt(7, award.getCreatorId());
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+//    public void updateAwardById(Award award) {
+//        conFactory.updateQuery("UPDATE Awards SET title = ?, description = ?, price = ?, image = ?, data_creation = ?, creator_id = ? " +
+//                "WHERE id =" + award.getId() + ";");
+//    }
 
 
 }

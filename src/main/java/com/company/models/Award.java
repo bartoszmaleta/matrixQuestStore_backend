@@ -76,4 +76,15 @@ public class Award {
     public void setCreatorId(int creatorId) {
         this.creatorId = creatorId;
     }
+
+    public String toString() {
+        return "Quest:\n" +
+                "Id: " + id +
+                " Title: " + title +
+                " Description: " + description +
+                " Price: " + price +
+                " Img_src: " + imageSrc +
+                " Data_creation: " + dataCreation +
+                " Creator_id: " + creatorId;
+    }
 }
