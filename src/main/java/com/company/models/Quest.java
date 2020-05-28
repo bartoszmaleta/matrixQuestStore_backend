@@ -6,13 +6,15 @@ public class Quest {
     private String description;
     private int price;
     private String imageSrc;
+    private int mentorId;
 
-    public Quest(int id, String title, String description, int price, String imageSrc) {
+    public Quest(int id, String title, String description, int price, String imageSrc, int mentorId) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.price = price;
         this.imageSrc = imageSrc;
+        this.mentorId = mentorId;
     }
 
     public int getId() {
@@ -55,4 +57,21 @@ public class Quest {
         this.imageSrc = imageSrc;
     }
 
+    public int getMentorId() {
+        return mentorId;
+    }
+
+    public void setMentorId(int mentorId) {
+        this.mentorId = mentorId;
+    }
+
+    public String toString() {
+        return "Quest:\n" +
+                "Id: " + id +
+                " Title: " + title +
+                " Description: " + description +
+                " Price: " + price +
+                " Img_src: " + imageSrc +
+                " Mentor_id: " + mentorId;
+    }
 }

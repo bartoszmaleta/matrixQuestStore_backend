@@ -40,6 +40,7 @@ public class LoggingController {
         }
     }
 
+
 //    public void createNewUser() {
 //        Scanner scanner = new Scanner(System.in);
 //        TerminalView.printString("Enter Your username: ");
@@ -66,6 +67,7 @@ public class LoggingController {
 //
 //        String successMessage = "Good job! You have just created new User in DB! ";
 //        System.out.println(Chalk.on(successMessage).cyan().underline());
+
 //    }
 
     public void loggingUser() throws FileNotFoundException {
