@@ -11,8 +11,7 @@ public class Award {
     private Timestamp dataCreation;
     private int creatorId;
 
-    public Award(int id, String title, String description, int price, String imageSrc, Timestamp dataCreation, int creatorId) {
-        this.id = id;
+    public Award(String title, String description, int price, String imageSrc, Timestamp dataCreation, int creatorId) {
         this.title = title;
         this.description = description;
         this.price = price;
