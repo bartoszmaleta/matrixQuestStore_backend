@@ -1,7 +1,6 @@
 package com.company.dao;
 
 import com.company.models.Award;
-import com.company.models.Quest;
 
 import java.sql.*;
 import java.util.ArrayList;

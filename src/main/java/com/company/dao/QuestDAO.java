@@ -1,16 +1,17 @@
 package com.company.dao;
 
 import com.company.models.Quest;
-import org.postgresql.core.ConnectionFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
 
 public class QuestDAO {
     ArrayList<Quest> listOfQuests;
+    ConnectionFactory conFactory;
 
-    public QuestDAO(DBConnector dbConnector) {
+    public QuestDAO() {
         conFactory = new ConnectionFactory();
+
     }
 
     public void addQuest(Quest quest) {
