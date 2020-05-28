@@ -54,4 +54,5 @@ public class Quest {
     public void setImageSrc(String imageSrc) {
         this.imageSrc = imageSrc;
     }
+
 }
