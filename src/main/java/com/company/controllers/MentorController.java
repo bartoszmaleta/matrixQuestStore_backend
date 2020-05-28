@@ -6,8 +6,6 @@ import com.company.models.users.Student;
 import com.company.models.users.User;
 import com.company.service.InputTaker;
 
-import java.util.Scanner;
-
 public class MentorController {
 
     private Role role;
@@ -33,7 +31,7 @@ public class MentorController {
     }
 
     public void createStudentAccount() {
-        String studentName = InputTaker.takeStringInputWithMessage("Enter student name: ");
+        String studentName = InputTaker.takeStringInputWithMessageForFirstInput("Enter student name: ");
         String studentSurname = InputTaker.takeStringInputWithMessage("Enter student surname: ");
         String studentLogin = InputTaker.takeStringInputWithMessage("Enter student login");
         String studentPassword = InputTaker.takeStringInputWithMessage("Enter student password");
