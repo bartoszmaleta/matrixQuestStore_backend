@@ -10,17 +10,25 @@ public abstract class User {
     private String password;
     private String email;
     private Role role;
+    private String name;
+    private String surname;
+    private int user_detail_id;
     private List<Transaction> transactions;
 
-    public User(int id, String login, String password, String email, Role role) {
-        this.id = id;
+    public User(String login, String password, String email, Role role, String name, String surname, int user_detail_id) {
         this.login = login;
         this.password = password;
         this.email = email;
         this.role = role;
+        this.name = name;
+        this.surname = surname;
+        this.user_detail_id = user_detail_id;
     }
 
     public User() {
+    }
+
+    public User(int id, String login, String password, String email, Role role) {
     }
 
     public int getId() {
@@ -73,5 +81,29 @@ public abstract class User {
         } else {
             System.out.println("Wrong userNumber");
         }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public int getUser_detail_id() {
+        return user_detail_id;
+    }
+
+    public void setUser_detail_id(int user_detail_id) {
+        this.user_detail_id = user_detail_id;
     }
 }

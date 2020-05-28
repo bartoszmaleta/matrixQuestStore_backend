@@ -11,9 +11,8 @@ public class Student extends User{
     private ArrayList<Award> awardsList;
     private ArrayList<Quest> questsList;
 
-
-    public Student(int id, String login, String password, String email, Role role) {
-        super(id, login, password, email, role);
+    public Student(String login, String password, String email, Role role, String name, String surname, int user_detail_id) {
+        super(login, password, email, role, name, surname, user_detail_id);
     }
 
     public Wallet getWallet() {
