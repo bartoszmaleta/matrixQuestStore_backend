@@ -22,6 +22,7 @@ public class UserDaoDb implements UserDao {
             System.out.println("\nI am in readUserByNameAndPassword\n");
             ResultSet rs;
 
+            // TODO: find User by login!
             ConnectionFactory connectionFactory = new ConnectionFactory();
             ResultSet rs2 = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"email\" = '" + userEmail + "' AND \"password\" = '" + userPassword + "';");
             ResultSet rs3 = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"login\" = '" + userEmail + "' AND \"password\" = '" + userPassword + "';");
