@@ -13,15 +13,25 @@ public class UserDaoDb {
         this.connectionFactory = new ConnectionFactory();
     }
 
-    public User readUserByEmailAndPassword(String userEmail, String userPassword) {
+    public User readUserByEmailOrLoginAndPassword(String userEmail, String userPassword) {
 
         Connection c = null;
         User newUser;
 
         try {
             System.out.println("\nI am in readUserByNameAndPassword\n");
+            ResultSet rs;
+
             ConnectionFactory connectionFactory = new ConnectionFactory();
-            ResultSet rs = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"email\" = '" + userEmail + "' AND \"password\" = '" + userPassword + "';");
+            ResultSet rs2 = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"email\" = '" + userEmail + "' AND \"password\" = '" + userPassword + "';");
+            ResultSet rs3 = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"login\" = '" + userEmail + "' AND \"password\" = '" + userPassword + "';");
+
+            if (rs2 == null) {
+                rs = rs3;
+            } else {
+                rs = rs2;
+            }
+
             rs.next();
             if (rs.getInt("role_id") == 1) {
                 newUser = new Admin();
@@ -194,12 +204,45 @@ public class UserDaoDb {
     }
 
 
-    // TODO: cant return list of Users because User is abstract
-    // TODO: have class above: person or change User to not abstract
-    public List<User> getListOfUsersOrderedByName() {
+    public List<User> readAllUsers() {
         List<User> users = new ArrayList<>();
         try {
-            ResultSet rs = connectionFactory.executeQuery("SELECT * FROM users ORDER BY name;");
+            ResultSet rs = connectionFactory.executeQuery("SELECT * FROM users ORDER BY id;");
+            while (rs.next()) {
+                User newUser = new User();
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String surname = rs.getString("surname");
+                String login = rs.getString("login");
+                String password = rs.getString("password");
+                String email = rs.getString("email");
+                int roleId = rs.getInt("role_id");
+                int userDetailsId = rs.getInt("user_detail_id");
+
+                newUser.setId(id);
+                newUser.setName(name);
+                newUser.setSurname(surname);
+                newUser.setLogin(login);
+                newUser.setPassword(password);
+                newUser.setEmail(email);
+                newUser.setRoleEnum(roleId);
+                users.add(newUser);
+
+//                String format = "|%1$-4s|%2$-15s|%3$-15s|%4$-15s|%5$-20s|%6$-25s|%7$-7s|%8$-7s\n";
+//                System.out.printf(format, id, name, surname, login, password, email, roleId, userDetailsId);
+            }
+            rs.close();
+            return users;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<User> getStudents() {
+        List<User> users = new ArrayList<>();
+        try {
+            ResultSet rs = connectionFactory.executeQuery("SELECT * FROM users WHERE role_id = 3 ORDER BY id;");
             while (rs.next()) {
                 User newUser = new User();
                 int id = rs.getInt("id");

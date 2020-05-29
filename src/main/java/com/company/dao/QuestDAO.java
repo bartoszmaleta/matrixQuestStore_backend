@@ -70,7 +70,6 @@ public class QuestDAO {
 
     public List<Quest> readQuestListWithMentors() {
         listOfQuests = new ArrayList<>();
-        System.out.println("qweqwe");
         try {
 //            ResultSet rs = conFactory.executeQuery("SELECT * FROM \"Quests\" ORDER BY id;");
             ResultSet rs = conFactory.executeQuery("SELECT \"Quests\".id, title, description, coins, image, (CONCAT(m.name, ' ', m.surname)) AS mentor FROM \"Quests\"\n" +
@@ -86,10 +85,10 @@ public class QuestDAO {
                 int price = rs.getInt("coins");
                 String imageSrc = rs.getString("image");
                 String mentor = rs.getString("mentor");
-                System.out.println(" qwe" + mentor);
 
                 listOfQuests.add(new Quest(id, title, description, price, imageSrc, mentor));
             }
+            rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

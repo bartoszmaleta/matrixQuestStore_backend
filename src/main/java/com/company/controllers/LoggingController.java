@@ -86,7 +86,7 @@ public class LoggingController {
         String password = InputTaker.takeStringInputWithMessage("Enter pasword: ");
 //        this.userDaoDb.readUsers();
 
-        User userToLog = this.userDaoDb.readUserByEmailAndPassword(email, password);
+        User userToLog = this.userDaoDb.readUserByEmailOrLoginAndPassword(email, password);
 
         if (userToLog == null) {
             TerminalView.printString("Wrong email or password.");

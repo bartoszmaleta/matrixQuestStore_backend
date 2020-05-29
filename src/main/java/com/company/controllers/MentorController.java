@@ -47,7 +47,6 @@ public class MentorController {
                 case 0 -> isRunning = false;
                 default -> System.out.println("Wrong input.");
             }
-            ;
         }
     }
 
@@ -71,7 +70,7 @@ public class MentorController {
 
     }
 
-    private void studentManagmentMenu() {
+    private void studentManagmentMenu() throws FileNotFoundException {
         boolean isRunning = true;
 
         while (isRunning) {
@@ -83,7 +82,8 @@ public class MentorController {
                     "(0) Quit");
             int option = InputTaker.takeIntInputWithoutMessage();
             switch (option) {
-                case 1 -> userDaoDb.readUsers();
+//                case 1 -> userDaoDb.readUsers();
+                case 1 -> View.viewAllStudents();
                 case 2 -> createStudentAccount();
                 case 3 -> updateStudent();
                 case 4 -> deleteStudentbyId();
@@ -93,7 +93,7 @@ public class MentorController {
         }
     }
 
-    public void updateStudent() {
+    public void updateStudent() throws FileNotFoundException {
         userDaoDb.readUsers();
         int idOfStudentToUpdate = InputTaker.takeIntInputWithMessage("Enter id of student you want to update: ");
         System.out.println("What do you want to edit? \n");

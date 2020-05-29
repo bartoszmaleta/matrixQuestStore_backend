@@ -102,12 +102,8 @@ public class AwardDAO {
         try {
             ResultSet rs = conFactory.executeQuery("SELECT * FROM \"Awards\" ORDER BY id;");
             while (rs.next()) {
-//                System.out.println(rs.getInt("price"));
-//                System.out.println(rs.getString("price"));
                 int id = rs.getInt("id");
-//                System.out.println(id);
                 String title = rs.getString("title");
-//                System.out.println(title);
                 String description = rs.getString("description");
                 int price = rs.getInt("price");
                 String imageSrc = rs.getString("image");

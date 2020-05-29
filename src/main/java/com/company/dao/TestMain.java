@@ -14,10 +14,10 @@ public class TestMain {
 //        View.viewAllStudents();
 //        View.viewAllQuests();
 //        View.viewAllQuestsWithMentors();
-        View.viewAllAwards();
-        View.viewAllAwardsWithMentors();
-
-//        LoggingController loggingController = new LoggingController();
-//        loggingController.init();
+//        View.viewAllAwards();
+//        View.viewAllAwardsWithMentors();
+//
+        LoggingController loggingController = new LoggingController();
+        loggingController.init();
     }
 }
