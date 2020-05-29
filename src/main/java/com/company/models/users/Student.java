@@ -10,9 +10,26 @@ public class Student extends User{
     private Wallet wallet;
     private ArrayList<Award> awardsList;
     private ArrayList<Quest> questsList;
+    private String name;
+    private String surname;
 
     public Student(String login, String password, String email, Role role, String name, String surname, int user_detail_id) {
         super(login, password, email, role, name, surname, user_detail_id);
+    }
+
+    public Student() {
+    }
+
+    public void setWallet(Wallet wallet) {
+        this.wallet = wallet;
+    }
+
+    public void setAwardsList(ArrayList<Award> awardsList) {
+        this.awardsList = awardsList;
+    }
+
+    public void setQuestsList(ArrayList<Quest> questsList) {
+        this.questsList = questsList;
     }
 
     public Wallet getWallet() {

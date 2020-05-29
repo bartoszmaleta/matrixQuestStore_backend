@@ -43,9 +43,56 @@ public class UserDaoDb {
                 return newUser;
 
             } else if (rs.next() && (rs.getInt("role_id") == 2)) {
-//                newUser = new Mentor();
+                newUser = new Mentor();
+
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String surname = rs.getString("surname");
+                String login = rs.getString("login");
+                String password = rs.getString("password");
+                String email = rs.getString("email");
+                int role_id = rs.getInt("role_id");
+
+                // TODO:
+//                int user_detail_id = rs.getInt("user_detail_id");
+
+                newUser.setId(id);
+                newUser.setLogin(login);
+                newUser.setPassword(password);
+                newUser.setEmail(email);
+                newUser.setRoleEnum(role_id);
+
+                connectionFactory.close();
+                rs.close();
+
+                return newUser;
             } else if (rs.next() && (rs.getInt("role_id") == 3)) {
-//                newUser = new Student();
+                newUser = new Student();
+
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String surname = rs.getString("surname");
+                String login = rs.getString("login");
+                String password = rs.getString("password");
+                String email = rs.getString("email");
+                int role_id = rs.getInt("role_id");
+
+                // TODO:
+//                int user_detail_id = rs.getInt("user_detail_id");
+
+                newUser.setId(id);
+                newUser.setName(name);
+                newUser.setSurname(surname);
+                newUser.setLogin(login);
+                newUser.setPassword(password);
+                newUser.setEmail(email);
+                newUser.setRoleEnum(role_id);
+
+                // TODO: where close()?????
+                connectionFactory.close();
+                rs.close();
+
+                return newUser;
             } else {
                 System.out.println("No user");
             }

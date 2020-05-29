@@ -73,26 +73,29 @@ public class LoggingController {
     public void loggingUser() throws FileNotFoundException {
         Scanner scanner = new Scanner(System.in);
 
-//        TerminalView.printString("User email: ");
-//        String email = scanner.nextLine();
-//
-//        TerminalView.printString("User password: ");
-//        String password = scanner.nextLine();
-//
-//        User userToLog = new UserDaoDb().readUserByEmailAndPassword(email, password);
-//
-//        if (userToLog == null) {
-//            TerminalView.printString("Wrong email or password.");
-//        } else {
-////            User user = new UserDaoDb().readUserByEmailAndPassword(email, password);
-//            if (userToLog.getRole() == Role.ADMIN) {
-//                // TODO:
-//                AdminController adminController = new AdminController(userToLog);
-//                adminController.init();
-//            } else {
-////                CustomerController customerController = new CustomerController(user);
-////                customerController.init();
-//            }
-//        }
+        TerminalView.printString("User email: ");
+        String email = scanner.nextLine();
+
+        TerminalView.printString("User password: ");
+        String password = scanner.nextLine();
+
+        User userToLog = new UserDaoDb().readUserByEmailAndPassword(email, password);
+
+        if (userToLog == null) {
+            TerminalView.printString("Wrong email or password.");
+        } else {
+//            User user = new UserDaoDb().readUserByEmailAndPassword(email, password);
+            if (userToLog.getRole() == Role.ADMIN) {
+                // TODO:
+                AdminController adminController = new AdminController(userToLog);
+                adminController.init();
+            } else if (userToLog.getRole() == Role.MENTOR) {
+                MentorController mentorController = new MentorController(userToLog);
+                mentorController.init();
+            } else if (userToLog.getRole() == Role.STUDENT) {
+                StudentController studentController = new StudentController(userToLog);
+                studentController.init();
+            }
+        }
     }
 }

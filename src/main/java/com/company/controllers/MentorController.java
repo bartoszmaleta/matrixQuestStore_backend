@@ -21,23 +21,40 @@ public class MentorController {
     QuestDAO questDAO = new QuestDAO();
     AwardDAO awardDAO = new AwardDAO();
 
+    public MentorController() {
+    }
+
+    public MentorController(User user) {
+        this.user = user;
+    }
+
     public void init() {
         boolean isRunning = true;
         while (isRunning) {
             System.out.println("(1) Student managment\n" +
                     "(2) Quest managment\n" +
                     "(3) Awards managment\n" +
+                    "(4) My profile\n" +
                     "(0) Quit");
             int option = InputTaker.takeIntInputWithoutMessage();
             switch (option) {
                 case 1 -> studentManagmentMenu();
                 case 2 -> questsManagmentMenu();
                 case 3 -> awardsManagmentMenu();
+                case 4 -> myProfile();
                 case 0 -> isRunning = false;
                 default -> System.out.println("Wrong input.");
             }
             ;
         }
+    }
+
+    private void myProfile() {
+        System.out.println("My profile:\n"
+                + this.user.getLogin() + " "
+                + this.user.getPassword() + " "
+                + this.user.getEmail() + " "
+                + this.user.getRole());
     }
 
     public void createStudentAccount() {
