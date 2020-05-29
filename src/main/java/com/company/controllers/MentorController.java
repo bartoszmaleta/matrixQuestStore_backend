@@ -148,7 +148,7 @@ public class MentorController {
             int option = InputTaker.takeIntInputWithoutMessage();
             switch (option) {
 //                case 1 -> questDAO.readQuestList();
-                case 1 -> View.viewAllQuests();
+                case 1 -> View.viewAllQuestsWithMentors();
                 case 2 -> addQuest();
                 case 3 -> updateQuest();
                 case 4 -> deleteQuestById();

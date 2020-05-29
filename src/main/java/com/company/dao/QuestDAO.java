@@ -4,6 +4,7 @@ import com.company.models.Quest;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class QuestDAO {
     ArrayList<Quest> listOfQuests;
@@ -60,6 +61,34 @@ public class QuestDAO {
                 int mentorId = rs.getInt("mentor_id");
 
                 listOfQuests.add(new Quest(id, title, description, price, imageSrc, mentorId));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listOfQuests;
+    }
+
+    public List<Quest> readQuestListWithMentors() {
+        listOfQuests = new ArrayList<>();
+        System.out.println("qweqwe");
+        try {
+//            ResultSet rs = conFactory.executeQuery("SELECT * FROM \"Quests\" ORDER BY id;");
+            ResultSet rs = conFactory.executeQuery("SELECT \"Quests\".id, title, description, coins, image, (CONCAT(m.name, ' ', m.surname)) AS mentor FROM \"Quests\"\n" +
+                    "INNER JOIN (\n" +
+                    "    SELECT * FROM users WHERE role_id = 2\n" +
+                    "    ) m\n" +
+                    "ON \"Quests\".mentor_id = m.id\n" +
+                    "ORDER BY \"Quests\".id;");
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String title = rs.getString("title");
+                String description = rs.getString("description");
+                int price = rs.getInt("coins");
+                String imageSrc = rs.getString("image");
+                String mentor = rs.getString("mentor");
+                System.out.println(" qwe" + mentor);
+
+                listOfQuests.add(new Quest(id, title, description, price, imageSrc, mentor));
             }
         } catch (SQLException e) {
             e.printStackTrace();

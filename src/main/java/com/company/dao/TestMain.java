@@ -11,10 +11,12 @@ import java.sql.SQLException;
 public class TestMain {
     public static void main(String[] args) throws SQLException, FileNotFoundException {
 
-        View.viewAllStudents();
-        View.viewAllQuests();
-        View.viewAllAwards();
-        LoggingController loggingController = new LoggingController();
-        loggingController.init();
+//        View.viewAllStudents();
+//        View.viewAllQuests();
+        View.viewAllQuestsWithMentors();
+//        View.viewAllAwards();
+
+//        LoggingController loggingController = new LoggingController();
+//        loggingController.init();
     }
 }

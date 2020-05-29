@@ -57,6 +57,23 @@ public class View {
         System.out.println(FlipTableConverters.fromObjects(headers, data));
     }
 
+    public static void viewAllQuestsWithMentors() throws FileNotFoundException {
+        List<Quest> newList = new QuestDAO().readQuestListWithMentors();
+        String[] headers = {"id", "title", "description", "coins", "image", "mentor"};
+        Object[][] data = new Object[newList.size()][headers.length];
+
+        for (int i = 0; i < newList.size(); i++) {
+            Quest quest = newList.get(i);
+            data[i][0] = quest.getId();
+            data[i][1] = quest.getTitle();
+            data[i][2] = quest.getDescription();
+            data[i][3] = quest.getPrice();
+            data[i][4] = quest.getImageSrc();
+            data[i][5] = quest.getMentorNameAndSurname();
+        }
+        System.out.println(FlipTableConverters.fromObjects(headers, data));
+    }
+
     public static void viewAllAwards() throws FileNotFoundException {
         ArrayList<Award> newList = new AwardDAO().readAwardList();
         String[] headers = {"id", "title", "description", "coins", "image", "creation_date", "creator_id"};

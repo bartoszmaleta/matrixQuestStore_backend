@@ -7,6 +7,7 @@ public class Quest {
     private int price;
     private String imageSrc;
     private int mentorId;
+    private String mentorNameAndSurname;
 
     public Quest(int id, String title, String description, int price, String imageSrc, int mentorId) {
         this.id = id;
@@ -17,12 +18,29 @@ public class Quest {
         this.mentorId = mentorId;
     }
 
+    public Quest(int id, String title, String description, int price, String imageSrc, String mentorNameAndSurname) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.imageSrc = imageSrc;
+        this.mentorNameAndSurname = mentorNameAndSurname;
+    }
+
     public Quest(String title, String description, int price, String imageSrc, int mentorId) {
         this.title = title;
         this.description = description;
         this.price = price;
         this.imageSrc = imageSrc;
         this.mentorId = mentorId;
+    }
+
+    public String getMentorNameAndSurname() {
+        return mentorNameAndSurname;
+    }
+
+    public void setMentorNameAndSurname(String mentorNameAndSurname) {
+        this.mentorNameAndSurname = mentorNameAndSurname;
     }
 
     public int getId() {
