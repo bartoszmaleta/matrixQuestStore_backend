@@ -40,6 +40,18 @@ public class MentorController {
         }
     }
 
+    public void createStudentAccount() {
+        String studentName = InputTaker.takeStringInputWithMessageForFirstInput("Enter student name: ");
+        String studentSurname = InputTaker.takeStringInputWithMessage("Enter student surname: ");
+        String studentLogin = InputTaker.takeStringInputWithMessage("Enter student login");
+        String studentPassword = InputTaker.takeStringInputWithMessage("Enter student password");
+        String studentEmail = InputTaker.takeStringInputWithMessage("Enter student email");
+
+        Student student = new Student(studentLogin, studentPassword, studentEmail, Role.STUDENT, studentName, studentSurname, 1);
+        userDaoDb.addUserToDatabase(student);
+
+    }
+
     private void studentManagmentMenu() {
         boolean isRunning = true;
 
@@ -64,17 +76,17 @@ public class MentorController {
         }
     }
 
-    public void createStudentAccount() {
-        String studentName = InputTaker.takeStringInputWithMessage("Enter student name: ");
-        String studentSurname = InputTaker.takeStringInputWithMessage("Enter student surname: ");
-        String studentLogin = InputTaker.takeStringInputWithMessage("Enter student login: ");
-        String studentPassword = InputTaker.takeStringInputWithMessage("Enter student password: ");
-        String studentEmail = InputTaker.takeStringInputWithMessage("Enter student email: ");
+//     public void createStudentAccount() {
+//         String studentName = InputTaker.takeStringInputWithMessage("Enter student name: ");
+//         String studentSurname = InputTaker.takeStringInputWithMessage("Enter student surname: ");
+//         String studentLogin = InputTaker.takeStringInputWithMessage("Enter student login: ");
+//         String studentPassword = InputTaker.takeStringInputWithMessage("Enter student password: ");
+//         String studentEmail = InputTaker.takeStringInputWithMessage("Enter student email: ");
 
-        Student student = new Student(studentLogin, studentPassword, studentEmail, Role.STUDENT, studentName, studentSurname, 1);
-        userDaoDb.addUserToDatabase(student);
+//         Student student = new Student(studentLogin, studentPassword, studentEmail, Role.STUDENT, studentName, studentSurname, 1);
+//         userDaoDb.addUserToDatabase(student);
 
-    }
+//     }
 
     public void updateStudent() {
         userDaoDb.readUsers();

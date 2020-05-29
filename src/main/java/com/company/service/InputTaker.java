@@ -18,6 +18,13 @@ public class InputTaker {
         return scanner.nextLine();
     }
 
+    public static String takeStringInputWithMessageForFirstInput(String message) {
+        scanner.nextLine();     // don't know why!
+        System.out.println(message);
+        String name = scanner.nextLine();
+        return name;
+    }
+
     public static String takeStringInputWithoutMessage() {
         return scanner.nextLine();
     }
