@@ -16,7 +16,7 @@ public class AwardDAO {
     public void readAllAwards() {
         try {
             ResultSet rs = conFactory.executeQuery("SELECT * FROM \"Awards\";");
-            while(rs.next()) {
+            while (rs.next()) {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
                 String description = rs.getString("description");
@@ -37,7 +37,7 @@ public class AwardDAO {
     public void readAllAwardsOrderByData() {
         try {
             ResultSet rs = conFactory.executeQuery("SELECT * FROM \"Awards\" ORDER BY data_creation;");
-            while(rs.next()) {
+            while (rs.next()) {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
                 String description = rs.getString("description");
@@ -58,7 +58,7 @@ public class AwardDAO {
     public void readAllAwardsOrderById() {
         try {
             ResultSet rs = conFactory.executeQuery("SELECT * FROM \"Awards\" ORDER BY id;");
-            while(rs.next()) {
+            while (rs.next()) {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
                 String description = rs.getString("description");
@@ -78,7 +78,7 @@ public class AwardDAO {
     public void readAllAwardsOrderByPrice(String ascOrDesc) {
         try {
             ResultSet rs = conFactory.executeQuery("SELECT * FROM \"Awards\" ORDER BY price " + ascOrDesc.toUpperCase() + ";");
-            while(rs.next()) {
+            while (rs.next()) {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
                 String description = rs.getString("description");
@@ -110,7 +110,7 @@ public class AwardDAO {
                 Timestamp dataCreation = rs.getTimestamp("data_creation");
                 int creatorId = rs.getInt("creator_id");
 
-                listOfAwards.add(new Award(id, title, description, price, imageSrc, dataCreation, creatorId));
+                listOfAwards.add(new Award(title, description, price, imageSrc, dataCreation, creatorId));
             }
             rs.close();
         } catch (SQLException e) {
@@ -119,7 +119,7 @@ public class AwardDAO {
         return listOfAwards;
     }
 
-        public void deleteAwardById(int id) {
+    public void deleteAwardById(int id) {
         PreparedStatement ps = null;
 
         try {
@@ -131,7 +131,7 @@ public class AwardDAO {
         }
     }
 
-        public void addAward(Award award) {
+    public void addAward(Award award) {
         PreparedStatement ps = null;
         try {
             ps = conFactory.getConnection().prepareStatement("INSERT INTO \"Awards\" (id, title, description, price, image, data_creation, creator_id)" +
@@ -150,10 +150,54 @@ public class AwardDAO {
         }
     }
 
-//    public void updateAwardById(Award award) {
-//        conFactory.updateQuery("UPDATE Awards SET title = ?, description = ?, price = ?, image = ?, data_creation = ?, creator_id = ? " +
-//                "WHERE id =" + award.getId() + ";");
-//    }
+    public void updateAwardTitleById(int id, String title) {
+        PreparedStatement ps = null;
+        try {
+            ps = conFactory.getConnection().prepareStatement("UPDATE \"Awards\" SET surname = '" + title + "' " +
+                    "WHERE id=" + id + ";");
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void updateAwardDescriptionById(int id, String description) {
+        PreparedStatement ps = null;
+        try {
+            ps = conFactory.getConnection().prepareStatement("UPDATE \"Awards\" SET surname = '" + description + "' " +
+                    "WHERE id=" + id + ";");
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateAwardPriceById(int id, int price) {
+        PreparedStatement ps = null;
+        try {
+            ps = conFactory.getConnection().prepareStatement("UPDATE \"Awards\" SET surname = " + price +
+                    " WHERE id=" + id + ";");
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateAwardCreatorIdById(int id, int creatorId) {
+        PreparedStatement ps = null;
+        try {
+            ps = conFactory.getConnection().prepareStatement("UPDATE \"Awards\" SET surname = " + creatorId +
+                    " WHERE id=" + id + ";");
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }

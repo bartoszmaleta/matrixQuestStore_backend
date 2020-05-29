@@ -140,7 +140,7 @@ public class UserDaoDb {
 
 
     }
-    public void editUserNameById(int id, String name) {
+    public void updateUserNameById(int id, String name) {
         PreparedStatement ps = null;
         try {
             ps = connectionFactory.getConnection().prepareStatement("UPDATE users SET name = '" + name + "' " +
@@ -152,7 +152,7 @@ public class UserDaoDb {
         }
     }
 
-    public void editUserSurnameById(int id, String surname) {
+    public void updateUserSurnameById(int id, String surname) {
         PreparedStatement ps = null;
         try {
             ps = connectionFactory.getConnection().prepareStatement("UPDATE users SET surname = '" + surname + "' " +
@@ -164,7 +164,7 @@ public class UserDaoDb {
         }
     }
 
-    public void editUserLoginById(int id, String login) {
+    public void updateUserLoginById(int id, String login) {
         PreparedStatement ps = null;
         try {
             ps = connectionFactory.getConnection().prepareStatement("UPDATE users SET login = '" + login + "' " +
@@ -176,7 +176,7 @@ public class UserDaoDb {
         }
     }
 
-    public void editUserPasswordById(int id, String password) {
+    public void updateUserPasswordById(int id, String password) {
         PreparedStatement ps = null;
         try {
             ps = connectionFactory.getConnection().prepareStatement("UPDATE users SET password = '" + password + "' " +

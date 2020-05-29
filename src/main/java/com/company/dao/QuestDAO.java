@@ -51,7 +51,7 @@ public class QuestDAO {
         listOfQuests = new ArrayList<>();
         try {
             ResultSet rs = conFactory.executeQuery("SELECT * FROM \"Quests\";");
-            while(rs.next()) {
+            while (rs.next()) {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
                 String description = rs.getString("description");
@@ -59,7 +59,7 @@ public class QuestDAO {
                 String imageSrc = rs.getString("image");
                 int mentorId = rs.getInt("mentor_id");
 
-                listOfQuests.add(new Quest(id, title, description, price, imageSrc, mentorId));
+                listOfQuests.add(new Quest(title, description, price, imageSrc, mentorId));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -70,7 +70,7 @@ public class QuestDAO {
     public void readAllQuestsOrderById() {
         try {
             ResultSet rs = conFactory.executeQuery("SELECT * FROM \"Quests\" ORDER BY id;");
-            while(rs.next()) {
+            while (rs.next()) {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
                 String description = rs.getString("description");
@@ -90,7 +90,7 @@ public class QuestDAO {
     public void readAllQuestsOrderByAmountOfCoins() {
         try {
             ResultSet rs = conFactory.executeQuery("SELECT * FROM \"Quests\" ORDER BY coins;");
-            while(rs.next()) {
+            while (rs.next()) {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
                 String description = rs.getString("description");
@@ -108,8 +108,56 @@ public class QuestDAO {
     }
 
     public void viewQuests(ArrayList<Quest> listOfQuests) {
-        for(Quest quest: listOfQuests) {
+        for (Quest quest : listOfQuests) {
             System.out.println(quest);
+        }
+    }
+
+    public void updateQuestTitleById(int id, String title) {
+        PreparedStatement ps = null;
+        try {
+            ps = conFactory.getConnection().prepareStatement("UPDATE \"Quests\" SET surname = '" + title + "' " +
+                    "WHERE id=" + id + ";");
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateQuestDescriptionById(int id, String description) {
+        PreparedStatement ps = null;
+        try {
+            ps = conFactory.getConnection().prepareStatement("UPDATE \"Quests\" SET surname = '" + description + "' " +
+                    "WHERE id=" + id + ";");
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateQuestCoinsById(int id, int amountOfCoins) {
+        PreparedStatement ps = null;
+        try {
+            ps = conFactory.getConnection().prepareStatement("UPDATE \"Quests\" SET surname = " + amountOfCoins +
+                    " WHERE id=" + id + ";");
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateQuestIdMentorById(int id, int mentorId) {
+        PreparedStatement ps = null;
+        try {
+            ps = conFactory.getConnection().prepareStatement("UPDATE \"Quests\" SET surname = " + mentorId +
+                    " WHERE id=" + id + ";");
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }
