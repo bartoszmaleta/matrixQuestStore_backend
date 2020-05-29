@@ -11,7 +11,7 @@ import java.io.FileNotFoundException;
 
 public class AdminController {
     private User user;
-    private UserDaoDb userDaoDb = new UserDaoDb();
+    private final UserDaoDb userDaoDb = new UserDaoDb();
 
     public AdminController(User user) {
         this.user = user;

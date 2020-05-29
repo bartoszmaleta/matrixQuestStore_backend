@@ -11,7 +11,7 @@ import com.company.view.menu.LoginMenu;
 import java.io.FileNotFoundException;
 
 public class LoggingController {
-    private UserDaoDb userDaoDb = new UserDaoDb();
+    private final UserDaoDb userDaoDb = new UserDaoDb();
 
     public void init() throws FileNotFoundException {
         boolean isRunning = true;
