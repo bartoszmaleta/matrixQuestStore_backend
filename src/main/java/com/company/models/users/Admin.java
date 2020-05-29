@@ -9,4 +9,8 @@ public class Admin extends User{
     public Admin() {
         super();
     }
+
+    public Admin(int id, String name, String surname, String login, String password, String email, int roleId) {
+        super(id, name, surname, login, password, email, roleId);
+    }
 }

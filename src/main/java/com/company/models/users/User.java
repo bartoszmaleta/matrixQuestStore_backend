@@ -4,16 +4,27 @@ import com.company.models.Transaction;
 
 import java.util.List;
 
-public class User {
+public abstract class User {
     private int id;
+    private String name;
+    private String surname;
     private String login;
     private String password;
     private String email;
     private Role role;
-    private String name;
-    private String surname;
     private int user_detail_id;
     private List<Transaction> transactions;
+
+    // Proper!!
+    public User(int id, String name, String surname, String login, String password, String email, int roleId) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.login = login;
+        this.password = password;
+        this.email = email;
+        setRoleEnum(roleId);
+    }
 
     public User(String login, String password, String email, Role role, String name, String surname, int user_detail_id) {
         this.login = login;

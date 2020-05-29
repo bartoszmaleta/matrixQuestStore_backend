@@ -42,7 +42,6 @@ public class UserDaoDb implements UserDao {
                 String password = rs.getString("password");
                 String email = rs.getString("email");
                 int role_id = rs.getInt("role_id");
-                System.out.println(role_id);
 
                 newUser.setId(id);
                 newUser.setLogin(login);
@@ -205,9 +204,10 @@ public class UserDaoDb implements UserDao {
     public List<User> readAllUsers() {
         List<User> users = new ArrayList<>();
         try {
+//            User newUser;
             ResultSet rs = connectionFactory.executeQuery("SELECT * FROM users ORDER BY id;");
             while (rs.next()) {
-                User newUser = new User();
+//                User newUser = new User();
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 String surname = rs.getString("surname");
@@ -217,17 +217,26 @@ public class UserDaoDb implements UserDao {
                 int roleId = rs.getInt("role_id");
                 int userDetailsId = rs.getInt("user_detail_id");
 
-                newUser.setId(id);
-                newUser.setName(name);
-                newUser.setSurname(surname);
-                newUser.setLogin(login);
-                newUser.setPassword(password);
-                newUser.setEmail(email);
-                newUser.setRoleEnum(roleId);
-                users.add(newUser);
+                if (roleId == 1) {
+                    User newUser = new Admin(id, name, surname, login, password, email, roleId);
+                    users.add(newUser);
+                } else if (roleId == 2) {
+                    User newUser = new Mentor(id, name, surname, login, password, email, roleId);
+                    users.add(newUser);
+                } else if (roleId == 3) {
+                    User newUser = new Student(id, name, surname, login, password, email, roleId);
+                    users.add(newUser);
+                }
+//
+//                newUser.setId(id);
+//                newUser.setName(name);
+//                newUser.setSurname(surname);
+//                newUser.setLogin(login);
+//                newUser.setPassword(password);
+//                newUser.setEmail(email);
+//                newUser.setRoleEnum(roleId);
 
-//                String format = "|%1$-4s|%2$-15s|%3$-15s|%4$-15s|%5$-20s|%6$-25s|%7$-7s|%8$-7s\n";
-//                System.out.printf(format, id, name, surname, login, password, email, roleId, userDetailsId);
+//                users.add(newUser);
             }
             rs.close();
             return users;
@@ -242,7 +251,7 @@ public class UserDaoDb implements UserDao {
         try {
             ResultSet rs = connectionFactory.executeQuery("SELECT * FROM users WHERE role_id = 3 ORDER BY id;");
             while (rs.next()) {
-                User newUser = new User();
+                User newUser = new Student();
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 String surname = rs.getString("surname");
@@ -252,6 +261,7 @@ public class UserDaoDb implements UserDao {
                 int roleId = rs.getInt("role_id");
                 int userDetailsId = rs.getInt("user_detail_id");
 
+                // TODO: Change to one constructor!
                 newUser.setId(id);
                 newUser.setName(name);
                 newUser.setSurname(surname);
@@ -275,7 +285,7 @@ public class UserDaoDb implements UserDao {
         try {
             ResultSet rs = connectionFactory.executeQuery("SELECT * FROM users WHERE role_id = 2 ORDER BY id;");
             while (rs.next()) {
-                User newUser = new User();
+                User newUser = new Mentor();
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 String surname = rs.getString("surname");
@@ -285,6 +295,7 @@ public class UserDaoDb implements UserDao {
                 int roleId = rs.getInt("role_id");
                 int userDetailsId = rs.getInt("user_detail_id");
 
+                // TODO: Change to one constructor!
                 newUser.setId(id);
                 newUser.setName(name);
                 newUser.setSurname(surname);

@@ -5,6 +5,7 @@ import com.company.models.users.Role;
 import com.company.models.users.Student;
 import com.company.models.users.User;
 import com.company.service.InputTaker;
+import com.company.service.MentorService;
 import com.company.view.View;
 
 import java.io.FileNotFoundException;
@@ -12,11 +13,10 @@ import java.io.FileNotFoundException;
 public class AdminController {
     private User user;
     private final UserDaoDb userDaoDb = new UserDaoDb();
+    MentorService mentorService;
 
     public AdminController(User user) {
         this.user = user;
-//        System.out.println("Admin Controller");
-//        System.out.println("Hello, Your email: " + this.user.getEmail());
     }
 
     public void init() throws FileNotFoundException {
@@ -51,7 +51,7 @@ public class AdminController {
 //                case 8 -> removeModule();
 //                case 9 -> editModule();
 
-                case 10 -> addMentor();
+//                case 10 -> showProfile();
                 case 0 -> isRunning = false;
                 default -> System.out.println("Wrong input.");
             }
@@ -104,6 +104,13 @@ public class AdminController {
     }
 
     private void addMentor() {
+        // TODO: MentorService and other Services!!!
+//        this.mentorService = new MentorService();
+//        mentorService.addMentor(this.user);  // user to service!
+//        mentorService.addMentor(this.user);
+
+
+
         String mentorName = InputTaker.takeStringInputWithMessageForFirstInput("Enter mentor name: ");
         String mentorSurname = InputTaker.takeStringInputWithMessage("Enter mentor surname: ");
         String mentorLogin = InputTaker.takeStringInputWithMessage("Enter mentor login");

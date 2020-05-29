@@ -91,6 +91,9 @@ public class LoggingController {
         if (userToLog == null) {
             TerminalView.printString("Wrong email or password.");
         } else {
+//            userToLog
+
+
             if (userToLog.getRole() == Role.ADMIN) {
                 AdminController adminController = new AdminController(userToLog);
                 adminController.init();
