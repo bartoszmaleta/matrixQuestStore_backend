@@ -73,7 +73,7 @@ public class MentorController {
         boolean isRunning = true;
 
         while (isRunning) {
-            System.out.println("(1) View students table\n" +
+            System.out.println("\n(1) View students table\n" +
                     "(2) Create student\n" +
                     "(3) Update student data\n" +
                     "(4) Delete student\n" +

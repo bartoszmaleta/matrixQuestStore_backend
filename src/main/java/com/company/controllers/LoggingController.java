@@ -14,7 +14,6 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class LoggingController {
-    Scanner scanner = new Scanner(System.in);
     private UserDaoDb userDaoDb = new UserDaoDb();
 
     public void init() throws FileNotFoundException {
@@ -25,16 +24,15 @@ public class LoggingController {
             TerminalView.clearScreen();
             LoginMenu.display();
 
-            int choice = scanner.nextInt();
-
-            switch (choice) {
-                case 1:
+            String option = InputTaker.takeStringInputWithMessage("Choose: ");
+            switch (option) {
+                case "1":
                     loggingUser();
                     break;
-                case 2:
+                case "2":
                     registerAsNewStudent();
                     break;
-                case 0:
+                case "0":
                     isRunning = false;
                     break;
                 default:
@@ -44,7 +42,7 @@ public class LoggingController {
     }
 
     public void registerAsNewStudent() {
-        String studentName = InputTaker.takeStringInputWithMessageForFirstInput("Enter student name: ");
+        String studentName = InputTaker.takeStringInputWithMessage("Enter student name: ");
         String studentSurname = InputTaker.takeStringInputWithMessage("Enter student surname: ");
         String studentLogin = InputTaker.takeStringInputWithMessage("Enter student login");
         String studentPassword = InputTaker.takeStringInputWithMessage("Enter student password");

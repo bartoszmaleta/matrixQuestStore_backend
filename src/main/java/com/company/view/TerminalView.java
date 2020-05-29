@@ -118,9 +118,9 @@ public class TerminalView {
         emptyLinesThree();
         System.out.println("\n\n\n\n\n\n");
         System.out.println("Produced by: ");
+        System.out.println("Aleksandra Kasaraba");
         System.out.println("Bartosz Maleta");
-        System.out.println("Michał Zieliński");
-        System.out.println("Przemysław Buszek\n\n\n");
+        System.out.println("Michał Zieliński\n\n\n");
         pressAnyKeyToContinue();
     }
 
