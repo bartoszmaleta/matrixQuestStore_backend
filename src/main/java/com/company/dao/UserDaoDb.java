@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDaoDb {
+public class UserDaoDb implements UserDao {
     ConnectionFactory connectionFactory;
 
     public UserDaoDb() {

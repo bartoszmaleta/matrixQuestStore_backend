@@ -94,7 +94,9 @@ public class MentorController {
     }
 
     public void updateStudent() throws FileNotFoundException {
-        userDaoDb.readUsers();
+//        userDaoDb.readUsers();
+        View.viewAllMentors();
+
         int idOfStudentToUpdate = InputTaker.takeIntInputWithMessage("Enter id of student you want to update: ");
         System.out.println("What do you want to edit? \n");
         System.out.println("" +
