@@ -13,6 +13,7 @@ public class TestMain {
 
         View.viewAllStudents();
         View.viewAllQuests();
+        View.viewAllAwards();
         LoggingController loggingController = new LoggingController();
         loggingController.init();
     }

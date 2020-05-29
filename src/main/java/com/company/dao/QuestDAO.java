@@ -50,7 +50,7 @@ public class QuestDAO {
     public ArrayList<Quest> readQuestList() {
         listOfQuests = new ArrayList<>();
         try {
-            ResultSet rs = conFactory.executeQuery("SELECT * FROM \"Quests\";");
+            ResultSet rs = conFactory.executeQuery("SELECT * FROM \"Quests\" ORDER BY id;");
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
