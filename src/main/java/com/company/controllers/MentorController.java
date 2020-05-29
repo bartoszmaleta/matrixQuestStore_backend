@@ -224,7 +224,7 @@ public class MentorController {
             String option = InputTaker.takeStringInputWithMessageForFirstInput("Choose: ");
             switch (option) {
 //                case "1" -> awardDAO.readAllAwardsOrderById();
-                case "1" -> View.viewAllAwards();
+                case "1" -> View.viewAllAwardsWithMentors();
                 case "2" -> addAward();
                 case "3" -> updateAward();
                 case "4" -> deleteAwardById();

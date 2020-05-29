@@ -13,8 +13,9 @@ public class TestMain {
 
 //        View.viewAllStudents();
 //        View.viewAllQuests();
-        View.viewAllQuestsWithMentors();
-//        View.viewAllAwards();
+//        View.viewAllQuestsWithMentors();
+        View.viewAllAwards();
+        View.viewAllAwardsWithMentors();
 
 //        LoggingController loggingController = new LoggingController();
 //        loggingController.init();

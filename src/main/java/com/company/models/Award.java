@@ -10,6 +10,7 @@ public class Award {
     private String imageSrc;
     private Timestamp dataCreation;
     private int creatorId;
+    private String mentor;
 
     public Award(String title, String description, int price, String imageSrc, Timestamp dataCreation, int creatorId) {
         this.title = title;
@@ -28,6 +29,24 @@ public class Award {
         this.imageSrc = imageSrc;
         this.dataCreation = dataCreation;
         this.creatorId = creatorId;
+    }
+
+    public Award(int id, String title, String description, int price, String imageSrc, Timestamp dataCreation, String mentor) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.imageSrc = imageSrc;
+        this.dataCreation = dataCreation;
+        this.mentor = mentor;
+    }
+
+    public String getMentor() {
+        return mentor;
+    }
+
+    public void setMentor(String mentor) {
+        this.mentor = mentor;
     }
 
     public int getId() {

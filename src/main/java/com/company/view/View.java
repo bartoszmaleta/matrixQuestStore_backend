@@ -91,4 +91,22 @@ public class View {
         }
         System.out.println(FlipTableConverters.fromObjects(headers, data));
     }
+
+    public static void viewAllAwardsWithMentors() {
+        ArrayList<Award> newList = new AwardDAO().readAwardListWithMentors();
+        String[] headers = {"id", "title", "description", "coins", "image", "creation_date", "creator"};
+        Object[][] data = new Object[newList.size()][headers.length];
+
+        for (int i = 0; i < newList.size(); i++) {
+            Award award = newList.get(i);
+            data[i][0] = award.getId();
+            data[i][1] = award.getTitle();
+            data[i][2] = award.getDescription();
+            data[i][3] = award.getPrice();
+            data[i][4] = award.getImageSrc();
+            data[i][5] = award.getDataCreation();
+            data[i][6] = award.getMentor();
+        }
+        System.out.println(FlipTableConverters.fromObjects(headers, data));
+    }
 }

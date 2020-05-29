@@ -123,6 +123,37 @@ public class AwardDAO {
         return listOfAwards;
     }
 
+    public ArrayList<Award> readAwardListWithMentors() {
+        listOfAwards = new ArrayList<>();
+        try {
+            ResultSet rs = conFactory.executeQuery("SELECT \"Awards\".id, title, description, price, image, data_creation, (CONCAT(m.name, ' ', m.surname)) AS mentor FROM \"Awards\"\n" +
+                    "INNER JOIN (\n" +
+                    "    SELECT * FROM users WHERE role_id = 2\n" +
+                    "    ) m\n" +
+                    "ON \"Awards\".creator_id = m.id\n" +
+                    "ORDER BY \"Awards\".id;");
+            while (rs.next()) {
+//                System.out.println(rs.getInt("price"));
+//                System.out.println(rs.getString("price"));
+                int id = rs.getInt("id");
+//                System.out.println(id);
+                String title = rs.getString("title");
+//                System.out.println(title);
+                String description = rs.getString("description");
+                int price = rs.getInt("price");
+                String imageSrc = rs.getString("image");
+                Timestamp dataCreation = rs.getTimestamp("data_creation");
+                String mentor = rs.getString("mentor");
+
+                listOfAwards.add(new Award(id, title, description, price, imageSrc, dataCreation, mentor));
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listOfAwards;
+    }
+
     public void deleteAwardById(int id) {
         PreparedStatement ps = null;
 
