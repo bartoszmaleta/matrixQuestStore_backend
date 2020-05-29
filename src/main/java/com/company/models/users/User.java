@@ -31,6 +31,14 @@ public abstract class User {
     public User(int id, String login, String password, String email, Role role) {
     }
 
+    public User(String login, String password, String email, String name, String surname) {
+        this.login = login;
+        this.password = password;
+        this.email = email;
+        this.name = name;
+        this.surname = surname;
+    }
+
     public int getId() {
         return id;
     }

@@ -2,7 +2,9 @@ package com.company.controllers;
 
 import com.company.dao.UserDaoDb;
 import com.company.models.users.Role;
+import com.company.models.users.Student;
 import com.company.models.users.User;
+import com.company.service.InputTaker;
 import com.company.service.TerminalManager;
 import com.company.view.TerminalView;
 import com.company.view.menu.LoginMenu;
@@ -30,7 +32,7 @@ public class LoggingController {
                     loggingUser();
                     break;
                 case 2:
-//                    createNewUser();
+                    registerAsNewStudent();
                     break;
                 case 0:
                     isRunning = false;
@@ -39,6 +41,19 @@ public class LoggingController {
                     System.out.println("Wrong input!");
             }
         }
+    }
+
+    public void registerAsNewStudent() {
+        String studentName = InputTaker.takeStringInputWithMessageForFirstInput("Enter student name: ");
+        String studentSurname = InputTaker.takeStringInputWithMessage("Enter student surname: ");
+        String studentLogin = InputTaker.takeStringInputWithMessage("Enter student login");
+        String studentPassword = InputTaker.takeStringInputWithMessage("Enter student password");
+        String studentEmail = InputTaker.takeStringInputWithMessage("Enter student email");
+
+        // TODO: validation if exist, if taken
+        Student student = new Student(studentLogin, studentPassword, studentEmail, Role.STUDENT, studentName, studentSurname, 1);
+        this.userDaoDb.addUserToDatabase(student);
+        TerminalView.printString("You have successfully registered as new student!");
     }
 
 
@@ -68,19 +83,14 @@ public class LoggingController {
 //
 //        String successMessage = "Good job! You have just created new User in DB! ";
 //        System.out.println(Chalk.on(successMessage).cyan().underline());
-
 //    }
 
     public void loggingUser() throws FileNotFoundException {
-        Scanner scanner = new Scanner(System.in);
 
-        TerminalView.printString("User email: ");
-        String email = scanner.nextLine();
+        String email = InputTaker.takeStringInputWithMessage("Enter email: ");
+        String password = InputTaker.takeStringInputWithMessage("Enter pasword: ");
+//        this.userDaoDb.readUsers();
 
-        TerminalView.printString("User password: ");
-        String password = scanner.nextLine();
-
-        this.userDaoDb.readUsers();
         User userToLog = this.userDaoDb.readUserByEmailAndPassword(email, password);
 
         if (userToLog == null) {

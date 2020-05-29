@@ -2,6 +2,7 @@ package com.company.view;
 
 import com.company.service.Colour;
 import com.company.service.TerminalManager;
+import com.github.tomaslanger.chalk.Chalk;
 
 import java.awt.*;
 import java.io.File;
@@ -180,7 +181,8 @@ public class TerminalView {
 
 
     public static void printString(String message) {
-        System.out.println(message);
+        System.out.println(Chalk.on(message).cyan().underline());
+//        System.out.println(message);
     }
 
 
