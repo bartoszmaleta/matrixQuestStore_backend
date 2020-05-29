@@ -5,13 +5,10 @@ import com.company.models.users.Role;
 import com.company.models.users.Student;
 import com.company.models.users.User;
 import com.company.service.InputTaker;
-import com.company.service.TerminalManager;
 import com.company.view.TerminalView;
 import com.company.view.menu.LoginMenu;
-import com.github.tomaslanger.chalk.Chalk;
 
 import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 public class LoggingController {
     private UserDaoDb userDaoDb = new UserDaoDb();

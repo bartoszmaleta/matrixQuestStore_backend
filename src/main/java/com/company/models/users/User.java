@@ -4,7 +4,7 @@ import com.company.models.Transaction;
 
 import java.util.List;
 
-public abstract class User {
+public class User {
     private int id;
     private String login;
     private String password;

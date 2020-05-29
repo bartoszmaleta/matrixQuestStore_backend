@@ -1,4 +1,4 @@
 package com.company.controllers;
 
-public class WalletControlle {
+public class WalletController {
 }
