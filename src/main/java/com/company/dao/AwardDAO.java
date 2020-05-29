@@ -110,7 +110,7 @@ public class AwardDAO {
                 Timestamp dataCreation = rs.getTimestamp("data_creation");
                 int creatorId = rs.getInt("creator_id");
 
-                listOfAwards.add(new Award(title, description, price, imageSrc, dataCreation, creatorId));
+                listOfAwards.add(new Award(id, title, description, price, imageSrc, dataCreation, creatorId));
             }
             rs.close();
         } catch (SQLException e) {

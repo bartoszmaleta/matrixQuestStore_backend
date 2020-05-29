@@ -17,6 +17,14 @@ public class Quest {
         this.mentorId = mentorId;
     }
 
+    public Quest(String title, String description, int price, String imageSrc, int mentorId) {
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.imageSrc = imageSrc;
+        this.mentorId = mentorId;
+    }
+
     public int getId() {
         return id;
     }

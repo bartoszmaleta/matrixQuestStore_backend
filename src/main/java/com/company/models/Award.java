@@ -20,6 +20,16 @@ public class Award {
         this.creatorId = creatorId;
     }
 
+    public Award(int id, String title, String description, int price, String imageSrc, Timestamp dataCreation, int creatorId) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.imageSrc = imageSrc;
+        this.dataCreation = dataCreation;
+        this.creatorId = creatorId;
+    }
+
     public int getId() {
         return id;
     }

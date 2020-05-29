@@ -9,7 +9,9 @@ import com.company.models.users.Role;
 import com.company.models.users.Student;
 import com.company.models.users.User;
 import com.company.service.InputTaker;
+import com.company.view.View;
 
+import java.io.FileNotFoundException;
 import java.util.Date;
 import java.sql.Timestamp;
 
@@ -28,7 +30,7 @@ public class MentorController {
         this.user = user;
     }
 
-    public void init() {
+    public void init() throws FileNotFoundException {
         boolean isRunning = true;
         while (isRunning) {
             System.out.println("(1) Student managment\n" +
@@ -134,7 +136,7 @@ public class MentorController {
         userDaoDb.deleteUserById(studentIdToRemove);
     }
 
-    private void questsManagmentMenu() {
+    private void questsManagmentMenu() throws FileNotFoundException {
         boolean isRunning = true;
 
         while (isRunning) {
@@ -145,7 +147,8 @@ public class MentorController {
                     "(0) Quit");
             int option = InputTaker.takeIntInputWithoutMessage();
             switch (option) {
-                case 1 -> questDAO.readQuestList();
+//                case 1 -> questDAO.readQuestList();
+                case 1 -> View.viewAllQuests();
                 case 2 -> addQuest();
                 case 3 -> updateQuest();
                 case 4 -> deleteQuestById();
@@ -164,10 +167,9 @@ public class MentorController {
 
         Quest questToAdd = new Quest(questTitle, questDescription, questCoins, questImage, questMentorId);
         questDAO.addQuest(questToAdd);
-
     }
 
-    public void updateQuest() {
+    public void updateQuest() throws FileNotFoundException {
         questDAO.readAllQuestsOrderById();
         int idOfQuestToUpdate = InputTaker.takeIntInputWithMessage("Enter id of quest you want to edit: ");
         System.out.println("What do you want to edit? \n");
@@ -209,7 +211,7 @@ public class MentorController {
         questDAO.deleteQuestById(questIdToRemove);
     }
 
-    private void awardsManagmentMenu() {
+    private void awardsManagmentMenu() throws FileNotFoundException {
         boolean isRunning = true;
 
         while (isRunning) {
@@ -221,7 +223,8 @@ public class MentorController {
 //            int option = InputTaker.takeIntInputWithoutMessage();
             String option = InputTaker.takeStringInputWithMessageForFirstInput("Choose: ");
             switch (option) {
-                case "1" -> awardDAO.readAllAwardsOrderById();
+//                case "1" -> awardDAO.readAllAwardsOrderById();
+                case "1" -> View.viewAllAwards();
                 case "2" -> addAward();
                 case "3" -> updateAward();
                 case "4" -> deleteAwardById();
@@ -245,7 +248,7 @@ public class MentorController {
     }
 
 
-    public void updateAward() {
+    public void updateAward() throws FileNotFoundException {
         awardDAO.readAllAwardsOrderById();
         int idOfAwardToUpdate = InputTaker.takeIntInputWithMessage("Enter id of award you want to edit: ");
         System.out.println("What do you want to edit? \n");

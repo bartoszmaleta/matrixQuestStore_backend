@@ -1,7 +1,9 @@
 package com.company.view;
 
+import com.company.dao.AwardDAO;
 import com.company.dao.QuestDAO;
 import com.company.dao.UserDaoDb;
+import com.company.models.Award;
 import com.company.models.Quest;
 import com.company.models.users.User;
 import com.jakewharton.fliptables.FlipTableConverters;
@@ -51,6 +53,24 @@ public class View {
             data[i][3] = quest.getPrice();
             data[i][4] = quest.getImageSrc();
             data[i][5] = quest.getMentorId();
+        }
+        System.out.println(FlipTableConverters.fromObjects(headers, data));
+    }
+
+    public static void viewAllAwards() throws FileNotFoundException {
+        ArrayList<Award> newList = new AwardDAO().readAwardList();
+        String[] headers = {"id", "title", "description", "coins", "image", "creation_date", "creator_id"};
+        Object[][] data = new Object[newList.size()][headers.length];
+
+        for (int i = 0; i < newList.size(); i++) {
+            Award award = newList.get(i);
+            data[i][0] = award.getId();
+            data[i][1] = award.getTitle();
+            data[i][2] = award.getDescription();
+            data[i][3] = award.getPrice();
+            data[i][4] = award.getImageSrc();
+            data[i][5] = award.getDataCreation();
+            data[i][6] = award.getCreatorId();
         }
         System.out.println(FlipTableConverters.fromObjects(headers, data));
     }
