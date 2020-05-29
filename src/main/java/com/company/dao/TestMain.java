@@ -1,11 +1,8 @@
 package com.company.dao;
 
 import com.company.controllers.LoggingController;
-import com.company.models.users.User;
-import com.company.view.View;
 
 import java.io.FileNotFoundException;
-import java.sql.Connection;
 import java.sql.SQLException;
 
 public class TestMain {
