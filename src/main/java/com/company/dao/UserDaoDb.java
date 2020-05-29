@@ -19,9 +19,9 @@ public class UserDaoDb {
         try {
             System.out.println("\nI am in readUserByNameAndPassword\n");
             ConnectionFactory connectionFactory = new ConnectionFactory();
-            ResultSet rs = connectionFactory.executeQuery("SELECT * FROM \"Users\" WHERE \"email\" = '" + userEmail + "' AND \"password\" = '" + userPassword + "';");
-
-            if (rs.next() && (rs.getInt("role_id") == 1)) {
+            ResultSet rs = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"email\" = '" + userEmail + "' AND \"password\" = '" + userPassword + "';");
+            rs.next();
+            if (rs.getInt("role_id") == 1) {
                 newUser = new Admin();
 
                 int id = rs.getInt("id");
@@ -29,6 +29,7 @@ public class UserDaoDb {
                 String password = rs.getString("password");
                 String email = rs.getString("email");
                 int role_id = rs.getInt("role_id");
+                System.out.println(role_id);
 
                 newUser.setId(id);
                 newUser.setLogin(login);
@@ -42,7 +43,9 @@ public class UserDaoDb {
 
                 return newUser;
 
-            } else if (rs.next() && (rs.getInt("role_id") == 2)) {
+            } else if (rs.getInt("role_id") == 2) {
+                System.out.println("role_id 2");
+
                 newUser = new Mentor();
 
                 int id = rs.getInt("id");
@@ -57,6 +60,8 @@ public class UserDaoDb {
 //                int user_detail_id = rs.getInt("user_detail_id");
 
                 newUser.setId(id);
+                newUser.setName(name);
+                newUser.setSurname(surname);
                 newUser.setLogin(login);
                 newUser.setPassword(password);
                 newUser.setEmail(email);
@@ -66,7 +71,8 @@ public class UserDaoDb {
                 rs.close();
 
                 return newUser;
-            } else if (rs.next() && (rs.getInt("role_id") == 3)) {
+            } else if (rs.getInt("role_id") == 3) {
+                System.out.println("role_id 3");
                 newUser = new Student();
 
                 int id = rs.getInt("id");
@@ -96,8 +102,7 @@ public class UserDaoDb {
             } else {
                 System.out.println("No user");
             }
-
-            // TODO: where close()?????
+                // TODO: where close()?????
 //            connectionFactory.close();
 //            rs.close();
         } catch (Exception e) {

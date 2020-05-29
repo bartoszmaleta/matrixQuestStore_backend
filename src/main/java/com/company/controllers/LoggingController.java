@@ -13,6 +13,7 @@ import java.util.Scanner;
 
 public class LoggingController {
     Scanner scanner = new Scanner(System.in);
+    private UserDaoDb userDaoDb = new UserDaoDb();
 
     public void init() throws FileNotFoundException {
         boolean isRunning = true;
@@ -79,14 +80,13 @@ public class LoggingController {
         TerminalView.printString("User password: ");
         String password = scanner.nextLine();
 
-        User userToLog = new UserDaoDb().readUserByEmailAndPassword(email, password);
+        this.userDaoDb.readUsers();
+        User userToLog = this.userDaoDb.readUserByEmailAndPassword(email, password);
 
         if (userToLog == null) {
             TerminalView.printString("Wrong email or password.");
         } else {
-//            User user = new UserDaoDb().readUserByEmailAndPassword(email, password);
             if (userToLog.getRole() == Role.ADMIN) {
-                // TODO:
                 AdminController adminController = new AdminController(userToLog);
                 adminController.init();
             } else if (userToLog.getRole() == Role.MENTOR) {
