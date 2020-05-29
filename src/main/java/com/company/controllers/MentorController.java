@@ -100,29 +100,29 @@ public class MentorController {
                 "(5) Email\n" +
                 "(0) Back to Student Managment Menu");
 
-        int option = InputTaker.takeIntInputWithMessage("Choose: ");
+        String option = InputTaker.takeStringInputWithMessageForFirstInput("Choose: ");
         switch (option) {
-            case 1 -> {
+            case "1" -> {
                 String nameToUpdate = InputTaker.takeStringInputWithMessage("Enter new name: ");
                 userDaoDb.updateUserNameById(idOfStudentToUpdate, nameToUpdate);
             }
-            case 2 -> {
+            case "2" -> {
                 String surnameToUpdate = InputTaker.takeStringInputWithMessage("Enter new surname: ");
                 userDaoDb.updateUserSurnameById(idOfStudentToUpdate, surnameToUpdate);
             }
-            case 3 -> {
+            case "3" -> {
                 String loginToUpdate = InputTaker.takeStringInputWithMessage("Enter new login: ");
                 userDaoDb.updateUserLoginById(idOfStudentToUpdate, loginToUpdate);
             }
-            case 4 -> {
+            case "4" -> {
                 String passwordToUpdate = InputTaker.takeStringInputWithMessage("Enter new password: ");
                 userDaoDb.updateUserPasswordById(idOfStudentToUpdate, passwordToUpdate);
             }
-            case 5 -> {
+            case "5" -> {
                 String emailToUpdate = InputTaker.takeStringInputWithMessage("Enter new email: ");
                 userDaoDb.editUserEmailById(idOfStudentToUpdate, emailToUpdate);
             }
-            case 0 -> studentManagmentMenu();
+            case "0" -> studentManagmentMenu();
         }
 
     }
@@ -176,25 +176,28 @@ public class MentorController {
                 "(3) Amount of coins\n" +
                 "(4) Id of mentor who created quest\n" +
                 "(0) Back to the Quest Managment Menu");
-        int option = InputTaker.takeIntInputWithMessage("Choose: ");
+//        int option = InputTaker.takeIntInputWithMessage("Choose: ");
+        String option = InputTaker.takeStringInputWithMessageForFirstInput("Choose: ");
         switch (option) {
-            case 1:
+            case "1":
                 String titleToUpdate = InputTaker.takeStringInputWithMessage("Enter new title: ");
                 questDAO.updateQuestTitleById(idOfQuestToUpdate, titleToUpdate);
                 break;
-            case 2:
+            case "2":
                 String descriptionToUpdate = InputTaker.takeStringInputWithMessage("Enter new description: ");
                 questDAO.updateQuestDescriptionById(idOfQuestToUpdate, descriptionToUpdate);
                 break;
-            case 3:
+            case "3":
                 int coinsToUpdate = InputTaker.takeIntInputWithMessage("Enter new amount of coins: ");
                 questDAO.updateQuestCoinsById(idOfQuestToUpdate, coinsToUpdate);
                 break;
-            case 4:
+            case "4":
                 int idOfQuestMentorToUpdate = InputTaker.takeIntInputWithMessage("Enter new id of mentor: ");
                 questDAO.updateQuestIdMentorById(idOfQuestToUpdate, idOfQuestMentorToUpdate);
-            case 0:
+                break;
+            case "0":
                 questsManagmentMenu();
+                break;
             default:
                 System.out.println("Wrong input!");
         }
@@ -215,17 +218,16 @@ public class MentorController {
                     "(3) Update award data\n" +
                     "(4) Delete award\n" +
                     "(0) Quit");
-            int option = InputTaker.takeIntInputWithoutMessage();
+//            int option = InputTaker.takeIntInputWithoutMessage();
+            String option = InputTaker.takeStringInputWithMessageForFirstInput("Choose: ");
             switch (option) {
-                case 1 -> awardDAO.readAllAwardsOrderById();
-                case 2 -> addAward();
-                case 3 -> updateAward();
-                case 4 -> deleteAwardById();
-                case 0 -> isRunning = false;
+                case "1" -> awardDAO.readAllAwardsOrderById();
+                case "2" -> addAward();
+                case "3" -> updateAward();
+                case "4" -> deleteAwardById();
+                case "0" -> isRunning = false;
                 default -> System.out.println("Wrong input.");
             }
-
-
         }
     }
 

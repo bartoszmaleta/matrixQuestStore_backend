@@ -6,6 +6,7 @@ public class InputTaker {
     public static Scanner scanner = new Scanner(System.in);
 
     public static int takeIntInputWithMessage(String message) {
+        scanner.nextLine();
         System.out.println(message);
         return scanner.nextInt();
     }
