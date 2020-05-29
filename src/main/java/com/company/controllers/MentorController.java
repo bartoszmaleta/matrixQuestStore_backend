@@ -88,22 +88,8 @@ public class MentorController {
                 case 0 -> isRunning = false;
                 default -> System.out.println("Wrong input.");
             }
-
-
         }
     }
-
-//     public void createStudentAccount() {
-//         String studentName = InputTaker.takeStringInputWithMessage("Enter student name: ");
-//         String studentSurname = InputTaker.takeStringInputWithMessage("Enter student surname: ");
-//         String studentLogin = InputTaker.takeStringInputWithMessage("Enter student login: ");
-//         String studentPassword = InputTaker.takeStringInputWithMessage("Enter student password: ");
-//         String studentEmail = InputTaker.takeStringInputWithMessage("Enter student email: ");
-
-//         Student student = new Student(studentLogin, studentPassword, studentEmail, Role.STUDENT, studentName, studentSurname, 1);
-//         userDaoDb.addUserToDatabase(student);
-
-//     }
 
     public void updateStudent() {
         userDaoDb.readUsers();
@@ -141,7 +127,6 @@ public class MentorController {
             }
             case "0" -> studentManagmentMenu();
         }
-
     }
 
     public void deleteStudentbyId() {
@@ -167,8 +152,6 @@ public class MentorController {
                 case 0 -> isRunning = false;
                 default -> System.out.println("Wrong input.");
             }
-
-
         }
     }
 

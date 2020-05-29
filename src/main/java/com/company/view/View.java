@@ -1,11 +1,14 @@
 package com.company.view;
 
+import com.company.dao.QuestDAO;
 import com.company.dao.UserDaoDb;
+import com.company.models.Quest;
 import com.company.models.users.User;
 import com.jakewharton.fliptables.FlipTableConverters;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.List;
 
 public class View {
@@ -33,5 +36,22 @@ public class View {
         // THIS WORKS BELOW WITHOUT HASH
 //        DataHandler.printFromFile(location + "AllStudents");
 //        System.out.println(FlipTableConverters.fromIterable(students, User.class));
+    }
+
+    public static void viewAllQuests() throws FileNotFoundException {
+        ArrayList<Quest> newList = new QuestDAO().readQuestList();
+        String[] headers = {"id", "title", "description", "coins", "image", "mentor_id"};
+        Object[][] data = new Object[newList.size()][headers.length];
+
+        for (int i = 0; i < newList.size(); i++) {
+            Quest quest = newList.get(i);
+            data[i][0] = quest.getId();
+            data[i][1] = quest.getTitle();
+            data[i][2] = quest.getDescription();
+            data[i][3] = quest.getPrice();
+            data[i][4] = quest.getImageSrc();
+            data[i][5] = quest.getMentorId();
+        }
+        System.out.println(FlipTableConverters.fromObjects(headers, data));
     }
 }

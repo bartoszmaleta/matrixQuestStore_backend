@@ -12,7 +12,7 @@ public class TestMain {
     public static void main(String[] args) throws SQLException, FileNotFoundException {
 
         View.viewAllStudents();
-
+        View.viewAllQuests();
         LoggingController loggingController = new LoggingController();
         loggingController.init();
     }

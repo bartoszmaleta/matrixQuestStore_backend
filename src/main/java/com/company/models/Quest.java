@@ -8,7 +8,8 @@ public class Quest {
     private String imageSrc;
     private int mentorId;
 
-    public Quest(String title, String description, int price, String imageSrc, int mentorId) {
+    public Quest(int id, String title, String description, int price, String imageSrc, int mentorId) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.price = price;
