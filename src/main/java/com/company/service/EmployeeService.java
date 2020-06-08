@@ -4,15 +4,19 @@ import com.company.dao.UserDao;
 import com.company.dao.UserDaoDb;
 import com.company.models.users.User;
 
-public abstract class UserService {
+public abstract class EmployeeService  {
     private UserDao userDao;
 
-    public UserService() {
+    public EmployeeService() {
         this.userDao = new UserDaoDb();
     }
 
-    public void addUserToDatabase(User admin) {
-        userDao.addUserToDatabase(admin);
+    public UserDao getUserDao() {
+        return userDao;
+    }
+
+    public void addUserToDatabase(User user) {
+        userDao.addUserToDatabase(user);
     }
 
     public void deleteUserFromDatabaseById(int id) {
@@ -35,10 +39,9 @@ public abstract class UserService {
         userDao.updateUserPasswordById(id, password);
     }
 
-    public void updateAdminSurnameById (int id, String surname) {
+    public void updateUserSurnameById (int id, String surname) {
         userDao.updateUserSurnameById(id, surname);
     }
-
 
 
 }

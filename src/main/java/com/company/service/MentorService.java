@@ -1,8 +1,6 @@
 package com.company.service;
 
-public class MentorService {
+public class MentorService extends EmployeeService {
     public MentorService() {
-        // here DAO
     }
-
 }
