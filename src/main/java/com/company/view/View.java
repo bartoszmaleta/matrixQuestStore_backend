@@ -179,4 +179,65 @@ public class View {
              "(0) Back to Admin Menu");
 
  }
+ public static void mentorMenu() {
+     System.out.println("(1) Student managment\n" +
+             "(2) Quest managment\n" +
+             "(3) Awards managment\n" +
+             "(4) My profile\n" +
+             "(0) Quit");
+ }
+
+ public static void studentManagmentMenu() {
+     System.out.println("\n(1) View students table\n" +
+             "(2) Create student\n" +
+             "(3) Update student data\n" +
+             "(4) Delete student\n" +
+             "(5) View students wallets\n" +
+             "(0) Quit");
+ }
+
+ public static void updateStudent() {
+     System.out.println("What do you want to edit? \n");
+     System.out.println("" +
+             "(1) Name\n" +
+             "(2) Surname\n" +
+             "(3) Login\n" +
+             "(4) Password\n" +
+             "(5) Email\n" +
+             "(0) Back to Student Managment Menu");
+ }
+
+ public static void awardsManagmentMenu() {
+     System.out.println("(1) View awards table\n" +
+             "(2) Create award\n" +
+             "(3) Update award data\n" +
+             "(4) Delete award\n" +
+             "(0) Quit");
+ }
+
+ public static void questManagmentMenu() {
+     System.out.println("(1) View quests table\n" +
+             "(2) Create quest\n" +
+             "(3) Update quest data\n" +
+             "(4) Delete quest\n" +
+             "(0) Quit");
+ }
+
+ public static void updateQuest() {
+     System.out.println("What do you want to edit? \n");
+     System.out.println("(1) Title\n" +
+             "(2) Description\n" +
+             "(3) Amount of coins\n" +
+             "(4) Id of mentor who created quest\n" +
+             "(0) Back to the Quest Managment Menu");
+ }
+
+ public static void updateAward() {
+        System.out.println("What do you want to edit? \n");
+        System.out.println("(1) Title\n" +
+                "(2) Description\n" +
+                "(3) Price\n" +
+                "(4) Id of award creator\n" +
+                "(0) Back to the Award Managment Menu");
+    }
 }

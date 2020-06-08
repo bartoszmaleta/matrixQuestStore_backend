@@ -9,6 +9,8 @@ import com.company.models.users.Role;
 import com.company.models.users.Student;
 import com.company.models.users.User;
 import com.company.service.InputTaker;
+import com.company.service.MentorService;
+import com.company.view.TerminalView;
 import com.company.view.View;
 
 import java.io.FileNotFoundException;
@@ -19,25 +21,22 @@ public class MentorController {
 
     private Role role;
     private User user;
+
+
+    private MentorService mentorService;
     UserDaoDb userDaoDb = new UserDaoDb();
     QuestDAO questDAO = new QuestDAO();
     AwardDAO awardDAO = new AwardDAO();
 
-    public MentorController() {
-    }
-
     public MentorController(User user) {
         this.user = user;
+        this.mentorService = new MentorService();
     }
 
     public void init() throws FileNotFoundException {
         boolean isRunning = true;
         while (isRunning) {
-            System.out.println("(1) Student managment\n" +
-                    "(2) Quest managment\n" +
-                    "(3) Awards managment\n" +
-                    "(4) My profile\n" +
-                    "(0) Quit");
+            View.mentorMenu();
             int option = InputTaker.takeIntInputWithoutMessage();
             switch (option) {
                 case 1 -> studentManagmentMenu();
@@ -45,13 +44,13 @@ public class MentorController {
                 case 3 -> awardsManagmentMenu();
                 case 4 -> myProfile();
                 case 0 -> isRunning = false;
-                default -> System.out.println("Wrong input.");
+                default -> TerminalView.printString("Wrong input.");
             }
         }
     }
 
     private void myProfile() {
-        System.out.println("My profile:\n"
+        TerminalView.printString("My profile:\n"
                 + this.user.getLogin() + " "
                 + this.user.getPassword() + " "
                 + this.user.getEmail() + " "
@@ -74,12 +73,7 @@ public class MentorController {
         boolean isRunning = true;
 
         while (isRunning) {
-            System.out.println("\n(1) View students table\n" +
-                    "(2) Create student\n" +
-                    "(3) Update student data\n" +
-                    "(4) Delete student\n" +
-                    "(5) View students wallets\n" +
-                    "(0) Quit");
+            View.studentManagmentMenu();
             int option = InputTaker.takeIntInputWithoutMessage();
             switch (option) {
 //                case 1 -> userDaoDb.readUsers();
@@ -88,7 +82,7 @@ public class MentorController {
                 case 3 -> updateStudent();
                 case 4 -> deleteStudentbyId();
                 case 0 -> isRunning = false;
-                default -> System.out.println("Wrong input.");
+                default -> TerminalView.printString("Wrong input.");
             }
         }
     }
@@ -98,16 +92,9 @@ public class MentorController {
         View.viewAllMentors();
 
         int idOfStudentToUpdate = InputTaker.takeIntInputWithMessage("Enter id of student you want to update: ");
-        System.out.println("What do you want to edit? \n");
-        System.out.println("" +
-                "(1) Name\n" +
-                "(2) Surname\n" +
-                "(3) Login\n" +
-                "(4) Password\n" +
-                "(5) Email\n" +
-                "(0) Back to Student Managment Menu");
-
+        View.updateStudent();
         String option = InputTaker.takeStringInputWithMessageForFirstInput("Choose: ");
+
         switch (option) {
             case "1" -> {
                 String nameToUpdate = InputTaker.takeStringInputWithMessage("Enter new name: ");
@@ -142,11 +129,7 @@ public class MentorController {
         boolean isRunning = true;
 
         while (isRunning) {
-            System.out.println("(1) View quests table\n" +
-                    "(2) Create quest\n" +
-                    "(3) Update quest data\n" +
-                    "(4) Delete quest\n" +
-                    "(0) Quit");
+           View.questManagmentMenu();
             int option = InputTaker.takeIntInputWithoutMessage();
             switch (option) {
 //                case 1 -> questDAO.readQuestList();
@@ -155,7 +138,7 @@ public class MentorController {
                 case 3 -> updateQuest();
                 case 4 -> deleteQuestById();
                 case 0 -> isRunning = false;
-                default -> System.out.println("Wrong input.");
+                default -> TerminalView.printString("Wrong input.");
             }
         }
     }
@@ -174,12 +157,7 @@ public class MentorController {
     public void updateQuest() throws FileNotFoundException {
         questDAO.readAllQuestsOrderById();
         int idOfQuestToUpdate = InputTaker.takeIntInputWithMessage("Enter id of quest you want to edit: ");
-        System.out.println("What do you want to edit? \n");
-        System.out.println("(1) Title\n" +
-                "(2) Description\n" +
-                "(3) Amount of coins\n" +
-                "(4) Id of mentor who created quest\n" +
-                "(0) Back to the Quest Managment Menu");
+        View.updateQuest();
 //        int option = InputTaker.takeIntInputWithMessage("Choose: ");
         String option = InputTaker.takeStringInputWithMessageForFirstInput("Choose: ");
         switch (option) {
@@ -203,7 +181,7 @@ public class MentorController {
                 questsManagmentMenu();
                 break;
             default:
-                System.out.println("Wrong input!");
+                TerminalView.printString("Wrong input.");
         }
 
     }
@@ -213,15 +191,11 @@ public class MentorController {
         questDAO.deleteQuestById(questIdToRemove);
     }
 
-    private void awardsManagmentMenu() throws FileNotFoundException {
+    public void awardsManagmentMenu() throws FileNotFoundException {
         boolean isRunning = true;
 
         while (isRunning) {
-            System.out.println("(1) View awards table\n" +
-                    "(2) Create award\n" +
-                    "(3) Update award data\n" +
-                    "(4) Delete award\n" +
-                    "(0) Quit");
+            View.awardsManagmentMenu();
 //            int option = InputTaker.takeIntInputWithoutMessage();
             String option = InputTaker.takeStringInputWithMessageForFirstInput("Choose: ");
             switch (option) {
@@ -231,7 +205,7 @@ public class MentorController {
                 case "3" -> updateAward();
                 case "4" -> deleteAwardById();
                 case "0" -> isRunning = false;
-                default -> System.out.println("Wrong input.");
+                default -> TerminalView.printString("Wrong input.");
             }
         }
     }
@@ -253,12 +227,7 @@ public class MentorController {
     public void updateAward() throws FileNotFoundException {
         awardDAO.readAllAwardsOrderById();
         int idOfAwardToUpdate = InputTaker.takeIntInputWithMessage("Enter id of award you want to edit: ");
-        System.out.println("What do you want to edit? \n");
-        System.out.println("(1) Title\n" +
-                "(2) Description\n" +
-                "(3) Price\n" +
-                "(4) Id of award creator\n" +
-                "(0) Back to the Award Managment Menu");
+        View.updateAward();
         int option = InputTaker.takeIntInputWithMessage("Choose: ");
         switch (option) {
             case 1:
@@ -279,13 +248,17 @@ public class MentorController {
             case 0:
                 questsManagmentMenu();
             default:
-                System.out.println("Wrong input!");
+                TerminalView.printString("Wrong input.");
         }
     }
 
     public void deleteAwardById() {
         int awardIdToRemove = InputTaker.takeIntInputWithMessage("Enter id of award you want to delete: ");
         awardDAO.deleteAwardById(awardIdToRemove);
+    }
+
+    public MentorService getMentorService() {
+        return mentorService;
     }
 
     public void markStudentAchievedQuests() {
