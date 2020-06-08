@@ -152,5 +152,31 @@ public class View {
         System.out.println("All awards with mentors");
         System.out.println(FlipTableConverters.fromObjects(headers, data));
     }
+ public static void adminMenu() {
+     System.out.println("\n(1) Display all users\n\n" +
+             "(2) Display all mentors\n" +
+             "(3) Add mentor\n" +
+             "(4) Delete mentor\n" +
+             "(5) Edit mentor\n\n" +
 
+             "(6) Display all modules\n" +
+             "(7) Add module\n" +
+             "(8) Delete module\n" +
+             "(9) Edit module\n\n" +
+
+             "(10) My profile\n" +
+             "(0) Quit");
+ }
+
+ public static void editMentorMenu() {
+     System.out.println("What do you want to edit? \n");
+     System.out.println("" +
+             "(1) Name\n" +
+             "(2) Surname\n" +
+             "(3) Login\n" +
+             "(4) Password\n" +
+             "(5) Email\n" +
+             "(0) Back to Admin Menu");
+
+ }
 }

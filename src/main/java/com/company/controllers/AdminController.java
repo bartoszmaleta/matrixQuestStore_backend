@@ -4,8 +4,10 @@ import com.company.dao.UserDaoDb;
 import com.company.models.users.Role;
 import com.company.models.users.Student;
 import com.company.models.users.User;
+import com.company.service.AdminService;
 import com.company.service.InputTaker;
 import com.company.service.MentorService;
+import com.company.view.TerminalView;
 import com.company.view.View;
 
 import java.io.FileNotFoundException;
@@ -13,10 +15,11 @@ import java.io.FileNotFoundException;
 public class AdminController {
     private User user;
     private final UserDaoDb userDaoDb = new UserDaoDb();
-    MentorService mentorService;
+    AdminService adminService;
 
     public AdminController(User user) {
         this.user = user;
+        this.adminService = new AdminService();
     }
 
     public void init() throws FileNotFoundException {
@@ -24,19 +27,7 @@ public class AdminController {
 
         boolean isRunning = true;
         while (isRunning) {
-            System.out.println("\n(1) Display all users\n\n" +
-                    "(2) Display all mentors\n" +
-                    "(3) Add mentor\n" +
-                    "(4) Delete mentor\n" +
-                    "(5) Edit mentor\n\n" +
-
-                    "(6) Display all modules\n" +
-                    "(7) Add module\n" +
-                    "(8) Delete module\n" +
-                    "(9) Edit module\n\n" +
-
-                    "(10) My profile\n" +
-                    "(0) Quit");
+        View.adminMenu();
             int option = InputTaker.takeIntInputWithoutMessage();
             switch (option) {
                 case 1 -> View.viewAllUsers();
@@ -53,7 +44,7 @@ public class AdminController {
 
 //                case 10 -> showProfile();
                 case 0 -> isRunning = false;
-                default -> System.out.println("Wrong input.");
+                default -> TerminalView.printString("Wrong input");
             }
         }
     }
@@ -62,14 +53,7 @@ public class AdminController {
         View.viewAllMentors();
 
         int idOfMentorToUpdate = InputTaker.takeIntInputWithMessage("Enter id of mentor you want to update: ");
-        System.out.println("What do you want to edit? \n");
-        System.out.println("" +
-                "(1) Name\n" +
-                "(2) Surname\n" +
-                "(3) Login\n" +
-                "(4) Password\n" +
-                "(5) Email\n" +
-                "(0) Back to Admin Menu");
+        View.editMentorMenu();
 
         String option = InputTaker.takeStringInputWithMessageForFirstInput("Choose: ");
         switch (option) {
