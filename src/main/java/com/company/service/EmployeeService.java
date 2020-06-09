@@ -5,7 +5,7 @@ import com.company.dao.UserDaoDb;
 import com.company.models.users.User;
 
 public abstract class EmployeeService  {
-    private UserDao userDao;
+    public UserDao userDao;
 
     public EmployeeService() {
         this.userDao = new UserDaoDb();
