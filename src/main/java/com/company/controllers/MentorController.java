@@ -1,8 +1,6 @@
 package com.company.controllers;
 
-import com.company.dao.AwardDAO;
-import com.company.dao.QuestDAO;
-import com.company.dao.UserDaoDb;
+
 import com.company.models.Award;
 import com.company.models.Quest;
 import com.company.models.users.Role;
@@ -22,11 +20,7 @@ public class MentorController {
     private Role role;
     private User user;
 
-
-    private MentorService mentorService;
-    UserDaoDb userDaoDb = new UserDaoDb();
-    QuestDAO questDAO = new QuestDAO();
-    AwardDAO awardDAO = new AwardDAO();
+    private final MentorService mentorService;
 
     public MentorController(User user) {
         this.user = user;
@@ -57,17 +51,6 @@ public class MentorController {
                 + this.user.getRole());
     }
 
-    public void createStudentAccount() {
-        String studentName = InputTaker.takeStringInputWithMessageForFirstInput("Enter student name: ");
-        String studentSurname = InputTaker.takeStringInputWithMessage("Enter student surname: ");
-        String studentLogin = InputTaker.takeStringInputWithMessage("Enter student login");
-        String studentPassword = InputTaker.takeStringInputWithMessage("Enter student password");
-        String studentEmail = InputTaker.takeStringInputWithMessage("Enter student email");
-
-        Student student = new Student(studentLogin, studentPassword, studentEmail, Role.STUDENT, studentName, studentSurname, 1);
-        userDaoDb.addUserToDatabase(student);
-
-    }
 
     private void studentManagmentMenu() throws FileNotFoundException {
         boolean isRunning = true;
@@ -85,10 +68,20 @@ public class MentorController {
                 default -> TerminalView.printString("Wrong input.");
             }
         }
+    }   public void createStudentAccount() {
+        String studentName = InputTaker.takeStringInputWithMessageForFirstInput("Enter student name: ");
+        String studentSurname = InputTaker.takeStringInputWithMessage("Enter student surname: ");
+        String studentLogin = InputTaker.takeStringInputWithMessage("Enter student login");
+        String studentPassword = InputTaker.takeStringInputWithMessage("Enter student password");
+        String studentEmail = InputTaker.takeStringInputWithMessage("Enter student email");
+
+        Student student = new Student(studentLogin, studentPassword, studentEmail, Role.STUDENT, studentName, studentSurname, 1);
+        mentorService.addUserToDatabase(student);
+
     }
 
+
     public void updateStudent() throws FileNotFoundException {
-//        userDaoDb.readUsers();
         View.viewAllMentors();
 
         int idOfStudentToUpdate = InputTaker.takeIntInputWithMessage("Enter id of student you want to update: ");
@@ -98,23 +91,23 @@ public class MentorController {
         switch (option) {
             case "1" -> {
                 String nameToUpdate = InputTaker.takeStringInputWithMessage("Enter new name: ");
-                userDaoDb.updateUserNameById(idOfStudentToUpdate, nameToUpdate);
+                mentorService.updateUserNameById(idOfStudentToUpdate, nameToUpdate);
             }
             case "2" -> {
                 String surnameToUpdate = InputTaker.takeStringInputWithMessage("Enter new surname: ");
-                userDaoDb.updateUserSurnameById(idOfStudentToUpdate, surnameToUpdate);
+                mentorService.updateUserSurnameById(idOfStudentToUpdate, surnameToUpdate);
             }
             case "3" -> {
                 String loginToUpdate = InputTaker.takeStringInputWithMessage("Enter new login: ");
-                userDaoDb.updateUserLoginById(idOfStudentToUpdate, loginToUpdate);
+                mentorService.updateUserLoginById(idOfStudentToUpdate, loginToUpdate);
             }
             case "4" -> {
                 String passwordToUpdate = InputTaker.takeStringInputWithMessage("Enter new password: ");
-                userDaoDb.updateUserPasswordById(idOfStudentToUpdate, passwordToUpdate);
+                mentorService.updateUserPasswordById(idOfStudentToUpdate, passwordToUpdate);
             }
             case "5" -> {
                 String emailToUpdate = InputTaker.takeStringInputWithMessage("Enter new email: ");
-                userDaoDb.editUserEmailById(idOfStudentToUpdate, emailToUpdate);
+                mentorService.updateUserEmailById(idOfStudentToUpdate, emailToUpdate);
             }
             case "0" -> studentManagmentMenu();
         }
@@ -122,7 +115,7 @@ public class MentorController {
 
     public void deleteStudentbyId() {
         int studentIdToRemove = InputTaker.takeIntInputWithMessage("Enter id of student you want to delete: ");
-        userDaoDb.deleteUserById(studentIdToRemove);
+        mentorService.deleteUserFromDatabaseById(studentIdToRemove);
     }
 
     private void questsManagmentMenu() throws FileNotFoundException {
@@ -151,11 +144,11 @@ public class MentorController {
         int questMentorId = InputTaker.takeIntInputWithMessage("Enter id of mentor: ");
 
         Quest questToAdd = new Quest(questTitle, questDescription, questCoins, questImage, questMentorId);
-        questDAO.addQuest(questToAdd);
+        mentorService.addQuestToDatabase(questToAdd);
     }
 
     public void updateQuest() throws FileNotFoundException {
-        questDAO.readAllQuestsOrderById();
+        mentorService.readAllQuestsOrderById();
         int idOfQuestToUpdate = InputTaker.takeIntInputWithMessage("Enter id of quest you want to edit: ");
         View.updateQuest();
 //        int option = InputTaker.takeIntInputWithMessage("Choose: ");
@@ -163,19 +156,19 @@ public class MentorController {
         switch (option) {
             case "1":
                 String titleToUpdate = InputTaker.takeStringInputWithMessage("Enter new title: ");
-                questDAO.updateQuestTitleById(idOfQuestToUpdate, titleToUpdate);
+                mentorService.updateQuestTitleById(idOfQuestToUpdate, titleToUpdate);
                 break;
             case "2":
                 String descriptionToUpdate = InputTaker.takeStringInputWithMessage("Enter new description: ");
-                questDAO.updateQuestDescriptionById(idOfQuestToUpdate, descriptionToUpdate);
+                mentorService.updateQuestDescriptionById(idOfQuestToUpdate, descriptionToUpdate);
                 break;
             case "3":
                 int coinsToUpdate = InputTaker.takeIntInputWithMessage("Enter new amount of coins: ");
-                questDAO.updateQuestCoinsById(idOfQuestToUpdate, coinsToUpdate);
+                mentorService.updateQuestCoinsById(idOfQuestToUpdate, coinsToUpdate);
                 break;
             case "4":
                 int idOfQuestMentorToUpdate = InputTaker.takeIntInputWithMessage("Enter new id of mentor: ");
-                questDAO.updateQuestIdMentorById(idOfQuestToUpdate, idOfQuestMentorToUpdate);
+                mentorService.updateQuestIdMentorById(idOfQuestToUpdate, idOfQuestMentorToUpdate);
                 break;
             case "0":
                 questsManagmentMenu();
@@ -188,7 +181,7 @@ public class MentorController {
 
     public void deleteQuestById() {
         int questIdToRemove = InputTaker.takeIntInputWithMessage("Enter id of quest you want to delete: ");
-        questDAO.deleteQuestById(questIdToRemove);
+        mentorService.deleteQuestById(questIdToRemove);
     }
 
     public void awardsManagmentMenu() throws FileNotFoundException {
@@ -196,7 +189,6 @@ public class MentorController {
 
         while (isRunning) {
             View.awardsManagmentMenu();
-//            int option = InputTaker.takeIntInputWithoutMessage();
             String option = InputTaker.takeStringInputWithMessageForFirstInput("Choose: ");
             switch (option) {
 //                case "1" -> awardDAO.readAllAwardsOrderById();
@@ -218,33 +210,33 @@ public class MentorController {
         int awardCreatorId = InputTaker.takeIntInputWithMessage("Enter id of award creator: ");
         Date date = new Date();
         Award awardToAdd = new Award(awardTitle, awardDescription, awardPrice, awardImage, new Timestamp(date.getTime()), awardCreatorId);
-        awardDAO.addAward(awardToAdd);
+        mentorService.addAwardToDatabase(awardToAdd);
 
 
     }
 
 
     public void updateAward() throws FileNotFoundException {
-        awardDAO.readAllAwardsOrderById();
+        mentorService.readAllAwardsOrderById();
         int idOfAwardToUpdate = InputTaker.takeIntInputWithMessage("Enter id of award you want to edit: ");
         View.updateAward();
         int option = InputTaker.takeIntInputWithMessage("Choose: ");
         switch (option) {
             case 1:
                 String titleToUpdate = InputTaker.takeStringInputWithMessage("Enter new title: ");
-                awardDAO.updateAwardTitleById(idOfAwardToUpdate, titleToUpdate);
+                mentorService.updateAwardTitleById(idOfAwardToUpdate, titleToUpdate);
                 break;
             case 2:
                 String descriptionToUpdate = InputTaker.takeStringInputWithMessage("Enter new description: ");
-                awardDAO.updateAwardDescriptionById(idOfAwardToUpdate, descriptionToUpdate);
+                mentorService.updateAwardDescriptionById(idOfAwardToUpdate, descriptionToUpdate);
                 break;
             case 3:
                 int priceToUpdate = InputTaker.takeIntInputWithMessage("Enter new price: ");
-                awardDAO.updateAwardPriceById(idOfAwardToUpdate, priceToUpdate);
+                mentorService.updateAwardPriceById(idOfAwardToUpdate, priceToUpdate);
                 break;
             case 4:
                 int idOfCreatorToUpdate = InputTaker.takeIntInputWithMessage("Enter new id of award creator: ");
-                awardDAO.updateAwardCreatorIdById(idOfAwardToUpdate, idOfCreatorToUpdate);
+                mentorService.updateAwardCreatorIdById(idOfAwardToUpdate, idOfCreatorToUpdate);
             case 0:
                 questsManagmentMenu();
             default:
@@ -254,7 +246,7 @@ public class MentorController {
 
     public void deleteAwardById() {
         int awardIdToRemove = InputTaker.takeIntInputWithMessage("Enter id of award you want to delete: ");
-        awardDAO.deleteAwardById(awardIdToRemove);
+        mentorService.deleteAwardById(awardIdToRemove);
     }
 
     public MentorService getMentorService() {
