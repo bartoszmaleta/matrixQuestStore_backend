@@ -2,8 +2,10 @@ package com.company.service;
 
 import com.company.dao.AwardDAO;
 import com.company.dao.QuestDAO;
+import com.company.dao.UserDaoDb;
 import com.company.models.Award;
 import com.company.models.Quest;
+import com.company.models.users.User;
 import com.company.view.View;
 
 import java.io.FileNotFoundException;
@@ -13,10 +15,12 @@ import java.util.List;
 public class MentorService extends EmployeeService {
     private final QuestDAO questDAO;
     private final AwardDAO awardDAO;
+    private final UserDaoDb userDaoDb;
 
     public MentorService() {
         this.questDAO = new QuestDAO();
         this.awardDAO = new AwardDAO();
+        this.userDaoDb = new UserDaoDb();
     }
 
     public void addQuestToDatabase(Quest quest) {
@@ -71,8 +75,14 @@ public class MentorService extends EmployeeService {
         awardDAO.deleteAwardById(id);
     }
 
-    public void readAllAwardsOrderById() throws FileNotFoundException {
+    public void displayAllAwards() throws FileNotFoundException {
         List<Award> awards = awardDAO.readAwardList();
         View.viewAllAwardsFromList(awards);
     }
+
+    public void viewAllQuestsOfThisMentor(User user) throws FileNotFoundException {
+        List<Quest> quests = this.questDAO.readQuestListByMentor(user);
+        View.allQuestsByMentor(quests);
+    }
+
 }

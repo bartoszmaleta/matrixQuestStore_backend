@@ -85,7 +85,7 @@ public class MentorController {
         View.viewAllMentors();
 
         int idOfStudentToUpdate = InputTaker.takeIntInputWithMessage("Enter id of student you want to update: ");
-        View.updateStudent();
+        View.updateStudentModes();
         String option = InputTaker.takeStringInputWithMessageForFirstInput("Choose: ");
 
         switch (option) {
@@ -126,7 +126,7 @@ public class MentorController {
             int option = InputTaker.takeIntInputWithoutMessage();
             switch (option) {
 //                case 1 -> questDAO.readQuestList();
-                case 1 -> View.viewAllQuestsWithMentors();
+                case 1 -> displayQuestsByThisMentor();
                 case 2 -> addQuest();
                 case 3 -> updateQuest();
                 case 4 -> deleteQuestById();
@@ -134,6 +134,11 @@ public class MentorController {
                 default -> TerminalView.printString("Wrong input.");
             }
         }
+    }
+
+    private void displayQuestsByThisMentor() throws FileNotFoundException {
+        this.mentorService.viewAllQuestsOfThisMentor(this.user);
+//        View.viewAllQuestsWithMentors();
     }
 
     public void addQuest() {
@@ -150,7 +155,7 @@ public class MentorController {
     public void updateQuest() throws FileNotFoundException {
         mentorService.readAllQuestsOrderById();
         int idOfQuestToUpdate = InputTaker.takeIntInputWithMessage("Enter id of quest you want to edit: ");
-        View.updateQuest();
+        View.updateQuestModes();
 //        int option = InputTaker.takeIntInputWithMessage("Choose: ");
         String option = InputTaker.takeStringInputWithMessageForFirstInput("Choose: ");
         switch (option) {
@@ -217,9 +222,9 @@ public class MentorController {
 
 
     public void updateAward() throws FileNotFoundException {
-        mentorService.readAllAwardsOrderById();
+        mentorService.displayAllAwards();
         int idOfAwardToUpdate = InputTaker.takeIntInputWithMessage("Enter id of award you want to edit: ");
-        View.updateAward();
+        View.updateAwardModes();
         int option = InputTaker.takeIntInputWithMessage("Choose: ");
         switch (option) {
             case 1:

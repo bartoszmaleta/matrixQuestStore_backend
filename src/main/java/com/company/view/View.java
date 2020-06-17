@@ -116,6 +116,24 @@ public class View {
         System.out.println(FlipTableConverters.fromObjects(headers, data));
     }
 
+    public static void allQuestsByMentor(List<Quest> newList) throws FileNotFoundException {
+//        List<Quest> newList = new QuestDAO().readQuestListWithMentors();
+        String[] headers = {"id", "title", "description", "coins", "image", "mentor"};
+        Object[][] data = new Object[newList.size()][headers.length];
+
+        for (int i = 0; i < newList.size(); i++) {
+            Quest quest = newList.get(i);
+            data[i][0] = quest.getId();
+            data[i][1] = quest.getTitle();
+            data[i][2] = quest.getDescription();
+            data[i][3] = quest.getPrice();
+            data[i][4] = quest.getImageSrc();
+            data[i][5] = quest.getMentorNameAndSurname();
+        }
+        System.out.println("All quests with mentors");
+        System.out.println(FlipTableConverters.fromObjects(headers, data));
+    }
+
     public static void viewAllAwards() throws FileNotFoundException {
         List<Award> newList = new AwardDAO().readAwardList();
         String[] headers = {"id", "title", "description", "coins", "image", "creation_date", "creator_id"};
@@ -169,87 +187,89 @@ public class View {
         System.out.println("All awards with mentors");
         System.out.println(FlipTableConverters.fromObjects(headers, data));
     }
- public static void adminMenu() {
-     System.out.println("\n(1) Display all users\n\n" +
-             "(2) Display all mentors\n" +
-             "(3) Add mentor\n" +
-             "(4) Delete mentor\n" +
-             "(5) Edit mentor\n\n" +
 
-             "(6) Display all modules\n" +
-             "(7) Add module\n" +
-             "(8) Delete module\n" +
-             "(9) Edit module\n\n" +
+    public static void adminMenu() {
+        System.out.println("\n(1) Display all users\n\n" +
+                "(2) Display all mentors\n" +
+                "(3) Add mentor\n" +
+                "(4) Delete mentor\n" +
+                "(5) Edit mentor\n\n" +
 
-             "(10) My profile\n" +
-             "(0) Quit");
- }
+                "(6) Display all modules\n" +
+                "(7) Add module\n" +
+                "(8) Delete module\n" +
+                "(9) Edit module\n\n" +
 
- public static void editMentorMenu() {
-     System.out.println("What do you want to edit? \n");
-     System.out.println("" +
-             "(1) Name\n" +
-             "(2) Surname\n" +
-             "(3) Login\n" +
-             "(4) Password\n" +
-             "(5) Email\n" +
-             "(0) Back to Admin Menu");
+                "(10) My profile\n" +
+                "(0) Quit");
+    }
 
- }
- public static void mentorMenu() {
-     System.out.println("(1) Student managment\n" +
-             "(2) Quest managment\n" +
-             "(3) Awards managment\n" +
-             "(4) My profile\n" +
-             "(0) Quit");
- }
+    public static void updateMentorModes() {
+        System.out.println("What do you want to edit? \n");
+        System.out.println("" +
+                "(1) Name\n" +
+                "(2) Surname\n" +
+                "(3) Login\n" +
+                "(4) Password\n" +
+                "(5) Email\n" +
+                "(0) Back to Admin Menu");
 
- public static void studentManagmentMenu() {
-     System.out.println("\n(1) View students table\n" +
-             "(2) Create student\n" +
-             "(3) Update student data\n" +
-             "(4) Delete student\n" +
-             "(5) View students wallets\n" +
-             "(0) Quit");
- }
+    }
 
- public static void updateStudent() {
-     System.out.println("What do you want to edit? \n");
-     System.out.println("" +
-             "(1) Name\n" +
-             "(2) Surname\n" +
-             "(3) Login\n" +
-             "(4) Password\n" +
-             "(5) Email\n" +
-             "(0) Back to Student Managment Menu");
- }
+    public static void mentorMenu() {
+        System.out.println("(1) Student managment\n" +
+                "(2) Quest managment\n" +
+                "(3) Awards managment\n" +
+                "(4) My profile\n" +
+                "(0) Quit");
+    }
 
- public static void awardsManagmentMenu() {
-     System.out.println("(1) View awards table\n" +
-             "(2) Create award\n" +
-             "(3) Update award data\n" +
-             "(4) Delete award\n" +
-             "(0) Quit");
- }
+    public static void studentManagmentMenu() {
+        System.out.println("\n(1) View students table\n" +
+                "(2) Create student\n" +
+                "(3) Update student data\n" +
+                "(4) Delete student\n" +
+                "(5) View students wallets\n" +
+                "(0) Quit");
+    }
 
- public static void questManagmentMenu() {
-     System.out.println("(1) View quests table\n" +
-             "(2) Create quest\n" +
-             "(3) Update quest data\n" +
-             "(4) Delete quest\n" +
-             "(0) Quit");
- }
+    public static void updateStudentModes() {
+        System.out.println("What do you want to edit? \n");
+        System.out.println("" +
+                "(1) Name\n" +
+                "(2) Surname\n" +
+                "(3) Login\n" +
+                "(4) Password\n" +
+                "(5) Email\n" +
+                "(0) Back to Student Managment Menu");
+    }
 
- public static void updateQuest() {
-     System.out.println("What do you want to edit? \n");
-     System.out.println("(1) Title\n" +
-             "(2) Description\n" +
-             "(3) Amount of coins\n" +
-             "(4) Id of mentor who created quest\n" +
-             "(0) Back to the Quest Managment Menu");
- }
+    public static void awardsManagmentMenu() {
+        System.out.println("(1) View awards table\n" +
+                "(2) Create award\n" +
+                "(3) Update award data\n" +
+                "(4) Delete award\n" +
+                "(0) Quit");
+    }
 
- public static void updateAward() {
+    public static void questManagmentMenu() {
+        System.out.println("(1) View quests table\n" +
+                "(2) Create quest\n" +
+                "(3) Update quest data\n" +
+                "(4) Delete quest\n" +
+                "(0) Quit");
+    }
+
+    public static void updateQuestModes() {
+        System.out.println("What do you want to edit? \n");
+        System.out.println("(1) Title\n" +
+                "(2) Description\n" +
+                "(3) Amount of coins\n" +
+                "(4) Id of mentor who created quest\n" +
+                "(0) Back to the Quest Managment Menu");
+    }
+
+    public static void updateAwardModes() {
         System.out.println("What do you want to edit? \n");
         System.out.println("(1) Title\n" +
                 "(2) Description\n" +

@@ -6,7 +6,6 @@ import com.company.models.users.Student;
 import com.company.models.users.User;
 import com.company.service.AdminService;
 import com.company.service.InputTaker;
-import com.company.service.MentorService;
 import com.company.view.TerminalView;
 import com.company.view.View;
 
@@ -53,7 +52,7 @@ public class AdminController {
         View.viewAllMentors();
 
         int idOfMentorToUpdate = InputTaker.takeIntInputWithMessage("Enter id of mentor you want to update: ");
-        View.editMentorMenu();
+        View.updateMentorModes();
 
         String option = InputTaker.takeStringInputWithMessageForFirstInput("Choose: ");
         switch (option) {
