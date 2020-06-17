@@ -4,6 +4,10 @@ import com.company.dao.AwardDAO;
 import com.company.dao.QuestDAO;
 import com.company.models.Award;
 import com.company.models.Quest;
+import com.company.view.View;
+
+import java.io.FileNotFoundException;
+import java.util.List;
 
 
 public class MentorService extends EmployeeService {
@@ -67,7 +71,8 @@ public class MentorService extends EmployeeService {
         awardDAO.deleteAwardById(id);
     }
 
-    public void readAllAwardsOrderById() {
-        awardDAO.readAllAwardsOrderById();
+    public void readAllAwardsOrderById() throws FileNotFoundException {
+        List<Award> awards = awardDAO.readAwardList();
+        View.viewAllAwardsFromList(awards);
     }
 }

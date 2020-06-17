@@ -4,6 +4,7 @@ import com.company.models.Award;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class AwardDAO {
     ArrayList<Award> listOfAwards;
@@ -97,7 +98,7 @@ public class AwardDAO {
     }
 
 
-    public ArrayList<Award> readAwardList() {
+    public List<Award> readAwardList() {
         listOfAwards = new ArrayList<>();
         try {
             ResultSet rs = conFactory.executeQuery("SELECT * FROM \"Awards\" ORDER BY id;");
@@ -225,7 +226,6 @@ public class AwardDAO {
             e.printStackTrace();
         }
     }
-
 
 }
 

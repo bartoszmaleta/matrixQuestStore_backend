@@ -32,6 +32,7 @@ public class QuestDAO {
         }
     }
 
+    // TODO
     public void updateQuest(Quest quest) {
 
     }
@@ -132,12 +133,6 @@ public class QuestDAO {
             rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-    }
-
-    public void viewQuests(ArrayList<Quest> listOfQuests) {
-        for (Quest quest : listOfQuests) {
-            System.out.println(quest);
         }
     }
 

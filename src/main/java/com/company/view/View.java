@@ -117,12 +117,29 @@ public class View {
     }
 
     public static void viewAllAwards() throws FileNotFoundException {
-        ArrayList<Award> newList = new AwardDAO().readAwardList();
+        List<Award> newList = new AwardDAO().readAwardList();
         String[] headers = {"id", "title", "description", "coins", "image", "creation_date", "creator_id"};
         Object[][] data = new Object[newList.size()][headers.length];
 
         for (int i = 0; i < newList.size(); i++) {
             Award award = newList.get(i);
+            data[i][0] = award.getId();
+            data[i][1] = award.getTitle();
+            data[i][2] = award.getDescription();
+            data[i][3] = award.getPrice();
+            data[i][4] = award.getImageSrc();
+            data[i][5] = award.getDataCreation();
+            data[i][6] = award.getCreatorId();
+        }
+        System.out.println(FlipTableConverters.fromObjects(headers, data));
+    }
+
+    public static void viewAllAwardsFromList(List<Award> awardsList) throws FileNotFoundException {
+        String[] headers = {"id", "title", "description", "coins", "image", "creation_date", "creator_id"};
+        Object[][] data = new Object[awardsList.size()][headers.length];
+
+        for (int i = 0; i < awardsList.size(); i++) {
+            Award award = awardsList.get(i);
             data[i][0] = award.getId();
             data[i][1] = award.getTitle();
             data[i][2] = award.getDescription();
