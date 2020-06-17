@@ -124,11 +124,7 @@ public class UserDaoDb implements UserDao {
         PreparedStatement ps = null;
         Role userRole = user.getRole();
 
-        int roleId = switch (userRole) {
-            case ADMIN -> 1;
-            case MENTOR -> 2;
-            case STUDENT -> 3;
-        };
+        int roleId = decideRole(userRole);
 
         try {
             ps = connectionFactory.getConnection().prepareStatement("INSERT INTO users (name, surname, login, password, email, role_id, user_detail_id)" +
@@ -163,11 +159,7 @@ public class UserDaoDb implements UserDao {
         PreparedStatement ps = null;
         Role userRole = user.getRole();
 
-        int roleId = switch (userRole) {
-            case ADMIN -> 1;
-            case MENTOR -> 2;
-            case STUDENT -> 3;
-        };
+        int roleId = decideRole(userRole);
 
         try {
             ps = connectionFactory.getConnection().prepareStatement("UPDATE users name='" + user.getName()+"'" + ", surname='" + user.getSurname()+ "'" + ", login='" + user.getLogin()+"'" +", password='" + user.getPassword() + "'" + ", email='" + user.getEmail()+ "'" + ", role_id=" + roleId + ", user_detail_id=" + 1 + ";");
@@ -176,6 +168,14 @@ public class UserDaoDb implements UserDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private int decideRole(Role userRole) {
+        return switch (userRole) {
+            case ADMIN -> 1;
+            case MENTOR -> 2;
+            case STUDENT -> 3;
+        };
     }
 
     public void readUsers() {
