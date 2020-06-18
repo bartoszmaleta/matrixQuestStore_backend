@@ -21,3 +21,4 @@ public class TestMain {
 
 
 // TODO: date in quest!!
+// TODO: edit generic!

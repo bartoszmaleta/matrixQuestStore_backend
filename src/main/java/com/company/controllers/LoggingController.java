@@ -47,7 +47,8 @@ public class LoggingController {
 
         // TODO: validation if exist, if taken
         Student student = new Student(studentLogin, studentPassword, studentEmail, Role.STUDENT, studentName, studentSurname, 1);
-        this.userDaoDb.addUserToDatabase(student);
+//        this.userDaoDb.addUserToDatabase(student);
+        this.userDaoDb.insert(student);
         TerminalView.printString("You have successfully registered as new student!");
     }
 

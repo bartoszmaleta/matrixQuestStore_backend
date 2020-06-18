@@ -143,6 +143,7 @@ public class QuestDAO implements Dao {
                 int price = rs.getInt("coins");
                 String imageSrc = rs.getString("image");
                 String mentor = rs.getString("mentor");
+
                 quest = new Quest(idQuest, title, description, price, imageSrc, mentor);
                 listOfQuests.add(quest);
             }

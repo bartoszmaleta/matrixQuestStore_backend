@@ -63,7 +63,7 @@ public class MentorController {
                 case 1 -> View.viewAllStudents();
                 case 2 -> createStudentAccount();
                 case 3 -> updateStudent();
-                case 4 -> deleteStudentbyId();
+                case 4 -> deleteStudentById();
                 case 0 -> isRunning = false;
                 default -> TerminalView.printString("Wrong input.");
             }
@@ -113,7 +113,7 @@ public class MentorController {
         }
     }
 
-    public void deleteStudentbyId() {
+    public void deleteStudentById() {
         int studentIdToRemove = InputTaker.takeIntInputWithMessage("Enter id of student you want to delete: ");
         mentorService.deleteUserFromDatabaseById(studentIdToRemove);
     }

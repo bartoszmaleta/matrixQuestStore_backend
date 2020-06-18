@@ -32,6 +32,25 @@ public class View {
         System.out.println(FlipTableConverters.fromObjects(headers, data));
     }
 
+    public static void allMentors(List<User> mentors) throws FileNotFoundException {
+        String[] headers = {"id", "name", "surname", "login", "password", "email", "role"};
+        Object[][] data = new Object[mentors.size()][headers.length];
+
+        for (int i = 0; i < mentors.size(); i++) {
+            User user = mentors.get(i);
+            data[i][0] = user.getId();
+            data[i][1] = user.getName();
+            data[i][2] = user.getSurname();
+            data[i][3] = user.getLogin();
+//            data[i][2] = user.getPassword();
+            data[i][4] = "*".repeat(user.getPassword().length());
+            data[i][5] = user.getEmail();
+            data[i][6] = user.getRole();
+        }
+        System.out.println("All Mentors");
+        System.out.println(FlipTableConverters.fromObjects(headers, data));
+    }
+
     public static void viewAllStudents() throws FileNotFoundException {
         // THIS WORKS BELOW WITH HASH
 //        FileReader.printFromFile(location + "StudentsList");
@@ -59,13 +78,60 @@ public class View {
 //        System.out.println(FlipTableConverters.fromIterable(students, User.class));
     }
 
-    public static void viewAllUsers() throws FileNotFoundException {
-        List<User> newList = new UserDaoDb().readAllUsers();
-        String[] headers = {"id", "name", "surname", "login", "password", "email", "role"};
-        Object[][] data = new Object[newList.size()][headers.length];
+    public static void allStudents(List<User> students) throws FileNotFoundException {
+        // THIS WORKS BELOW WITH HASH
+//        FileReader.printFromFile(location + "StudentsList");
+//        List<User> newList = new UserDaoFromCSV().extractUsersFromListOfRecordsByRoleGiven("student");
+//        List<User> students = new UserDaoDb().getStudents();
 
-        for (int i = 0; i < newList.size(); i++) {
-            User user = newList.get(i);
+        String[] headers = {"id", "name", "surname", "login", "password", "email", "role"};
+        Object[][] data = new Object[students.size()][headers.length];
+
+        for (int i = 0; i < students.size(); i++) {
+            User user = students.get(i);
+            data[i][0] = user.getId();
+            data[i][1] = user.getName();
+            data[i][2] = user.getSurname();
+            data[i][3] = user.getLogin();
+//            data[i][2] = user.getPassword();
+            data[i][4] = "*".repeat(user.getPassword().length());
+            data[i][5] = user.getEmail();
+            data[i][6] = user.getRole();
+        }
+        System.out.println("All Students");
+        System.out.println(FlipTableConverters.fromObjects(headers, data));
+
+        // THIS WORKS BELOW WITHOUT HASH
+//        DataHandler.printFromFile(location + "AllStudents");
+//        System.out.println(FlipTableConverters.fromIterable(students, User.class));
+    }
+
+//    public static void viewAllUsers() throws FileNotFoundException {
+//        List<User> newList = new UserDaoDb().readAllUsers();
+//        String[] headers = {"id", "name", "surname", "login", "password", "email", "role"};
+//        Object[][] data = new Object[newList.size()][headers.length];
+//
+//        for (int i = 0; i < newList.size(); i++) {
+//            User user = newList.get(i);
+//            data[i][0] = user.getId();
+//            data[i][1] = user.getName();
+//            data[i][2] = user.getSurname();
+//            data[i][3] = user.getLogin();
+////            data[i][2] = user.getPassword();
+//            data[i][4] = "*".repeat(user.getPassword().length());
+//            data[i][5] = user.getEmail();
+//            data[i][6] = user.getRole();
+//        }
+//        System.out.println("All Users");
+//        System.out.println(FlipTableConverters.fromObjects(headers, data));
+//    }
+
+    public static void allUsersByList(List<User> users) throws FileNotFoundException {
+        String[] headers = {"id", "name", "surname", "login", "password", "email", "role"};
+        Object[][] data = new Object[users.size()][headers.length];
+
+        for (int i = 0; i < users.size(); i++) {
+            User user = users.get(i);
             data[i][0] = user.getId();
             data[i][1] = user.getName();
             data[i][2] = user.getSurname();

@@ -14,7 +14,6 @@ public class UserDaoDb implements UserDao {
     }
 
     public User readUserByEmailOrLoginAndPassword(String userEmail, String userPassword) {
-
         Connection c = null;
         User newUser;
 
@@ -111,7 +110,7 @@ public class UserDaoDb implements UserDao {
             } else {
                 System.out.println("No user");
             }
-                // TODO: where close()?????
+            // TODO: where close()?????
 //            connectionFactory.close();
 //            rs.close();
         } catch (Exception e) {
@@ -120,55 +119,6 @@ public class UserDaoDb implements UserDao {
         return null;
     }
 
-    public void addUserToDatabase(User user) {
-        PreparedStatement ps = null;
-        Role userRole = user.getRole();
-
-        int roleId = decideRole(userRole);
-
-        try {
-            ps = connectionFactory.getConnection().prepareStatement("INSERT INTO users (name, surname, login, password, email, role_id, user_detail_id)" +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?);");
-            ps.setString(1, user.getName());
-            ps.setString(2, user.getSurname());
-            ps.setString(3, user.getLogin());
-            ps.setString(4, user.getPassword());
-            ps.setString(5, user.getEmail());
-            ps.setInt(6, roleId);
-            ps.setInt(7, user.getUser_detail_id());
-            ps.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void deleteUserById(int id) {
-        PreparedStatement ps = null;
-
-        try {
-            ps = connectionFactory.getConnection().prepareStatement("DELETE FROM users WHERE id =" + id + ";");
-            ps.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void updateUser(User user) {
-        PreparedStatement ps = null;
-        Role userRole = user.getRole();
-
-        int roleId = decideRole(userRole);
-
-        try {
-            ps = connectionFactory.getConnection().prepareStatement("UPDATE users name='" + user.getName()+"'" + ", surname='" + user.getSurname()+ "'" + ", login='" + user.getLogin()+"'" +", password='" + user.getPassword() + "'" + ", email='" + user.getEmail()+ "'" + ", role_id=" + roleId + ", user_detail_id=" + 1 + ";");
-            ps.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
     private int decideRole(Role userRole) {
         return switch (userRole) {
@@ -178,73 +128,6 @@ public class UserDaoDb implements UserDao {
         };
     }
 
-    public void readUsers() {
-        try {
-            ResultSet rs = connectionFactory.executeQuery("SELECT * FROM users ORDER BY id;");
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
-                String surname = rs.getString("surname");
-                String login = rs.getString("login");
-                String password = rs.getString("password");
-                String email = rs.getString("email");
-                int roleId = rs.getInt("role_id");
-                int userDetailsId = rs.getInt("user_detail_id");
-
-                String format = "|%1$-4s|%2$-15s|%3$-15s|%4$-15s|%5$-20s|%6$-25s|%7$-7s|%8$-7s\n";
-                System.out.printf(format, id, name, surname, login, password, email, roleId, userDetailsId);
-            }
-            rs.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    public List<User> readAllUsers() {
-        List<User> users = new ArrayList<>();
-        try {
-//            User newUser;
-            ResultSet rs = connectionFactory.executeQuery("SELECT * FROM users ORDER BY id;");
-            while (rs.next()) {
-//                User newUser = new User();
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
-                String surname = rs.getString("surname");
-                String login = rs.getString("login");
-                String password = rs.getString("password");
-                String email = rs.getString("email");
-                int roleId = rs.getInt("role_id");
-                int userDetailsId = rs.getInt("user_detail_id");
-
-                if (roleId == 1) {
-                    User newUser = new Admin(id, name, surname, login, password, email, roleId);
-                    users.add(newUser);
-                } else if (roleId == 2) {
-                    User newUser = new Mentor(id, name, surname, login, password, email, roleId);
-                    users.add(newUser);
-                } else if (roleId == 3) {
-                    User newUser = new Student(id, name, surname, login, password, email, roleId);
-                    users.add(newUser);
-                }
-//
-//                newUser.setId(id);
-//                newUser.setName(name);
-//                newUser.setSurname(surname);
-//                newUser.setLogin(login);
-//                newUser.setPassword(password);
-//                newUser.setEmail(email);
-//                newUser.setRoleEnum(roleId);
-
-//                users.add(newUser);
-            }
-            rs.close();
-            return users;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     public List<User> getStudents() {
         List<User> users = new ArrayList<>();
@@ -314,6 +197,15 @@ public class UserDaoDb implements UserDao {
         return null;
     }
 
+    // ---------------------------------------
+    // EDIT
+
+    // TODO or not???
+    @Override
+    public boolean edit(Object o) {
+        return false;
+    }
+
     public void updateUserNameById(int id, String name) {
         PreparedStatement ps = null;
         try {
@@ -373,4 +265,199 @@ public class UserDaoDb implements UserDao {
             e.printStackTrace();
         }
     }
+    // ---------------------------------------
+
+
+    @Override
+    public List getAllElements() {
+        List<User> users = new ArrayList<>();
+        try {
+//            User newUser;
+            ResultSet rs = connectionFactory.executeQuery("SELECT * FROM users ORDER BY id;");
+            while (rs.next()) {
+//                User newUser = new User();
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String surname = rs.getString("surname");
+                String login = rs.getString("login");
+                String password = rs.getString("password");
+                String email = rs.getString("email");
+                int roleId = rs.getInt("role_id");
+                int userDetailsId = rs.getInt("user_detail_id");
+
+                if (roleId == 1) {
+                    User newUser = new Admin(id, name, surname, login, password, email, roleId);
+                    users.add(newUser);
+                } else if (roleId == 2) {
+                    User newUser = new Mentor(id, name, surname, login, password, email, roleId);
+                    users.add(newUser);
+                } else if (roleId == 3) {
+                    User newUser = new Student(id, name, surname, login, password, email, roleId);
+                    users.add(newUser);
+                }
+            }
+            rs.close();
+            return users;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public Object getById(int id) {
+        return null;
+    }
+
+    @Override
+    public boolean insert(Object o) {
+        User user = (User) o;
+        PreparedStatement ps = null;
+        Role userRole = user.getRole();
+
+        int roleId = decideRole(userRole);
+
+        try {
+            ps = connectionFactory.getConnection().prepareStatement("INSERT INTO users (name, surname, login, password, email, role_id, user_detail_id)" +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?);");
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getSurname());
+            ps.setString(3, user.getLogin());
+            ps.setString(4, user.getPassword());
+            ps.setString(5, user.getEmail());
+            ps.setInt(6, roleId);
+            ps.setInt(7, user.getUser_detail_id());
+            ps.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean delete(int id) {
+        PreparedStatement ps = null;
+        try {
+            ps = connectionFactory.getConnection().prepareStatement("DELETE FROM users WHERE id =" + id + ";");
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+//    public void addUserToDatabase(User user) {
+//        PreparedStatement ps = null;
+//        Role userRole = user.getRole();
+//
+//        int roleId = decideRole(userRole);
+//
+//        try {
+//            ps = connectionFactory.getConnection().prepareStatement("INSERT INTO users (name, surname, login, password, email, role_id, user_detail_id)" +
+//                    "VALUES (?, ?, ?, ?, ?, ?, ?);");
+//            ps.setString(1, user.getName());
+//            ps.setString(2, user.getSurname());
+//            ps.setString(3, user.getLogin());
+//            ps.setString(4, user.getPassword());
+//            ps.setString(5, user.getEmail());
+//            ps.setInt(6, roleId);
+//            ps.setInt(7, user.getUser_detail_id());
+//            ps.executeUpdate();
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+
+
+    //    public void deleteUserById(int id) {
+//        PreparedStatement ps = null;
+//
+//        try {
+//            ps = connectionFactory.getConnection().prepareStatement("DELETE FROM users WHERE id =" + id + ";");
+//            ps.executeUpdate();
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+//    public void updateUser(User user) {
+//        PreparedStatement ps = null;
+//        Role userRole = user.getRole();
+//
+//        int roleId = decideRole(userRole);
+//
+//        try {
+//            ps = connectionFactory.getConnection().prepareStatement("UPDATE users name='" + user.getName()+"'" + ", surname='" + user.getSurname()+ "'" + ", login='" + user.getLogin()+"'" +", password='" + user.getPassword() + "'" + ", email='" + user.getEmail()+ "'" + ", role_id=" + roleId + ", user_detail_id=" + 1 + ";");
+//            ps.executeUpdate();
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+
+//    }
+
+//    public void readUsers() {
+//        try {
+//            ResultSet rs = connectionFactory.executeQuery("SELECT * FROM users ORDER BY id;");
+//            while (rs.next()) {
+//                int id = rs.getInt("id");
+//                String name = rs.getString("name");
+//                String surname = rs.getString("surname");
+//                String login = rs.getString("login");
+//                String password = rs.getString("password");
+//                String email = rs.getString("email");
+//                int roleId = rs.getInt("role_id");
+//                int userDetailsId = rs.getInt("user_detail_id");
+//
+//                String format = "|%1$-4s|%2$-15s|%3$-15s|%4$-15s|%5$-20s|%6$-25s|%7$-7s|%8$-7s\n";
+//                System.out.printf(format, id, name, surname, login, password, email, roleId, userDetailsId);
+//            }
+//            rs.close();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+//
+//    public List<User> readAllUsers() {
+//        List<User> users = new ArrayList<>();
+//        try {
+////            User newUser;
+//            ResultSet rs = connectionFactory.executeQuery("SELECT * FROM users ORDER BY id;");
+//            while (rs.next()) {
+////                User newUser = new User();
+//                int id = rs.getInt("id");
+//                String name = rs.getString("name");
+//                String surname = rs.getString("surname");
+//                String login = rs.getString("login");
+//                String password = rs.getString("password");
+//                String email = rs.getString("email");
+//                int roleId = rs.getInt("role_id");
+//                int userDetailsId = rs.getInt("user_detail_id");
+//
+//                if (roleId == 1) {
+//                    User newUser = new Admin(id, name, surname, login, password, email, roleId);
+//                    users.add(newUser);
+//                } else if (roleId == 2) {
+//                    User newUser = new Mentor(id, name, surname, login, password, email, roleId);
+//                    users.add(newUser);
+//                } else if (roleId == 3) {
+//                    User newUser = new Student(id, name, surname, login, password, email, roleId);
+//                    users.add(newUser);
+//                }
+//            }
+//            rs.close();
+//            return users;
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 }
