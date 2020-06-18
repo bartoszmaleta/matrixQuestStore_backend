@@ -31,8 +31,6 @@ public class View {
         System.out.println(FlipTableConverters.fromObjects(headers, data));
     }
 
-//
-
     public static void allStudents(List<User> students) throws FileNotFoundException {
         // THIS WORKS BELOW WITH HASH
 //        FileReader.printFromFile(location + "StudentsList");
