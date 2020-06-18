@@ -146,10 +146,10 @@ public class MentorController {
     }
 
     public void addQuest() {
-        String questTitle = InputTaker.takeStringInputWithMessage("Enter title of quest: ");
+        String questTitle = InputTaker.takeStringInputWithMessageForFirstInput("Enter title of quest: ");
         String questDescription = InputTaker.takeStringInputWithMessage("Enter description of quest: ");
         int questCoins = InputTaker.takeIntInputWithMessage("Enter amount of coins it costs: ");
-        String questImage = InputTaker.takeStringInputWithMessage("Enter image name: ");
+        String questImage = InputTaker.takeStringInputWithMessageForFirstInput("Enter image name: ");
 //        int questMentorId = InputTaker.takeIntInputWithMessage("Enter id of mentor: ");
         int questMentorId = this.user.getId();
 

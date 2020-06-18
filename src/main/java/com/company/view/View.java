@@ -81,40 +81,40 @@ public class View {
         System.out.println(FlipTableConverters.fromObjects(headers, data));
     }
 
-    public static void viewAllQuests() throws FileNotFoundException {
-        List<Quest> newList = new QuestDAO().readQuestList();
-        String[] headers = {"id", "title", "description", "coins", "image", "mentor_id"};
-        Object[][] data = new Object[newList.size()][headers.length];
+//    public static void viewAllQuests() throws FileNotFoundException {
+//        List<Quest> newList = new QuestDAO().readQuestList();
+//        String[] headers = {"id", "title", "description", "coins", "image", "mentor_id"};
+//        Object[][] data = new Object[newList.size()][headers.length];
+//
+//        for (int i = 0; i < newList.size(); i++) {
+//            Quest quest = newList.get(i);
+//            data[i][0] = quest.getId();
+//            data[i][1] = quest.getTitle();
+//            data[i][2] = quest.getDescription();
+//            data[i][3] = quest.getPrice();
+//            data[i][4] = quest.getImageSrc();
+//            data[i][5] = quest.getMentorId();
+//        }
+//        System.out.println(FlipTableConverters.fromObjects(headers, data));
+//    }
 
-        for (int i = 0; i < newList.size(); i++) {
-            Quest quest = newList.get(i);
-            data[i][0] = quest.getId();
-            data[i][1] = quest.getTitle();
-            data[i][2] = quest.getDescription();
-            data[i][3] = quest.getPrice();
-            data[i][4] = quest.getImageSrc();
-            data[i][5] = quest.getMentorId();
-        }
-        System.out.println(FlipTableConverters.fromObjects(headers, data));
-    }
-
-    public static void viewAllQuestsWithMentors() throws FileNotFoundException {
-        List<Quest> newList = new QuestDAO().readQuestListWithMentors();
-        String[] headers = {"id", "title", "description", "coins", "image", "mentor"};
-        Object[][] data = new Object[newList.size()][headers.length];
-
-        for (int i = 0; i < newList.size(); i++) {
-            Quest quest = newList.get(i);
-            data[i][0] = quest.getId();
-            data[i][1] = quest.getTitle();
-            data[i][2] = quest.getDescription();
-            data[i][3] = quest.getPrice();
-            data[i][4] = quest.getImageSrc();
-            data[i][5] = quest.getMentorNameAndSurname();
-        }
-        System.out.println("All quests with mentors");
-        System.out.println(FlipTableConverters.fromObjects(headers, data));
-    }
+//    public static void viewAllQuestsWithMentors() throws FileNotFoundException {
+//        List<Quest> newList = new QuestDAO().readQuestListWithMentors();
+//        String[] headers = {"id", "title", "description", "coins", "image", "mentor"};
+//        Object[][] data = new Object[newList.size()][headers.length];
+//
+//        for (int i = 0; i < newList.size(); i++) {
+//            Quest quest = newList.get(i);
+//            data[i][0] = quest.getId();
+//            data[i][1] = quest.getTitle();
+//            data[i][2] = quest.getDescription();
+//            data[i][3] = quest.getPrice();
+//            data[i][4] = quest.getImageSrc();
+//            data[i][5] = quest.getMentorNameAndSurname();
+//        }
+//        System.out.println("All quests with mentors");
+//        System.out.println(FlipTableConverters.fromObjects(headers, data));
+//    }
 
     public static void allQuestsByList(List<Quest> newList) throws FileNotFoundException {
         System.out.println("all quests by list - view");

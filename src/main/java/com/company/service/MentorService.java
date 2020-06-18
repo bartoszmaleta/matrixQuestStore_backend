@@ -24,7 +24,8 @@ public class MentorService extends EmployeeService {
     }
 
     public void addQuestToDatabase(Quest quest) {
-        questDAO.addQuest(quest);
+        questDAO.insert(quest);
+//        questDAO.addQuest(quest);
     }
 
     public void updateQuestTitleById(int id, String titile) {
