@@ -47,9 +47,9 @@ public class MentorService extends EmployeeService {
         questDAO.deleteQuestById(id);
     }
 
-    public void readAllQuestsOrderById() {
-        questDAO.readAllQuestsOrderById();
-    }
+//    public void readAllQuestsOrderById() {
+//        questDAO.readAllQuestsOrderById();
+//    }
 
     public void addAwardToDatabase(Award award) {
         awardDAO.addAward(award);
@@ -80,9 +80,19 @@ public class MentorService extends EmployeeService {
         View.viewAllAwardsFromList(awards);
     }
 
+    public void displayAllAwardsOfThisMentor(User user) throws FileNotFoundException {
+        List<Award> awards = awardDAO.readAwardListByMentor(user);
+        View.allAwardsByMentor(awards);
+    }
+
     public void displayAllQuestsOfThisMentor(User user) throws FileNotFoundException {
         List<Quest> quests = this.questDAO.readQuestListByMentor(user);
-        View.allQuestsByMentor(quests);
+        View.allQuestsByList(quests);
+    }
+
+    public void displayAllQuests() throws FileNotFoundException {
+        List<Quest> quests = this.questDAO.readQuestList();
+        View.allQuestsByList(quests);
     }
 
 }

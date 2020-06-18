@@ -186,8 +186,6 @@ public class QuestDAO {
     }
 
     public List<Quest> readQuestListByMentor(User user) {
-        // TODO: getList by user.getId()
-        // TODO: check vaild return!!
         listOfQuests = new ArrayList<>();
         String userIdStr = String.valueOf(user.getId());
         try {

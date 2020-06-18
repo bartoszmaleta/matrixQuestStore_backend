@@ -39,8 +39,8 @@ public class Main
 //        userDaoDb.readUsers();
 
 
-        MentorController mentorController = new MentorController();
-        mentorController.init();
+//        MentorController mentorController = new MentorController();
+//        mentorController.init();
 //        userDaoDb.editUserNameById(3, "Krzysztof");
 
     }
