@@ -245,7 +245,32 @@ public class QuestDAO implements Dao{
 
     @Override
     public Object getById(int id) {
-        return null;
+        listOfQuests = new ArrayList<>();
+        Quest quest = null;
+        try {
+            ResultSet rs = conFactory.executeQuery("SELECT \"Quests\".id, title, description, coins, image, (CONCAT(m.name, ' ', m.surname)) AS mentor FROM \"Quests\"\n" +
+                    "INNER JOIN (\n" +
+                    "    SELECT * FROM users WHERE role_id = 2\n" +
+                    "    ) m\n" +
+                    "ON \"Quests\".mentor_id = m.id\n" +
+                    "WHERE \"Quests\".id = " +
+                    id +
+                    "ORDER BY \"Quests\".id;");
+            while (rs.next()) {
+                int idQuest = rs.getInt("id");
+                String title = rs.getString("title");
+                String description = rs.getString("description");
+                int price = rs.getInt("coins");
+                String imageSrc = rs.getString("image");
+                String mentor = rs.getString("mentor");
+                quest = new Quest(idQuest, title, description, price, imageSrc, mentor);
+                listOfQuests.add(quest);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+//        return listOfQuests;
+        return quest;
     }
 
     @Override
