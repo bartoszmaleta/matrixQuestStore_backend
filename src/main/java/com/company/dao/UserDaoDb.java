@@ -119,7 +119,6 @@ public class UserDaoDb implements UserDao {
         return null;
     }
 
-
     private int decideRole(Role userRole) {
         return switch (userRole) {
             case ADMIN -> 1;
@@ -128,13 +127,13 @@ public class UserDaoDb implements UserDao {
         };
     }
 
-
     public List<User> getStudents() {
-        List<User> users = new ArrayList<>();
+        List<User> students = new ArrayList<>();
         try {
             ResultSet rs = connectionFactory.executeQuery("SELECT * FROM users WHERE role_id = 3 ORDER BY id;");
             while (rs.next()) {
-                User newUser = new Student();
+                // TODO: should initialize eariler???
+//                User newUser = new Student();
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 String surname = rs.getString("surname");
@@ -144,19 +143,12 @@ public class UserDaoDb implements UserDao {
                 int roleId = rs.getInt("role_id");
                 int userDetailsId = rs.getInt("user_detail_id");
 
-                // TODO: Change to one constructor!
-                newUser.setId(id);
-                newUser.setName(name);
-                newUser.setSurname(surname);
-                newUser.setLogin(login);
-                newUser.setPassword(password);
-                newUser.setEmail(email);
-                newUser.setRoleEnum(roleId);
-                users.add(newUser);
+                User newUser = new Student(id, name, surname, login, password, email, roleId);
 
+                students.add(newUser);
             }
             rs.close();
-            return users;
+            return students;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -164,11 +156,11 @@ public class UserDaoDb implements UserDao {
     }
 
     public List<User> getMentors() {
-        List<User> users = new ArrayList<>();
+        List<User> mentors = new ArrayList<>();
         try {
             ResultSet rs = connectionFactory.executeQuery("SELECT * FROM users WHERE role_id = 2 ORDER BY id;");
             while (rs.next()) {
-                User newUser = new Mentor();
+//                User newUser = new Mentor();
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 String surname = rs.getString("surname");
@@ -178,19 +170,12 @@ public class UserDaoDb implements UserDao {
                 int roleId = rs.getInt("role_id");
                 int userDetailsId = rs.getInt("user_detail_id");
 
-                // TODO: Change to one constructor!
-                newUser.setId(id);
-                newUser.setName(name);
-                newUser.setSurname(surname);
-                newUser.setLogin(login);
-                newUser.setPassword(password);
-                newUser.setEmail(email);
-                newUser.setRoleEnum(roleId);
-                users.add(newUser);
+                User newUser = new Mentor(id, name, surname, login, password, email, roleId);
 
+                mentors.add(newUser);
             }
             rs.close();
-            return users;
+            return mentors;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -372,7 +357,6 @@ public class UserDaoDb implements UserDao {
 //            e.printStackTrace();
 //        }
 //    }
-
 
 
     //    public void deleteUserById(int id) {

@@ -26,7 +26,6 @@ public class AdminService extends EmployeeService {
     }
 
     public void deleteMentor(int mentorToRemoveById) {
-//        this.userDaoDb.deleteUserById(mentorToRemoveById);
         this.userDaoDb.delete(mentorToRemoveById);
     }
 
@@ -35,8 +34,5 @@ public class AdminService extends EmployeeService {
         View.allMentors(mentors);
     }
 
-    public void displayAllStudents() throws FileNotFoundException {
-        List<User> students = this.userDaoDb.getStudents();
-        View.allStudents(students);
-    }
+
 }

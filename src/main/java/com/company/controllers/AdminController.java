@@ -51,7 +51,8 @@ public class AdminController {
     }
 
     private void editMentor() throws FileNotFoundException {
-        View.viewAllMentors();
+//        View.viewAllMentors();
+        adminService.displayAllMentors();
 
         int idOfMentorToUpdate = InputTaker.takeIntInputWithMessage("Enter id of mentor you want to update: ");
         View.updateMentorModes();
@@ -83,7 +84,7 @@ public class AdminController {
     }
 
     private void removeMentor() throws FileNotFoundException {
-        View.viewAllMentors();
+        adminService.displayAllMentors();
         int mentorToRemoveById = InputTaker.takeIntInputWithMessage("Enter id of mentor you want to delete: ");
         this.adminService.deleteMentor(mentorToRemoveById);
     }

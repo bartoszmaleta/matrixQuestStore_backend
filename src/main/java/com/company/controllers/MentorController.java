@@ -82,7 +82,7 @@ public class MentorController {
     }
 
     public void updateStudent() throws FileNotFoundException {
-        View.viewAllMentors();
+        mentorService.displayAllStudents();
 
         int idOfStudentToUpdate = InputTaker.takeIntInputWithMessage("Enter id of student you want to update: ");
         View.updateStudentModes();

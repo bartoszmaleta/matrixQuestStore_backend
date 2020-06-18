@@ -3,6 +3,10 @@ package com.company.service;
 import com.company.dao.UserDao;
 import com.company.dao.UserDaoDb;
 import com.company.models.users.User;
+import com.company.view.View;
+
+import java.io.FileNotFoundException;
+import java.util.List;
 
 public abstract class EmployeeService  {
     public UserDao userDao;
@@ -41,5 +45,8 @@ public abstract class EmployeeService  {
         userDao.updateUserSurnameById(id, surname);
     }
 
-
+    public void displayAllStudents() throws FileNotFoundException {
+        List<User> students = this.userDao.getStudents();
+        View.allStudents(students);
+    }
 }
