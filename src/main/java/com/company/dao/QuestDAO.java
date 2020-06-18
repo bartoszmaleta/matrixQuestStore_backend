@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuestDAO {
+public class QuestDAO implements Dao{
     ArrayList<Quest> listOfQuests;
     ConnectionFactory conFactory;
 
@@ -50,7 +50,7 @@ public class QuestDAO {
         }
     }
 
-    public ArrayList<Quest> readQuestList() {
+    public List<Quest> readQuestList() {
         listOfQuests = new ArrayList<>();
         try {
             ResultSet rs = conFactory.executeQuery("SELECT * FROM \"Quests\" ORDER BY id;");
@@ -185,6 +185,8 @@ public class QuestDAO {
         }
     }
 
+
+
     public List<Quest> readQuestListByMentor(User user) {
         listOfQuests = new ArrayList<>();
         String userIdStr = String.valueOf(user.getId());
@@ -213,5 +215,51 @@ public class QuestDAO {
             e.printStackTrace();
         }
         return listOfQuests;
+    }
+
+    @Override
+    public List getAllElements() {
+        listOfQuests = new ArrayList<>();
+        try {
+            ResultSet rs = conFactory.executeQuery("SELECT \"Quests\".id, title, description, coins, image, (CONCAT(m.name, ' ', m.surname)) AS mentor FROM \"Quests\"\n" +
+                    "INNER JOIN (\n" +
+                    "    SELECT * FROM users WHERE role_id = 2\n" +
+                    "    ) m\n" +
+                    "ON \"Quests\".mentor_id = m.id\n" +
+                    "ORDER BY \"Quests\".id;");
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String title = rs.getString("title");
+                String description = rs.getString("description");
+                int price = rs.getInt("coins");
+                String imageSrc = rs.getString("image");
+                String mentor = rs.getString("mentor");
+
+                listOfQuests.add(new Quest(id, title, description, price, imageSrc, mentor));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listOfQuests;
+    }
+
+    @Override
+    public Object getById(int id) {
+        return null;
+    }
+
+    @Override
+    public boolean insert(Object o) {
+        return false;
+    }
+
+    @Override
+    public boolean edit(Object o) {
+        return false;
+    }
+
+    @Override
+    public boolean delete(int id) {
+        return false;
     }
 }

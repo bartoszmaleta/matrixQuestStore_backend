@@ -91,7 +91,12 @@ public class MentorService extends EmployeeService {
     }
 
     public void displayAllQuests() throws FileNotFoundException {
-        List<Quest> quests = this.questDAO.readQuestList();
+        // THIS ONE WORKS, commented to test generics
+        //        List<Quest> quests = this.questDAO.readQuestList();
+//        View.allQuestsByList(quests);
+        System.out.println("display all quests - mentor service");
+
+        List<Quest> quests = this.questDAO.getAllElements();
         View.allQuestsByList(quests);
     }
 

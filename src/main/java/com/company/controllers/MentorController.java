@@ -126,10 +126,11 @@ public class MentorController {
             int option = InputTaker.takeIntInputWithoutMessage();
             switch (option) {
 //                case 1 -> questDAO.readQuestList();
-                case 1 -> displayQuestsByThisMentor();
+                case 1 -> displayAllQuests();
                 case 2 -> addQuest();
                 case 3 -> updateQuest();
                 case 4 -> deleteQuestById();
+                case 5 -> displayQuestsByThisMentor();
                 case 0 -> isRunning = false;
                 default -> TerminalView.printString("Wrong input.");
             }
@@ -138,6 +139,10 @@ public class MentorController {
 
     private void displayQuestsByThisMentor() throws FileNotFoundException {
         this.mentorService.displayAllQuestsOfThisMentor(this.user);
+    }
+
+    private void displayAllQuests() throws FileNotFoundException {
+        this.mentorService.displayAllQuests();
     }
 
     public void addQuest() {
