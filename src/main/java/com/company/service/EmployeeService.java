@@ -11,16 +11,14 @@ public abstract class EmployeeService  {
         this.userDao = new UserDaoDb();
     }
 
-    public UserDao getUserDao() {
-        return userDao;
-    }
-
     public void addUserToDatabase(User user) {
-        userDao.addUserToDatabase(user);
+//        userDao.addUserToDatabase(user);
+        userDao.insert(user);
     }
 
     public void deleteUserFromDatabaseById(int id) {
-        userDao.deleteUserById(id);
+//        userDao.deleteUserById(id);
+        userDao.delete(id);
     }
 
     public void updateUserLoginById(int id, String login) {

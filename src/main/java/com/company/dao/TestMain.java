@@ -18,3 +18,7 @@ public class TestMain {
         loggingController.init();
     }
 }
+
+
+// TODO: date in quest!!
+// TODO: edit generic!

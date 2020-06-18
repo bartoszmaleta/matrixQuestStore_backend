@@ -24,7 +24,8 @@ public class MentorService extends EmployeeService {
     }
 
     public void addQuestToDatabase(Quest quest) {
-        questDAO.addQuest(quest);
+        questDAO.insert(quest);
+//        questDAO.addQuest(quest);
     }
 
     public void updateQuestTitleById(int id, String titile) {
@@ -44,12 +45,9 @@ public class MentorService extends EmployeeService {
     }
 
     public void deleteQuestById(int id) {
-        questDAO.deleteQuestById(id);
+//        questDAO.deleteQuestById(id);
+        questDAO.delete(id);
     }
-
-//    public void readAllQuestsOrderById() {
-//        questDAO.readAllQuestsOrderById();
-//    }
 
     public void addAwardToDatabase(Award award) {
         awardDAO.addAward(award);
@@ -76,13 +74,13 @@ public class MentorService extends EmployeeService {
     }
 
     public void displayAllAwards() throws FileNotFoundException {
-        List<Award> awards = awardDAO.readAwardList();
-        View.viewAllAwardsFromList(awards);
+        List<Award> awards = this.awardDAO.getAllElements();
+        View.allAwardsByList(awards);
     }
 
     public void displayAllAwardsOfThisMentor(User user) throws FileNotFoundException {
         List<Award> awards = awardDAO.readAwardListByMentor(user);
-        View.allAwardsByMentor(awards);
+        View.allAwardsByList(awards);
     }
 
     public void displayAllQuestsOfThisMentor(User user) throws FileNotFoundException {
@@ -91,7 +89,7 @@ public class MentorService extends EmployeeService {
     }
 
     public void displayAllQuests() throws FileNotFoundException {
-        List<Quest> quests = this.questDAO.readQuestList();
+        List<Quest> quests = this.questDAO.getAllElements();
         View.allQuestsByList(quests);
     }
 

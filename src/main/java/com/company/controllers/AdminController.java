@@ -29,9 +29,10 @@ public class AdminController {
         View.adminMenu();
             int option = InputTaker.takeIntInputWithoutMessage();
             switch (option) {
-                case 1 -> View.viewAllUsers();
+//                case 1 -> View.viewAllUsers();
+                case 1 -> displayUsers();
 
-                case 2 -> View.viewAllMentors();
+                case 2 -> displayMentors();
                 case 3 -> addMentor();
                 case 4 -> removeMentor();
                 case 5 -> editMentor();
@@ -41,7 +42,8 @@ public class AdminController {
 //                case 8 -> removeModule();
 //                case 9 -> editModule();
 
-//                case 10 -> showProfile();
+//                case 10 -> displayStudents();
+//                case 11 -> showProfile();
                 case 0 -> isRunning = false;
                 default -> TerminalView.printString("Wrong input");
             }
@@ -83,7 +85,7 @@ public class AdminController {
     private void removeMentor() throws FileNotFoundException {
         View.viewAllMentors();
         int mentorToRemoveById = InputTaker.takeIntInputWithMessage("Enter id of mentor you want to delete: ");
-        this.userDaoDb.deleteUserById(mentorToRemoveById);
+        this.adminService.deleteMentor(mentorToRemoveById);
     }
 
     private void addMentor() {
@@ -93,7 +95,6 @@ public class AdminController {
 //        mentorService.addMentor(this.user);
 
 
-
         String mentorName = InputTaker.takeStringInputWithMessageForFirstInput("Enter mentor name: ");
         String mentorSurname = InputTaker.takeStringInputWithMessage("Enter mentor surname: ");
         String mentorLogin = InputTaker.takeStringInputWithMessage("Enter mentor login");
@@ -101,6 +102,17 @@ public class AdminController {
         String mentorEmail = InputTaker.takeStringInputWithMessage("Enter mentor email");
 
         Student mentor = new Student(mentorLogin, mentorPassword, mentorEmail, Role.MENTOR, mentorName, mentorSurname, 1);
-        this.userDaoDb.addUserToDatabase(mentor);
+//        this.userDaoDb.addUserToDatabase(mentor);
+        this.userDaoDb.insert(mentor);
+    }
+
+    private void displayUsers() throws FileNotFoundException {
+        adminService.displayAllUsers();
+    }
+    private void displayStudents() throws FileNotFoundException {
+        adminService.displayAllMentors();
+    }
+    private void displayMentors() throws FileNotFoundException {
+        adminService.displayAllStudents();
     }
 }

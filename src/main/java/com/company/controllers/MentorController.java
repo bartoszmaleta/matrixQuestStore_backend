@@ -63,12 +63,14 @@ public class MentorController {
                 case 1 -> View.viewAllStudents();
                 case 2 -> createStudentAccount();
                 case 3 -> updateStudent();
-                case 4 -> deleteStudentbyId();
+                case 4 -> deleteStudentById();
                 case 0 -> isRunning = false;
                 default -> TerminalView.printString("Wrong input.");
             }
         }
-    }   public void createStudentAccount() {
+    }
+
+    public void createStudentAccount() {
         String studentName = InputTaker.takeStringInputWithMessageForFirstInput("Enter student name: ");
         String studentSurname = InputTaker.takeStringInputWithMessage("Enter student surname: ");
         String studentLogin = InputTaker.takeStringInputWithMessage("Enter student login");
@@ -77,9 +79,7 @@ public class MentorController {
 
         Student student = new Student(studentLogin, studentPassword, studentEmail, Role.STUDENT, studentName, studentSurname, 1);
         mentorService.addUserToDatabase(student);
-
     }
-
 
     public void updateStudent() throws FileNotFoundException {
         View.viewAllMentors();
@@ -113,7 +113,7 @@ public class MentorController {
         }
     }
 
-    public void deleteStudentbyId() {
+    public void deleteStudentById() {
         int studentIdToRemove = InputTaker.takeIntInputWithMessage("Enter id of student you want to delete: ");
         mentorService.deleteUserFromDatabaseById(studentIdToRemove);
     }
@@ -122,14 +122,15 @@ public class MentorController {
         boolean isRunning = true;
 
         while (isRunning) {
-           View.questManagmentMenu();
+            View.questManagmentMenu();
             int option = InputTaker.takeIntInputWithoutMessage();
             switch (option) {
 //                case 1 -> questDAO.readQuestList();
-                case 1 -> displayQuestsByThisMentor();
+                case 1 -> displayAllQuests();
                 case 2 -> addQuest();
                 case 3 -> updateQuest();
                 case 4 -> deleteQuestById();
+                case 5 -> displayQuestsByThisMentor();
                 case 0 -> isRunning = false;
                 default -> TerminalView.printString("Wrong input.");
             }
@@ -140,11 +141,15 @@ public class MentorController {
         this.mentorService.displayAllQuestsOfThisMentor(this.user);
     }
 
+    private void displayAllQuests() throws FileNotFoundException {
+        this.mentorService.displayAllQuests();
+    }
+
     public void addQuest() {
-        String questTitle = InputTaker.takeStringInputWithMessage("Enter title of quest: ");
+        String questTitle = InputTaker.takeStringInputWithMessageForFirstInput("Enter title of quest: ");
         String questDescription = InputTaker.takeStringInputWithMessage("Enter description of quest: ");
         int questCoins = InputTaker.takeIntInputWithMessage("Enter amount of coins it costs: ");
-        String questImage = InputTaker.takeStringInputWithMessage("Enter image name: ");
+        String questImage = InputTaker.takeStringInputWithMessageForFirstInput("Enter image name: ");
 //        int questMentorId = InputTaker.takeIntInputWithMessage("Enter id of mentor: ");
         int questMentorId = this.user.getId();
 
@@ -200,14 +205,23 @@ public class MentorController {
             String option = InputTaker.takeStringInputWithMessageForFirstInput("Choose: ");
             switch (option) {
 //                case "1" -> awardDAO.readAllAwardsOrderById();
-                case "1" -> View.viewAllAwardsWithMentors();
+                case "1" -> displayAwards();
                 case "2" -> addAward();
                 case "3" -> updateAward();
                 case "4" -> deleteAwardById();
+                case "5" -> displayAwardsByThisMentor();
                 case "0" -> isRunning = false;
                 default -> TerminalView.printString("Wrong input.");
             }
         }
+    }
+
+    private void displayAwards() throws FileNotFoundException {
+        this.mentorService.displayAllAwards();
+    }
+
+    private void displayAwardsByThisMentor() throws FileNotFoundException {
+        this.mentorService.displayAllAwardsOfThisMentor(this.user);
     }
 
     public void addAward() {
@@ -225,9 +239,11 @@ public class MentorController {
 
 
     public void updateAward() throws FileNotFoundException {
-        mentorService.displayAllAwards();
+        displayAwards();
+
         int idOfAwardToUpdate = InputTaker.takeIntInputWithMessage("Enter id of award you want to edit: ");
         View.updateAwardModes();
+
         int option = InputTaker.takeIntInputWithMessage("Choose: ");
         switch (option) {
             case 1:

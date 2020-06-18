@@ -9,36 +9,56 @@ public class Award {
     private int price;
     private String imageSrc;
     private Timestamp dataCreation;
-    private int creatorId;
+    private int mentorId;
     private String mentor;
+    private String mentorNameAndSurname;
 
-    public Award(String title, String description, int price, String imageSrc, Timestamp dataCreation, int creatorId) {
+    public Award(String title, String description, int price, String imageSrc, Timestamp dataCreation, int mentorId) {
         this.title = title;
         this.description = description;
         this.price = price;
         this.imageSrc = imageSrc;
         this.dataCreation = dataCreation;
-        this.creatorId = creatorId;
+        this.mentorId = mentorId;
     }
 
-    public Award(int id, String title, String description, int price, String imageSrc, Timestamp dataCreation, int creatorId) {
+    public Award(int id, String title, String description, int price, String imageSrc, Timestamp dataCreation, int mentorId) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.price = price;
         this.imageSrc = imageSrc;
         this.dataCreation = dataCreation;
-        this.creatorId = creatorId;
+        this.mentorId = mentorId;
     }
 
-    public Award(int id, String title, String description, int price, String imageSrc, Timestamp dataCreation, String mentor) {
+//    public Award(int id, String title, String description, int price, String imageSrc, Timestamp dataCreation, String mentor) {
+//        this.id = id;
+//        this.title = title;
+//        this.description = description;
+//        this.price = price;
+//        this.imageSrc = imageSrc;
+//        this.dataCreation = dataCreation;
+//        this.mentor = mentor;
+//    }
+
+    // NEW
+    public Award(int id, String title, String description, int price, String imageSrc, Timestamp dataCreation, String mentorNameAndSurname) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.price = price;
         this.imageSrc = imageSrc;
         this.dataCreation = dataCreation;
-        this.mentor = mentor;
+        this.mentorNameAndSurname = mentorNameAndSurname;
+    }
+
+    public String getMentorNameAndSurname() {
+        return mentorNameAndSurname;
+    }
+
+    public void setMentorNameAndSurname(String mentorNameAndSurname) {
+        this.mentorNameAndSurname = mentorNameAndSurname;
     }
 
     public String getMentor() {
@@ -97,12 +117,12 @@ public class Award {
         this.dataCreation = dataCreation;
     }
 
-    public int getCreatorId() {
-        return creatorId;
+    public int getMentorId() {
+        return mentorId;
     }
 
-    public void setCreatorId(int creatorId) {
-        this.creatorId = creatorId;
+    public void setMentorId(int mentorId) {
+        this.mentorId = mentorId;
     }
 
     public String toString() {
@@ -113,6 +133,6 @@ public class Award {
                 " Price: " + price +
                 " Img_src: " + imageSrc +
                 " Data_creation: " + dataCreation +
-                " Creator_id: " + creatorId;
+                " Creator_id: " + mentorId;
     }
 }
