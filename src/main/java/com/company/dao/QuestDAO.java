@@ -261,11 +261,12 @@ public class QuestDAO implements Dao{
             ps.setString(4, quest.getImageSrc());
             ps.setInt(5, quest.getMentorId());
             ps.executeUpdate();
+            return true;
 
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
-        return false;
     }
 
     @Override
@@ -275,6 +276,16 @@ public class QuestDAO implements Dao{
 
     @Override
     public boolean delete(int id) {
-        return false;
+        PreparedStatement ps = null;
+
+        try {
+            ps = conFactory.getConnection().prepareStatement("DELETE FROM \"Quests\" WHERE id =" + id + ";");
+            ps.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

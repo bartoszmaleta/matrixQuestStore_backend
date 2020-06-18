@@ -45,7 +45,8 @@ public class MentorService extends EmployeeService {
     }
 
     public void deleteQuestById(int id) {
-        questDAO.deleteQuestById(id);
+//        questDAO.deleteQuestById(id);
+        questDAO.delete(id);
     }
 
 //    public void readAllQuestsOrderById() {
