@@ -15,6 +15,7 @@ public class View {
     public static void allMentors(List<User> mentors) throws FileNotFoundException {
         String[] headers = {"id", "name", "surname", "login", "password", "email", "role"};
         Object[][] data = new Object[mentors.size()][headers.length];
+        int maxLengthOfPassword = getMaxLengthOfPassword(mentors);
 
         for (int i = 0; i < mentors.size(); i++) {
             User user = mentors.get(i);
@@ -22,8 +23,7 @@ public class View {
             data[i][1] = user.getName();
             data[i][2] = user.getSurname();
             data[i][3] = user.getLogin();
-//            data[i][2] = user.getPassword();
-            data[i][4] = "*".repeat(user.getPassword().length());
+            data[i][4] = "*".repeat(maxLengthOfPassword);
             data[i][5] = user.getEmail();
             data[i][6] = user.getRole();
         }
@@ -40,14 +40,15 @@ public class View {
         String[] headers = {"id", "name", "surname", "login", "password", "email", "role"};
         Object[][] data = new Object[students.size()][headers.length];
 
+        int maxLengthOfPassword = getMaxLengthOfPassword(students);
+
         for (int i = 0; i < students.size(); i++) {
             User user = students.get(i);
             data[i][0] = user.getId();
             data[i][1] = user.getName();
             data[i][2] = user.getSurname();
             data[i][3] = user.getLogin();
-//            data[i][2] = user.getPassword();
-            data[i][4] = "*".repeat(user.getPassword().length());
+            data[i][4] = "*".repeat(maxLengthOfPassword);
             data[i][5] = user.getEmail();
             data[i][6] = user.getRole();
         }
@@ -59,9 +60,22 @@ public class View {
 //        System.out.println(FlipTableConverters.fromIterable(students, User.class));
     }
 
+    private static int getMaxLengthOfPassword(List<User> students) {
+        int maxLengthOfPassword = 0;
+        for (User user : students) {
+            int passLen = user.getPassword().length();
+            if (passLen > maxLengthOfPassword) {
+                maxLengthOfPassword = passLen;
+            }
+        }
+        return maxLengthOfPassword;
+    }
+
     public static void allUsersByList(List<User> users) throws FileNotFoundException {
         String[] headers = {"id", "name", "surname", "login", "password", "email", "role"};
         Object[][] data = new Object[users.size()][headers.length];
+
+        int maxLengthOfPassword = getMaxLengthOfPassword(users);
 
         for (int i = 0; i < users.size(); i++) {
             User user = users.get(i);
@@ -69,8 +83,7 @@ public class View {
             data[i][1] = user.getName();
             data[i][2] = user.getSurname();
             data[i][3] = user.getLogin();
-//            data[i][2] = user.getPassword();
-            data[i][4] = "*".repeat(user.getPassword().length());
+            data[i][4] = "*".repeat(maxLengthOfPassword);
             data[i][5] = user.getEmail();
             data[i][6] = user.getRole();
         }
