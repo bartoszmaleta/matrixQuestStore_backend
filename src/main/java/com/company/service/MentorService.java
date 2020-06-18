@@ -80,7 +80,7 @@ public class MentorService extends EmployeeService {
         View.viewAllAwardsFromList(awards);
     }
 
-    public void viewAllQuestsOfThisMentor(User user) throws FileNotFoundException {
+    public void displayAllQuestsOfThisMentor(User user) throws FileNotFoundException {
         List<Quest> quests = this.questDAO.readQuestListByMentor(user);
         View.allQuestsByMentor(quests);
     }

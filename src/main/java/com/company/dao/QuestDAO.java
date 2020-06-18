@@ -187,7 +187,9 @@ public class QuestDAO {
 
     public List<Quest> readQuestListByMentor(User user) {
         // TODO: getList by user.getId()
+        // TODO: check vaild return!!
         listOfQuests = new ArrayList<>();
+        String userIdStr = String.valueOf(user.getId());
         try {
 //            ResultSet rs = conFactory.executeQuery("SELECT * FROM \"Quests\" ORDER BY id;");
             ResultSet rs = conFactory.executeQuery("SELECT \"Quests\".id, title, description, coins, image, (CONCAT(m.name, ' ', m.surname)) AS mentor FROM \"Quests\"\n" +
@@ -195,6 +197,8 @@ public class QuestDAO {
                     "    SELECT * FROM users WHERE role_id = 2\n" +
                     "    ) m\n" +
                     "ON \"Quests\".mentor_id = m.id\n" +
+                    "WHERE \"Quests\".mentor_id = " +
+                    userIdStr +
                     "ORDER BY \"Quests\".id;");
             while (rs.next()) {
                 int id = rs.getInt("id");
@@ -211,8 +215,5 @@ public class QuestDAO {
             e.printStackTrace();
         }
         return listOfQuests;
-
-
-
     }
 }

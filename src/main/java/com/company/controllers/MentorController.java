@@ -137,8 +137,7 @@ public class MentorController {
     }
 
     private void displayQuestsByThisMentor() throws FileNotFoundException {
-        this.mentorService.viewAllQuestsOfThisMentor(this.user);
-//        View.viewAllQuestsWithMentors();
+        this.mentorService.displayAllQuestsOfThisMentor(this.user);
     }
 
     public void addQuest() {
