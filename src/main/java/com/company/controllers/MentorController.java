@@ -85,7 +85,7 @@ public class MentorController {
         View.viewAllMentors();
 
         int idOfStudentToUpdate = InputTaker.takeIntInputWithMessage("Enter id of student you want to update: ");
-        View.updateStudent();
+        View.updateStudentModes();
         String option = InputTaker.takeStringInputWithMessageForFirstInput("Choose: ");
 
         switch (option) {
@@ -126,7 +126,7 @@ public class MentorController {
             int option = InputTaker.takeIntInputWithoutMessage();
             switch (option) {
 //                case 1 -> questDAO.readQuestList();
-                case 1 -> View.viewAllQuestsWithMentors();
+                case 1 -> displayQuestsByThisMentor();
                 case 2 -> addQuest();
                 case 3 -> updateQuest();
                 case 4 -> deleteQuestById();
@@ -136,21 +136,29 @@ public class MentorController {
         }
     }
 
+    private void displayQuestsByThisMentor() throws FileNotFoundException {
+        this.mentorService.displayAllQuestsOfThisMentor(this.user);
+    }
+
     public void addQuest() {
         String questTitle = InputTaker.takeStringInputWithMessage("Enter title of quest: ");
         String questDescription = InputTaker.takeStringInputWithMessage("Enter description of quest: ");
         int questCoins = InputTaker.takeIntInputWithMessage("Enter amount of coins it costs: ");
         String questImage = InputTaker.takeStringInputWithMessage("Enter image name: ");
-        int questMentorId = InputTaker.takeIntInputWithMessage("Enter id of mentor: ");
+//        int questMentorId = InputTaker.takeIntInputWithMessage("Enter id of mentor: ");
+        int questMentorId = this.user.getId();
+
+        // TODO: date in quest!!
+//        Date date = new Date();
 
         Quest questToAdd = new Quest(questTitle, questDescription, questCoins, questImage, questMentorId);
         mentorService.addQuestToDatabase(questToAdd);
     }
 
     public void updateQuest() throws FileNotFoundException {
-        mentorService.readAllQuestsOrderById();
+        mentorService.displayAllQuestsOfThisMentor(this.user);
         int idOfQuestToUpdate = InputTaker.takeIntInputWithMessage("Enter id of quest you want to edit: ");
-        View.updateQuest();
+        View.updateQuestModes();
 //        int option = InputTaker.takeIntInputWithMessage("Choose: ");
         String option = InputTaker.takeStringInputWithMessageForFirstInput("Choose: ");
         switch (option) {
@@ -207,19 +215,19 @@ public class MentorController {
         String awardDescription = InputTaker.takeStringInputWithMessage("Enter description of award: ");
         int awardPrice = InputTaker.takeIntInputWithMessage("Enter price of award: ");
         String awardImage = InputTaker.takeStringInputWithMessage("Enter image name: ");
-        int awardCreatorId = InputTaker.takeIntInputWithMessage("Enter id of award creator: ");
+//        int awardCreatorId = InputTaker.takeIntInputWithMessage("Enter id of award creator: ");
+        int awardCreatorId = this.user.getId();
+
         Date date = new Date();
         Award awardToAdd = new Award(awardTitle, awardDescription, awardPrice, awardImage, new Timestamp(date.getTime()), awardCreatorId);
         mentorService.addAwardToDatabase(awardToAdd);
-
-
     }
 
 
     public void updateAward() throws FileNotFoundException {
-        mentorService.readAllAwardsOrderById();
+        mentorService.displayAllAwards();
         int idOfAwardToUpdate = InputTaker.takeIntInputWithMessage("Enter id of award you want to edit: ");
-        View.updateAward();
+        View.updateAwardModes();
         int option = InputTaker.takeIntInputWithMessage("Choose: ");
         switch (option) {
             case 1:

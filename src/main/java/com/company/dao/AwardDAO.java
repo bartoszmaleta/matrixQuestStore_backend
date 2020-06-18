@@ -1,9 +1,11 @@
 package com.company.dao;
 
 import com.company.models.Award;
+import com.company.models.users.User;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class AwardDAO {
     ArrayList<Award> listOfAwards;
@@ -97,7 +99,7 @@ public class AwardDAO {
     }
 
 
-    public ArrayList<Award> readAwardList() {
+    public List<Award> readAwardList() {
         listOfAwards = new ArrayList<>();
         try {
             ResultSet rs = conFactory.executeQuery("SELECT * FROM \"Awards\" ORDER BY id;");
@@ -119,7 +121,7 @@ public class AwardDAO {
         return listOfAwards;
     }
 
-    public ArrayList<Award> readAwardListWithMentors() {
+    public List<Award> readAwardListWithMentors() {
         listOfAwards = new ArrayList<>();
         try {
             ResultSet rs = conFactory.executeQuery("SELECT \"Awards\".id, title, description, price, image, data_creation, (CONCAT(m.name, ' ', m.surname)) AS mentor FROM \"Awards\"\n" +
@@ -127,6 +129,36 @@ public class AwardDAO {
                     "    SELECT * FROM users WHERE role_id = 2\n" +
                     "    ) m\n" +
                     "ON \"Awards\".creator_id = m.id\n" +
+                    "ORDER BY \"Awards\".id;");
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String title = rs.getString("title");
+                String description = rs.getString("description");
+                int price = rs.getInt("price");
+                String imageSrc = rs.getString("image");
+                Timestamp dataCreation = rs.getTimestamp("data_creation");
+                String mentor = rs.getString("mentor");
+
+                listOfAwards.add(new Award(id, title, description, price, imageSrc, dataCreation, mentor));
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listOfAwards;
+    }
+
+    public List<Award> readAwardListByMentor(User user) {
+        listOfAwards = new ArrayList<>();
+        String userIdStr = String.valueOf(user.getId());
+        try {
+            ResultSet rs = conFactory.executeQuery("SELECT \"Awards\".id, title, description, price, image, data_creation, (CONCAT(m.name, ' ', m.surname)) AS mentor FROM \"Awards\"\n" +
+                    "INNER JOIN (\n" +
+                    "    SELECT * FROM users WHERE role_id = 2\n" +
+                    "    ) m\n" +
+                    "ON \"Awards\".creator_id = m.id\n" +
+                    "WHERE \"Quests\".mentor_id = " +
+                    userIdStr +
                     "ORDER BY \"Awards\".id;");
             while (rs.next()) {
                 int id = rs.getInt("id");
@@ -225,7 +257,6 @@ public class AwardDAO {
             e.printStackTrace();
         }
     }
-
 
 }
 

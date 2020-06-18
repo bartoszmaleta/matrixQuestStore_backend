@@ -1,6 +1,7 @@
 package com.company.dao;
 
 import com.company.models.Quest;
+import com.company.models.users.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class QuestDAO {
         }
     }
 
+    // TODO
     public void updateQuest(Quest quest) {
 
     }
@@ -135,12 +137,6 @@ public class QuestDAO {
         }
     }
 
-    public void viewQuests(ArrayList<Quest> listOfQuests) {
-        for (Quest quest : listOfQuests) {
-            System.out.println(quest);
-        }
-    }
-
     public void updateQuestTitleById(int id, String title) {
         PreparedStatement ps = null;
         try {
@@ -187,5 +183,35 @@ public class QuestDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Quest> readQuestListByMentor(User user) {
+        listOfQuests = new ArrayList<>();
+        String userIdStr = String.valueOf(user.getId());
+        try {
+//            ResultSet rs = conFactory.executeQuery("SELECT * FROM \"Quests\" ORDER BY id;");
+            ResultSet rs = conFactory.executeQuery("SELECT \"Quests\".id, title, description, coins, image, (CONCAT(m.name, ' ', m.surname)) AS mentor FROM \"Quests\"\n" +
+                    "INNER JOIN (\n" +
+                    "    SELECT * FROM users WHERE role_id = 2\n" +
+                    "    ) m\n" +
+                    "ON \"Quests\".mentor_id = m.id\n" +
+                    "WHERE \"Quests\".mentor_id = " +
+                    userIdStr +
+                    "ORDER BY \"Quests\".id;");
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String title = rs.getString("title");
+                String description = rs.getString("description");
+                int price = rs.getInt("coins");
+                String imageSrc = rs.getString("image");
+                String mentor = rs.getString("mentor");
+
+                listOfQuests.add(new Quest(id, title, description, price, imageSrc, mentor));
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listOfQuests;
     }
 }
