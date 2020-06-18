@@ -42,7 +42,7 @@ public class AdminController {
 //                case 8 -> removeModule();
 //                case 9 -> editModule();
 
-//                case 10 -> displayStudents();
+                case 10 -> displayStudents();
 //                case 11 -> showProfile();
                 case 0 -> isRunning = false;
                 default -> TerminalView.printString("Wrong input");

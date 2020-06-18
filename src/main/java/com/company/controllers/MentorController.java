@@ -59,8 +59,7 @@ public class MentorController {
             View.studentManagmentMenu();
             int option = InputTaker.takeIntInputWithoutMessage();
             switch (option) {
-//                case 1 -> userDaoDb.readUsers();
-                case 1 -> View.viewAllStudents();
+                case 1 -> displayStudents();
                 case 2 -> createStudentAccount();
                 case 3 -> updateStudent();
                 case 4 -> deleteStudentById();
@@ -68,6 +67,10 @@ public class MentorController {
                 default -> TerminalView.printString("Wrong input.");
             }
         }
+    }
+
+    private void displayStudents() throws FileNotFoundException {
+        mentorService.displayAllStudents();
     }
 
     public void createStudentAccount() {
