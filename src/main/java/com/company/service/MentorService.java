@@ -49,10 +49,6 @@ public class MentorService extends EmployeeService {
         questDAO.delete(id);
     }
 
-//    public void readAllQuestsOrderById() {
-//        questDAO.readAllQuestsOrderById();
-//    }
-
     public void addAwardToDatabase(Award award) {
         awardDAO.addAward(award);
     }
@@ -93,9 +89,6 @@ public class MentorService extends EmployeeService {
     }
 
     public void displayAllQuests() throws FileNotFoundException {
-        // THIS ONE WORKS, commented to test generics
-        System.out.println("display all quests - mentor service");
-
         List<Quest> quests = this.questDAO.getAllElements();
         View.allQuestsByList(quests);
     }

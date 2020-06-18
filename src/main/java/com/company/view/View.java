@@ -224,6 +224,10 @@ public class View {
         System.out.println(FlipTableConverters.fromObjects(headers, data));
     }
 
+    public static void questsByMentor(User user) {
+
+    }
+
     public static void adminMenu() {
         System.out.println("\n(1) Display all users\n\n" +
                 "(2) Display all mentors\n" +
@@ -314,6 +318,7 @@ public class View {
                 "(4) Id of award creator\n" +
                 "(0) Back to the Award Managment Menu");
     }
+
 
 
 }
