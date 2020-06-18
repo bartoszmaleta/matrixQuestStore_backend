@@ -78,13 +78,13 @@ public class MentorService extends EmployeeService {
     }
 
     public void displayAllAwards() throws FileNotFoundException {
-        List<Award> awards = awardDAO.readAwardList();
-        View.viewAllAwardsFromList(awards);
+        List<Award> awards = this.awardDAO.getAllElements();
+        View.allAwardsByList(awards);
     }
 
     public void displayAllAwardsOfThisMentor(User user) throws FileNotFoundException {
         List<Award> awards = awardDAO.readAwardListByMentor(user);
-        View.allAwardsByMentor(awards);
+        View.allAwardsByList(awards);
     }
 
     public void displayAllQuestsOfThisMentor(User user) throws FileNotFoundException {
@@ -94,8 +94,6 @@ public class MentorService extends EmployeeService {
 
     public void displayAllQuests() throws FileNotFoundException {
         // THIS ONE WORKS, commented to test generics
-        //        List<Quest> quests = this.questDAO.readQuestList();
-//        View.allQuestsByList(quests);
         System.out.println("display all quests - mentor service");
 
         List<Quest> quests = this.questDAO.getAllElements();

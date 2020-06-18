@@ -1,7 +1,6 @@
 package com.company.view;
 
 import com.company.dao.AwardDAO;
-import com.company.dao.QuestDAO;
 import com.company.dao.UserDaoDb;
 import com.company.models.Award;
 import com.company.models.Quest;
@@ -9,7 +8,6 @@ import com.company.models.users.User;
 import com.jakewharton.fliptables.FlipTableConverters;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class View {
@@ -153,23 +151,23 @@ public class View {
 //        System.out.println(FlipTableConverters.fromObjects(headers, data));
 //    }
 
-    public static void viewAllAwards() throws FileNotFoundException {
-        List<Award> newList = new AwardDAO().readAwardList();
-        String[] headers = {"id", "title", "description", "coins", "image", "creation_date", "creator_id"};
-        Object[][] data = new Object[newList.size()][headers.length];
-
-        for (int i = 0; i < newList.size(); i++) {
-            Award award = newList.get(i);
-            data[i][0] = award.getId();
-            data[i][1] = award.getTitle();
-            data[i][2] = award.getDescription();
-            data[i][3] = award.getPrice();
-            data[i][4] = award.getImageSrc();
-            data[i][5] = award.getDataCreation();
-            data[i][6] = award.getCreatorId();
-        }
-        System.out.println(FlipTableConverters.fromObjects(headers, data));
-    }
+//    public static void viewAllAwards() throws FileNotFoundException {
+//        List<Award> newList = new AwardDAO().readAwardList();
+//        String[] headers = {"id", "title", "description", "coins", "image", "creation_date", "creator_id"};
+//        Object[][] data = new Object[newList.size()][headers.length];
+//
+//        for (int i = 0; i < newList.size(); i++) {
+//            Award award = newList.get(i);
+//            data[i][0] = award.getId();
+//            data[i][1] = award.getTitle();
+//            data[i][2] = award.getDescription();
+//            data[i][3] = award.getPrice();
+//            data[i][4] = award.getImageSrc();
+//            data[i][5] = award.getDataCreation();
+//            data[i][6] = award.getMentorId();
+//        }
+//        System.out.println(FlipTableConverters.fromObjects(headers, data));
+//    }
 
     public static void viewAllAwardsFromList(List<Award> awardsList) throws FileNotFoundException {
         String[] headers = {"id", "title", "description", "coins", "image", "creation_date", "creator_id"};
@@ -183,7 +181,7 @@ public class View {
             data[i][3] = award.getPrice();
             data[i][4] = award.getImageSrc();
             data[i][5] = award.getDataCreation();
-            data[i][6] = award.getCreatorId();
+            data[i][6] = award.getMentorId();
         }
         System.out.println(FlipTableConverters.fromObjects(headers, data));
     }
@@ -201,12 +199,14 @@ public class View {
             data[i][3] = award.getPrice();
             data[i][4] = award.getImageSrc();
             data[i][5] = award.getDataCreation();
-            data[i][6] = award.getMentor();
+            data[i][6] = award.getMentorNameAndSurname();
         }
         System.out.println("All awards with mentors");
         System.out.println(FlipTableConverters.fromObjects(headers, data));
     }
-    public static void allAwardsByMentor(List<Award> awards) {
+
+    public static void allAwardsByList(List<Award> awards) {
+//        List<Award> newList = new AwardDAO().readAwardListWithMentors();
         String[] headers = {"id", "title", "description", "coins", "image", "creation_date", "creator"};
         Object[][] data = new Object[awards.size()][headers.length];
 
@@ -218,7 +218,7 @@ public class View {
             data[i][3] = award.getPrice();
             data[i][4] = award.getImageSrc();
             data[i][5] = award.getDataCreation();
-            data[i][6] = award.getMentor();
+            data[i][6] = award.getMentorNameAndSurname();
         }
         System.out.println("All awards with mentors");
         System.out.println(FlipTableConverters.fromObjects(headers, data));

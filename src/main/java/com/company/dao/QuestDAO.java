@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuestDAO implements Dao{
+public class QuestDAO implements Dao {
     ArrayList<Quest> listOfQuests;
     ConnectionFactory conFactory;
 
@@ -96,7 +96,7 @@ public class QuestDAO implements Dao{
         return listOfQuests;
     }
 
-    // IMPLEMENTED FROM INTERFACE DAO
+    // Implemented from interface DAO
     @Override
     public List getAllElements() {
         listOfQuests = new ArrayList<>();
