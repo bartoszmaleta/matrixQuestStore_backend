@@ -75,4 +75,8 @@ public abstract class EmployeeService {
         List<User> students = this.userDao.getStudents();
         View.allStudents(students);
     }
+
+    public void displayQuestsModes() {
+        View.updateQuestModes();
+    }
 }

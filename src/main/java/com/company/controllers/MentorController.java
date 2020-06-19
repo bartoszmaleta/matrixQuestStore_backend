@@ -159,7 +159,8 @@ public class MentorController {
     public void updateQuest() throws FileNotFoundException {
         mentorService.displayAllQuestsOfThisMentor(this.user);
         int idOfQuestToUpdate = InputTaker.takeIntInputWithMessage("Enter id of quest you want to edit: ");
-        View.updateQuestModes();
+
+        mentorService.displayQuestsModes();
 
         String option = InputTaker.takeStringInputWithMessageForFirstInput("Choose: ");
         switch (option) {
@@ -185,7 +186,6 @@ public class MentorController {
             default:
                 TerminalView.printString("Wrong input.");
         }
-
     }
 
     public void deleteQuestById() {
