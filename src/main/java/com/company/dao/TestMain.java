@@ -24,3 +24,8 @@ public class TestMain {
 // TODO: edit generic!
 
 // TODO: WHERE inputs?? AdminController or in adminService???
+
+
+// TODO: While loops before inputs!!!
+
+// TODO user_detail??

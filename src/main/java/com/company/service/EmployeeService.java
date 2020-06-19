@@ -5,29 +5,45 @@ import com.company.dao.UserDaoDb;
 import com.company.models.users.Role;
 import com.company.models.users.Student;
 import com.company.models.users.User;
+import com.company.view.TerminalView;
 import com.company.view.View;
 
 import java.io.FileNotFoundException;
 import java.util.List;
 
-public abstract class EmployeeService  {
+public abstract class EmployeeService {
     public UserDao userDao;
 
     public EmployeeService() {
         this.userDao = new UserDaoDb();
     }
 
-    public void addMentorToDatabase() {
+    public void addUserToDb(String roleString) {
+        Role userRole = decideRole(roleString);
 
-        String mentorName = InputTaker.takeStringInputWithMessageForFirstInput("Enter mentor name: ");
-        String mentorSurname = InputTaker.takeStringInputWithMessage("Enter mentor surname: ");
-        String mentorLogin = InputTaker.takeStringInputWithMessage("Enter mentor login");
-        String mentorPassword = InputTaker.takeStringInputWithMessage("Enter mentor password");
-        String mentorEmail = InputTaker.takeStringInputWithMessage("Enter mentor email");
+        TerminalView.printString("Enter credentials for new " + userRole + ":\n");
 
-        Student mentor = new Student(mentorLogin, mentorPassword, mentorEmail, Role.MENTOR, mentorName, mentorSurname, 1);
+        String name = InputTaker.takeStringInputWithMessageForFirstInput("Enter name: ");
+        String surname = InputTaker.takeStringInputWithMessage("Enter surname: ");
+        String login = InputTaker.takeStringInputWithMessage("Enter login");
+        String password = InputTaker.takeStringInputWithMessage("Enter password");
+        String email = InputTaker.takeStringInputWithMessage("Enter email");
 
-        userDao.insert(mentor);
+        // TODO user_detail??
+        User newUser = new Student(login, password, email, userRole, name, surname, 1);
+
+        userDao.insert(newUser);
+    }
+
+    public Role decideRole(String role) {
+        if (role.equals("1")) {
+            return Role.STUDENT;
+        } else if (role.equals("2")) {
+            return Role.MENTOR;
+        } else if (role.equals("3")) {
+            return Role.ADMIN;
+        }
+        return null;
     }
 
     public void deleteUserFromDatabaseById(int id) {
@@ -47,11 +63,11 @@ public abstract class EmployeeService  {
         userDao.editUserEmailById(id, email);
     }
 
-    public void updateUserPasswordById (int id, String password) {
+    public void updateUserPasswordById(int id, String password) {
         userDao.updateUserPasswordById(id, password);
     }
 
-    public void updateUserSurnameById (int id, String surname) {
+    public void updateUserSurnameById(int id, String surname) {
         userDao.updateUserSurnameById(id, surname);
     }
 

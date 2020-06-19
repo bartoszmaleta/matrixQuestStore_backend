@@ -74,14 +74,7 @@ public class MentorController {
     }
 
     public void createStudentAccount() {
-        String studentName = InputTaker.takeStringInputWithMessageForFirstInput("Enter student name: ");
-        String studentSurname = InputTaker.takeStringInputWithMessage("Enter student surname: ");
-        String studentLogin = InputTaker.takeStringInputWithMessage("Enter student login");
-        String studentPassword = InputTaker.takeStringInputWithMessage("Enter student password");
-        String studentEmail = InputTaker.takeStringInputWithMessage("Enter student email");
-
-        Student student = new Student(studentLogin, studentPassword, studentEmail, Role.STUDENT, studentName, studentSurname, 1);
-        mentorService.addMentorToDatabase(student);
+        mentorService.addUserToDb("1");
     }
 
     public void updateStudent() throws FileNotFoundException {
@@ -167,7 +160,7 @@ public class MentorController {
         mentorService.displayAllQuestsOfThisMentor(this.user);
         int idOfQuestToUpdate = InputTaker.takeIntInputWithMessage("Enter id of quest you want to edit: ");
         View.updateQuestModes();
-//        int option = InputTaker.takeIntInputWithMessage("Choose: ");
+
         String option = InputTaker.takeStringInputWithMessageForFirstInput("Choose: ");
         switch (option) {
             case "1":

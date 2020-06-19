@@ -1,7 +1,5 @@
 package com.company.controllers;
 
-import com.company.models.users.Role;
-import com.company.models.users.Student;
 import com.company.models.users.User;
 import com.company.service.AdminService;
 import com.company.service.InputTaker;
@@ -94,7 +92,7 @@ public class AdminController {
     }
 
     private void addMentor() {
-        adminService.addMentorToDatabase();
+        adminService.addUserToDb("2");
     }
 
     private void displayUsers() throws FileNotFoundException {
