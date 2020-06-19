@@ -34,5 +34,32 @@ public class AdminService extends EmployeeService {
         View.allMentors(mentors);
     }
 
+    public void updateMentorsUsername(int mentorsId) {
+        String nameToUpdate = InputTaker.takeStringInputWithMessage("Enter new name: ");
+        this.userDaoDb.updateUserNameById(mentorsId, nameToUpdate);
+    }
 
+    public void updateMentorsSurname(int idOfMentorToUpdate) {
+        String surnameToUpdate = InputTaker.takeStringInputWithMessage("Enter new surname: ");
+        this.userDaoDb.updateUserSurnameById(idOfMentorToUpdate, surnameToUpdate);
+    }
+
+    public void updateMentorsLogin(int idOfMentorToUpdate) {
+        String loginToUpdate = InputTaker.takeStringInputWithMessage("Enter new login: ");
+        this.userDaoDb.updateUserLoginById(idOfMentorToUpdate, loginToUpdate);
+    }
+
+    public void updateMentorsPassword(int idOfMentorToUpdate) {
+        String passwordToUpdate = InputTaker.takeStringInputWithMessage("Enter new password: ");
+        this.userDaoDb.updateUserPasswordById(idOfMentorToUpdate, passwordToUpdate);
+    }
+
+    public void updateMentorsEmail(int idOfMentorToUpdate) {
+        String emailToUpdate = InputTaker.takeStringInputWithMessage("Enter new email: ");
+        this.userDaoDb.editUserEmailById(idOfMentorToUpdate, emailToUpdate);
+    }
+
+    public void displayMentorsOptions() {
+        View.updateMentorModes();
+    }
 }

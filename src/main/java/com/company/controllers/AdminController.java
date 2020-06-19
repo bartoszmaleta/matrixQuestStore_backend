@@ -13,7 +13,6 @@ import java.io.FileNotFoundException;
 
 public class AdminController {
     private User user;
-    private final UserDaoDb userDaoDb = new UserDaoDb();
     AdminService adminService;
 
     public AdminController(User user) {
@@ -51,33 +50,41 @@ public class AdminController {
     }
 
     private void editMentor() throws FileNotFoundException {
-//        View.viewAllMentors();
         adminService.displayAllMentors();
 
         int idOfMentorToUpdate = InputTaker.takeIntInputWithMessage("Enter id of mentor you want to update: ");
-        View.updateMentorModes();
+        adminService.displayMentorsOptions();
 
         String option = InputTaker.takeStringInputWithMessageForFirstInput("Choose: ");
         switch (option) {
             case "1" -> {
-                String nameToUpdate = InputTaker.takeStringInputWithMessage("Enter new name: ");
-                this.userDaoDb.updateUserNameById(idOfMentorToUpdate, nameToUpdate);
+                adminService.updateMentorsUsername(idOfMentorToUpdate);
+//                String nameToUpdate = InputTaker.takeStringInputWithMessage("Enter new name: ");
+//                this.userDaoDb.updateUserNameById(idOfMentorToUpdate, nameToUpdate);
             }
             case "2" -> {
-                String surnameToUpdate = InputTaker.takeStringInputWithMessage("Enter new surname: ");
-                this.userDaoDb.updateUserSurnameById(idOfMentorToUpdate, surnameToUpdate);
+                adminService.updateMentorsSurname(idOfMentorToUpdate);
+//
+//                String surnameToUpdate = InputTaker.takeStringInputWithMessage("Enter new surname: ");
+//                this.userDaoDb.updateUserSurnameById(idOfMentorToUpdate, surnameToUpdate);
             }
             case "3" -> {
-                String loginToUpdate = InputTaker.takeStringInputWithMessage("Enter new login: ");
-                this.userDaoDb.updateUserLoginById(idOfMentorToUpdate, loginToUpdate);
+                adminService.updateMentorsLogin(idOfMentorToUpdate);
+
+//                String loginToUpdate = InputTaker.takeStringInputWithMessage("Enter new login: ");
+//                this.userDaoDb.updateUserLoginById(idOfMentorToUpdate, loginToUpdate);
             }
             case "4" -> {
-                String passwordToUpdate = InputTaker.takeStringInputWithMessage("Enter new password: ");
-                this.userDaoDb.updateUserPasswordById(idOfMentorToUpdate, passwordToUpdate);
+                adminService.updateMentorsPassword(idOfMentorToUpdate);
+
+//                String passwordToUpdate = InputTaker.takeStringInputWithMessage("Enter new password: ");
+//                this.userDaoDb.updateUserPasswordById(idOfMentorToUpdate, passwordToUpdate);
             }
             case "5" -> {
-                String emailToUpdate = InputTaker.takeStringInputWithMessage("Enter new email: ");
-                this.userDaoDb.editUserEmailById(idOfMentorToUpdate, emailToUpdate);
+                adminService.updateMentorsEmail(idOfMentorToUpdate);
+
+//                String emailToUpdate = InputTaker.takeStringInputWithMessage("Enter new email: ");
+//                this.userDaoDb.editUserEmailById(idOfMentorToUpdate, emailToUpdate);
             }
             case "0" -> System.out.println("Default 0");
         }
@@ -103,8 +110,7 @@ public class AdminController {
         String mentorEmail = InputTaker.takeStringInputWithMessage("Enter mentor email");
 
         Student mentor = new Student(mentorLogin, mentorPassword, mentorEmail, Role.MENTOR, mentorName, mentorSurname, 1);
-//        this.userDaoDb.addUserToDatabase(mentor);
-        this.userDaoDb.insert(mentor);
+        adminService.addUserToDatabase(mentor);
     }
 
     private void displayUsers() throws FileNotFoundException {
