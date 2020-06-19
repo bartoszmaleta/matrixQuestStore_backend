@@ -81,7 +81,7 @@ public class MentorController {
         String studentEmail = InputTaker.takeStringInputWithMessage("Enter student email");
 
         Student student = new Student(studentLogin, studentPassword, studentEmail, Role.STUDENT, studentName, studentSurname, 1);
-        mentorService.addUserToDatabase(student);
+        mentorService.addMentorToDatabase(student);
     }
 
     public void updateStudent() throws FileNotFoundException {

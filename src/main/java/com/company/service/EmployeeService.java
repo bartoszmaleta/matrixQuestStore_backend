@@ -2,6 +2,8 @@ package com.company.service;
 
 import com.company.dao.UserDao;
 import com.company.dao.UserDaoDb;
+import com.company.models.users.Role;
+import com.company.models.users.Student;
 import com.company.models.users.User;
 import com.company.view.View;
 
@@ -15,9 +17,17 @@ public abstract class EmployeeService  {
         this.userDao = new UserDaoDb();
     }
 
-    public void addUserToDatabase(User user) {
-//        userDao.addUserToDatabase(user);
-        userDao.insert(user);
+    public void addMentorToDatabase() {
+
+        String mentorName = InputTaker.takeStringInputWithMessageForFirstInput("Enter mentor name: ");
+        String mentorSurname = InputTaker.takeStringInputWithMessage("Enter mentor surname: ");
+        String mentorLogin = InputTaker.takeStringInputWithMessage("Enter mentor login");
+        String mentorPassword = InputTaker.takeStringInputWithMessage("Enter mentor password");
+        String mentorEmail = InputTaker.takeStringInputWithMessage("Enter mentor email");
+
+        Student mentor = new Student(mentorLogin, mentorPassword, mentorEmail, Role.MENTOR, mentorName, mentorSurname, 1);
+
+        userDao.insert(mentor);
     }
 
     public void deleteUserFromDatabaseById(int id) {

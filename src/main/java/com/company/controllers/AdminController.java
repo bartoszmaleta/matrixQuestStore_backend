@@ -1,6 +1,5 @@
 package com.company.controllers;
 
-import com.company.dao.UserDaoDb;
 import com.company.models.users.Role;
 import com.company.models.users.Student;
 import com.company.models.users.User;
@@ -21,14 +20,11 @@ public class AdminController {
     }
 
     public void init() throws FileNotFoundException {
-//        System.out.println("Admin Controller init");
-
         boolean isRunning = true;
         while (isRunning) {
-        View.adminMenu();
+            View.adminMenu();
             int option = InputTaker.takeIntInputWithoutMessage();
             switch (option) {
-//                case 1 -> View.viewAllUsers();
                 case 1 -> displayUsers();
 
                 case 2 -> displayMentors();
@@ -92,33 +88,23 @@ public class AdminController {
 
     private void removeMentor() throws FileNotFoundException {
         adminService.displayAllMentors();
+        // TODO: WHERE inputs?? Here or in adminService???
         int mentorToRemoveById = InputTaker.takeIntInputWithMessage("Enter id of mentor you want to delete: ");
         this.adminService.deleteMentor(mentorToRemoveById);
     }
 
     private void addMentor() {
-        // TODO: MentorService and other Services!!!
-//        this.mentorService = new MentorService();
-//        mentorService.addMentor(this.user);  // user to service!
-//        mentorService.addMentor(this.user);
-
-
-        String mentorName = InputTaker.takeStringInputWithMessageForFirstInput("Enter mentor name: ");
-        String mentorSurname = InputTaker.takeStringInputWithMessage("Enter mentor surname: ");
-        String mentorLogin = InputTaker.takeStringInputWithMessage("Enter mentor login");
-        String mentorPassword = InputTaker.takeStringInputWithMessage("Enter mentor password");
-        String mentorEmail = InputTaker.takeStringInputWithMessage("Enter mentor email");
-
-        Student mentor = new Student(mentorLogin, mentorPassword, mentorEmail, Role.MENTOR, mentorName, mentorSurname, 1);
-        adminService.addUserToDatabase(mentor);
+        adminService.addMentorToDatabase();
     }
 
     private void displayUsers() throws FileNotFoundException {
         adminService.displayAllUsers();
     }
+
     private void displayStudents() throws FileNotFoundException {
         adminService.displayAllMentors();
     }
+
     private void displayMentors() throws FileNotFoundException {
         adminService.displayAllStudents();
     }
