@@ -25,7 +25,8 @@ public class TestMain {
 
 // TODO: WHERE inputs?? AdminController or in adminService???
 
-
 // TODO: While loops before inputs!!!
 
 // TODO user_detail??
+
+// TODO: View.allQuests should be in Controllers or in service???

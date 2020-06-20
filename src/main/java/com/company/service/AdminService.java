@@ -29,10 +29,7 @@ public class AdminService extends EmployeeService {
         this.userDaoDb.delete(mentorToRemoveById);
     }
 
-    public void displayAllMentors() throws FileNotFoundException {
-        List<User> mentors = this.userDaoDb.getMentors();
-        View.allMentors(mentors);
-    }
+
 
     public void updateMentorsUsername(int mentorsId) {
         String nameToUpdate = InputTaker.takeStringInputWithMessage("Enter new name: ");

@@ -79,4 +79,9 @@ public abstract class EmployeeService {
     public void displayQuestsModes() {
         View.updateQuestModes();
     }
+
+    public void displayAllMentors() throws FileNotFoundException {
+        List<User> mentors = this.userDao.getMentors();
+        View.allMentors(mentors);
+    }
 }

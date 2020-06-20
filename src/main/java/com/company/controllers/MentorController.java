@@ -6,6 +6,7 @@ import com.company.models.Quest;
 import com.company.models.users.Role;
 import com.company.models.users.Student;
 import com.company.models.users.User;
+import com.company.service.EmployeeService;
 import com.company.service.InputTaker;
 import com.company.service.MentorService;
 import com.company.view.TerminalView;
@@ -51,7 +52,8 @@ public class MentorController {
                 + this.user.getRole());
     }
 
-
+    // --------------------------------------
+    // Student
     private void studentManagmentMenu() throws FileNotFoundException {
         boolean isRunning = true;
 
@@ -86,27 +88,47 @@ public class MentorController {
 
         switch (option) {
             case "1" -> {
-                String nameToUpdate = InputTaker.takeStringInputWithMessage("Enter new name: ");
-                mentorService.updateUserNameById(idOfStudentToUpdate, nameToUpdate);
+                updateStudentName(idOfStudentToUpdate);
             }
             case "2" -> {
-                String surnameToUpdate = InputTaker.takeStringInputWithMessage("Enter new surname: ");
-                mentorService.updateUserSurnameById(idOfStudentToUpdate, surnameToUpdate);
+                updateStudentSurname(idOfStudentToUpdate);
             }
             case "3" -> {
-                String loginToUpdate = InputTaker.takeStringInputWithMessage("Enter new login: ");
-                mentorService.updateUserLoginById(idOfStudentToUpdate, loginToUpdate);
+                updateStudentLogin(idOfStudentToUpdate);
             }
             case "4" -> {
-                String passwordToUpdate = InputTaker.takeStringInputWithMessage("Enter new password: ");
-                mentorService.updateUserPasswordById(idOfStudentToUpdate, passwordToUpdate);
+                updateStudentPassword(idOfStudentToUpdate);
             }
             case "5" -> {
-                String emailToUpdate = InputTaker.takeStringInputWithMessage("Enter new email: ");
-                mentorService.updateUserEmailById(idOfStudentToUpdate, emailToUpdate);
+                updateStudentEmail(idOfStudentToUpdate);
             }
             case "0" -> studentManagmentMenu();
         }
+    }
+
+    private void updateStudentEmail(int idOfStudentToUpdate) {
+        String emailToUpdate = InputTaker.takeStringInputWithMessage("Enter new email: ");
+        mentorService.updateUserEmailById(idOfStudentToUpdate, emailToUpdate);
+    }
+
+    private void updateStudentPassword(int idOfStudentToUpdate) {
+        String passwordToUpdate = InputTaker.takeStringInputWithMessage("Enter new password: ");
+        mentorService.updateUserPasswordById(idOfStudentToUpdate, passwordToUpdate);
+    }
+
+    private void updateStudentLogin(int idOfStudentToUpdate) {
+        String loginToUpdate = InputTaker.takeStringInputWithMessage("Enter new login: ");
+        mentorService.updateUserLoginById(idOfStudentToUpdate, loginToUpdate);
+    }
+
+    private void updateStudentSurname(int idOfStudentToUpdate) {
+        String surnameToUpdate = InputTaker.takeStringInputWithMessage("Enter new surname: ");
+        mentorService.updateUserSurnameById(idOfStudentToUpdate, surnameToUpdate);
+    }
+
+    private void updateStudentName(int idOfStudentToUpdate) {
+        String nameToUpdate = InputTaker.takeStringInputWithMessage("Enter new name: ");
+        mentorService.updateUserNameById(idOfStudentToUpdate, nameToUpdate);
     }
 
     public void deleteStudentById() {
@@ -114,6 +136,8 @@ public class MentorController {
         mentorService.deleteUserFromDatabaseById(studentIdToRemove);
     }
 
+    // --------------------------------------
+    // Quests
     private void questsManagmentMenu() throws FileNotFoundException {
         boolean isRunning = true;
 
@@ -121,7 +145,6 @@ public class MentorController {
             View.questManagmentMenu();
             int option = InputTaker.takeIntInputWithoutMessage();
             switch (option) {
-//                case 1 -> questDAO.readQuestList();
                 case 1 -> displayAllQuests();
                 case 2 -> addQuest();
                 case 3 -> updateQuest();
@@ -142,6 +165,7 @@ public class MentorController {
     }
 
     public void addQuest() {
+        // TODO:
         String questTitle = InputTaker.takeStringInputWithMessageForFirstInput("Enter title of quest: ");
         String questDescription = InputTaker.takeStringInputWithMessage("Enter description of quest: ");
         int questCoins = InputTaker.takeIntInputWithMessage("Enter amount of coins it costs: ");
@@ -165,20 +189,16 @@ public class MentorController {
         String option = InputTaker.takeStringInputWithMessageForFirstInput("Choose: ");
         switch (option) {
             case "1":
-                String titleToUpdate = InputTaker.takeStringInputWithMessage("Enter new title: ");
-                mentorService.updateQuestTitleById(idOfQuestToUpdate, titleToUpdate);
+                updateQuestTitle(idOfQuestToUpdate);
                 break;
             case "2":
-                String descriptionToUpdate = InputTaker.takeStringInputWithMessage("Enter new description: ");
-                mentorService.updateQuestDescriptionById(idOfQuestToUpdate, descriptionToUpdate);
+                updateQuestDescription(idOfQuestToUpdate);
                 break;
             case "3":
-                int coinsToUpdate = InputTaker.takeIntInputWithMessage("Enter new amount of coins: ");
-                mentorService.updateQuestCoinsById(idOfQuestToUpdate, coinsToUpdate);
+                updateQuestCoinsAmount(idOfQuestToUpdate);
                 break;
             case "4":
-                int idOfQuestMentorToUpdate = InputTaker.takeIntInputWithMessage("Enter new id of mentor: ");
-                mentorService.updateQuestIdMentorById(idOfQuestToUpdate, idOfQuestMentorToUpdate);
+                updateQuestMentorId(idOfQuestToUpdate);
                 break;
             case "0":
                 questsManagmentMenu();
@@ -188,11 +208,33 @@ public class MentorController {
         }
     }
 
+    private void updateQuestMentorId(int idOfQuestToUpdate) {
+        int idOfQuestMentorToUpdate = InputTaker.takeIntInputWithMessage("Enter new id of mentor: ");
+        mentorService.updateQuestIdMentorById(idOfQuestToUpdate, idOfQuestMentorToUpdate);
+    }
+
+    private void updateQuestCoinsAmount(int idOfQuestToUpdate) {
+        int coinsToUpdate = InputTaker.takeIntInputWithMessage("Enter new amount of coins: ");
+        mentorService.updateQuestCoinsById(idOfQuestToUpdate, coinsToUpdate);
+    }
+
+    private void updateQuestDescription(int idOfQuestToUpdate) {
+        String descriptionToUpdate = InputTaker.takeStringInputWithMessage("Enter new description: ");
+        mentorService.updateQuestDescriptionById(idOfQuestToUpdate, descriptionToUpdate);
+    }
+
+    private void updateQuestTitle(int idOfQuestToUpdate) {
+        String titleToUpdate = InputTaker.takeStringInputWithMessage("Enter new title: ");
+        mentorService.updateQuestTitleById(idOfQuestToUpdate, titleToUpdate);
+    }
+
     public void deleteQuestById() {
         int questIdToRemove = InputTaker.takeIntInputWithMessage("Enter id of quest you want to delete: ");
         mentorService.deleteQuestById(questIdToRemove);
     }
 
+    // --------------------------------------
+    // Awards
     public void awardsManagmentMenu() throws FileNotFoundException {
         boolean isRunning = true;
 
@@ -221,11 +263,11 @@ public class MentorController {
     }
 
     public void addAward() {
+        // TODO:
         String awardTitle = InputTaker.takeStringInputWithMessage("Enter title of award: ");
         String awardDescription = InputTaker.takeStringInputWithMessage("Enter description of award: ");
         int awardPrice = InputTaker.takeIntInputWithMessage("Enter price of award: ");
         String awardImage = InputTaker.takeStringInputWithMessage("Enter image name: ");
-//        int awardCreatorId = InputTaker.takeIntInputWithMessage("Enter id of award creator: ");
         int awardCreatorId = this.user.getId();
 
         Date date = new Date();
@@ -243,20 +285,17 @@ public class MentorController {
         int option = InputTaker.takeIntInputWithMessage("Choose: ");
         switch (option) {
             case 1:
-                String titleToUpdate = InputTaker.takeStringInputWithMessage("Enter new title: ");
-                mentorService.updateAwardTitleById(idOfAwardToUpdate, titleToUpdate);
+                updateAwardTitle(idOfAwardToUpdate);
                 break;
             case 2:
-                String descriptionToUpdate = InputTaker.takeStringInputWithMessage("Enter new description: ");
-                mentorService.updateAwardDescriptionById(idOfAwardToUpdate, descriptionToUpdate);
+                updateAwardDescription(idOfAwardToUpdate);
                 break;
             case 3:
-                int priceToUpdate = InputTaker.takeIntInputWithMessage("Enter new price: ");
-                mentorService.updateAwardPriceById(idOfAwardToUpdate, priceToUpdate);
+                updateAwardPrice(idOfAwardToUpdate);
                 break;
             case 4:
-                int idOfCreatorToUpdate = InputTaker.takeIntInputWithMessage("Enter new id of award creator: ");
-                mentorService.updateAwardCreatorIdById(idOfAwardToUpdate, idOfCreatorToUpdate);
+                updateAwardCreatorId(idOfAwardToUpdate);
+                break;
             case 0:
                 questsManagmentMenu();
             default:
@@ -264,15 +303,35 @@ public class MentorController {
         }
     }
 
+    private void updateAwardCreatorId(int idOfAwardToUpdate) throws FileNotFoundException {
+        mentorService.displayAllMentors();
+
+        int idOfCreatorToUpdate = InputTaker.takeIntInputWithMessage("Enter new id of award creator: ");
+        mentorService.updateAwardCreatorIdById(idOfAwardToUpdate, idOfCreatorToUpdate);
+    }
+
+    private void updateAwardPrice(int idOfAwardToUpdate) {
+        int priceToUpdate = InputTaker.takeIntInputWithMessage("Enter new price: ");
+        mentorService.updateAwardPriceById(idOfAwardToUpdate, priceToUpdate);
+    }
+
+    private void updateAwardDescription(int idOfAwardToUpdate) {
+        String descriptionToUpdate = InputTaker.takeStringInputWithMessage("Enter new description: ");
+        mentorService.updateAwardDescriptionById(idOfAwardToUpdate, descriptionToUpdate);
+    }
+
+    private void updateAwardTitle(int idOfAwardToUpdate) {
+        String titleToUpdate = InputTaker.takeStringInputWithMessage("Enter new title: ");
+        mentorService.updateAwardTitleById(idOfAwardToUpdate, titleToUpdate);
+    }
+
     public void deleteAwardById() {
         int awardIdToRemove = InputTaker.takeIntInputWithMessage("Enter id of award you want to delete: ");
         mentorService.deleteAwardById(awardIdToRemove);
     }
 
-    public MentorService getMentorService() {
-        return mentorService;
-    }
-
+    // --------------------------------------
+    // Marking
     public void markStudentAchievedQuests() {
 //        TODO:
     }
