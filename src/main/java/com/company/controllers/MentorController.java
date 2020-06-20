@@ -263,16 +263,7 @@ public class MentorController {
     }
 
     public void addAward() {
-        // TODO:
-        String awardTitle = InputTaker.takeStringInputWithMessage("Enter title of award: ");
-        String awardDescription = InputTaker.takeStringInputWithMessage("Enter description of award: ");
-        int awardPrice = InputTaker.takeIntInputWithMessage("Enter price of award: ");
-        String awardImage = InputTaker.takeStringInputWithMessage("Enter image name: ");
-        int awardCreatorId = this.user.getId();
-
-        Date date = new Date();
-        Award awardToAdd = new Award(awardTitle, awardDescription, awardPrice, awardImage, new Timestamp(date.getTime()), awardCreatorId);
-        mentorService.addAwardToDatabase(awardToAdd);
+           mentorService.addAwardToDatabase(this.user);
     }
 
 
