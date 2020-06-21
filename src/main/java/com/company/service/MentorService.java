@@ -9,6 +9,8 @@ import com.company.models.users.User;
 import com.company.view.View;
 
 import java.io.FileNotFoundException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 
@@ -49,8 +51,17 @@ public class MentorService extends EmployeeService {
         questDAO.delete(id);
     }
 
-    public void addAwardToDatabase(Award award) {
-        awardDAO.addAward(award);
+    public void addAwardToDatabase(User user) {
+        String awardTitle = InputTaker.takeStringInputWithMessage("Enter title of award: ");
+        String awardDescription = InputTaker.takeStringInputWithMessage("Enter description of award: ");
+        int awardPrice = InputTaker.takeIntInputWithMessage("Enter price of award: ");
+        String awardImage = InputTaker.takeStringInputWithMessage("Enter image name: ");
+        int awardCreatorId = user.getId();
+
+        Date date = new Date();
+        Award awardToAdd = new Award(awardTitle, awardDescription, awardPrice, awardImage, new Timestamp(date.getTime()), awardCreatorId);
+
+        awardDAO.addAward(awardToAdd);
     }
 
     public void updateAwardTitleById(int id, String title) {
