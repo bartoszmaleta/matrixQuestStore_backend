@@ -87,21 +87,11 @@ public class MentorController {
         String option = InputTaker.takeStringInputWithMessageForFirstInput("Choose: ");
 
         switch (option) {
-            case "1" -> {
-                updateStudentName(idOfStudentToUpdate);
-            }
-            case "2" -> {
-                updateStudentSurname(idOfStudentToUpdate);
-            }
-            case "3" -> {
-                updateStudentLogin(idOfStudentToUpdate);
-            }
-            case "4" -> {
-                updateStudentPassword(idOfStudentToUpdate);
-            }
-            case "5" -> {
-                updateStudentEmail(idOfStudentToUpdate);
-            }
+            case "1" -> updateStudentName(idOfStudentToUpdate);
+            case "2" -> updateStudentSurname(idOfStudentToUpdate);
+            case "3" -> updateStudentLogin(idOfStudentToUpdate);
+            case "4" -> updateStudentPassword(idOfStudentToUpdate);
+            case "5" -> updateStudentEmail(idOfStudentToUpdate);
             case "0" -> studentManagmentMenu();
         }
     }
@@ -143,14 +133,14 @@ public class MentorController {
 
         while (isRunning) {
             View.questManagmentMenu();
-            int option = InputTaker.takeIntInputWithoutMessage();
+            String option = InputTaker.takeStringInputWithMessageForFirstInput("Choose: ");
             switch (option) {
-                case 1 -> displayAllQuests();
-                case 2 -> addQuest();
-                case 3 -> updateQuest();
-                case 4 -> deleteQuestById();
-                case 5 -> displayQuestsByThisMentor();
-                case 0 -> isRunning = false;
+                case "1" -> displayAllQuests();
+                case "2" -> addQuest();
+                case "3" -> updateQuest();
+                case "4" -> deleteQuestById();
+                case "5" -> displayQuestsByThisMentor();
+                case "0" -> isRunning = false;
                 default -> TerminalView.printString("Wrong input.");
             }
         }
@@ -186,25 +176,18 @@ public class MentorController {
 
         mentorService.displayQuestsModes();
 
-        String option = InputTaker.takeStringInputWithMessageForFirstInput("Choose: ");
-        switch (option) {
-            case "1":
-                updateQuestTitle(idOfQuestToUpdate);
-                break;
-            case "2":
-                updateQuestDescription(idOfQuestToUpdate);
-                break;
-            case "3":
-                updateQuestCoinsAmount(idOfQuestToUpdate);
-                break;
-            case "4":
-                updateQuestMentorId(idOfQuestToUpdate);
-                break;
-            case "0":
-                questsManagmentMenu();
-                break;
-            default:
-                TerminalView.printString("Wrong input.");
+        boolean isRunning = true;
+        while (isRunning) {
+            String option = InputTaker.takeStringInputWithMessageForFirstInput("Choose: ");
+            switch (option) {
+                case "1" -> updateQuestTitle(idOfQuestToUpdate);
+                case "2" -> updateQuestDescription(idOfQuestToUpdate);
+                case "3" -> updateQuestCoinsAmount(idOfQuestToUpdate);
+                case "4" -> updateQuestMentorId(idOfQuestToUpdate);
+                case "5" -> questsManagmentMenu();
+                case "0" -> isRunning = false;
+                default -> TerminalView.printString("Wrong input.");
+            }
         }
     }
 
@@ -263,7 +246,7 @@ public class MentorController {
     }
 
     public void addAward() {
-           mentorService.addAwardToDatabase(this.user);
+        mentorService.addAwardToDatabase(this.user);
     }
 
 
