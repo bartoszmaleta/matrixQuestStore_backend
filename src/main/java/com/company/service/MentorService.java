@@ -1,7 +1,8 @@
 package com.company.service;
 
-import com.company.dao.AwardDAO;
-import com.company.dao.QuestDAO;
+import com.company.dao.AwardDaoDb;
+import com.company.dao.QuestDaoDb;
+import com.company.dao.UserDao;
 import com.company.dao.UserDaoDb;
 import com.company.models.Award;
 import com.company.models.Quest;
@@ -15,40 +16,40 @@ import java.util.List;
 
 
 public class MentorService extends EmployeeService {
-    private final QuestDAO questDAO;
-    private final AwardDAO awardDAO;
-    private final UserDaoDb userDaoDb;
+    private final QuestDaoDb questDaoDb;
+    private final AwardDaoDb awardDAO;
+    private final UserDao userDao;
 
     public MentorService() {
-        this.questDAO = new QuestDAO();
-        this.awardDAO = new AwardDAO();
-        this.userDaoDb = new UserDaoDb();
+        this.questDaoDb = new QuestDaoDb();
+        this.awardDAO = new AwardDaoDb();
+        this.userDao = new UserDaoDb();
     }
 
     public void addQuestToDatabase(Quest quest) {
-        questDAO.insert(quest);
+        questDaoDb.insert(quest);
 //        questDAO.addQuest(quest);
     }
 
     public void updateQuestTitleById(int id, String titile) {
-        questDAO.updateQuestTitleById(id, titile);
+        questDaoDb.updateQuestTitleById(id, titile);
     }
 
     public void updateQuestDescriptionById(int id, String description) {
-        questDAO.updateQuestDescriptionById(id, description);
+        questDaoDb.updateQuestDescriptionById(id, description);
     }
 
     public void updateQuestCoinsById(int id, int amountOfCoins) {
-        questDAO.updateQuestCoinsById(id, amountOfCoins);
+        questDaoDb.updateQuestCoinsById(id, amountOfCoins);
     }
 
     public void updateQuestIdMentorById(int id, int newId) {
-        questDAO.updateQuestIdMentorById(id, newId);
+        questDaoDb.updateQuestIdMentorById(id, newId);
     }
 
     public void deleteQuestById(int id) {
 //        questDAO.deleteQuestById(id);
-        questDAO.delete(id);
+        questDaoDb.delete(id);
     }
 
     public void addAwardToDatabase(User user) {
@@ -95,12 +96,12 @@ public class MentorService extends EmployeeService {
     }
 
     public void displayAllQuestsOfThisMentor(User user) throws FileNotFoundException {
-        List<Quest> quests = this.questDAO.readQuestListByMentor(user);
+        List<Quest> quests = this.questDaoDb.readQuestListByMentor(user);
         View.allQuestsByList(quests);
     }
 
     public void displayAllQuests() throws FileNotFoundException {
-        List<Quest> quests = this.questDAO.getAllElements();
+        List<Quest> quests = this.questDaoDb.getAllElements();
         View.allQuestsByList(quests);
     }
 

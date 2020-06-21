@@ -7,14 +7,15 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuestDAO implements Dao {
+public class QuestDaoDb implements QuestDao {
     ArrayList<Quest> listOfQuests;
     ConnectionFactory conFactory;
 
-    public QuestDAO() {
+    public QuestDaoDb() {
         conFactory = new ConnectionFactory();
     }
 
+    @Override
     public void updateQuestTitleById(int id, String title) {
         PreparedStatement ps = null;
         try {
@@ -27,6 +28,7 @@ public class QuestDAO implements Dao {
         }
     }
 
+    @Override
     public void updateQuestDescriptionById(int id, String description) {
         PreparedStatement ps = null;
         try {
@@ -39,6 +41,7 @@ public class QuestDAO implements Dao {
         }
     }
 
+    @Override
     public void updateQuestCoinsById(int id, int amountOfCoins) {
         PreparedStatement ps = null;
         try {
@@ -51,6 +54,7 @@ public class QuestDAO implements Dao {
         }
     }
 
+    @Override
     public void updateQuestIdMentorById(int id, int mentorId) {
         PreparedStatement ps = null;
         try {
@@ -66,6 +70,7 @@ public class QuestDAO implements Dao {
     // ------------------------------------------
     // Read by mentors quests
 
+    @Override
     public List<Quest> readQuestListByMentor(User user) {
         listOfQuests = new ArrayList<>();
         String userIdStr = String.valueOf(user.getId());

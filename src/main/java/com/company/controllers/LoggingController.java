@@ -1,5 +1,6 @@
 package com.company.controllers;
 
+import com.company.dao.UserDao;
 import com.company.dao.UserDaoDb;
 import com.company.models.users.Role;
 import com.company.models.users.Student;
@@ -11,7 +12,7 @@ import com.company.view.menu.LoginMenu;
 import java.io.FileNotFoundException;
 
 public class LoggingController {
-    private final UserDaoDb userDaoDb = new UserDaoDb();
+    private final UserDao userDaoDb = new UserDaoDb();
 
     public void init() throws FileNotFoundException {
         boolean isRunning = true;

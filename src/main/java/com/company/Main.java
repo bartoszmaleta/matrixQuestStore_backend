@@ -1,17 +1,12 @@
 package com.company;
 
-import com.company.controllers.LoggingController;
-import com.company.controllers.MentorController;
-import com.company.dao.AwardDAO;
+import com.company.dao.AwardDaoDb;
 import com.company.dao.UserDaoDb;
-import com.company.models.Award;
 import com.company.models.users.Role;
 import com.company.models.users.Student;
 import com.company.models.users.User;
 
 import java.io.FileNotFoundException;
-import java.util.Date;
-import java.sql.Timestamp;
 
 /**
  * Hello world!
@@ -24,7 +19,7 @@ public class Main
 //        LoggingController loginController = new LoggingController();
 //        loginController.init();
 ////        System.out.println( "Hello World!" );
-        AwardDAO awardDAO= new AwardDAO();
+        AwardDaoDb awardDAO= new AwardDaoDb();
 ////        awardDAO.readAllAwards();
 ////        awardDAO.readAllAwardsOrderByData();
 ////        awardDAO.readAllAwardsOrderById();

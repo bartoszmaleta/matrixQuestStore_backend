@@ -7,11 +7,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AwardDAO implements Dao {
+public class AwardDaoDb implements AwardDao {
     ArrayList<Award> listOfAwards;
     ConnectionFactory conFactory;
 
-    public AwardDAO() {
+    public AwardDaoDb() {
         conFactory = new ConnectionFactory();
     }
 

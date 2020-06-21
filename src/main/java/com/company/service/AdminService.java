@@ -1,6 +1,6 @@
 package com.company.service;
 
-import com.company.dao.AwardDAO;
+import com.company.dao.AwardDaoDb;
 import com.company.dao.UserDao;
 import com.company.dao.UserDaoDb;
 import com.company.models.users.User;
@@ -11,12 +11,12 @@ import java.util.List;
 
 public class AdminService extends EmployeeService {
     private final UserDao userDao;
-    private final AwardDAO awardDAO;
+    private final AwardDaoDb awardDAO;
     private final UserDaoDb userDaoDb;
 
     public AdminService() {
         userDao = new UserDaoDb();
-        this.awardDAO = new AwardDAO();
+        this.awardDAO = new AwardDaoDb();
         this.userDaoDb = new UserDaoDb();
     }
 

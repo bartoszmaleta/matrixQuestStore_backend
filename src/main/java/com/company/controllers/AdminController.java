@@ -51,32 +51,12 @@ public class AdminController {
 
         String option = InputTaker.takeStringInputWithMessageForFirstInput("Choose: ");
         switch (option) {
-            case "1" -> {
-                adminService.updateMentorsUsername(idOfMentorToUpdate);
-//                String nameToUpdate = InputTaker.takeStringInputWithMessage("Enter new name: ");
-//                this.userDaoDb.updateUserNameById(idOfMentorToUpdate, nameToUpdate);
-            }
-            case "2" -> {
-                adminService.updateMentorsSurname(idOfMentorToUpdate);
-//
-//                String surnameToUpdate = InputTaker.takeStringInputWithMessage("Enter new surname: ");
-//                this.userDaoDb.updateUserSurnameById(idOfMentorToUpdate, surnameToUpdate);
-            }
-            case "3" -> {
-                adminService.updateMentorsLogin(idOfMentorToUpdate);
-
-//                String loginToUpdate = InputTaker.takeStringInputWithMessage("Enter new login: ");
-//                this.userDaoDb.updateUserLoginById(idOfMentorToUpdate, loginToUpdate);
-            }
-            case "4" -> {
-                adminService.updateMentorsPassword(idOfMentorToUpdate);
-
-//                String passwordToUpdate = InputTaker.takeStringInputWithMessage("Enter new password: ");
-//                this.userDaoDb.updateUserPasswordById(idOfMentorToUpdate, passwordToUpdate);
-            }
+            case "1" -> adminService.updateMentorsUsername(idOfMentorToUpdate);
+            case "2" -> adminService.updateMentorsSurname(idOfMentorToUpdate);
+            case "3" -> adminService.updateMentorsLogin(idOfMentorToUpdate);
+            case "4" -> adminService.updateMentorsPassword(idOfMentorToUpdate);
             case "5" -> {
                 adminService.updateMentorsEmail(idOfMentorToUpdate);
-
 //                String emailToUpdate = InputTaker.takeStringInputWithMessage("Enter new email: ");
 //                this.userDaoDb.editUserEmailById(idOfMentorToUpdate, emailToUpdate);
             }

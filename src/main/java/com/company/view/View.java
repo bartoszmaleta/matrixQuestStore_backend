@@ -1,7 +1,5 @@
 package com.company.view;
 
-import com.company.dao.AwardDAO;
-import com.company.dao.UserDaoDb;
 import com.company.models.Award;
 import com.company.models.Quest;
 import com.company.models.users.User;
