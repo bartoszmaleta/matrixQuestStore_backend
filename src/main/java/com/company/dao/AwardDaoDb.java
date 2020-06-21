@@ -7,13 +7,210 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AwardDAO implements Dao {
+public class AwardDaoDb implements AwardDao {
     ArrayList<Award> listOfAwards;
     ConnectionFactory conFactory;
 
-    public AwardDAO() {
+    public AwardDaoDb() {
         conFactory = new ConnectionFactory();
     }
+
+    @Override
+    public List<Award> readAwardListWithMentors() {
+        listOfAwards = new ArrayList<>();
+        try {
+            ResultSet rs = conFactory.executeQuery("SELECT \"Awards\".id, title, description, price, image, data_creation, (CONCAT(m.name, ' ', m.surname)) AS mentor FROM \"Awards\"\n" +
+                    "INNER JOIN (\n" +
+                    "    SELECT * FROM users WHERE role_id = 2\n" +
+                    "    ) m\n" +
+                    "ON \"Awards\".creator_id = m.id\n" +
+                    "ORDER BY \"Awards\".id;");
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String title = rs.getString("title");
+                String description = rs.getString("description");
+                int price = rs.getInt("price");
+                String imageSrc = rs.getString("image");
+                Timestamp dataCreation = rs.getTimestamp("data_creation");
+                String mentor = rs.getString("mentor");
+
+                listOfAwards.add(new Award(id, title, description, price, imageSrc, dataCreation, mentor));
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listOfAwards;
+    }
+
+    @Override
+    public List<Award> readAwardListByMentor(User user) {
+        listOfAwards = new ArrayList<>();
+        String userIdStr = String.valueOf(user.getId());
+        try {
+            ResultSet rs = conFactory.executeQuery("SELECT \"Awards\".id, title, description, price, image, data_creation, (CONCAT(m.name, ' ', m.surname)) AS mentor FROM \"Awards\"\n" +
+                    "INNER JOIN (\n" +
+                    "    SELECT * FROM users WHERE role_id = 2\n" +
+                    "    ) m\n" +
+                    "ON \"Awards\".creator_id = m.id\n" +
+                    "WHERE \"Quests\".mentor_id = " +
+                    userIdStr +
+                    "ORDER BY \"Awards\".id;");
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String title = rs.getString("title");
+                String description = rs.getString("description");
+                int price = rs.getInt("price");
+                String imageSrc = rs.getString("image");
+                Timestamp dataCreation = rs.getTimestamp("data_creation");
+                String mentorDetails = rs.getString("mentor");
+
+                listOfAwards.add(new Award(id, title, description, price, imageSrc, dataCreation, mentorDetails));
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listOfAwards;
+    }
+
+    @Override
+    public void deleteAwardById(int id) {
+        PreparedStatement ps = null;
+
+        try {
+            ps = conFactory.getConnection().prepareStatement("DELETE FROM \"Awards\" WHERE id =" + id + ";");
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void addAward(Award award) {
+        PreparedStatement ps = null;
+        try {
+            ps = conFactory.getConnection().prepareStatement("INSERT INTO \"Awards\" (id, title, description, price, image, data_creation, creator_id)" +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?);");
+            ps.setInt(1, award.getId());
+            ps.setString(2, award.getTitle());
+            ps.setString(3, award.getDescription());
+            ps.setInt(4, award.getPrice());
+            ps.setString(5, award.getImageSrc());
+            ps.setTimestamp(6, award.getDataCreation());
+            ps.setInt(7, award.getMentorId());
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void updateAwardTitleById(int id, String title) {
+        PreparedStatement ps = null;
+        try {
+            ps = conFactory.getConnection().prepareStatement("UPDATE \"Awards\" SET surname = '" + title + "' " +
+                    "WHERE id=" + id + ";");
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void updateAwardDescriptionById(int id, String description) {
+        PreparedStatement ps = null;
+        try {
+            ps = conFactory.getConnection().prepareStatement("UPDATE \"Awards\" SET surname = '" + description + "' " +
+                    "WHERE id=" + id + ";");
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void updateAwardPriceById(int id, int price) {
+        PreparedStatement ps = null;
+        try {
+            ps = conFactory.getConnection().prepareStatement("UPDATE \"Awards\" SET surname = " + price +
+                    " WHERE id=" + id + ";");
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void updateAwardCreatorIdById(int id, int creatorId) {
+        PreparedStatement ps = null;
+        try {
+            ps = conFactory.getConnection().prepareStatement("UPDATE \"Awards\" SET surname = " + creatorId +
+                    " WHERE id=" + id + ";");
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public List getAllElements() {
+        listOfAwards = new ArrayList<>();
+//        String userIdStr = String.valueOf(user.getId());
+        try {
+            ResultSet rs = conFactory.executeQuery("SELECT \"Awards\".id, title, description, price, image, data_creation, (CONCAT(m.name, ' ', m.surname)) AS mentor FROM \"Awards\"\n" +
+                    "INNER JOIN (\n" +
+                    "    SELECT * FROM users WHERE role_id = 2\n" +
+                    "    ) m\n" +
+                    "ON \"Awards\".creator_id = m.id\n" +
+//                    "WHERE \"Quests\".mentor_id = " +
+//                    userIdStr +
+                    "ORDER BY \"Awards\".id;");
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String title = rs.getString("title");
+                String description = rs.getString("description");
+                int price = rs.getInt("price");
+                String imageSrc = rs.getString("image");
+                Timestamp dataCreation = rs.getTimestamp("data_creation");
+                String mentorDetails = rs.getString("mentor");
+
+                listOfAwards.add(new Award(id, title, description, price, imageSrc, dataCreation, mentorDetails));
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listOfAwards;
+    }
+
+    @Override
+    public Object getById(int id) {
+        return null;
+    }
+
+    @Override
+    public boolean insert(Object o) {
+        return false;
+    }
+
+    @Override
+    public boolean edit(Object o) {
+        return false;
+    }
+
+    @Override
+    public boolean delete(int id) {
+        return false;
+    }
+
 
 //    public void readAllAwards() {
 //        try {
@@ -120,193 +317,5 @@ public class AwardDAO implements Dao {
 //        }
 //        return listOfAwards;
 //    }
-
-    public List<Award> readAwardListWithMentors() {
-        listOfAwards = new ArrayList<>();
-        try {
-            ResultSet rs = conFactory.executeQuery("SELECT \"Awards\".id, title, description, price, image, data_creation, (CONCAT(m.name, ' ', m.surname)) AS mentor FROM \"Awards\"\n" +
-                    "INNER JOIN (\n" +
-                    "    SELECT * FROM users WHERE role_id = 2\n" +
-                    "    ) m\n" +
-                    "ON \"Awards\".creator_id = m.id\n" +
-                    "ORDER BY \"Awards\".id;");
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String title = rs.getString("title");
-                String description = rs.getString("description");
-                int price = rs.getInt("price");
-                String imageSrc = rs.getString("image");
-                Timestamp dataCreation = rs.getTimestamp("data_creation");
-                String mentor = rs.getString("mentor");
-
-                listOfAwards.add(new Award(id, title, description, price, imageSrc, dataCreation, mentor));
-            }
-            rs.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return listOfAwards;
-    }
-
-    public List<Award> readAwardListByMentor(User user) {
-        listOfAwards = new ArrayList<>();
-        String userIdStr = String.valueOf(user.getId());
-        try {
-            ResultSet rs = conFactory.executeQuery("SELECT \"Awards\".id, title, description, price, image, data_creation, (CONCAT(m.name, ' ', m.surname)) AS mentor FROM \"Awards\"\n" +
-                    "INNER JOIN (\n" +
-                    "    SELECT * FROM users WHERE role_id = 2\n" +
-                    "    ) m\n" +
-                    "ON \"Awards\".creator_id = m.id\n" +
-                    "WHERE \"Quests\".mentor_id = " +
-                    userIdStr +
-                    "ORDER BY \"Awards\".id;");
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String title = rs.getString("title");
-                String description = rs.getString("description");
-                int price = rs.getInt("price");
-                String imageSrc = rs.getString("image");
-                Timestamp dataCreation = rs.getTimestamp("data_creation");
-                String mentorDetails = rs.getString("mentor");
-
-                listOfAwards.add(new Award(id, title, description, price, imageSrc, dataCreation, mentorDetails));
-            }
-            rs.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return listOfAwards;
-    }
-
-    public void deleteAwardById(int id) {
-        PreparedStatement ps = null;
-
-        try {
-            ps = conFactory.getConnection().prepareStatement("DELETE FROM \"Awards\" WHERE id =" + id + ";");
-            ps.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void addAward(Award award) {
-        PreparedStatement ps = null;
-        try {
-            ps = conFactory.getConnection().prepareStatement("INSERT INTO \"Awards\" (id, title, description, price, image, data_creation, creator_id)" +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?);");
-            ps.setInt(1, award.getId());
-            ps.setString(2, award.getTitle());
-            ps.setString(3, award.getDescription());
-            ps.setInt(4, award.getPrice());
-            ps.setString(5, award.getImageSrc());
-            ps.setTimestamp(6, award.getDataCreation());
-            ps.setInt(7, award.getMentorId());
-            ps.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void updateAwardTitleById(int id, String title) {
-        PreparedStatement ps = null;
-        try {
-            ps = conFactory.getConnection().prepareStatement("UPDATE \"Awards\" SET surname = '" + title + "' " +
-                    "WHERE id=" + id + ";");
-            ps.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public void updateAwardDescriptionById(int id, String description) {
-        PreparedStatement ps = null;
-        try {
-            ps = conFactory.getConnection().prepareStatement("UPDATE \"Awards\" SET surname = '" + description + "' " +
-                    "WHERE id=" + id + ";");
-            ps.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void updateAwardPriceById(int id, int price) {
-        PreparedStatement ps = null;
-        try {
-            ps = conFactory.getConnection().prepareStatement("UPDATE \"Awards\" SET surname = " + price +
-                    " WHERE id=" + id + ";");
-            ps.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void updateAwardCreatorIdById(int id, int creatorId) {
-        PreparedStatement ps = null;
-        try {
-            ps = conFactory.getConnection().prepareStatement("UPDATE \"Awards\" SET surname = " + creatorId +
-                    " WHERE id=" + id + ";");
-            ps.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public List getAllElements() {
-        listOfAwards = new ArrayList<>();
-//        String userIdStr = String.valueOf(user.getId());
-        try {
-            ResultSet rs = conFactory.executeQuery("SELECT \"Awards\".id, title, description, price, image, data_creation, (CONCAT(m.name, ' ', m.surname)) AS mentor FROM \"Awards\"\n" +
-                    "INNER JOIN (\n" +
-                    "    SELECT * FROM users WHERE role_id = 2\n" +
-                    "    ) m\n" +
-                    "ON \"Awards\".creator_id = m.id\n" +
-//                    "WHERE \"Quests\".mentor_id = " +
-//                    userIdStr +
-                    "ORDER BY \"Awards\".id;");
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String title = rs.getString("title");
-                String description = rs.getString("description");
-                int price = rs.getInt("price");
-                String imageSrc = rs.getString("image");
-                Timestamp dataCreation = rs.getTimestamp("data_creation");
-                String mentorDetails = rs.getString("mentor");
-
-                listOfAwards.add(new Award(id, title, description, price, imageSrc, dataCreation, mentorDetails));
-            }
-            rs.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return listOfAwards;
-    }
-
-    @Override
-    public Object getById(int id) {
-        return null;
-    }
-
-    @Override
-    public boolean insert(Object o) {
-        return false;
-    }
-
-    @Override
-    public boolean edit(Object o) {
-        return false;
-    }
-
-    @Override
-    public boolean delete(int id) {
-        return false;
-    }
 }
 

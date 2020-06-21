@@ -30,3 +30,12 @@ public class TestMain {
 // TODO user_detail??
 
 // TODO: View.allQuests should be in Controllers or in service???
+
+// TODO: coins as int field in Student model
+//      - private String avatarFile
+//      - backapckId
+//      - classId
+
+// TODO:
+//    - Transaction class
+//    - Module class
