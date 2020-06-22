@@ -2,7 +2,11 @@ package com.company.service;
 
 import com.company.dao.QuestDao;
 import com.company.dao.QuestDaoDb;
+import com.company.dao.TransactionDao;
+import com.company.dao.TransactionDaoDb;
 import com.company.models.Quest;
+import com.company.models.Transaction;
+import com.company.models.users.Student;
 import com.company.models.users.User;
 import com.company.view.QuestsView;
 import com.company.view.StudentView;
@@ -14,10 +18,12 @@ import java.util.List;
 public class StudentService {
     private final StudentView studentView;
     private final QuestDao questDao;
+    private final TransactionDao transactionDao;
 
     public StudentService() {
         this.studentView = new StudentView();
         this.questDao = new QuestDaoDb();
+        this.transactionDao = new TransactionDaoDb();
     }
 
     public void displayMenu() {
@@ -33,7 +39,9 @@ public class StudentService {
 
     }
 
-    public void displayMyTransactions(User user) {
+    public void displayMyTransactions(User user) throws FileNotFoundException {
+        List<Transaction> transactions = transactionDao.getMyTransactions(user);
+        StudentView.allTransactionsFromList(transactions);
         //TODO:
     }
 

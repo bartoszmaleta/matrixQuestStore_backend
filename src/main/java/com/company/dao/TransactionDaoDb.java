@@ -2,6 +2,7 @@ package com.company.dao;
 
 import com.company.models.Transaction;
 import com.company.models.statistics.TransactionCountAndTotalSumByUser;
+import com.company.models.users.User;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -49,6 +50,50 @@ public class TransactionDaoDb implements TransactionDao {
             throwables.printStackTrace();
         }
         return statistics;
+    }
+
+    @Override
+    public List<Transaction> getMyTransactions(User user) {
+        List<Transaction> transactions = new ArrayList<>();
+
+        try {
+            ResultSet rs = conFactory.executeQuery("SELECT \"Transactions\".id\n" +
+                    "     , user_id\n" +
+                    "     , (CONCAT(student.name, ' ', student.surname)) AS buyer\n" +
+                    "     , created_at\n" +
+                    "     , award_id\n" +
+                    "     , aw.title\n" +
+                    "     , \"Transactions\".price\n" +
+                    "    FROM \"Transactions\"\n" +
+                    "INNER JOIN (\n" +
+                    "    SELECT * FROM users WHERE role_id = 3\n" +
+                    "    ) student\n" +
+                    "ON \"Transactions\".user_id = student.id\n" +
+                    "INNER JOIN (\n" +
+                    "    SELECT * FROM \"Awards\"\n" +
+                    "        ) aw\n" +
+                    "ON \"Transactions\".award_id = aw.id\n" +
+                    "    WHERE user_id = " + user.getId() + "\n" +
+                    "ORDER BY \"Transactions\".id;");
+
+            while (rs.next()) {
+                int transactionId = rs.getInt("id");
+                int studentId = rs.getInt("user_id");
+                String studentNameAndSurname = rs.getString("buyer");
+                Timestamp dataCreation = rs.getTimestamp("created_at");
+                int awardId = rs.getInt("award_id");
+                String awardTitle = rs.getString("title");
+                int price = rs.getInt("price");
+
+                Transaction transaction = new Transaction(transactionId, studentId, studentNameAndSurname, dataCreation, awardId, awardTitle, price);
+                transactions.add(transaction);
+            }
+            rs.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return transactions;
     }
 
 
@@ -107,7 +152,7 @@ public class TransactionDaoDb implements TransactionDao {
                     + "VALUES (?, ?, ?, ?);");
 
             ps.setInt(1, transaction.getBuyerId());
-            ps.setInt(2, transaction.getArtifactId());
+            ps.setInt(2, transaction.getAwardId());
             ps.setInt(3, transaction.getPrice());
             ps.setTimestamp(4, transaction.getDate());
 

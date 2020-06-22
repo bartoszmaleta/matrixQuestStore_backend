@@ -49,3 +49,5 @@ public class TestMain {
 // TODO: possible to buy artifact
 
 // TODO: views about students should be in AdminView????
+
+// TODO: Why connections aren't closing???

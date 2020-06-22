@@ -28,14 +28,15 @@ public class StudentController {
         while (isRunning) {
             studentService.displayMenu();
 
-            String option = InputTaker.takeStringInputWithMessageForFirstInput("Choose Your option:");
+//            String option = InputTaker.takeStringInputWithMessageForFirstInput("Choose Your option:");
+            int option = InputTaker.takeIntInputWithoutMessage();
             switch (option) {
-                case "1" -> studentService.displayMyAwards(this.user);
-                case "2" -> studentService.buyAward(this.user);
-                case "3" -> studentService.displayMyTransactions(this.user);
-                case "4" -> studentService.displayMyProfile(this.user);
-                case "5" -> studentService.displayQuests();
-                case "0" -> isRunning = false;
+                case 1 -> studentService.displayMyAwards(this.user);
+                case 2 -> studentService.buyAward(this.user);
+                case 3 -> studentService.displayMyTransactions(this.user);
+                case 4 -> studentService.displayMyProfile(this.user);
+                case 5 -> studentService.displayQuests();
+                case 0 -> isRunning = false;
                 default -> TerminalView.printString("Wrong input.");
             }
         }
