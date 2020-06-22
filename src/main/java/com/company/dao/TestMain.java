@@ -51,3 +51,7 @@ public class TestMain {
 // TODO: views about students should be in AdminView????
 
 // TODO: Why connections aren't closing???
+
+// TODO: validators of email/phone/login/password
+
+// TODO: inventory???
