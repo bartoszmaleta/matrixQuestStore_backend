@@ -24,13 +24,14 @@ public class TransactionDaoDb implements TransactionDao {
         List<TransactionCountAndTotalSumByUser> statistics = new ArrayList<>();
         try {
             ResultSet rs = conFactory.executeQuery("SELECT\n" +
-                    "    u.name AS student_buyer\n" +
+                    "     (CONCAT(u.name, ' ', u.surname)) AS student_buyer\n" +
                     "    , COUNT(\"Transactions\".id) AS transaction_count\n" +
                     "    , CAST(SUM(\"Transactions\".price) AS FLOAT) AS total\n" +
                     "FROM \"Transactions\"\n" +
                     "JOIN users u\n" +
                     "ON u.id = \"Transactions\".user_id\n" +
-                    "GROUP BY u.name\n" +
+                    "-- GROUP BY u.name\n" +
+                    "GROUP BY student_buyer\n" +
                     "ORDER BY transaction_count DESC;");
 
             while (rs.next()) {

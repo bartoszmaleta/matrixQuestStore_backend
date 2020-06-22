@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuestDaoDb implements QuestDao {
-    ArrayList<Quest> listOfQuests;
+    List<Quest> listOfQuests;
     ConnectionFactory conFactory;
 
     public QuestDaoDb() {
