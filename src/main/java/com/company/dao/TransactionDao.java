@@ -1,4 +1,4 @@
 package com.company.dao;
 
-public interface TransactionDao {
+public interface TransactionDao extends Dao {
 }

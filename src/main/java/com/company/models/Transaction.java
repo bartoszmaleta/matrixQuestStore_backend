@@ -1,19 +1,44 @@
 package com.company.models;
 
+import java.sql.Timestamp;
+
 public class Transaction {
     private int transactionId;
+    private final int buyerId;
     private final String buyer;
-    private final String date;
-    private final String artifactName;
+    private final Timestamp date;
+    private final int artifactId;
+    private final String artifactTitle;
+    private int price;
 
-    public Transaction(String buyer, String date, String artifactName) {
+    public Transaction(int buyerId, String buyer, Timestamp date, int artifactId, String artifactTitle, int price) {
+        this.buyerId = buyerId;
         this.buyer = buyer;
         this.date = date;
-        this.artifactName = artifactName;
+        this.artifactId = artifactId;
+        this.artifactTitle = artifactTitle;
+        this.price = price;
     }
-    public Transaction(int transactionId, String buyer, String date, String artifactName) {
-        this(buyer, date, artifactName);
+    public Transaction(int transactionId, int buyerId, String buyer, Timestamp date, int artifactId, String artifactTitle, int price) {
+        this(buyerId, buyer, date, artifactId, artifactTitle, price);
         this.transactionId = transactionId;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public Transaction setPrice(int price) {
+        this.price = price;
+        return this;
+    }
+
+    public int getArtifactId() {
+        return artifactId;
+    }
+
+    public int getBuyerId() {
+        return buyerId;
     }
 
     public int getTransactionId() {
@@ -29,11 +54,11 @@ public class Transaction {
         return buyer;
     }
 
-    public String getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
-    public String getArtifactName() {
-        return artifactName;
+    public String getArtifactTitle() {
+        return artifactTitle;
     }
 }

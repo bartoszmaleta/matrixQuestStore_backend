@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AwardDaoDb implements AwardDao {
-    ArrayList<Award> listOfAwards;
-    ConnectionFactory conFactory;
+    private List<Award> listOfAwards;
+    private final ConnectionFactory conFactory;
 
     public AwardDaoDb() {
         conFactory = new ConnectionFactory();
@@ -93,6 +93,7 @@ public class AwardDaoDb implements AwardDao {
         try {
             ps = conFactory.getConnection().prepareStatement("INSERT INTO \"Awards\" (id, title, description, price, image, data_creation, creator_id)" +
                     "VALUES (?, ?, ?, ?, ?, ?, ?);");
+            // TODO: remove id inserting!
             ps.setInt(1, award.getId());
             ps.setString(2, award.getTitle());
             ps.setString(3, award.getDescription());
