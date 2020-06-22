@@ -44,8 +44,6 @@ public class TestMain {
 
 // TODO: studentController and service
 
-// TODO: stats about how many quests and awards have mentor!
-
 // TODO: move views to different classes
 
 // TODO: possible to buy artifact
