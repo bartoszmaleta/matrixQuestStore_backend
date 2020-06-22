@@ -1,6 +1,7 @@
 package com.company.dao;
 
 import com.company.models.Transaction;
+import com.company.models.statistics.TransactionCountAndTotalSumByUser;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,6 +18,37 @@ public class TransactionDaoDb implements TransactionDao {
     public TransactionDaoDb(ConnectionFactory conFactory) {
         this.conFactory = new ConnectionFactory();
     }
+
+    public List getTransactionsCountAndTotalSumByUser() {
+        List<TransactionCountAndTotalSumByUser> statistics = new ArrayList<>();
+        try {
+            ResultSet rs = conFactory.executeQuery("SELECT\n" +
+                    "    u.name AS student_buyer\n" +
+                    "    , COUNT(\"Transactions\".id) AS transaction_count\n" +
+                    "    , CAST(SUM(\"Transactions\".price) AS FLOAT) AS total\n" +
+                    "FROM \"Transactions\"\n" +
+                    "JOIN users u\n" +
+                    "ON u.id = \"Transactions\".user_id\n" +
+                    "GROUP BY u.name\n" +
+                    "ORDER BY transaction_count DESC;");
+
+            while (rs.next()) {
+                String studentNameAndSurname = rs.getString("student_buyer");
+                int transaction_count = rs.getInt("transaction_count");
+                int total_amount = rs.getInt("total");
+
+                TransactionCountAndTotalSumByUser stat = new TransactionCountAndTotalSumByUser(studentNameAndSurname
+                , transaction_count
+                , total_amount);
+                statistics.add(stat);
+            }
+            rs.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return statistics;
+    }
+
 
     @Override
     public List getAllElements() {
@@ -69,8 +101,8 @@ public class TransactionDaoDb implements TransactionDao {
         PreparedStatement ps = null;
         try {
             ps = conFactory.getConnection().prepareStatement("INSERT INTO \"Transactions\" "
-            + "(user_id, award_id, price, created_at) "
-            + "VALUES (?, ?, ?, ?);");
+                    + "(user_id, award_id, price, created_at) "
+                    + "VALUES (?, ?, ?, ?);");
 
             ps.setInt(1, transaction.getBuyerId());
             ps.setInt(2, transaction.getArtifactId());
