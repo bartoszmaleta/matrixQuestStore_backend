@@ -3,6 +3,7 @@ package com.company.controllers;
 import com.company.models.users.User;
 import com.company.service.AdminService;
 import com.company.service.InputTaker;
+import com.company.service.TransactionsService;
 import com.company.view.TerminalView;
 import com.company.view.View;
 
@@ -11,10 +12,12 @@ import java.io.FileNotFoundException;
 public class AdminController {
     private User user;
     AdminService adminService;
+    TransactionsService transactionsService;
 
     public AdminController(User user) {
         this.user = user;
         this.adminService = new AdminService();
+
     }
 
     public void init() throws FileNotFoundException {
@@ -37,10 +40,15 @@ public class AdminController {
 
                 case 10 -> displayStudents();
 //                case 11 -> showProfile();
+                case 12 -> displayTransactionsStatistics();
                 case 0 -> isRunning = false;
                 default -> TerminalView.printString("Wrong input");
             }
         }
+    }
+
+    private void displayTransactionsStatistics() {
+        transactionsService.displayTransactionsCountsAndTotalSumByUser();
     }
 
     private void editMentor() throws FileNotFoundException {

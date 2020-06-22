@@ -15,10 +15,11 @@ public class TransactionDaoDb implements TransactionDao {
     private List<Transaction> transactions;
     private final ConnectionFactory conFactory;
 
-    public TransactionDaoDb(ConnectionFactory conFactory) {
+    public TransactionDaoDb() {
         this.conFactory = new ConnectionFactory();
     }
 
+    @Override
     public List getTransactionsCountAndTotalSumByUser() {
         List<TransactionCountAndTotalSumByUser> statistics = new ArrayList<>();
         try {
