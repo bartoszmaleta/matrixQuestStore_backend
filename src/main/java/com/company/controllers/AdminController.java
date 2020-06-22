@@ -3,7 +3,7 @@ package com.company.controllers;
 import com.company.models.users.User;
 import com.company.service.AdminService;
 import com.company.service.InputTaker;
-import com.company.service.TransactionsService;
+import com.company.service.StatisticsService;
 import com.company.view.TerminalView;
 import com.company.view.View;
 
@@ -12,12 +12,12 @@ import java.io.FileNotFoundException;
 public class AdminController {
     private User user;
     AdminService adminService;
-    TransactionsService transactionsService;
+    StatisticsService statisticsService;
 
     public AdminController(User user) {
         this.user = user;
         this.adminService = new AdminService();
-
+        this.statisticsService = new StatisticsService();
     }
 
     public void init() throws FileNotFoundException {
@@ -41,14 +41,24 @@ public class AdminController {
                 case 10 -> displayStudents();
 //                case 11 -> showProfile();
                 case 12 -> displayTransactionsStatistics();
+                case 13 -> displayQuestsStatsByMentor();
+                case 14 -> displayAwardsStatsByMentor();
                 case 0 -> isRunning = false;
                 default -> TerminalView.printString("Wrong input");
             }
         }
     }
 
+    private void displayAwardsStatsByMentor() {
+        statisticsService.displayAwardsCountByMentor();
+    }
+
+    private void displayQuestsStatsByMentor() {
+        statisticsService.displayQuestsCountByMentor();
+    }
+
     private void displayTransactionsStatistics() {
-        transactionsService.displayTransactionsCountsAndTotalSumByUser();
+        statisticsService.displayTransactionsCountsAndTotalSumByUser();
     }
 
     private void editMentor() throws FileNotFoundException {

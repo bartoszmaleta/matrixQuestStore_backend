@@ -138,6 +138,11 @@ public class View {
 
                 "(10) Display all students\n" +
                 "(11) My profile\n" +
+
+                "(12) Display transactions statistics by student\n" +
+                "(13) Display quests count by mentor\n" +
+                "(14) Display awards count by mentor\n" +
+
                 "(0) Quit");
     }
 
