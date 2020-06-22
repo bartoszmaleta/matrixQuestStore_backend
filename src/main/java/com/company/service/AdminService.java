@@ -4,7 +4,7 @@ import com.company.dao.AwardDaoDb;
 import com.company.dao.UserDao;
 import com.company.dao.UserDaoDb;
 import com.company.models.users.User;
-import com.company.view.View;
+import com.company.view.UserView;
 
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -22,7 +22,7 @@ public class AdminService extends EmployeeService {
 
     public void displayAllUsers() throws FileNotFoundException {
         List<User> users = this.userDao.getAllElements();
-        View.allUsersByList(users);
+        UserView.allUsersByList(users);
     }
 
     public void deleteMentor(int mentorToRemoveById) {
@@ -57,6 +57,6 @@ public class AdminService extends EmployeeService {
     }
 
     public void displayMentorsOptions() {
-        View.updateMentorModes();
+        UserView.updateMentorModes();
     }
 }

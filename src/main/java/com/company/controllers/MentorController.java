@@ -1,20 +1,17 @@
 package com.company.controllers;
 
 
-import com.company.models.Award;
 import com.company.models.Quest;
 import com.company.models.users.Role;
-import com.company.models.users.Student;
 import com.company.models.users.User;
-import com.company.service.EmployeeService;
 import com.company.service.InputTaker;
 import com.company.service.MentorService;
+import com.company.view.AwardsView;
+import com.company.view.QuestsView;
 import com.company.view.TerminalView;
-import com.company.view.View;
+import com.company.view.UserView;
 
 import java.io.FileNotFoundException;
-import java.util.Date;
-import java.sql.Timestamp;
 
 public class MentorController {
 
@@ -31,7 +28,7 @@ public class MentorController {
     public void init() throws FileNotFoundException {
         boolean isRunning = true;
         while (isRunning) {
-            View.mentorMenu();
+            UserView.mentorMenu();
             int option = InputTaker.takeIntInputWithoutMessage();
             switch (option) {
                 case 1 -> studentManagmentMenu();
@@ -58,7 +55,7 @@ public class MentorController {
         boolean isRunning = true;
 
         while (isRunning) {
-            View.studentManagmentMenu();
+            UserView.studentManagmentMenu();
             int option = InputTaker.takeIntInputWithoutMessage();
             switch (option) {
                 case 1 -> displayStudents();
@@ -83,7 +80,7 @@ public class MentorController {
         mentorService.displayAllStudents();
 
         int idOfStudentToUpdate = InputTaker.takeIntInputWithMessage("Enter id of student you want to update: ");
-        View.updateStudentModes();
+        UserView.updateStudentModes();
         String option = InputTaker.takeStringInputWithMessageForFirstInput("Choose: ");
 
         switch (option) {
@@ -132,7 +129,7 @@ public class MentorController {
         boolean isRunning = true;
 
         while (isRunning) {
-            View.questManagmentMenu();
+            QuestsView.questManagmentMenu();
             String option = InputTaker.takeStringInputWithMessageForFirstInput("Choose: ");
             switch (option) {
                 case "1" -> displayAllQuests();
@@ -222,7 +219,8 @@ public class MentorController {
         boolean isRunning = true;
 
         while (isRunning) {
-            View.awardsManagmentMenu();
+            AwardsView.awardsManagmentMenu();
+
             String option = InputTaker.takeStringInputWithMessageForFirstInput("Choose: ");
             switch (option) {
 //                case "1" -> awardDAO.readAllAwardsOrderById();
@@ -254,7 +252,7 @@ public class MentorController {
         displayAwards();
 
         int idOfAwardToUpdate = InputTaker.takeIntInputWithMessage("Enter id of award you want to edit: ");
-        View.updateAwardModes();
+        AwardsView.updateAwardModes();
 
         int option = InputTaker.takeIntInputWithMessage("Choose: ");
         switch (option) {

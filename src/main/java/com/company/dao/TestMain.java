@@ -44,8 +44,16 @@ public class TestMain {
 
 // TODO: studentController and service
 
-// TODO: stats about how many quests and awards have mentor!
-
 // TODO: move views to different classes
 
 // TODO: possible to buy artifact
+
+// TODO: views about students should be in AdminView????
+
+// TODO: Why connections aren't closing???
+
+// TODO: validators of email/phone/login/password
+
+// TODO: inventory???
+
+// TODO: remove id inserting! in AwardDaoDb

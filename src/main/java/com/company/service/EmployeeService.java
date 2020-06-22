@@ -5,8 +5,9 @@ import com.company.dao.UserDaoDb;
 import com.company.models.users.Role;
 import com.company.models.users.Student;
 import com.company.models.users.User;
+import com.company.view.QuestsView;
 import com.company.view.TerminalView;
-import com.company.view.View;
+import com.company.view.UserView;
 
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -73,15 +74,15 @@ public abstract class EmployeeService {
 
     public void displayAllStudents() throws FileNotFoundException {
         List<User> students = this.userDao.getStudents();
-        View.allStudents(students);
+        UserView.allStudents(students);
     }
 
     public void displayQuestsModes() {
-        View.updateQuestModes();
+        QuestsView.updateQuestModes();
     }
 
     public void displayAllMentors() throws FileNotFoundException {
         List<User> mentors = this.userDao.getMentors();
-        View.allMentors(mentors);
+        UserView.allMentors(mentors);
     }
 }

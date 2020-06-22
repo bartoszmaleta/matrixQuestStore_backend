@@ -7,20 +7,20 @@ public class Transaction {
     private final int buyerId;
     private final String buyer;
     private final Timestamp date;
-    private final int artifactId;
-    private final String artifactTitle;
+    private final int awardId;
+    private final String awardTitle;
     private int price;
 
-    public Transaction(int buyerId, String buyer, Timestamp date, int artifactId, String artifactTitle, int price) {
+    public Transaction(int buyerId, String buyer, Timestamp date, int awardId, String awardTitle, int price) {
         this.buyerId = buyerId;
         this.buyer = buyer;
         this.date = date;
-        this.artifactId = artifactId;
-        this.artifactTitle = artifactTitle;
+        this.awardId = awardId;
+        this.awardTitle = awardTitle;
         this.price = price;
     }
-    public Transaction(int transactionId, int buyerId, String buyer, Timestamp date, int artifactId, String artifactTitle, int price) {
-        this(buyerId, buyer, date, artifactId, artifactTitle, price);
+    public Transaction(int transactionId, int buyerId, String buyer, Timestamp date, int awardId, String awardTitle, int price) {
+        this(buyerId, buyer, date, awardId, awardTitle, price);
         this.transactionId = transactionId;
     }
 
@@ -33,8 +33,8 @@ public class Transaction {
         return this;
     }
 
-    public int getArtifactId() {
-        return artifactId;
+    public int getAwardId() {
+        return awardId;
     }
 
     public int getBuyerId() {
@@ -58,7 +58,7 @@ public class Transaction {
         return date;
     }
 
-    public String getArtifactTitle() {
-        return artifactTitle;
+    public String getAwardTitle() {
+        return awardTitle;
     }
 }

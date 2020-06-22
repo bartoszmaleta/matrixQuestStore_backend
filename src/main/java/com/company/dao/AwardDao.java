@@ -15,14 +15,5 @@ public interface AwardDao extends Dao {
     List<Award> readAwardListByMentor(User user);
     List<Award> readAwardListWithMentors();
 
-
-
-
-
-
-
-
-
-
-
+    List<Award> getAwardsByUser(User user);
 }
