@@ -1,4 +1,7 @@
 package com.company.dao;
 
-public interface TransactionDao {
+import java.util.List;
+
+public interface TransactionDao extends Dao {
+    List getTransactionsCountAndTotalSumByUser();
 }
