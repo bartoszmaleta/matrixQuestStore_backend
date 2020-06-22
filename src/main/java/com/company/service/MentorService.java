@@ -7,7 +7,8 @@ import com.company.dao.UserDaoDb;
 import com.company.models.Award;
 import com.company.models.Quest;
 import com.company.models.users.User;
-import com.company.view.View;
+import com.company.view.AwardsView;
+import com.company.view.QuestsView;
 
 import java.io.FileNotFoundException;
 import java.sql.Timestamp;
@@ -87,22 +88,22 @@ public class MentorService extends EmployeeService {
 
     public void displayAllAwards() throws FileNotFoundException {
         List<Award> awards = this.awardDAO.getAllElements();
-        View.allAwardsByList(awards);
+        AwardsView.allAwardsByList(awards);
     }
 
     public void displayAllAwardsOfThisMentor(User user) throws FileNotFoundException {
         List<Award> awards = awardDAO.readAwardListByMentor(user);
-        View.allAwardsByList(awards);
+        AwardsView.allAwardsByList(awards);
     }
 
     public void displayAllQuestsOfThisMentor(User user) throws FileNotFoundException {
         List<Quest> quests = this.questDaoDb.readQuestListByMentor(user);
-        View.allQuestsByList(quests);
+        QuestsView.allQuestsByList(quests);
     }
 
     public void displayAllQuests() throws FileNotFoundException {
         List<Quest> quests = this.questDaoDb.getAllElements();
-        View.allQuestsByList(quests);
+        QuestsView.allQuestsByList(quests);
     }
 
 }

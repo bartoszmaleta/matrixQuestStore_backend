@@ -28,7 +28,7 @@ public class StudentController {
 
             String option = InputTaker.takeStringInputWithMessageForFirstInput("Choose Your option:");
             switch (option) {
-                case "1" -> studentService.dispalyMyAwards(this.user);
+                case "1" -> studentService.displayMyAwards(this.user);
                 case "2" -> studentService.buyAward(this.user);
                 case "3" -> studentService.displayMyTransactions(this.user);
                 case "4" -> studentService.displayMyProfile(this.user);

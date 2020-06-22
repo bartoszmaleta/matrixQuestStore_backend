@@ -47,3 +47,5 @@ public class TestMain {
 // TODO: move views to different classes
 
 // TODO: possible to buy artifact
+
+// TODO: views about students should be in AdminView????

@@ -5,7 +5,7 @@ import com.company.service.AdminService;
 import com.company.service.InputTaker;
 import com.company.service.StatisticsService;
 import com.company.view.TerminalView;
-import com.company.view.View;
+import com.company.view.UserView;
 
 import java.io.FileNotFoundException;
 
@@ -23,7 +23,7 @@ public class AdminController {
     public void init() throws FileNotFoundException {
         boolean isRunning = true;
         while (isRunning) {
-            View.adminMenu();
+            UserView.adminMenu();
             int option = InputTaker.takeIntInputWithoutMessage();
             switch (option) {
                 case 1 -> displayUsers();
