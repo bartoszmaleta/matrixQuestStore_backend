@@ -6,6 +6,7 @@ import com.company.models.Quest;
 import com.company.models.users.User;
 import com.company.view.QuestsView;
 import com.company.view.StudentView;
+import com.github.tomaslanger.chalk.Chalk;
 
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -37,7 +38,15 @@ public class StudentService {
     }
 
     public void displayMyProfile(User user) {
-        //TODO:
+        String myProfileText = ("My profile:\n"
+                + "Name: " + user.getName()
+                + "Surname: " + user.getSurname()
+                + "Login: " + user.getLogin()
+                + "Email: " + user.getEmail()
+                + "Role: " + user.getRole()
+                + "Coins: ???"); // TODO
+
+        System.out.println(Chalk.on(myProfileText).bold().cyan());
     }
 
     public void displayQuests() throws FileNotFoundException {

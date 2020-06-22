@@ -6,6 +6,8 @@ import com.company.service.InputTaker;
 import com.company.service.StudentService;
 import com.company.view.TerminalView;
 
+import java.io.FileNotFoundException;
+
 public class StudentController {
     private User user;
     private Role role;
@@ -19,7 +21,7 @@ public class StudentController {
         System.out.println("Hello, Your email: " + this.user.getEmail());
     }
 
-    public void init() {
+    public void init() throws FileNotFoundException {
         System.out.println("Student Controller init");
 
         boolean isRunning = true;
