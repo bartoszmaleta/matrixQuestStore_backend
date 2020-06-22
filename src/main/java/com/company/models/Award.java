@@ -12,6 +12,28 @@ public class Award {
     private int mentorId;
     private String mentor;
     private String mentorNameAndSurname;
+    private String ownerCredentials;
+
+
+    public String getOwnerCredentials() {
+        return ownerCredentials;
+    }
+
+    public Award setOwnerCredentials(String ownerCredentials) {
+        this.ownerCredentials = ownerCredentials;
+        return this;
+    }
+
+    public Award(int id, String ownerCredentials, String title, String description, int price, String imageSrc, int mentorId, Timestamp dataCreation) {
+        this.id = id;
+        this.ownerCredentials = ownerCredentials;
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.imageSrc = imageSrc;
+        this.mentorId = mentorId;
+        this.dataCreation = dataCreation;
+    }
 
     public Award(String title, String description, int price, String imageSrc, Timestamp dataCreation, int mentorId) {
         this.title = title;

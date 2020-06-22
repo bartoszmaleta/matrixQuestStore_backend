@@ -5,11 +5,12 @@ import com.company.models.Quest;
 import com.company.models.Wallet;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Student extends User{
     private Wallet wallet;
-    private ArrayList<Award> awardsList;
-    private ArrayList<Quest> questsList;
+    private List<Award> awardsList;
+    private List<Quest> questsList;
     private String name;
     private String surname;
 
@@ -40,11 +41,11 @@ public class Student extends User{
         return wallet;
     }
 
-    public ArrayList<Award> getAwardsList() {
+    public List<Award> getAwardsList() {
         return awardsList;
     }
 
-    public ArrayList<Quest> getQuestsList() {
+    public List<Quest> getQuestsList() {
         return questsList;
     }
 }

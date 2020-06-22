@@ -44,6 +44,63 @@ public class AwardDaoDb implements AwardDao {
     }
 
     @Override
+    public List<Award> getAwardsByUser(User user) {
+        List<Award> awards = new ArrayList<>();
+
+        try {
+            ResultSet rs = conFactory.executeQuery("SELECT \"Transactions\".id\n" +
+                    "     , user_id\n" +
+                    "     , (CONCAT(u.name, ' ', u.surname)) AS owner\n" +
+                    "     , created_at\n" +
+                    "     , award_id\n" +
+                    "     , aw.title\n" +
+                    "     , aw.description\n" +
+                    "     , aw.image\n" +
+                    "     , aw.creator_id\n" +
+                    "     , \"Transactions\".price\n" +
+                    "    FROM \"Transactions\"\n" +
+                    "\n" +
+                    "INNER JOIN users u\n" +
+                    "ON \"Transactions\".user_id = u.id\n" +
+                    "\n" +
+                    "INNER JOIN (\n" +
+                    "    SELECT * FROM \"Awards\"\n" +
+                    "        ) aw\n" +
+                    "ON \"Transactions\".award_id = aw.id\n" +
+                    "\n" +
+                    "WHERE user_id = 29\n" +
+                    "\n" +
+                    "ORDER BY \"Transactions\".id;");
+
+            while (rs.next()) {
+                int id = rs.getInt("award_id");
+                String owner = rs.getString("owner");
+                String title = rs.getString("title");
+                String description = rs.getString("description");
+                int price = rs.getInt("price");
+                String imageSrc = rs.getString("image");
+                int creatorId = rs.getInt("creator_id");
+                Timestamp dataCreation = rs.getTimestamp("created_at");
+//                String mentorDetails = rs.getString("mentor");
+
+                Award award = new Award(id
+                        , owner
+                        , title
+                        , description
+                        , price
+                        , imageSrc
+                        , creatorId
+                        , dataCreation);
+                awards.add(award);
+            }
+            rs.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return awards;
+    }
+
+    @Override
     public List<Award> readAwardListByMentor(User user) {
         listOfAwards = new ArrayList<>();
         String userIdStr = String.valueOf(user.getId());

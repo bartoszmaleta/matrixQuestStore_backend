@@ -55,3 +55,5 @@ public class TestMain {
 // TODO: validators of email/phone/login/password
 
 // TODO: inventory???
+
+// TODO: remove id inserting! in AwardDaoDb

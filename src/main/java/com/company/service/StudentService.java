@@ -1,13 +1,12 @@
 package com.company.service;
 
-import com.company.dao.QuestDao;
-import com.company.dao.QuestDaoDb;
-import com.company.dao.TransactionDao;
-import com.company.dao.TransactionDaoDb;
+import com.company.dao.*;
+import com.company.models.Award;
 import com.company.models.Quest;
 import com.company.models.Transaction;
 import com.company.models.users.Student;
 import com.company.models.users.User;
+import com.company.view.AwardsView;
 import com.company.view.QuestsView;
 import com.company.view.StudentView;
 import com.github.tomaslanger.chalk.Chalk;
@@ -19,11 +18,15 @@ public class StudentService {
     private final StudentView studentView;
     private final QuestDao questDao;
     private final TransactionDao transactionDao;
+    private final UserDao userDao;
+    private final AwardDao awardDao;
 
     public StudentService() {
         this.studentView = new StudentView();
         this.questDao = new QuestDaoDb();
         this.transactionDao = new TransactionDaoDb();
+        this.userDao = new UserDaoDb();
+        this.awardDao = new AwardDaoDb();
     }
 
     public void displayMenu() {
@@ -31,6 +34,8 @@ public class StudentService {
     }
 
     public void displayMyAwards(User user) {
+        List<Award> awards = this.awardDao.getAwardsByUser(user);
+        AwardsView.allAwardsByList(awards);
         //TODO:
     }
 

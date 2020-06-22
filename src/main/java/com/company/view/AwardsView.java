@@ -35,9 +35,9 @@ public class AwardsView {
             data[i][3] = award.getPrice();
             data[i][4] = award.getImageSrc();
             data[i][5] = award.getDataCreation();
-            data[i][6] = award.getMentorNameAndSurname();
+            data[i][6] = award.getMentorId();
         }
-        System.out.println("All awards with mentors");
+        System.out.println("All my awards");
         System.out.println(FlipTableConverters.fromObjects(headers, data));
     }
 }
