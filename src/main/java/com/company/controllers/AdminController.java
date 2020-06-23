@@ -98,10 +98,10 @@ public class AdminController {
     }
 
     private void displayStudents() throws FileNotFoundException {
-        adminService.displayAllMentors();
+        adminService.displayAllStudents();
     }
 
     private void displayMentors() throws FileNotFoundException {
-        adminService.displayAllStudents();
+        adminService.displayAllMentors();
     }
 }

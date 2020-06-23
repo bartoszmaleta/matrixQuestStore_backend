@@ -12,42 +12,50 @@ public abstract class User {
     private String password;
     private String email;
     private Role role;
-    private int user_detail_id;
+    private int userDetailId;
     private List<Transaction> transactions;
+    private String avatarSource;
 
     // Proper!!
-    public User(int id, String name, String surname, String login, String password, String email, int roleId) {
+    public User(int id, String name, String surname, String login, String password, String email, int roleId, String avatarSource) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.login = login;
         this.password = password;
         this.email = email;
+//        this.role = role;
         setRoleEnum(roleId);
-    }
-
-    public User(String login, String password, String email, Role role, String name, String surname, int user_detail_id) {
-        this.login = login;
-        this.password = password;
-        this.email = email;
-        this.role = role;
-        this.name = name;
-        this.surname = surname;
-        this.user_detail_id = user_detail_id;
+        this.avatarSource = avatarSource;
     }
 
     public User() {
     }
 
-    public User(int id, String login, String password, String email, Role role) {
-    }
-
-    public User(String login, String password, String email, String name, String surname) {
+    // POSTMAN!!
+    public User(String name, String surname, String login, String password, String email, int roleId, String avatarSource) {
+        this.name = name;
+        this.surname = surname;
         this.login = login;
         this.password = password;
         this.email = email;
-        this.name = name;
-        this.surname = surname;
+//        this.role = role;
+        setRoleEnum(roleId);
+        this.avatarSource = avatarSource;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public User setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
+        return this;
+    }
+
+    public User setAvatarSource(String avatarSource) {
+        this.avatarSource = avatarSource;
+        return this;
     }
 
     public int getId() {
@@ -62,35 +70,39 @@ public abstract class User {
         return login;
     }
 
-    public void setLogin(String login) {
+    public User setLogin(String login) {
         this.login = login;
+        return this;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public User setPassword(String password) {
         this.password = password;
+        return this;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public User setEmail(String email) {
         this.email = email;
+        return this;
     }
 
     public Role getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public User setRole(Role role) {
         this.role = role;
+        return this;
     }
 
-    public void setRoleEnum(int userNumber) {
+    public User setRoleEnum(int userNumber) {
         if (userNumber == 1) {
             this.role = Role.ADMIN;
         } else if (userNumber == 2) {
@@ -100,29 +112,48 @@ public abstract class User {
         } else {
             System.out.println("Wrong userNumber");
         }
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public User setName(String name) {
         this.name = name;
+        return this;
     }
 
     public String getSurname() {
         return surname;
     }
 
-    public void setSurname(String surname) {
+    public User setSurname(String surname) {
         this.surname = surname;
+        return this;
     }
 
-    public int getUser_detail_id() {
-        return user_detail_id;
+    public int getUserDetailId() {
+        return userDetailId;
     }
 
-    public void setUser_detail_id(int user_detail_id) {
-        this.user_detail_id = user_detail_id;
+    public User setUserDetailId(int userDetailId) {
+        this.userDetailId = userDetailId;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return this.name
+                + " " + this.surname
+                + " " + this.login
+                + " " + this.password
+                + " " + this.email
+                + " " + this.role
+                + " " + this.userDetailId;
+    }
+
+    public String getAvatarSource() {
+        return avatarSource;
     }
 }

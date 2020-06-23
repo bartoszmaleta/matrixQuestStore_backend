@@ -11,7 +11,7 @@ import java.util.List;
 public class UserView {
 
     public static void allMentors(List<User> mentors) throws FileNotFoundException {
-        String[] headers = {"id", "name", "surname", "login", "password", "email", "role"};
+        String[] headers = {"id", "name", "surname", "login", "password", "email", "role", "avatar path"};
         Object[][] data = new Object[mentors.size()][headers.length];
         int maxLengthOfPassword = getMaxLengthOfPassword(mentors);
 
@@ -24,6 +24,7 @@ public class UserView {
             data[i][4] = "*".repeat(maxLengthOfPassword);
             data[i][5] = user.getEmail();
             data[i][6] = user.getRole();
+            data[i][7] = user.getAvatarSource();
         }
         System.out.println("All Mentors");
         System.out.println(FlipTableConverters.fromObjects(headers, data));
@@ -35,7 +36,7 @@ public class UserView {
 //        List<User> newList = new UserDaoFromCSV().extractUsersFromListOfRecordsByRoleGiven("student");
 //        List<User> students = new UserDaoDb().getStudents();
 
-        String[] headers = {"id", "name", "surname", "login", "password", "email", "role"};
+        String[] headers = {"id", "name", "surname", "login", "password", "email", "role", "avatar path"};
         Object[][] data = new Object[students.size()][headers.length];
 
         int maxLengthOfPassword = getMaxLengthOfPassword(students);
@@ -49,6 +50,7 @@ public class UserView {
             data[i][4] = "*".repeat(maxLengthOfPassword);
             data[i][5] = user.getEmail();
             data[i][6] = user.getRole();
+            data[i][7] = user.getAvatarSource();
         }
         System.out.println("All Students");
         System.out.println(FlipTableConverters.fromObjects(headers, data));
@@ -70,7 +72,7 @@ public class UserView {
     }
 
     public static void allUsersByList(List<User> users) throws FileNotFoundException {
-        String[] headers = {"id", "name", "surname", "login", "password", "email", "role"};
+        String[] headers = {"id", "name", "surname", "login", "password", "email", "role", "avatar path"};
         Object[][] data = new Object[users.size()][headers.length];
 
         int maxLengthOfPassword = getMaxLengthOfPassword(users);
@@ -84,6 +86,7 @@ public class UserView {
             data[i][4] = "*".repeat(maxLengthOfPassword);
             data[i][5] = user.getEmail();
             data[i][6] = user.getRole();
+            data[i][7] = user.getAvatarSource();
         }
         System.out.println("All Users");
         System.out.println(FlipTableConverters.fromObjects(headers, data));
