@@ -373,6 +373,7 @@ public class UserDaoDb implements UserDao {
 //            ps.setInt(7, user.getUserDetailId());
             ps.setString(7, user.getAvatarSource());
             ps.executeUpdate();
+            ps.close();
             return true;
 
         } catch (SQLException e) {

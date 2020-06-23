@@ -14,15 +14,19 @@ public class StudentDetailsDaoDb implements StudentDetailsDao {
 
     @Override
     public boolean insert(int studentIdFromDao) {
-//        User user = (User) o;
         PreparedStatement ps = null;
 
-//        int studentId = user.getId();
         try {
-            ps = connectionFactory.getConnection().prepareStatement("INSERT INTO \"Student_Details\" (student_id) " +
-                    "VALUES (?);");
-            ps.setInt(1, studentIdFromDao);
+            System.out.println("student id form db = " + studentIdFromDao);
+
+            ps = connectionFactory
+                    .getConnection()
+                    .prepareStatement(
+                            "INSERT INTO \"Student_Detailss\" (student_id) " + // TODO: drop Student_Detail
+                    "VALUES ('" + studentIdFromDao + "');"); // // TODO: Rename without "s"
+
             ps.executeUpdate();
+            ps.close();
             return true;
 
         } catch (SQLException throwables) {
