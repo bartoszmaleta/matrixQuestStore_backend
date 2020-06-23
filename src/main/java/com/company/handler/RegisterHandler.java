@@ -65,17 +65,16 @@ public class RegisterHandler implements HttpHandler {
             System.out.println("toString = " + student.toString());
             System.out.println(data);
 
-//            int lastId = userDao.getLastId();
-//            studentDetailsDao.insert(student.getId())
             userDao.insert(student);
 
-            User user = userDao.readUserByEmail(student.getEmail());
-            int userId = user.getId();
-            System.out.println("user id = " + userId);
+            // TODO: this one works!
+//            User user = userDao.readUserByEmail(student.getEmail());
+//            int userId = user.getId();
+//            System.out.println("user id = " + userId);
+//            studentDetailsDao.insert(userId);
 
-
-//            int studentIdFromDao = userDao.readUserIdByEmail(student.getEmail());
-            studentDetailsDao.insert(userId);
+            int studentIdFromDao = userDao.readUserIdByEmail(student.getEmail());
+            studentDetailsDao.insert(studentIdFromDao);
 
             response = "data saved - POST method";
         } else if (method.equals("GET")) {
