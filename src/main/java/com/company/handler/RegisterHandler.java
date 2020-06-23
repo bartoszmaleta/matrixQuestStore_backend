@@ -39,13 +39,13 @@ public class RegisterHandler implements HttpHandler {
 
             Map<String, String> data = parseFormData(br.readLine());
 
-            System.out.println(data.get("name"));
-            System.out.println(data.get("surname"));
-            System.out.println(data.get("login"));
-            System.out.println(data.get("password"));
-            System.out.println(data.get("email"));
-            System.out.println(data.get("roleId"));
-            System.out.println(data.get("avatarPath"));
+            System.out.println("name = " + data.get("name"));
+            System.out.println("surname = " + data.get("surname"));
+            System.out.println("login = " + data.get("login"));
+            System.out.println("password = " + data.get("password"));
+            System.out.println("email = " + data.get("email"));
+            System.out.println("roleId = " + data.get("roleId"));
+            System.out.println("avatarPath = " + data.get("avatarPath"));
 
             System.out.println("test");
             User student = new Student();
