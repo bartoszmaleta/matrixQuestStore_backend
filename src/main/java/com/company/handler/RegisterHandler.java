@@ -1,5 +1,7 @@
 package com.company.handler;
 
+import com.company.dao.StudentDetailsDao;
+import com.company.dao.StudentDetailsDaoDb;
 import com.company.dao.UserDao;
 import com.company.dao.UserDaoDb;
 import com.company.models.users.Role;
@@ -16,9 +18,11 @@ import java.util.Map;
 
 public class RegisterHandler implements HttpHandler {
     private UserDao userDao;
+    private StudentDetailsDao studentDetailsDao;
 
     public RegisterHandler() {
         this.userDao = new UserDaoDb();
+        this.studentDetailsDao = new StudentDetailsDaoDb();
     }
 
     @Override
@@ -41,7 +45,7 @@ public class RegisterHandler implements HttpHandler {
             System.out.println(data.get("password"));
             System.out.println(data.get("email"));
             System.out.println(data.get("roleId"));
-            System.out.println(data.get("userDetailId"));
+            System.out.println(data.get("avatarPath"));
 
             System.out.println("test");
             User student = new Student();
@@ -54,14 +58,24 @@ public class RegisterHandler implements HttpHandler {
                     .setPassword(data.get("password"))
                     .setEmail(data.get("email"))
                     .setRole(roleEnum)
-                    .setUserDetailId(Integer.parseInt(data.get("userDetailId")));
+                    .setAvatarSource(data.get("avatarPath"));
 
             System.out.println("test2");
 
             System.out.println("toString = " + student.toString());
             System.out.println(data);
 
+//            int lastId = userDao.getLastId();
+//            studentDetailsDao.insert(student.getId())
             userDao.insert(student);
+
+            User user = userDao.readUserByEmail(student.getEmail());
+            int userId = user.getId();
+            System.out.println("user id = " + userId);
+
+
+//            int studentIdFromDao = userDao.readUserIdByEmail(student.getEmail());
+            studentDetailsDao.insert(userId);
 
             response = "data saved - POST method";
         } else if (method.equals("GET")) {

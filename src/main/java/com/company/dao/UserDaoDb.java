@@ -238,6 +238,60 @@ public class UserDaoDb implements UserDao {
         }
     }
 
+    @Override
+    public int readUserIdByEmail(String email) {
+        Connection c = null;
+        User newUser;
+
+        try {
+            System.out.println("\nI am in readUserIdByEmail\n");
+
+            ResultSet rs = connectionFactory.executeQuery("SELECT id FROM \"users\" WHERE \"email\" = '" + email + "';");
+
+            int id = rs.getInt("id");
+            System.out.println("id from db = " + id);
+
+            connectionFactory.close();
+            rs.close();
+            return id;
+        } catch (Exception e) {
+            System.err.println("Error! Reading user by userName and userPassword from DB failed!");
+            return 0;
+        }
+    }
+
+    @Override
+    public User readUserByEmail(String userEmail) {
+        Connection c = null;
+        User newUser;
+
+        try {
+            System.out.println("\nI am in readUserByEmail\n");
+
+            ResultSet rs = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"email\" = '" + userEmail + "';");
+
+            rs.next();
+            if (rs.getInt("role_id") == 1) {
+                return getAdmin(rs);
+            } else if (rs.getInt("role_id") == 2) {
+                return getMentor(rs);
+            } else if (rs.getInt("role_id") == 3) {
+                return getStudent(rs);
+            } else {
+                System.out.println("No user");
+            }
+            connectionFactory.close();
+            rs.close();
+        } catch (Exception e) {
+            System.err.println("Error! Reading user by userName and userPassword from DB failed!");
+        }
+        return null;
+    }
+
+
+
+
+
     // TODO: use it in edit menu!
     public void editStudentAvatarPathById(int id, String avatarPath) {
         PreparedStatement ps = null;
@@ -319,13 +373,6 @@ public class UserDaoDb implements UserDao {
 //            ps.setInt(7, user.getUserDetailId());
             ps.setString(7, user.getAvatarSource());
             ps.executeUpdate();
-
-            PreparedStatement ps2 = null;
-            ps2 = connectionFactory.getConnection().prepareStatement("INSERT INTO User_Details (avatar, coins)" +
-                    "VALUES (?, ?);");
-            ps2.setString(1, "../withoutfolder");
-            ps2.setInt(2, 300);
-            ps2.executeUpdate();
             return true;
 
         } catch (SQLException e) {

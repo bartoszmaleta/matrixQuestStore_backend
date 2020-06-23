@@ -14,4 +14,6 @@ public interface UserDao extends Dao {
     void updateUserPasswordById(int id, String password);
     void editUserEmailById(int id, String email);
 
+    int readUserIdByEmail(String email);
+    User readUserByEmail(String userEmail);
 }
