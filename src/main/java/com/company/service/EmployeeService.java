@@ -29,9 +29,12 @@ public abstract class EmployeeService {
         String login = InputTaker.takeStringInputWithMessage("Enter login");
         String password = InputTaker.takeStringInputWithMessage("Enter password");
         String email = InputTaker.takeStringInputWithMessage("Enter email");
-
+        String avatarSource = InputTaker.takeStringInputWithMessage("Enter avatar path: ");
         // TODO user_detail??
-        User newUser = new Student(login, password, email, userRole, name, surname, 1);
+//        User newUser = new Student(login, password, email, userRole, name, surname, 1);
+
+        User newUser = new Student(name, surname, login, password, email, 1, avatarSource);
+
 
         userDao.insert(newUser);
     }

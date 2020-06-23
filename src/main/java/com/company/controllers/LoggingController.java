@@ -45,10 +45,11 @@ public class LoggingController {
         String studentLogin = InputTaker.takeStringInputWithMessage("Enter student login");
         String studentPassword = InputTaker.takeStringInputWithMessage("Enter student password");
         String studentEmail = InputTaker.takeStringInputWithMessage("Enter student email");
+        String avatarSource = InputTaker.takeStringInputWithMessage("Enter student avatar path");
 
         // TODO: validation if exist, if taken
-        Student student = new Student(studentLogin, studentPassword, studentEmail, Role.STUDENT, studentName, studentSurname, 1);
-//        this.userDaoDb.addUserToDatabase(student);
+//        Student student = new Student(studentLogin, studentPassword, studentEmail, Role.STUDENT, studentName, studentSurname, avatarSource);
+        User student = new Student(studentName, studentSurname, studentLogin, studentPassword, studentEmail, 1, avatarSource);
         this.userDaoDb.insert(student);
         TerminalView.printString("You have successfully registered as new student!");
     }

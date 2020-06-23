@@ -28,7 +28,7 @@ public class Main
 //        Award awardToAdd = new Award(10, "Test title", "Test description", 45, "img-src", new Timestamp(date.getTime()), 3);
 //        awardDAO.addAward(awardToAdd);
         UserDaoDb userDaoDb = new UserDaoDb();
-        User student = new Student("student320", "student123", "student@wp.pl", Role.STUDENT, "Student", "Studentowski", 1);
+//        User student = new Student("student320", "student123", "student@wp.pl", Role.STUDENT, "Student", "Studentowski", 1);
 ////        userDaoDb.addUserToDatabase(student);
 //        userDaoDb.deleteUserById(15);
 //        userDaoDb.readUsers();

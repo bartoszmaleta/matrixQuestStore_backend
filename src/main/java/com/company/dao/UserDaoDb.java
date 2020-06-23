@@ -22,7 +22,6 @@ public class UserDaoDb implements UserDao {
             ResultSet rs;
 
             // TODO: find User by login!
-            ConnectionFactory connectionFactory = new ConnectionFactory();
             ResultSet rs2 = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"email\" = '" + userEmail + "' AND \"password\" = '" + userPassword + "';");
             ResultSet rs3 = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"login\" = '" + userEmail + "' AND \"password\" = '" + userPassword + "';");
 
@@ -34,89 +33,76 @@ public class UserDaoDb implements UserDao {
 
             rs.next();
             if (rs.getInt("role_id") == 1) {
-                newUser = new Admin();
-
-                int id = rs.getInt("id");
-                String login = rs.getString("login");
-                String password = rs.getString("password");
-                String email = rs.getString("email");
-                int role_id = rs.getInt("role_id");
-
-                newUser.setId(id);
-                newUser.setLogin(login);
-                newUser.setPassword(password);
-                newUser.setEmail(email);
-                newUser.setRoleEnum(role_id);
-
-                // TODO: where close()?????
-                connectionFactory.close();
-                rs.close();
-
-                return newUser;
-
+                return getAdmin(rs);
             } else if (rs.getInt("role_id") == 2) {
-                newUser = new Mentor();
-
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
-                String surname = rs.getString("surname");
-                String login = rs.getString("login");
-                String password = rs.getString("password");
-                String email = rs.getString("email");
-                int role_id = rs.getInt("role_id");
-
-                // TODO:
-//                int user_detail_id = rs.getInt("user_detail_id");
-
-                newUser.setId(id);
-                newUser.setName(name);
-                newUser.setSurname(surname);
-                newUser.setLogin(login);
-                newUser.setPassword(password);
-                newUser.setEmail(email);
-                newUser.setRoleEnum(role_id);
-
-                connectionFactory.close();
-                rs.close();
-
-                return newUser;
+                return getMentor(rs);
             } else if (rs.getInt("role_id") == 3) {
-                newUser = new Student();
-
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
-                String surname = rs.getString("surname");
-                String login = rs.getString("login");
-                String password = rs.getString("password");
-                String email = rs.getString("email");
-                int role_id = rs.getInt("role_id");
-
-                // TODO:
-//                int user_detail_id = rs.getInt("user_detail_id");
-
-                newUser.setId(id);
-                newUser.setName(name);
-                newUser.setSurname(surname);
-                newUser.setLogin(login);
-                newUser.setPassword(password);
-                newUser.setEmail(email);
-                newUser.setRoleEnum(role_id);
-
-                // TODO: where close()?????
-                connectionFactory.close();
-                rs.close();
-
-                return newUser;
+                return getStudent(rs);
             } else {
                 System.out.println("No user");
             }
             // TODO: where close()?????
-//            connectionFactory.close();
-//            rs.close();
+            connectionFactory.close();
+            rs.close();
         } catch (Exception e) {
             System.err.println("Error! Reading user by userName and userPassword from DB failed!");
         }
         return null;
+    }
+
+    private User getStudent(ResultSet rs) throws SQLException {
+        int id = rs.getInt("id");
+        String name = rs.getString("name");
+        String surname = rs.getString("surname");
+        String login = rs.getString("login");
+        String password = rs.getString("password");
+        String email = rs.getString("email");
+        int roleId = rs.getInt("role_id");
+        String avatarPath = rs.getString("avatar");
+
+        User newUser = new Student(id, name, surname, login, password, email, roleId, avatarPath);
+
+        connectionFactory.close();
+        rs.close();
+
+        return newUser;
+    }
+
+    private User getMentor(ResultSet rs) throws SQLException {
+        int id = rs.getInt("id");
+        String name = rs.getString("name");
+        String surname = rs.getString("surname");
+        String login = rs.getString("login");
+        String password = rs.getString("password");
+        String email = rs.getString("email");
+        int roleId = rs.getInt("role_id");
+        String avatarPath = rs.getString("avatar");
+
+        User newUser = new Mentor(id, name, surname, login, password, email, roleId, avatarPath);
+
+        connectionFactory.close();
+        rs.close();
+
+        return newUser;
+    }
+
+    private User getAdmin(ResultSet rs) throws SQLException {
+        int id = rs.getInt("id");
+        String name = rs.getString("name");
+        String surname = rs.getString("surname");
+        String login = rs.getString("login");
+        String password = rs.getString("password");
+        String email = rs.getString("email");
+        int roleId = rs.getInt("role_id");
+        String avatarPath = rs.getString("avatar");
+
+        User newUser = new Admin(id, name, surname, login, password, email, roleId, avatarPath);
+
+        // TODO: where close()?????
+        connectionFactory.close();
+        rs.close();
+
+        return newUser;
     }
 
     private int decideRole(Role userRole) {
@@ -141,9 +127,10 @@ public class UserDaoDb implements UserDao {
                 String password = rs.getString("password");
                 String email = rs.getString("email");
                 int roleId = rs.getInt("role_id");
-                int userDetailsId = rs.getInt("user_detail_id");
+                String avatarPath = rs.getString("avatar");
 
-                User newUser = new Student(id, name, surname, login, password, email, roleId);
+                User newUser = new Student(id, name, surname, login, password, email, roleId, avatarPath);
+
 
                 students.add(newUser);
             }
@@ -168,9 +155,9 @@ public class UserDaoDb implements UserDao {
                 String password = rs.getString("password");
                 String email = rs.getString("email");
                 int roleId = rs.getInt("role_id");
-                int userDetailsId = rs.getInt("user_detail_id");
+                String avatarPath = rs.getString("avatar");
 
-                User newUser = new Mentor(id, name, surname, login, password, email, roleId);
+                User newUser = new Mentor(id, name, surname, login, password, email, roleId, avatarPath);
 
                 mentors.add(newUser);
             }
@@ -250,6 +237,19 @@ public class UserDaoDb implements UserDao {
             e.printStackTrace();
         }
     }
+
+    // TODO: use it in edit menu!
+    public void editStudentAvatarPathById(int id, String avatarPath) {
+        PreparedStatement ps = null;
+        try {
+            ps = connectionFactory.getConnection().prepareStatement("UPDATE users SET avatar = '" + avatarPath + "' " +
+                    "WHERE id=" + id + ";");
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     // ---------------------------------------
 
 
@@ -268,16 +268,16 @@ public class UserDaoDb implements UserDao {
                 String password = rs.getString("password");
                 String email = rs.getString("email");
                 int roleId = rs.getInt("role_id");
-                int userDetailsId = rs.getInt("user_detail_id");
+                String avatarSource = rs.getString("avatar");
 
                 if (roleId == 1) {
-                    User newUser = new Admin(id, name, surname, login, password, email, roleId);
+                    User newUser = new Admin(id, name, surname, login, password, email, roleId, avatarSource);
                     users.add(newUser);
                 } else if (roleId == 2) {
-                    User newUser = new Mentor(id, name, surname, login, password, email, roleId);
+                    User newUser = new Mentor(id, name, surname, login, password, email, roleId, avatarSource);
                     users.add(newUser);
                 } else if (roleId == 3) {
-                    User newUser = new Student(id, name, surname, login, password, email, roleId);
+                    User newUser = new Student(id, name, surname, login, password, email, roleId, avatarSource);
                     users.add(newUser);
                 }
             }
@@ -301,9 +301,14 @@ public class UserDaoDb implements UserDao {
         Role userRole = user.getRole();
 
         int roleId = decideRole(userRole);
+        // TODO: DONE
+        // in users ==> user_detail_id REMOVE
+        // in users ==> avatar ADD
+        // in user_details ==> avatar REMOVE
+        // in user_details ==> user_id ADD
 
         try {
-            ps = connectionFactory.getConnection().prepareStatement("INSERT INTO users (name, surname, login, password, email, role_id, user_detail_id)" +
+            ps = connectionFactory.getConnection().prepareStatement("INSERT INTO users (name, surname, login, password, email, role_id, avatar)" +
                     "VALUES (?, ?, ?, ?, ?, ?, ?);");
             ps.setString(1, user.getName());
             ps.setString(2, user.getSurname());
@@ -311,8 +316,16 @@ public class UserDaoDb implements UserDao {
             ps.setString(4, user.getPassword());
             ps.setString(5, user.getEmail());
             ps.setInt(6, roleId);
-            ps.setInt(7, user.getUser_detail_id());
+//            ps.setInt(7, user.getUserDetailId());
+            ps.setString(7, user.getAvatarSource());
             ps.executeUpdate();
+
+            PreparedStatement ps2 = null;
+            ps2 = connectionFactory.getConnection().prepareStatement("INSERT INTO User_Details (avatar, coins)" +
+                    "VALUES (?, ?);");
+            ps2.setString(1, "../withoutfolder");
+            ps2.setInt(2, 300);
+            ps2.executeUpdate();
             return true;
 
         } catch (SQLException e) {
