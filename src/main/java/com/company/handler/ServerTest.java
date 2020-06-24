@@ -11,6 +11,8 @@ public class ServerTest {
 
         server.createContext("/register", new RegisterHandler());
         server.createContext("/users", new UsersHandler());
+        server.createContext("/mentors", new MentorHandler());
+        server.createContext("/students", new StudentHandler());
         server.setExecutor(null);
         server.start();
 
