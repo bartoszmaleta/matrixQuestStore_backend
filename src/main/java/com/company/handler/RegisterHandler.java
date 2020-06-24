@@ -58,6 +58,7 @@ public class RegisterHandler implements HttpHandler {
                     .setPassword(data.get("password"))
                     .setEmail(data.get("email"))
                     .setRole(roleEnum)
+//                    .setStudent()     // TODO: don't know if only student could register?
                     .setAvatarSource(data.get("avatarPath"));
 
             System.out.println("test2");
