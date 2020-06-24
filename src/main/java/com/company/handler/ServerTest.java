@@ -10,6 +10,7 @@ public class ServerTest {
         HttpServer server = HttpServer.create(new InetSocketAddress(8003), 0);
 
         server.createContext("/register", new RegisterHandler());
+        server.createContext("/users", new UsersHandler());
         server.setExecutor(null);
         server.start();
 

@@ -12,7 +12,6 @@ public abstract class User {
     private String password;
     private String email;
     private Role role;
-    private int userDetailId;
     private List<Transaction> transactions;
     private String avatarSource;
 
@@ -133,15 +132,6 @@ public abstract class User {
         return this;
     }
 
-    public int getUserDetailId() {
-        return userDetailId;
-    }
-
-    public User setUserDetailId(int userDetailId) {
-        this.userDetailId = userDetailId;
-        return this;
-    }
-
     @Override
     public String toString() {
         return this.name
@@ -150,7 +140,7 @@ public abstract class User {
                 + " " + this.password
                 + " " + this.email
                 + " " + this.role
-                + " " + this.userDetailId;
+                + " " + this.avatarSource;
     }
 
     public String getAvatarSource() {

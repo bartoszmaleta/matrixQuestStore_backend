@@ -241,13 +241,13 @@ public class UserDaoDb implements UserDao {
     @Override
     public int readUserIdByEmail(String email) {
         Connection c = null;
-        User newUser;
 
         try {
             System.out.println("\nI am in readUserIdByEmail\n");
 
-            ResultSet rs = connectionFactory.executeQuery("SELECT id FROM \"users\" WHERE \"email\" = '" + email + "';");
+            ResultSet rs = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"email\" = '" + email + "';");
 
+            rs.next();
             int id = rs.getInt("id");
             System.out.println("id from db = " + id);
 
@@ -260,6 +260,7 @@ public class UserDaoDb implements UserDao {
         }
     }
 
+    // NOT USED
     @Override
     public User readUserByEmail(String userEmail) {
         Connection c = null;

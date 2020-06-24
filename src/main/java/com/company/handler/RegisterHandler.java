@@ -39,13 +39,13 @@ public class RegisterHandler implements HttpHandler {
 
             Map<String, String> data = parseFormData(br.readLine());
 
-            System.out.println(data.get("name"));
-            System.out.println(data.get("surname"));
-            System.out.println(data.get("login"));
-            System.out.println(data.get("password"));
-            System.out.println(data.get("email"));
-            System.out.println(data.get("roleId"));
-            System.out.println(data.get("avatarPath"));
+            System.out.println("name = " + data.get("name"));
+            System.out.println("surname = " + data.get("surname"));
+            System.out.println("login = " + data.get("login"));
+            System.out.println("password = " + data.get("password"));
+            System.out.println("email = " + data.get("email"));
+            System.out.println("roleId = " + data.get("roleId"));
+            System.out.println("avatarPath = " + data.get("avatarPath"));
 
             System.out.println("test");
             User student = new Student();
@@ -58,6 +58,7 @@ public class RegisterHandler implements HttpHandler {
                     .setPassword(data.get("password"))
                     .setEmail(data.get("email"))
                     .setRole(roleEnum)
+//                    .setStudent()     // TODO: don't know if only student could register?
                     .setAvatarSource(data.get("avatarPath"));
 
             System.out.println("test2");
@@ -65,17 +66,16 @@ public class RegisterHandler implements HttpHandler {
             System.out.println("toString = " + student.toString());
             System.out.println(data);
 
-//            int lastId = userDao.getLastId();
-//            studentDetailsDao.insert(student.getId())
             userDao.insert(student);
 
-            User user = userDao.readUserByEmail(student.getEmail());
-            int userId = user.getId();
-            System.out.println("user id = " + userId);
+            // TODO: this one works!
+//            User user = userDao.readUserByEmail(student.getEmail());
+//            int userId = user.getId();
+//            System.out.println("user id = " + userId);
+//            studentDetailsDao.insert(userId);
 
-
-//            int studentIdFromDao = userDao.readUserIdByEmail(student.getEmail());
-            studentDetailsDao.insert(userId);
+            int studentIdFromDao = userDao.readUserIdByEmail(student.getEmail());
+            studentDetailsDao.insert(studentIdFromDao);
 
             response = "data saved - POST method";
         } else if (method.equals("GET")) {
