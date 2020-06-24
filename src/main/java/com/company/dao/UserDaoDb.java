@@ -25,6 +25,9 @@ public class UserDaoDb implements UserDao {
             ResultSet rs2 = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"email\" = '" + userEmail + "' AND \"password\" = '" + userPassword + "';");
             ResultSet rs3 = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"login\" = '" + userEmail + "' AND \"password\" = '" + userPassword + "';");
 
+            System.out.println("rs2 = " + rs2);
+            System.out.println("rs3 = " + rs3);
+
             if (rs2 == null) {
                 rs = rs3;
             } else {
@@ -97,7 +100,8 @@ public class UserDaoDb implements UserDao {
         String avatarPath = rs.getString("avatar");
 
         User newUser = new Admin(id, name, surname, login, password, email, roleId, avatarPath);
-
+        System.out.println("simple name = " + newUser.getClass().getSimpleName());
+        System.out.println("role = " + newUser.getRole());
         // TODO: where close()?????
         connectionFactory.close();
         rs.close();
@@ -131,10 +135,14 @@ public class UserDaoDb implements UserDao {
 
                 User newUser = new Student(id, name, surname, login, password, email, roleId, avatarPath);
 
+//                User student = getStudent(rs); TODO: change to this, because it is enough!!!
 
                 students.add(newUser);
             }
             rs.close();
+            connectionFactory.close();
+            // TODO: PrepareStatement also need to be closed!!
+
             return students;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -238,6 +246,20 @@ public class UserDaoDb implements UserDao {
         }
     }
 
+    // TODO: use it in edit menu!
+    public void updateStudentAvatarPathById(int id, String avatarPath) {
+        PreparedStatement ps = null;
+        try {
+            ps = connectionFactory.getConnection().prepareStatement("UPDATE users SET avatar = '" + avatarPath + "' " +
+                    "WHERE id=" + id + ";");
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+//    END OF EDIT SECTION ---------------------------------------
+
     @Override
     public int readUserIdByEmail(String email) {
         Connection c = null;
@@ -289,19 +311,35 @@ public class UserDaoDb implements UserDao {
         return null;
     }
 
+    @Override
+    public User readUserById(int userId) {
+        Connection c = null;
+        User newUser;
 
-    // TODO: use it in edit menu!
-    public void editStudentAvatarPathById(int id, String avatarPath) {
-        PreparedStatement ps = null;
         try {
-            ps = connectionFactory.getConnection().prepareStatement("UPDATE users SET avatar = '" + avatarPath + "' " +
-                    "WHERE id=" + id + ";");
-            ps.executeUpdate();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+            ResultSet rs = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"id\" = '" + userId + "';");
+
+            rs.next();
+            if (rs.getInt("role_id") == 1) {
+                return getAdmin(rs);
+            } else if (rs.getInt("role_id") == 2) {
+                return getMentor(rs);
+            } else if (rs.getInt("role_id") == 3) {
+                return getStudent(rs);
+            } else {
+                System.out.println("No user");
+            }
+            connectionFactory.close();
+            rs.close();
+        } catch (Exception e) {
+            System.err.println("Error! Reading user by userName and userPassword from DB failed!");
         }
+        return null;
     }
+
+
+
     // ---------------------------------------
 
 

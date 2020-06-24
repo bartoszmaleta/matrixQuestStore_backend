@@ -90,6 +90,7 @@ public class MentorController {
             case "3" -> updateStudentLogin(idOfStudentToUpdate);
             case "4" -> updateStudentPassword(idOfStudentToUpdate);
             case "5" -> updateStudentEmail(idOfStudentToUpdate);
+            case "6" -> updateStudentAvatarPath(idOfStudentToUpdate);
             case "0" -> studentManagmentMenu();
         }
     }
@@ -117,6 +118,11 @@ public class MentorController {
     private void updateStudentName(int idOfStudentToUpdate) {
         String nameToUpdate = InputTaker.takeStringInputWithMessage("Enter new name: ");
         mentorService.updateUserNameById(idOfStudentToUpdate, nameToUpdate);
+    }
+
+    private void updateStudentAvatarPath(int idOfStudentToUpdate) {
+        String newAvatarPath = InputTaker.takeStringInputWithMessage("Enter new avatar path: ");
+        mentorService.updateUserAvatarPathById(idOfStudentToUpdate, newAvatarPath);
     }
 
     public void deleteStudentById() {

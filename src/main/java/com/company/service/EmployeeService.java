@@ -78,6 +78,10 @@ public abstract class EmployeeService {
         userDao.updateUserSurnameById(id, surname);
     }
 
+    public void updateUserAvatarPathById(int id, String avatarPath) {
+        userDao.updateStudentAvatarPathById(id, avatarPath);
+    }
+
     public void displayAllStudents() throws FileNotFoundException {
         List<User> students = this.userDao.getStudents();
         UserView.allStudents(students);
