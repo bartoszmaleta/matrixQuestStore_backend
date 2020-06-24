@@ -290,9 +290,6 @@ public class UserDaoDb implements UserDao {
     }
 
 
-
-
-
     // TODO: use it in edit menu!
     public void editStudentAvatarPathById(int id, String avatarPath) {
         PreparedStatement ps = null;
@@ -387,7 +384,33 @@ public class UserDaoDb implements UserDao {
     public boolean delete(int id) {
         PreparedStatement ps = null;
         try {
-            ps = connectionFactory.getConnection().prepareStatement("DELETE FROM users WHERE id =" + id + ";");
+            ps = connectionFactory.getConnection().prepareStatement("DELETE FROM users WHERE id = '" + id + "';");
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deleteStudentDetails(int id) {
+        PreparedStatement ps = null;
+        try {
+            ps = connectionFactory.getConnection().prepareStatement("DELETE FROM Student_Details WHERE student_id = '" + id + "';");
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deleteStudent(int id) {
+        PreparedStatement ps = null;
+        try {
+            ps = connectionFactory.getConnection().prepareStatement("DELETE FROM users WHERE id = '" + id + "' AND " + "role_id = 3" + ";");
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -397,6 +420,20 @@ public class UserDaoDb implements UserDao {
     }
 
 
+    //-----------------------------------------------------------------
+    public boolean deleteMentorOrStudent(int id, int role_id) {
+        PreparedStatement ps = null;
+        try {
+            ps = connectionFactory.getConnection().prepareStatement("DELETE FROM users WHERE id =" + id + " AND " + "role_id = " + role_id + ";");
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+//-----------------------------------------------------------------
 //    public void addUserToDatabase(User user) {
 //        PreparedStatement ps = null;
 //        Role userRole = user.getRole();

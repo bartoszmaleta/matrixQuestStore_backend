@@ -16,4 +16,7 @@ public interface UserDao extends Dao {
 
     int readUserIdByEmail(String email);
     User readUserByEmail(String userEmail);
+    boolean deleteStudentDetails(int id);
+    boolean deleteStudent(int id);
+
 }

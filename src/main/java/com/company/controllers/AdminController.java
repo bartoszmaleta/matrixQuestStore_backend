@@ -1,5 +1,6 @@
 package com.company.controllers;
 
+import com.company.models.users.Role;
 import com.company.models.users.User;
 import com.company.service.AdminService;
 import com.company.service.InputTaker;
@@ -30,7 +31,7 @@ public class AdminController {
 
                 case 2 -> displayMentors();
                 case 3 -> addMentor();
-                case 4 -> removeMentor();
+                case 4 -> removeMentor(); // in fact: removeUser()
                 case 5 -> editMentor();
 
 //                case 6 -> View.viewAllModules();
@@ -82,11 +83,12 @@ public class AdminController {
         }
     }
 
-    private void removeMentor() throws FileNotFoundException {
+    private void removeMentor() throws FileNotFoundException { // It is basically removeUser()
         adminService.displayAllMentors();
         // TODO: WHERE inputs?? Here or in adminService???
         int mentorToRemoveById = InputTaker.takeIntInputWithMessage("Enter id of mentor you want to delete: ");
-        this.adminService.deleteMentor(mentorToRemoveById);
+        this.adminService.deleteUserById(mentorToRemoveById);
+
     }
 
     private void addMentor() {

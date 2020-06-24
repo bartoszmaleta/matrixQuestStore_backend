@@ -50,9 +50,12 @@ public abstract class EmployeeService {
         return null;
     }
 
-    public void deleteUserFromDatabaseById(int id) {
-//        userDao.deleteUserById(id);
-        userDao.delete(id);
+
+
+    public void deleteStudentById(int id) {
+        this.userDao.deleteStudent(id);
+        this.userDao.deleteStudentDetails(id);
+
     }
 
     public void updateUserLoginById(int id, String login) {
@@ -88,4 +91,6 @@ public abstract class EmployeeService {
         List<User> mentors = this.userDao.getMentors();
         UserView.allMentors(mentors);
     }
+
+
 }

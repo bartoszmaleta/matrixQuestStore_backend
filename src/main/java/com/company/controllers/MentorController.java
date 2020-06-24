@@ -4,6 +4,7 @@ package com.company.controllers;
 import com.company.models.Quest;
 import com.company.models.users.Role;
 import com.company.models.users.User;
+import com.company.service.EmployeeService;
 import com.company.service.InputTaker;
 import com.company.service.MentorService;
 import com.company.view.AwardsView;
@@ -120,7 +121,9 @@ public class MentorController {
 
     public void deleteStudentById() {
         int studentIdToRemove = InputTaker.takeIntInputWithMessage("Enter id of student you want to delete: ");
-        mentorService.deleteUserFromDatabaseById(studentIdToRemove);
+//        mentorService.deleteUserFromDatabaseById(studentIdToRemove);
+//        mentorService.deleteStudentDetailsById(studentIdToRemove);
+        mentorService.deleteStudentById(studentIdToRemove);
     }
 
     // --------------------------------------
