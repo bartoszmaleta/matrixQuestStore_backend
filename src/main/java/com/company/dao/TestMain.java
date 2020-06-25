@@ -59,3 +59,5 @@ public class TestMain {
 // TODO: remove id inserting! in AwardDaoDb
 
 // TODO: UserDaoDb change readUser!!!!!!!!!
+
+// TODO: hashing SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");

@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Student extends User{
-    private Wallet wallet;
-    private List<Award> awardsList;
-    private List<Quest> questsList;
+//    private Wallet wallet;
+    private List<Award> awardsList;     //TODO: to have awards
+    private List<Quest> questsList;     //TODO: to have quests
     private String name;
     private String surname;
 
@@ -35,20 +35,12 @@ public class Student extends User{
     public Student() {
     }
 
-    public void setWallet(Wallet wallet) {
-        this.wallet = wallet;
-    }
-
     public void setAwardsList(ArrayList<Award> awardsList) {
         this.awardsList = awardsList;
     }
 
     public void setQuestsList(ArrayList<Quest> questsList) {
         this.questsList = questsList;
-    }
-
-    public Wallet getWallet() {
-        return wallet;
     }
 
     public List<Award> getAwardsList() {

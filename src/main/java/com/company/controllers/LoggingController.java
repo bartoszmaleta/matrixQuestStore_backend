@@ -6,13 +6,20 @@ import com.company.models.users.Role;
 import com.company.models.users.Student;
 import com.company.models.users.User;
 import com.company.service.InputTaker;
+import com.company.service.LoginService;
 import com.company.view.TerminalView;
 import com.company.view.menu.LoginMenu;
 
 import java.io.FileNotFoundException;
 
 public class LoggingController {
-    private final UserDao userDaoDb = new UserDaoDb();
+    private UserDao userDao;
+    private LoginService loginService;
+
+    public LoggingController() {
+        this.userDao = new UserDaoDb();
+        this.loginService = new LoginService();
+    }
 
     public void init() throws FileNotFoundException {
         boolean isRunning = true;
@@ -50,7 +57,7 @@ public class LoggingController {
         // TODO: validation if exist, if taken
 //        Student student = new Student(studentLogin, studentPassword, studentEmail, Role.STUDENT, studentName, studentSurname, avatarSource);
         User student = new Student(studentName, studentSurname, studentLogin, studentPassword, studentEmail, 1, avatarSource);
-        this.userDaoDb.insert(student);
+        this.userDao.insert(student);
         TerminalView.printString("You have successfully registered as new student!");
     }
 
@@ -89,7 +96,7 @@ public class LoggingController {
         String password = InputTaker.takeStringInputWithMessage("Enter pasword: ");
 //        this.userDaoDb.readUsers();
 
-        User userToLog = this.userDaoDb.readUserByEmailOrLoginAndPassword(email, password);
+        User userToLog = this.userDao.readUserByEmailOrLoginAndPassword(email, password);
 
         if (userToLog == null) {
             TerminalView.printString("Wrong email or password.");
@@ -108,5 +115,9 @@ public class LoggingController {
                 studentController.init();
             }
         }
+    }
+
+    public User login(String email, String password) {
+        return loginService.readUserFromDao(email, password);
     }
 }

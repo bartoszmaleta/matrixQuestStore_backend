@@ -122,6 +122,7 @@ public class UserView {
                 "(3) Login\n" +
                 "(4) Password\n" +
                 "(5) Email\n" +
+                // TODO: edit avatar path
                 "(0) Back to Admin Menu");
 
     }
@@ -151,6 +152,7 @@ public class UserView {
                 "(3) Login\n" +
                 "(4) Password\n" +
                 "(5) Email\n" +
+                "(6) Avatar path\n" +
                 "(0) Back to Student Managment Menu");
     }
 

@@ -4,6 +4,7 @@ package com.company.controllers;
 import com.company.models.Quest;
 import com.company.models.users.Role;
 import com.company.models.users.User;
+import com.company.service.EmployeeService;
 import com.company.service.InputTaker;
 import com.company.service.MentorService;
 import com.company.view.AwardsView;
@@ -89,6 +90,7 @@ public class MentorController {
             case "3" -> updateStudentLogin(idOfStudentToUpdate);
             case "4" -> updateStudentPassword(idOfStudentToUpdate);
             case "5" -> updateStudentEmail(idOfStudentToUpdate);
+            case "6" -> updateStudentAvatarPath(idOfStudentToUpdate);
             case "0" -> studentManagmentMenu();
         }
     }
@@ -118,9 +120,16 @@ public class MentorController {
         mentorService.updateUserNameById(idOfStudentToUpdate, nameToUpdate);
     }
 
+    private void updateStudentAvatarPath(int idOfStudentToUpdate) {
+        String newAvatarPath = InputTaker.takeStringInputWithMessage("Enter new avatar path: ");
+        mentorService.updateUserAvatarPathById(idOfStudentToUpdate, newAvatarPath);
+    }
+
     public void deleteStudentById() {
         int studentIdToRemove = InputTaker.takeIntInputWithMessage("Enter id of student you want to delete: ");
-        mentorService.deleteUserFromDatabaseById(studentIdToRemove);
+//        mentorService.deleteUserFromDatabaseById(studentIdToRemove);
+//        mentorService.deleteStudentDetailsById(studentIdToRemove);
+        mentorService.deleteStudentById(studentIdToRemove);
     }
 
     // --------------------------------------
