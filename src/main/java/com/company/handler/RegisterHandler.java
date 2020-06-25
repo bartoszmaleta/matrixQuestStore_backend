@@ -27,7 +27,7 @@ public class RegisterHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        String response = "no data ";
+        String response = "data not saved";
         String method = exchange.getRequestMethod(); // POST or GET
 
         if (method.equals("POST")) {

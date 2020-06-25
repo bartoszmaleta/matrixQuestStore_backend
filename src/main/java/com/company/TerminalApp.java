@@ -1,11 +1,11 @@
-package com.company.dao;
+package com.company;
 
 import com.company.controllers.LoggingController;
 
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 
-public class TestMain {
+public class TerminalApp {
     public static void main(String[] args) throws SQLException, FileNotFoundException {
 
 //        View.viewAllStudents();

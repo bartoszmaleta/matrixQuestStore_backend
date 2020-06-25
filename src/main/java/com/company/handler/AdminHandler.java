@@ -1,9 +1,11 @@
-package com.company.controllers;
+package com.company.handler;
 
 import com.company.dao.UserDao;
 import com.company.dao.UserDaoDb;
+import com.company.models.users.Student;
 import com.company.models.users.User;
 import com.company.service.AdminService;
+import com.company.service.EmployeeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -14,11 +16,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class UserController implements HttpHandler {
+public class AdminHandler implements HttpHandler {
     private UserDao userDao;
     private AdminService adminService;
 
-    public UserController() {
+    public AdminHandler() {
         this.userDao = new UserDaoDb();
         this.adminService = new AdminService();
     }

@@ -12,7 +12,7 @@ public class LoginService {
     }
 
 
-    public User readUserFromDao(String email, String password) {
+    public User readUserFromDaoByEmailOrPassword(String email, String password) {
         return this.userDao.readUserByEmailOrLoginAndPassword(email, password);
     }
 }

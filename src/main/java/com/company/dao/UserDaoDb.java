@@ -22,17 +22,20 @@ public class UserDaoDb implements UserDao {
             ResultSet rs;
 
             // TODO: find User by login!
-            ResultSet rs2 = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"email\" = '" + userEmail + "' AND \"password\" = '" + userPassword + "';");
-            ResultSet rs3 = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"login\" = '" + userEmail + "' AND \"password\" = '" + userPassword + "';");
+//            ResultSet rs2 = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"email\" = '" + userEmail + "' AND \"password\" = '" + userPassword + "';");
+//            ResultSet rs3 = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"login\" = '" + userEmail + "' AND \"password\" = '" + userPassword + "';");
+//
+//            System.out.println("rs2 = " + rs2);
+//            System.out.println("rs3 = " + rs3);
+//
+//            if (rs2 == null) {
+//                rs = rs3;
+//            } else {
+//                rs = rs2;
+//            }
 
-            System.out.println("rs2 = " + rs2);
-            System.out.println("rs3 = " + rs3);
-
-            if (rs2 == null) {
-                rs = rs3;
-            } else {
-                rs = rs2;
-            }
+            // SIMPLIER OPTION
+            rs = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"email\" = '" + userEmail + "' AND \"password\" = '" + userPassword + "';");
 
             rs.next();
             if (rs.getInt("role_id") == 1) {
@@ -100,7 +103,7 @@ public class UserDaoDb implements UserDao {
         String avatarPath = rs.getString("avatar");
 
         User newUser = new Admin(id, name, surname, login, password, email, roleId, avatarPath);
-        System.out.println("simple name = " + newUser.getClass().getSimpleName());
+//        System.out.println("simple name = " + newUser.getClass().getSimpleName());
         System.out.println("role = " + newUser.getRole());
         // TODO: where close()?????
         connectionFactory.close();
@@ -337,7 +340,6 @@ public class UserDaoDb implements UserDao {
         }
         return null;
     }
-
 
 
     // ---------------------------------------
