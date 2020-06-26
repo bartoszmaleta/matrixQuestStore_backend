@@ -1,6 +1,6 @@
-package com.company.models.users;
+package com.company.model.user;
 
-import com.company.models.Transaction;
+import com.company.model.Transaction;
 
 import java.util.List;
 

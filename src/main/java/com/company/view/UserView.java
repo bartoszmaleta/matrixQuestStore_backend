@@ -1,8 +1,6 @@
 package com.company.view;
 
-import com.company.models.Award;
-import com.company.models.Quest;
-import com.company.models.users.User;
+import com.company.model.user.User;
 import com.jakewharton.fliptables.FlipTableConverters;
 
 import java.io.FileNotFoundException;

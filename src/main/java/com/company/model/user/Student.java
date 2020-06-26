@@ -1,10 +1,8 @@
-package com.company.models.users;
+package com.company.model.user;
 
-import com.company.models.Award;
-import com.company.models.Quest;
-import com.company.models.Wallet;
+import com.company.model.Award;
+import com.company.model.Quest;
 
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 

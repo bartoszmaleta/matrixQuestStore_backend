@@ -1,4 +1,4 @@
-package com.company.models.statistics;
+package com.company.model.statistics;
 
 public class QuestCountByMentor {
     private String mentorNameAndSurname;
@@ -25,5 +25,11 @@ public class QuestCountByMentor {
     public QuestCountByMentor setAmountOfQuestsCount(int amountOfQuestsCount) {
         this.amountOfQuestsCount = amountOfQuestsCount;
         return this;
+    }
+
+    public String toString() {
+        return "QuestsByMentor:\n" +
+                "Mentor_name_and_surname: " + this.mentorNameAndSurname +
+                " Amount_of_quests: " + this.amountOfQuestsCount;
     }
 }

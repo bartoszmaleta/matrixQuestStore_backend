@@ -4,15 +4,14 @@ import com.company.dao.StudentDetailsDao;
 import com.company.dao.StudentDetailsDaoDb;
 import com.company.dao.UserDao;
 import com.company.dao.UserDaoDb;
-import com.company.models.users.Role;
-import com.company.models.users.Student;
-import com.company.models.users.User;
+import com.company.model.user.Role;
+import com.company.model.user.Student;
+import com.company.model.user.User;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import java.io.*;
 import java.net.URLDecoder;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 

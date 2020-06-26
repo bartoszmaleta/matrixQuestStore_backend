@@ -3,17 +3,17 @@ package com.company.service;
 import com.company.dao.AwardDaoDb;
 import com.company.dao.UserDao;
 import com.company.dao.UserDaoDb;
-import com.company.models.users.User;
+import com.company.model.user.User;
 import com.company.view.UserView;
 
 import java.io.FileNotFoundException;
 import java.util.List;
 
-public class AdminService extends EmployeeService {
+public class StatisticsDao extends EmployeeService {
     private final UserDao userDao;
     private final AwardDaoDb awardDAO;
 
-    public AdminService() {
+    public StatisticsDao() {
         this.userDao = new UserDaoDb();
         this.awardDAO = new AwardDaoDb();
     }
@@ -31,9 +31,7 @@ public class AdminService extends EmployeeService {
         this.userDao.delete(id);
     }
 
-    public User readUserFromDaoById(int id) {
-        return this.userDao.readUserById(id);
-    }
+//
 
     public void updateMentorsUsername(int mentorsId) {
         String nameToUpdate = InputTaker.takeStringInputWithMessage("Enter new name: ");

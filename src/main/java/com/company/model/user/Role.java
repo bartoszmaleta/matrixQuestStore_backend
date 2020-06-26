@@ -1,4 +1,4 @@
-package com.company.models.users;
+package com.company.model.user;
 
 public enum Role {
   ADMIN(1),

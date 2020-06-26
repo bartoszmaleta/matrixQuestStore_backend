@@ -1,8 +1,8 @@
 package com.company.dao;
 
-import com.company.models.Transaction;
-import com.company.models.statistics.TransactionCountAndTotalSumByUser;
-import com.company.models.users.User;
+import com.company.model.Transaction;
+import com.company.model.statistics.TransactionCountAndTotalSumByUser;
+import com.company.model.user.User;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -2,7 +2,7 @@ package com.company.handler;
 
 import com.company.dao.UserDao;
 import com.company.dao.UserDaoDb;
-import com.company.models.users.User;
+import com.company.model.user.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;

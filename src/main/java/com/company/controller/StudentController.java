@@ -1,7 +1,7 @@
-package com.company.controllers;
+package com.company.controller;
 
-import com.company.models.users.Role;
-import com.company.models.users.User;
+import com.company.model.user.Role;
+import com.company.model.user.User;
 import com.company.service.InputTaker;
 import com.company.service.StudentService;
 import com.company.view.TerminalView;

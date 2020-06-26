@@ -1,6 +1,6 @@
 package com.company.dao;
 
-import com.company.models.users.*;
+import com.company.model.user.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -172,6 +172,7 @@ public class UserDaoDb implements UserDao {
 
                 mentors.add(newUser);
             }
+            System.out.println(mentors);
             rs.close();
             return mentors;
         } catch (SQLException e) {

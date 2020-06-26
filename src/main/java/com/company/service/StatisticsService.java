@@ -4,9 +4,9 @@ import com.company.dao.StatisticsDao;
 import com.company.dao.StatisticsDaoDb;
 import com.company.dao.TransactionDao;
 import com.company.dao.TransactionDaoDb;
-import com.company.models.statistics.AwardCountByMentor;
-import com.company.models.statistics.QuestCountByMentor;
-import com.company.models.statistics.TransactionCountAndTotalSumByUser;
+import com.company.model.statistics.AwardCountByMentor;
+import com.company.model.statistics.QuestCountByMentor;
+import com.company.model.statistics.TransactionCountAndTotalSumByUser;
 import com.company.view.StatisticsView;
 
 import java.util.List;
@@ -28,6 +28,12 @@ public class StatisticsService {
     public void displayQuestsCountByMentor() {
         List<QuestCountByMentor> stats = statisticsDao.getQuestCountByMentor();
         StatisticsView.countQuestByMentor(stats);
+    }
+
+    public List<QuestCountByMentor> getQuestsCountByMentor() {
+        List<QuestCountByMentor> stats = statisticsDao.getQuestCountByMentor();
+        System.out.println(stats);
+        return stats;
     }
 
 

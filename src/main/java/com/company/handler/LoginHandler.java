@@ -1,18 +1,15 @@
 package com.company.handler;
 
-import com.company.controllers.LoggingController;
-import com.company.dao.UserDao;
-import com.company.dao.UserDaoDb;
+import com.company.controller.LoggingController;
 import com.company.helpers.HttpResponses;
 import com.company.helpers.Parsers;
-import com.company.models.users.User;
+import com.company.model.user.User;
 import com.company.service.LoginService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import java.io.*;
-import java.net.http.HttpResponse;
 import java.util.*;
 
 public class LoginHandler implements HttpHandler {

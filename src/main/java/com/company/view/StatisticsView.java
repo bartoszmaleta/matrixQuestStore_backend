@@ -1,10 +1,8 @@
 package com.company.view;
 
-import com.company.models.Quest;
-import com.company.models.statistics.AwardCountByMentor;
-import com.company.models.statistics.QuestCountByMentor;
-import com.company.models.statistics.TransactionCountAndTotalSumByUser;
-import com.company.models.users.User;
+import com.company.model.statistics.AwardCountByMentor;
+import com.company.model.statistics.QuestCountByMentor;
+import com.company.model.statistics.TransactionCountAndTotalSumByUser;
 import com.jakewharton.fliptables.FlipTableConverters;
 
 import java.util.List;

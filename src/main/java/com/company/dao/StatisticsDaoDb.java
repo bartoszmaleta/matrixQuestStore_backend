@@ -1,7 +1,7 @@
 package com.company.dao;
 
-import com.company.models.statistics.AwardCountByMentor;
-import com.company.models.statistics.QuestCountByMentor;
+import com.company.model.statistics.AwardCountByMentor;
+import com.company.model.statistics.QuestCountByMentor;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,7 +38,11 @@ public class StatisticsDaoDb implements StatisticsDao {
 
                 statistics.add(stat);
             }
+            System.out.println(statistics.get(0));
+            System.out.println(statistics.get(1).getAmountOfQuestsCount());
+            System.out.println(statistics);
             rs.close();
+            conFactory.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

@@ -1,6 +1,6 @@
 package com.company;
 
-import com.company.controllers.LoggingController;
+import com.company.controller.LoggingController;
 
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
