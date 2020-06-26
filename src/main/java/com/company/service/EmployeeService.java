@@ -1,5 +1,7 @@
 package com.company.service;
 
+import com.company.dao.StudentDetailsDao;
+import com.company.dao.StudentDetailsDaoDb;
 import com.company.dao.UserDao;
 import com.company.dao.UserDaoDb;
 import com.company.model.user.Role;
@@ -13,10 +15,12 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 public abstract class EmployeeService {
-    public UserDao userDao;
+    private final UserDao userDao;
+    private final StudentDetailsDao studentDetailsDao;
 
     public EmployeeService() {
         this.userDao = new UserDaoDb();
+        this.studentDetailsDao = new StudentDetailsDaoDb();
     }
 
     public void addUserToDb(String roleString) {
@@ -36,7 +40,17 @@ public abstract class EmployeeService {
         User newUser = new Student(name, surname, login, password, email, 1, avatarSource);
 
 
-        userDao.insert(newUser);
+        this.userDao.insert(newUser);
+    }
+
+    public void addUser(User user) {
+        this.userDao.insert(user);
+        createStudentDetails(user); // TODO: where? here?
+    }
+
+    private void createStudentDetails(User user) {
+        int studentIdFromDao = userDao.readUserIdByEmail(user.getEmail());
+        this.studentDetailsDao.insert(studentIdFromDao);
     }
 
     public Role decideRole(String role) {
@@ -96,6 +110,11 @@ public abstract class EmployeeService {
     public void displayAllMentors() throws FileNotFoundException {
         List<User> mentors = this.userDao.getMentors();
         UserView.allMentors(mentors);
+    }
+
+    public List<User> getAllMentors() throws FileNotFoundException {
+        List<User> mentors = this.userDao.getMentors();
+        return mentors;
     }
 
 

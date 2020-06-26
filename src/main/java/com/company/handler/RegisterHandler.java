@@ -7,6 +7,8 @@ import com.company.dao.UserDaoDb;
 import com.company.model.user.Role;
 import com.company.model.user.Student;
 import com.company.model.user.User;
+import com.company.service.AdminService;
+import com.company.service.EmployeeService;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
@@ -16,12 +18,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterHandler implements HttpHandler {
-    private UserDao userDao;
     private StudentDetailsDao studentDetailsDao;
+    private AdminService adminService;
 
     public RegisterHandler() {
-        this.userDao = new UserDaoDb();
         this.studentDetailsDao = new StudentDetailsDaoDb();
+        this.adminService = new AdminService();
+
     }
 
     @Override
@@ -30,11 +33,8 @@ public class RegisterHandler implements HttpHandler {
         String method = exchange.getRequestMethod(); // POST or GET
 
         if (method.equals("POST")) {
-            // retrieve data
             InputStreamReader isr = new InputStreamReader(exchange.getRequestBody(), "utf-8");
             BufferedReader br = new BufferedReader(isr);
-
-//            String data = br.readLine();
 
             Map<String, String> data = parseFormData(br.readLine());
 
@@ -46,7 +46,6 @@ public class RegisterHandler implements HttpHandler {
             System.out.println("roleId = " + data.get("roleId"));
             System.out.println("avatarPath = " + data.get("avatarPath"));
 
-            System.out.println("test");
             User student = new Student();
 
             Role roleEnum = decideRole(data.get("roleId"));
@@ -65,20 +64,11 @@ public class RegisterHandler implements HttpHandler {
             System.out.println("toString = " + student.toString());
             System.out.println(data);
 
-            userDao.insert(student);
-
-            // TODO: this one works!
-//            User user = userDao.readUserByEmail(student.getEmail());
-//            int userId = user.getId();
-//            System.out.println("user id = " + userId);
-//            studentDetailsDao.insert(userId);
-
-            int studentIdFromDao = userDao.readUserIdByEmail(student.getEmail());
-            studentDetailsDao.insert(studentIdFromDao);
+            this.adminService.addUser(student);
 
             response = "data saved - POST method";
         } else if (method.equals("GET")) {
-
+            // TODO: ??
             response = "data get - GET method";
         }
 
@@ -91,7 +81,6 @@ public class RegisterHandler implements HttpHandler {
 
     private Role decideRole(String data) {
         int roleId = Integer.parseInt(data);
-//        int roleId = Integer.parseInt((String) data.get("roleId"));
         Role role = null;
         if (roleId == 1) {
             role = Role.ADMIN;

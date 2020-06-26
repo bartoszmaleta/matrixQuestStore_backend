@@ -61,3 +61,11 @@ public class TerminalApp {
 // TODO: UserDaoDb change readUser!!!!!!!!!
 
 // TODO: hashing SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+
+// TODO: learn status http statuses and USE IT MORE OFTEN!!!
+
+// TODO: change ResultSet to PrepareStatement();
+
+// TODO: create default user which is created and then changes to Role by Admin
+
+// TODO: make userDaoDb.List<User> getMentors() --> more universal!!
