@@ -26,4 +26,10 @@ public class QuestCountByMentor {
         this.amountOfQuestsCount = amountOfQuestsCount;
         return this;
     }
+
+    public String toString() {
+        return "QuestsByMentor:\n" +
+                "Mentor_name_and_surname: " + this.mentorNameAndSurname +
+                " Amount_of_quests: " + this.amountOfQuestsCount;
+    }
 }

@@ -3,7 +3,7 @@ package com.company.handler;
 import com.company.dao.UserDao;
 import com.company.dao.UserDaoDb;
 import com.company.model.user.User;
-import com.company.service.AdminService;
+import com.company.service.StatisticsDao;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -16,11 +16,11 @@ import java.util.List;
 
 public class UserHandler implements HttpHandler {
     private UserDao userDao;
-    private AdminService adminService;
+    private StatisticsDao adminService;
 
     public UserHandler() {
         this.userDao = new UserDaoDb();
-        this.adminService = new AdminService();
+        this.adminService = new StatisticsDao();
     }
 
     @Override

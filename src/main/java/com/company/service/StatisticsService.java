@@ -30,6 +30,12 @@ public class StatisticsService {
         StatisticsView.countQuestByMentor(stats);
     }
 
+    public List<QuestCountByMentor> getQuestsCountByMentor() {
+        List<QuestCountByMentor> stats = statisticsDao.getQuestCountByMentor();
+        System.out.println(stats);
+        return stats;
+    }
+
 
     public void displayAwardsCountByMentor() {
         List<AwardCountByMentor> stats = statisticsDao.getAwardCountByMentor();

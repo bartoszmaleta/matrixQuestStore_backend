@@ -101,6 +101,38 @@ public class QuestDaoDb implements QuestDao {
         return listOfQuests;
     }
 
+    @Override
+    public List<Quest> readQuestListByMentorById(int userIdStr) {
+        listOfQuests = new ArrayList<>();
+//        String userIdStr = String.valueOf(user.getId());
+        try {
+//            ResultSet rs = conFactory.executeQuery("SELECT * FROM \"Quests\" ORDER BY id;");
+            ResultSet rs = conFactory.executeQuery("SELECT \"Quests\".id, title, description, coins, image, (CONCAT(m.name, ' ', m.surname)) AS mentor FROM \"Quests\"\n" +
+                    "INNER JOIN (\n" +
+                    "    SELECT * FROM users WHERE role_id = 2\n" +
+                    "    ) m\n" +
+                    "ON \"Quests\".mentor_id = m.id\n" +
+                    "WHERE \"Quests\".mentor_id = " +
+                    userIdStr +
+                    "ORDER BY \"Quests\".id;");
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String title = rs.getString("title");
+                String description = rs.getString("description");
+                int price = rs.getInt("coins");
+                String imageSrc = rs.getString("image");
+                String mentor = rs.getString("mentor");
+
+                listOfQuests.add(new Quest(id, title, description, price, imageSrc, mentor));
+            }
+            System.out.println(listOfQuests);
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listOfQuests;
+    }
+
     // Implemented from interface DAO
     @Override
     public List getAllElements() {

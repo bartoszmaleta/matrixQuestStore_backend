@@ -13,6 +13,7 @@ public class QuestsView {
                 "(3) Update quest data\n" +
                 "(4) Delete quest\n" +
                 "(5) View my quests\n" +
+                "(6) getAllQuestsOfThisMentorByUserId\n" +
                 "(0) Quit");
     }
 

@@ -172,6 +172,7 @@ public class UserDaoDb implements UserDao {
 
                 mentors.add(newUser);
             }
+            System.out.println(mentors);
             rs.close();
             return mentors;
         } catch (SQLException e) {

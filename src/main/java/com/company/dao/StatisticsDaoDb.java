@@ -38,7 +38,11 @@ public class StatisticsDaoDb implements StatisticsDao {
 
                 statistics.add(stat);
             }
+            System.out.println(statistics.get(0));
+            System.out.println(statistics.get(1).getAmountOfQuestsCount());
+            System.out.println(statistics);
             rs.close();
+            conFactory.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

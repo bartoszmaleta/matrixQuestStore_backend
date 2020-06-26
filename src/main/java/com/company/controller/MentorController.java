@@ -145,6 +145,7 @@ public class MentorController {
                 case "3" -> updateQuest();
                 case "4" -> deleteQuestById();
                 case "5" -> displayQuestsByThisMentor();
+                case "6" -> mentorService.getAllQuestsOfThisMentorByUserId(this.user.getId());
                 case "0" -> isRunning = false;
                 default -> TerminalView.printString("Wrong input.");
             }

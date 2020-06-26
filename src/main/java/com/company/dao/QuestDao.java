@@ -11,4 +11,5 @@ public interface QuestDao extends Dao{
     void updateQuestCoinsById(int id, int amountOfCoins);
     void updateQuestDescriptionById(int id, String description);
     void updateQuestTitleById(int id, String title);
+    List<Quest> readQuestListByMentorById(int userIdStr);
 }

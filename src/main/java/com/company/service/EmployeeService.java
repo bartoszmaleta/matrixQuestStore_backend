@@ -50,7 +50,9 @@ public abstract class EmployeeService {
         return null;
     }
 
-
+    public User readUserFromDaoById(int id) {
+        return this.userDao.readUserById(id);
+    }
 
     public void deleteStudentById(int id) {
         this.userDao.deleteStudent(id);

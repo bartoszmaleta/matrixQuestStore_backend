@@ -1,7 +1,7 @@
 package com.company.controller;
 
 import com.company.model.user.User;
-import com.company.service.AdminService;
+import com.company.service.StatisticsDao;
 import com.company.service.InputTaker;
 import com.company.service.StatisticsService;
 import com.company.view.TerminalView;
@@ -11,12 +11,12 @@ import java.io.FileNotFoundException;
 
 public class AdminController {
     private User user;
-    AdminService adminService;
+    StatisticsDao adminService;
     StatisticsService statisticsService;
 
     public AdminController(User user) {
         this.user = user;
-        this.adminService = new AdminService();
+        this.adminService = new StatisticsDao();
         this.statisticsService = new StatisticsService();
     }
 
