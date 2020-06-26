@@ -9,11 +9,11 @@ import com.company.view.UserView;
 import java.io.FileNotFoundException;
 import java.util.List;
 
-public class StatisticsDao extends EmployeeService {
+public class AdminService extends EmployeeService {
     private final UserDao userDao;
     private final AwardDaoDb awardDAO;
 
-    public StatisticsDao() {
+    public AdminService() {
         this.userDao = new UserDaoDb();
         this.awardDAO = new AwardDaoDb();
     }
@@ -30,7 +30,9 @@ public class StatisticsDao extends EmployeeService {
     public void deleteUserById(int id) {
         this.userDao.delete(id);
     }
-
+    public User readUserFromDaoById(int id) {
+        return this.userDao.readUserById(id);
+    }
 //
 
     public void updateMentorsUsername(int mentorsId) {

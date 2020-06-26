@@ -98,5 +98,10 @@ public abstract class EmployeeService {
         UserView.allMentors(mentors);
     }
 
+    public List<User> getAllMentors() throws FileNotFoundException {
+        List<User> mentors = this.userDao.getMentors();
+        return mentors;
+    }
+
 
 }

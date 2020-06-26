@@ -1,13 +1,12 @@
 package com.company.handler;
 
-import com.company.dao.StatisticsDaoDb;
 import com.company.dao.UserDao;
 import com.company.dao.UserDaoDb;
 import com.company.model.Quest;
 import com.company.model.statistics.QuestCountByMentor;
 import com.company.model.user.User;
-import com.company.service.StatisticsDao;
 import com.company.service.MentorService;
+import com.company.service.StatisticsService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -21,12 +20,15 @@ import java.util.List;
 public class MentorHandler implements HttpHandler {
     private UserDao userDao;
     private MentorService mentorService;
-    StatisticsDaoDb statisticsDaoDb;
+//    StatisticsDaoDb statisticsDaoDb;
+    private StatisticsService statisticsService;
 
     public MentorHandler() {
         this.userDao = new UserDaoDb();
         this.mentorService = new MentorService();
-        this.statisticsDaoDb = new StatisticsDaoDb();
+//        this.statisticsDaoDb = new StatisticsDaoDb();
+        this.statisticsService = new StatisticsService();
+
          // TODO: move to another handler
     }
 
@@ -85,7 +87,7 @@ public class MentorHandler implements HttpHandler {
                     System.out.println(response);
                     break;
                 case "questsByMentor": // TODO: move to another handler
-                    List<QuestCountByMentor> questsCount = this.statisticsDaoDb.getQuestCountByMentor();
+                    List<QuestCountByMentor> questsCount = this.statisticsService.getQuestsCountByMentor();
                     response = mapper.writeValueAsString(questsCount);
                     System.out.println(response);
                     break;
@@ -94,7 +96,7 @@ public class MentorHandler implements HttpHandler {
                     //np. http://localhost:8003/mentors
                     //np. http://localhost:8003/mentorsqweqwe
                     System.out.println("qweqwe");
-                    List<User> users = this.userDao.getMentors();
+                    List<User> users = this.mentorService.getAllMentors();
                     response = mapper.writeValueAsString(users);
             }
             sendResponse(response, httpExchange, 200);
