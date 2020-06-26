@@ -1,7 +1,5 @@
 package com.company.dao;
 
-import com.company.models.users.User;
-
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 

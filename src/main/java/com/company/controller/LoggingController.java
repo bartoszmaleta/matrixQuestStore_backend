@@ -1,10 +1,10 @@
-package com.company.controllers;
+package com.company.controller;
 
 import com.company.dao.UserDao;
 import com.company.dao.UserDaoDb;
-import com.company.models.users.Role;
-import com.company.models.users.Student;
-import com.company.models.users.User;
+import com.company.model.user.Role;
+import com.company.model.user.Student;
+import com.company.model.user.User;
 import com.company.service.InputTaker;
 import com.company.service.LoginService;
 import com.company.view.TerminalView;

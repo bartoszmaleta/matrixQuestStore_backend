@@ -1,6 +1,6 @@
 package com.company.view;
 
-import com.company.models.Transaction;
+import com.company.model.Transaction;
 import com.jakewharton.fliptables.FlipTableConverters;
 
 import java.io.FileNotFoundException;

@@ -1,6 +1,6 @@
 package com.company.view;
 
-import com.company.models.Award;
+import com.company.model.Award;
 import com.jakewharton.fliptables.FlipTableConverters;
 
 import java.util.List;

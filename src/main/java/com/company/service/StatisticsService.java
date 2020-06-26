@@ -4,9 +4,9 @@ import com.company.dao.StatisticsDao;
 import com.company.dao.StatisticsDaoDb;
 import com.company.dao.TransactionDao;
 import com.company.dao.TransactionDaoDb;
-import com.company.models.statistics.AwardCountByMentor;
-import com.company.models.statistics.QuestCountByMentor;
-import com.company.models.statistics.TransactionCountAndTotalSumByUser;
+import com.company.model.statistics.AwardCountByMentor;
+import com.company.model.statistics.QuestCountByMentor;
+import com.company.model.statistics.TransactionCountAndTotalSumByUser;
 import com.company.view.StatisticsView;
 
 import java.util.List;

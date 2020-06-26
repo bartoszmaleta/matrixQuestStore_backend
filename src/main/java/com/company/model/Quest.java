@@ -1,4 +1,4 @@
-package com.company.models;
+package com.company.model;
 
 public class Quest {
     private int id;

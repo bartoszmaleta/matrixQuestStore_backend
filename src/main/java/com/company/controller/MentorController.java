@@ -1,10 +1,9 @@
-package com.company.controllers;
+package com.company.controller;
 
 
-import com.company.models.Quest;
-import com.company.models.users.Role;
-import com.company.models.users.User;
-import com.company.service.EmployeeService;
+import com.company.model.Quest;
+import com.company.model.user.Role;
+import com.company.model.user.User;
 import com.company.service.InputTaker;
 import com.company.service.MentorService;
 import com.company.view.AwardsView;

@@ -1,6 +1,6 @@
 package com.company.view;
 
-import com.company.models.Quest;
+import com.company.model.Quest;
 import com.jakewharton.fliptables.FlipTableConverters;
 
 import java.io.FileNotFoundException;

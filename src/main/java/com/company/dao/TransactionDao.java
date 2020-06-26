@@ -1,7 +1,7 @@
 package com.company.dao;
 
-import com.company.models.Transaction;
-import com.company.models.users.User;
+import com.company.model.Transaction;
+import com.company.model.user.User;
 
 import java.util.List;
 

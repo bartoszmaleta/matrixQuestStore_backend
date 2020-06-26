@@ -4,9 +4,9 @@ import com.company.dao.AwardDaoDb;
 import com.company.dao.QuestDaoDb;
 import com.company.dao.UserDao;
 import com.company.dao.UserDaoDb;
-import com.company.models.Award;
-import com.company.models.Quest;
-import com.company.models.users.User;
+import com.company.model.Award;
+import com.company.model.Quest;
+import com.company.model.user.User;
 import com.company.view.AwardsView;
 import com.company.view.QuestsView;
 

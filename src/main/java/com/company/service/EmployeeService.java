@@ -2,9 +2,9 @@ package com.company.service;
 
 import com.company.dao.UserDao;
 import com.company.dao.UserDaoDb;
-import com.company.models.users.Role;
-import com.company.models.users.Student;
-import com.company.models.users.User;
+import com.company.model.user.Role;
+import com.company.model.user.Student;
+import com.company.model.user.User;
 import com.company.view.QuestsView;
 import com.company.view.TerminalView;
 import com.company.view.UserView;

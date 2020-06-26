@@ -1,7 +1,7 @@
 package com.company.dao;
 
-import com.company.models.Quest;
-import com.company.models.users.User;
+import com.company.model.Quest;
+import com.company.model.user.User;
 
 import java.sql.*;
 import java.util.ArrayList;

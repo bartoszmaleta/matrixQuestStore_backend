@@ -1,7 +1,7 @@
 package com.company.dao;
 
-import com.company.models.statistics.AwardCountByMentor;
-import com.company.models.statistics.QuestCountByMentor;
+import com.company.model.statistics.AwardCountByMentor;
+import com.company.model.statistics.QuestCountByMentor;
 
 import java.util.List;
 

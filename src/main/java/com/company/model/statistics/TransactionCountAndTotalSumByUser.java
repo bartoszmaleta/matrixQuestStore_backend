@@ -1,4 +1,4 @@
-package com.company.models.statistics;
+package com.company.model.statistics;
 
 public class TransactionCountAndTotalSumByUser {
     private String studentNameAndSurname;

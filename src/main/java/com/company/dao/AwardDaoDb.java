@@ -1,7 +1,7 @@
 package com.company.dao;
 
-import com.company.models.Award;
-import com.company.models.users.User;
+import com.company.model.Award;
+import com.company.model.user.User;
 
 import java.sql.*;
 import java.util.ArrayList;
