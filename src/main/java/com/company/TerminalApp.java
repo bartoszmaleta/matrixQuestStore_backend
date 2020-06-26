@@ -61,3 +61,5 @@ public class TerminalApp {
 // TODO: UserDaoDb change readUser!!!!!!!!!
 
 // TODO: hashing SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+
+// TODO: learn status http statuses and USE IT MORE OFTEN!!!
