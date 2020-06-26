@@ -1,6 +1,6 @@
 package com.company;
 
-import com.company.controllers.UserController;
+import com.company.handler.UserHandler;
 import com.company.handler.*;
 import com.sun.net.httpserver.HttpServer;
 
@@ -11,11 +11,11 @@ public class ServerApp {
     public static void main(String[] args) throws IOException {
         HttpServer server = HttpServer.create(new InetSocketAddress(8003), 0);
 
-        server.createContext("/usersNew", new UserController());
+        server.createContext("/users", new UserHandler());
         server.createContext("/register", new RegisterHandler());
-        server.createContext("/users", new AdminHandler());
-        server.createContext("/mentors", new MentorHandler());
-        server.createContext("/students", new StudentHandler());
+//        server.createContext("/users", new AdminHandler());
+//        server.createContext("/mentors", new MentorHandler());
+//        server.createContext("/students", new StudentHandler());
         server.createContext("/login", new LoginHandler());
         server.setExecutor(null);
         server.start();
