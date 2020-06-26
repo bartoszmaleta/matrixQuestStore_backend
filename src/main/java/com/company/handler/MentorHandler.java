@@ -18,40 +18,14 @@ import java.util.Collections;
 import java.util.List;
 
 public class MentorHandler implements HttpHandler {
-    private UserDao userDao;
     private MentorService mentorService;
-//    StatisticsDaoDb statisticsDaoDb;
     private StatisticsService statisticsService;
 
     public MentorHandler() {
-        this.userDao = new UserDaoDb();
         this.mentorService = new MentorService();
-//        this.statisticsDaoDb = new StatisticsDaoDb();
         this.statisticsService = new StatisticsService();
 
          // TODO: move to another handler
-    }
-
-//    @Override
-    public void handle2(HttpExchange exchange) throws IOException {
-        String response = "";
-
-        try {
-            List<User> mentors = this.userDao.getMentors();
-            ObjectMapper mapper = new ObjectMapper();
-            response = mapper.writeValueAsString(mentors);
-
-            exchange.getResponseHeaders().put("Content-type", Collections.singletonList("application/json"));
-            exchange.getResponseHeaders().put("Access-Control-Allow-Origin", Collections.singletonList("*"));
-            exchange.sendResponseHeaders(200, response.length());
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        OutputStream os = exchange.getResponseBody();
-        os.write(response.getBytes());
-        os.close();
     }
 
     @Override

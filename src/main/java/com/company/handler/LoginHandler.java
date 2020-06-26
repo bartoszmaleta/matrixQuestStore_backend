@@ -13,7 +13,7 @@ import java.io.*;
 import java.util.*;
 
 public class LoginHandler implements HttpHandler {
-    private LoggingController loggingController;
+    private LoggingController loggingController; // NOT USED
     private LoginService loginService;
     private HttpResponses httpResponses;
 
