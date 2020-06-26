@@ -18,12 +18,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterHandler implements HttpHandler {
-    private UserDao userDao;
     private StudentDetailsDao studentDetailsDao;
     private AdminService adminService;
 
     public RegisterHandler() {
-        this.userDao = new UserDaoDb();
         this.studentDetailsDao = new StudentDetailsDaoDb();
         this.adminService = new AdminService();
 

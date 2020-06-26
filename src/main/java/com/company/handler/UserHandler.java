@@ -15,8 +15,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class UserHandler implements HttpHandler {
-    private UserDao userDao;
-    private AdminService adminService;
+    private final UserDao userDao;
+    private final AdminService adminService;
 
     public UserHandler() {
         this.userDao = new UserDaoDb();
@@ -31,8 +31,6 @@ public class UserHandler implements HttpHandler {
         ObjectMapper mapper = new ObjectMapper();
         String response = "";
 
-//        System.out.println("methods[2] = " + actions[2]);
-//        System.out.println("methods[2] = ");
         System.out.println("array methods = " + Arrays.toString(actions));
 
         try {
@@ -41,12 +39,12 @@ public class UserHandler implements HttpHandler {
                     // TODO:
                     break;
                 case "details":
-                    //np. http://localhost:8003/users/details/1
+                    // http://localhost:8003/users/details/1
                     User user = this.adminService.readUserFromDaoById(Integer.parseInt(actions[3]));
                     response = mapper.writeValueAsString(user);
                     break;
                 default:
-                    //np. http://localhost:8005/users
+                    // http://localhost:8005/users
                     List<User> users = this.userDao.getAllElements();
                     response = mapper.writeValueAsString(users);
             }
@@ -68,27 +66,4 @@ public class UserHandler implements HttpHandler {
         os.write((response.getBytes()));
         os.close();
     }
-
-    //    @Override
-//    public void handle(HttpExchange exchange) throws IOException {
-//        String response = "";
-//
-//        try {
-//            List<User> users = this.userDao.getAllElements();
-//            ObjectMapper mapper = new ObjectMapper();
-//            response = mapper.writeValueAsString(users);
-//
-//            exchange.getResponseHeaders().put("Content-type", Collections.singletonList("application/json"));
-//            exchange.getResponseHeaders().put("Access-Control-Allow-Origin", Collections.singletonList("*"));
-//            exchange.sendResponseHeaders(200, response.length());
-//
-//
-//
-//        } catch (IOException e) {
-//            exchange.sendResponseHeaders(404, response.length());
-//        }
-//        OutputStream os = exchange.getResponseBody();
-//        os.write(response.getBytes());
-//        os.close();
-//    }
 }

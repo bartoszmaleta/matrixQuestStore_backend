@@ -15,8 +15,8 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 public abstract class EmployeeService {
-    public UserDao userDao;
-    private StudentDetailsDao studentDetailsDao;
+    private final UserDao userDao;
+    private final StudentDetailsDao studentDetailsDao;
 
     public EmployeeService() {
         this.userDao = new UserDaoDb();
