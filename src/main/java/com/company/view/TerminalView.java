@@ -1,7 +1,7 @@
 package com.company.view;
 
-import com.company.service.Colour;
-import com.company.service.TerminalManager;
+import com.company.helpers.Colour;
+import com.company.helpers.TerminalManager;
 import com.github.tomaslanger.chalk.Chalk;
 
 import java.awt.*;

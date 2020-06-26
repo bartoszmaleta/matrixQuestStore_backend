@@ -13,7 +13,6 @@ public interface AwardDao extends Dao {
     void addAward(Award award);
     void deleteAwardById(int id);
     List<Award> readAwardListByMentor(User user);
-    List<Award> readAwardListWithMentors();
 
     List<Award> getAwardsByUser(User user);
 

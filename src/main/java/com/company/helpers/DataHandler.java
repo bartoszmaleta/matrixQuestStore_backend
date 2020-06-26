@@ -1,4 +1,6 @@
-package com.company.service;
+package com.company.helpers;
+
+import com.company.helpers.TerminalManager;
 
 import java.io.File;
 import java.io.FileNotFoundException;

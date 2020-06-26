@@ -1,4 +1,4 @@
-package com.company.service;
+package com.company.helpers;
 
 public class Colour {
 

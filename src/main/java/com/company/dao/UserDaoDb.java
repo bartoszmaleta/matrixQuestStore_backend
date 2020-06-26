@@ -286,34 +286,7 @@ public class UserDaoDb implements UserDao {
         }
     }
 
-    // NOT USED
-    @Override
-    public User readUserByEmail(String userEmail) {
-        Connection c = null;
-        User newUser;
 
-        try {
-            System.out.println("\nI am in readUserByEmail\n");
-
-            ResultSet rs = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"email\" = '" + userEmail + "';");
-
-            rs.next();
-            if (rs.getInt("role_id") == 1) {
-                return getAdmin(rs);
-            } else if (rs.getInt("role_id") == 2) {
-                return getMentor(rs);
-            } else if (rs.getInt("role_id") == 3) {
-                return getStudent(rs);
-            } else {
-                System.out.println("No user");
-            }
-            connectionFactory.close();
-            rs.close();
-        } catch (Exception e) {
-            System.err.println("Error! Reading user by userName and userPassword from DB failed!");
-        }
-        return null;
-    }
 
     @Override
     public User readUserById(int userId) {
@@ -581,6 +554,35 @@ public class UserDaoDb implements UserDao {
 //            return users;
 //        } catch (SQLException e) {
 //            e.printStackTrace();
+//        }
+//        return null;
+//    }
+
+    // NOT USED
+//    @Override
+//    public User readUserByEmail(String userEmail) {
+//        Connection c = null;
+//        User newUser;
+//
+//        try {
+//            System.out.println("\nI am in readUserByEmail\n");
+//
+//            ResultSet rs = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"email\" = '" + userEmail + "';");
+//
+//            rs.next();
+//            if (rs.getInt("role_id") == 1) {
+//                return getAdmin(rs);
+//            } else if (rs.getInt("role_id") == 2) {
+//                return getMentor(rs);
+//            } else if (rs.getInt("role_id") == 3) {
+//                return getStudent(rs);
+//            } else {
+//                System.out.println("No user");
+//            }
+//            connectionFactory.close();
+//            rs.close();
+//        } catch (Exception e) {
+//            System.err.println("Error! Reading user by userName and userPassword from DB failed!");
 //        }
 //        return null;
 //    }
