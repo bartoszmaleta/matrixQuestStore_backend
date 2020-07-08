@@ -164,7 +164,7 @@ public class Award {
 
     public String toString() {
         return "Quest:\n" +
-                "Id: " + id +
+//                "Id: " + id +
                 " Title: " + title +
                 " Description: " + description +
                 " Price: " + price +

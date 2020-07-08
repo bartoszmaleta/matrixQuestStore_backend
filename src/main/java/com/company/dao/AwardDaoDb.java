@@ -116,7 +116,7 @@ public class AwardDaoDb implements AwardDao {
                     "    SELECT * FROM users WHERE role_id = 2\n" +
                     "    ) m\n" +
                     "ON \"Awards\".creator_id = m.id\n" +
-                    "WHERE \"Quests\".mentor_id = " +
+                    "WHERE \"Awards\".creator_id = " +
                     userId +
                     "ORDER BY \"Awards\".id;");
             while (rs.next()) {
