@@ -69,3 +69,5 @@ public class TerminalApp {
 // TODO: create default user which is created and then changes to Role by Admin
 
 // TODO: make userDaoDb.List<User> getMentors() --> more universal!!
+
+// TODO: Refactor helpers
