@@ -17,6 +17,7 @@ public class ServerApp {
         server.createContext("/mentors", new MentorHandler());
         server.createContext("/students", new StudentHandler());
         server.createContext("/login", new LoginHandler());
+        server.createContext("/awards", new AwardsHandler());
         server.setExecutor(null);
         server.start();
 
