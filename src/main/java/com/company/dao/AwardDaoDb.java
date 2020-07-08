@@ -225,7 +225,7 @@ public class AwardDaoDb implements AwardDao {
     }
 
     @Override
-    public List getAllElements() {
+    public List<Award> getAllElements() {
         listOfAwards = new ArrayList<>();
 //        String userIdStr = String.valueOf(user.getId());
         try {
