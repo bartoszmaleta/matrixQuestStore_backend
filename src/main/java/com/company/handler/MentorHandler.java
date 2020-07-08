@@ -79,6 +79,7 @@ public class MentorHandler implements HttpHandler {
             } else if (method.equals("POST")) {
                 switch (action) {
                     case "addAward":
+                        System.out.println("I am here - addAward POST");
                         //http:localhost:8003/mentors/addAward
                         // and mentorId in body!
 
@@ -86,12 +87,16 @@ public class MentorHandler implements HttpHandler {
                         BufferedReader br = new BufferedReader(isr);
 
                         Map<String, String> data = Parsers.parseFormData(br.readLine());
+                        System.out.println(data);
+                        System.out.println(data.get("description"));
+                        System.out.println(data.get("title"));
 
                         Award award = new Award();
 
                         Date date = new Date();
 
                         int mentorsId = Integer.parseInt(data.get("mentorsId"));
+                        System.out.println(mentorsId);
 
                         award.setTitle(data.get("title"))
                                 .setImageSrc(data.get("imageSrc"))
@@ -99,6 +104,8 @@ public class MentorHandler implements HttpHandler {
                                 .setPrice(Integer.parseInt(data.get("price")))
                                 .setMentorId(mentorsId)
                                 .setDataCreation(new Timestamp(date.getTime()));
+
+                        System.out.println("toString Award = " + award.toString());
 
                         this.mentorService.addAwardToDatabase(award);
 
