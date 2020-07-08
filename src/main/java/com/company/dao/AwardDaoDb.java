@@ -15,37 +15,12 @@ public class AwardDaoDb implements AwardDao {
         conFactory = new ConnectionFactory();
     }
 
-    @Override
-    public List<Award> readAwardListWithMentors() {
-        listOfAwards = new ArrayList<>();
-        try {
-            ResultSet rs = conFactory.executeQuery("SELECT \"Awards\".id, title, description, price, image, data_creation, (CONCAT(m.name, ' ', m.surname)) AS mentor FROM \"Awards\"\n" +
-                    "INNER JOIN (\n" +
-                    "    SELECT * FROM users WHERE role_id = 2\n" +
-                    "    ) m\n" +
-                    "ON \"Awards\".creator_id = m.id\n" +
-                    "ORDER BY \"Awards\".id;");
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String title = rs.getString("title");
-                String description = rs.getString("description");
-                int price = rs.getInt("price");
-                String imageSrc = rs.getString("image");
-                Timestamp dataCreation = rs.getTimestamp("data_creation");
-                String mentor = rs.getString("mentor");
 
-                listOfAwards.add(new Award(id, title, description, price, imageSrc, dataCreation, mentor));
-            }
-            rs.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return listOfAwards;
-    }
 
     @Override
     public List<Award> getAwardsByUser(User user) {
         List<Award> awards = new ArrayList<>();
+        String userId = String.valueOf(user.getId());
 
         try {
             ResultSet rs = conFactory.executeQuery("SELECT \"Transactions\".id\n" +
@@ -68,7 +43,8 @@ public class AwardDaoDb implements AwardDao {
                     "        ) aw\n" +
                     "ON \"Transactions\".award_id = aw.id\n" +
                     "\n" +
-                    "WHERE user_id = 29\n" +        // TODO: userId????
+//                    "WHERE user_id = 29\n" +        // TODO: userId????
+                    "WHERE user_id = " + userId + "\n" +        // TODO: with userId
                     "\n" +
                     "ORDER BY \"Transactions\".id;");
 
@@ -132,9 +108,8 @@ public class AwardDaoDb implements AwardDao {
     }
 
     @Override // TODO: Use this in server MentorHandler!!
-    public List<Award> readAwardListByMentorById(int userIdStr) {
+    public List<Award> readAwardListByMentorById(int userId) {
         listOfAwards = new ArrayList<>();
-//        String userIdStr = String.valueOf(user.getId());
         try {
             ResultSet rs = conFactory.executeQuery("SELECT \"Awards\".id, title, description, price, image, data_creation, (CONCAT(m.name, ' ', m.surname)) AS mentor FROM \"Awards\"\n" +
                     "INNER JOIN (\n" +
@@ -142,7 +117,7 @@ public class AwardDaoDb implements AwardDao {
                     "    ) m\n" +
                     "ON \"Awards\".creator_id = m.id\n" +
                     "WHERE \"Quests\".mentor_id = " +
-                    userIdStr +
+                    userId +
                     "ORDER BY \"Awards\".id;");
             while (rs.next()) {
                 int id = rs.getInt("id");
@@ -287,6 +262,26 @@ public class AwardDaoDb implements AwardDao {
 
     @Override
     public boolean insert(Object o) {
+        Award award = (Award) o;
+        PreparedStatement ps = null;
+        try {
+            ps = conFactory.getConnection().prepareStatement("INSERT INTO \"Awards\" (title, description, price, image, data_creation, creator_id)" +
+                    "VALUES (?, ?, ?, ?, ?, ?);");
+            // TODO: remove id inserting!
+            ps.setString(1, award.getTitle());
+            ps.setString(2, award.getDescription());
+            ps.setInt(3, award.getPrice());
+            ps.setString(4, award.getImageSrc());
+            ps.setTimestamp(5, award.getDataCreation());
+            ps.setInt(6, award.getMentorId());
+            ps.executeUpdate();
+
+            ps.close();
+            conFactory.close();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return false;
     }
 

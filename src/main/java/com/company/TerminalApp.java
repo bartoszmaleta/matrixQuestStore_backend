@@ -7,18 +7,10 @@ import java.sql.SQLException;
 
 public class TerminalApp {
     public static void main(String[] args) throws SQLException, FileNotFoundException {
-
-//        View.viewAllStudents();
-//        View.viewAllQuests();
-//        View.viewAllQuestsWithMentors();
-//        View.viewAllAwards();
-//        View.viewAllAwardsWithMentors();
-//
         LoggingController loggingController = new LoggingController();
         loggingController.init();
     }
 }
-
 
 // TODO: date in quest!!
 // TODO: edit generic!

@@ -2,6 +2,8 @@ package com.company.handler;
 
 import com.company.dao.UserDao;
 import com.company.dao.UserDaoDb;
+import com.company.helpers.Parsers;
+import com.company.model.Award;
 import com.company.model.Quest;
 import com.company.model.statistics.QuestCountByMentor;
 import com.company.model.user.User;
@@ -11,11 +13,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.util.*;
 
 public class MentorHandler implements HttpHandler {
     private MentorService mentorService;
@@ -25,7 +29,7 @@ public class MentorHandler implements HttpHandler {
         this.mentorService = new MentorService();
         this.statisticsService = new StatisticsService();
 
-         // TODO: move to another handler
+        // TODO: move to another handler
     }
 
     @Override
@@ -35,49 +39,92 @@ public class MentorHandler implements HttpHandler {
         String action = (actions.length == 2) ? "" : (actions[2].matches("\\d+") ? "details" : actions[2]);
         ObjectMapper mapper = new ObjectMapper();
         String response = "";
+        String method = httpExchange.getRequestMethod(); // POST or GET
 
-//        System.out.println("methods[2] = " + actions[2]);
-//        System.out.println("methods[2] = ");
         System.out.println("array methods = " + Arrays.toString(actions));
 
         try {
-            switch (action) {
-                case "add":
-                    // TODO:
-                    break;
-                case "details":
-                    //np. http://localhost:8003/users/details/1
-                    User user = this.mentorService.readUserFromDaoById(Integer.parseInt(actions[3]));
-                    response = mapper.writeValueAsString(user);
-                    break;
-                case "myQuests":
-//                    http://localhost:8003/mentors/myQuests/2
-                    int idOfMentor = Integer.parseInt(actions[3]);
-                    System.out.println("id of mentor = " + idOfMentor);
-//                    List<Quest> quests = this.mentorService.getAllAwardsOfThisMentorByUserId(idOfMentor);
-                    List<Quest> quests = this.mentorService.getAllQuestsOfThisMentorByUserId(idOfMentor);
-                    System.out.println(quests);
-                    response = mapper.writeValueAsString(quests);
-                    System.out.println(response);
-                    break;
-                case "questsByMentor": // TODO: move to another handler
-                    List<QuestCountByMentor> questsCount = this.statisticsService.getQuestsCountByMentor();
-                    response = mapper.writeValueAsString(questsCount);
-                    System.out.println(response);
-                    break;
-                default:         // TODO: which one?
-//                case "all":
-                    //np. http://localhost:8003/mentors
-                    //np. http://localhost:8003/mentorsqweqwe
-                    System.out.println("qweqwe");
-                    List<User> users = this.mentorService.getAllMentors();
-                    response = mapper.writeValueAsString(users);
+            if (method.equals("GET")) {
+
+                switch (action) {
+//                case "add":
+//                    // TODO:
+//                    break;
+                    case "details":
+                        //np. http://localhost:8003/users/details/1
+                        User user = this.mentorService.readUserFromDaoById(Integer.parseInt(actions[3]));
+                        response = mapper.writeValueAsString(user);
+                        break;
+                    case "myQuests":
+//                    http://localhost:8003/mentors/myQuests/2  <--- mentorId
+                        int idOfMentor = Integer.parseInt(actions[3]);
+                        System.out.println("id of mentor = " + idOfMentor);
+                        List<Quest> quests = this.mentorService.getAllQuestsOfThisMentorByUserId(idOfMentor);
+                        System.out.println(quests);
+                        response = mapper.writeValueAsString(quests);
+                        System.out.println(response);
+                        break;
+                    case "questsByMentor": // TODO: move to another handler
+                        List<QuestCountByMentor> questsCount = this.statisticsService.getQuestsCountByMentor();
+                        response = mapper.writeValueAsString(questsCount);
+                        System.out.println(response);
+                        break;
+                    default:
+                        //np. http://localhost:8003/mentors
+                        //np. http://localhost:8003/mentorsqweqwe
+                        System.out.println("/mentors METHOD GET");
+                        List<User> users = this.mentorService.getAllMentors();
+                        response = mapper.writeValueAsString(users);
+                }
+            } else if (method.equals("POST")) {
+                switch (action) {
+                    case "addAward":
+                        //http:localhost:8003/mentors/addAward
+                        // and mentorId in body!
+
+                        InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
+                        BufferedReader br = new BufferedReader(isr);
+
+                        Map<String, String> data = Parsers.parseFormData(br.readLine());
+
+                        Award award = new Award();
+
+                        Date date = new Date();
+
+                        int mentorsId = Integer.parseInt(data.get("mentorsId"));
+
+                        award.setTitle(data.get("title"))
+                                .setImageSrc(data.get("imageSrc"))
+                                .setDescription(data.get("description"))
+                                .setPrice(Integer.parseInt(data.get("price")))
+                                .setMentorId(mentorsId)
+                                .setDataCreation(new Timestamp(date.getTime()));
+
+                        this.mentorService.addAwardToDatabase(award);
+
+                        List<Award> awards = this.mentorService.getAllAwardsOfThisMentorByUserId(mentorsId);
+                        response = mapper.writeValueAsString(awards);
+
+                    default:
+                        //np. http://localhost:8003/mentors
+                        //np. http://localhost:8003/mentorsqweqwe
+                        System.out.println("/mentors METHOD POST ]");
+                        List<User> users = this.mentorService.getAllMentors();
+                        response = mapper.writeValueAsString(users);
+                }
             }
-            sendResponse(response, httpExchange, 200);
         } catch (Exception e) {
             sendResponse(response, httpExchange, 404);
         }
+        sendResponse(response, httpExchange, 200);
+
+
+//        httpExchange.sendResponseHeaders(200, response.length());
+//        OutputStream os = httpExchange.getResponseBody();
+//        os.write(response.getBytes());
+//        os.close();
     }
+
 
     private void sendResponse(String response, HttpExchange httpExchange, int status) throws IOException {
         if (status == 200) {

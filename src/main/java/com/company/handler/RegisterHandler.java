@@ -14,6 +14,7 @@ import com.sun.net.httpserver.HttpHandler;
 
 import java.io.*;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,7 +34,7 @@ public class RegisterHandler implements HttpHandler {
         String method = exchange.getRequestMethod(); // POST or GET
 
         if (method.equals("POST")) {
-            InputStreamReader isr = new InputStreamReader(exchange.getRequestBody(), "utf-8");
+            InputStreamReader isr = new InputStreamReader(exchange.getRequestBody(), StandardCharsets.UTF_8);
             BufferedReader br = new BufferedReader(isr);
 
             Map<String, String> data = parseFormData(br.readLine());

@@ -13,10 +13,6 @@ public class Student extends User{
     private String name;
     private String surname;
 
-//    // TODO: Remove in futuer
-//    public Student(String login, String password, String email, Role role, String name, String surname, String avatarSource) {
-//        super(login, password, email, role, name, surname, avatarSource);
-//    }
 
     // Constructor with id
     public Student(int id, String name, String surname, String login, String password, String email, int roleId, String avatarSource) {

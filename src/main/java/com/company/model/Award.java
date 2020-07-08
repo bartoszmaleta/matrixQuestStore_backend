@@ -1,5 +1,7 @@
 package com.company.model;
 
+import com.company.model.user.User;
+
 import java.sql.Timestamp;
 
 public class Award {
@@ -14,6 +16,10 @@ public class Award {
     private String mentorNameAndSurname;
     private String ownerCredentials;
 
+
+
+    public Award() {
+    }
 
     public String getOwnerCredentials() {
         return ownerCredentials;
@@ -79,72 +85,81 @@ public class Award {
         return mentorNameAndSurname;
     }
 
-    public void setMentorNameAndSurname(String mentorNameAndSurname) {
+    public Award setMentorNameAndSurname(String mentorNameAndSurname) {
         this.mentorNameAndSurname = mentorNameAndSurname;
+        return this;
     }
 
     public String getMentor() {
         return mentor;
     }
 
-    public void setMentor(String mentor) {
+    public Award setMentor(String mentor) {
         this.mentor = mentor;
+        return this;
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public Award setId(int id) {
         this.id = id;
+        return this;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
+    public Award setTitle(String title) {
         this.title = title;
+        return this;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public Award setDescription(String description) {
         this.description = description;
+        return this;
     }
 
     public int getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public Award setPrice(int price) {
         this.price = price;
+        return this;
     }
 
     public String getImageSrc() {
         return imageSrc;
     }
 
-    public void setImageSrc(String imageSrc) {
+    public Award setImageSrc(String imageSrc) {
         this.imageSrc = imageSrc;
+        return this;
     }
 
     public Timestamp getDataCreation() {
         return dataCreation;
     }
 
-    public void setDataCreation(Timestamp dataCreation) {
+    public Award setDataCreation(Timestamp dataCreation) {
         this.dataCreation = dataCreation;
+        return this;
     }
 
     public int getMentorId() {
         return mentorId;
     }
 
-    public void setMentorId(int mentorId) {
+    public Award setMentorId(int mentorId) {
         this.mentorId = mentorId;
+        return this;
     }
 
     public String toString() {
