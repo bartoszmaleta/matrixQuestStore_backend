@@ -5,7 +5,7 @@ import com.company.controller.LoggingController;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 
-public class TerminalApp {
+public class    TerminalApp {
     public static void main(String[] args) throws SQLException, FileNotFoundException {
         LoggingController loggingController = new LoggingController();
         loggingController.init();

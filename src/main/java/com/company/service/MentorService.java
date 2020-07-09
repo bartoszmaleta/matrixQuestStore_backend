@@ -84,7 +84,7 @@ public class MentorService extends EmployeeService {
     }
 
     public void deleteAwardById(int id) {
-        awardDAO.deleteAwardById(id);
+        awardDAO.delete(id);
     }
 
     public void displayAllAwards() throws FileNotFoundException {
