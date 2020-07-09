@@ -186,6 +186,28 @@ public class MentorHandler implements HttpHandler {
                         break;
 
                     case "deleteQuest":
+                        System.out.println("I'm here - deteleQuest, but POST method :(");
+                        //http:localhost:8003/mentors/deleteQuest
+
+                        isr = new InputStreamReader(httpExchange.getRequestBody(), StandardCharsets.UTF_8);
+                        br = new BufferedReader(isr);
+                        data = Parsers.parseFormData(br.readLine());
+                        System.out.println("data = " + data);
+                        System.out.println("data = " + data.get("id"));
+
+                        quest = new Quest();
+                        date = new Date();
+                        int questIdToDelete;
+
+                        questIdToDelete = Integer.parseInt(data.get("id"));
+                        System.out.println("Id of card to delete: " + questIdToDelete);
+
+                        int mentorId = Integer.parseInt(data.get("mentorsId"));
+                        System.out.println("mentorsId = " +mentorId);
+
+                        this.mentorService.deleteQuestById(questIdToDelete);
+                        response = "Quest successfully deleted";
+
 
                 }
 
