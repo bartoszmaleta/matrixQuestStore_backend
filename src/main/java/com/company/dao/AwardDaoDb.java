@@ -138,6 +138,11 @@ public class AwardDaoDb implements AwardDao {
     }
 
     @Override
+    public List<Award> readAwardListWithMentors() {
+        return null;
+    }
+
+    @Override
     public void deleteAwardById(int id) {
         PreparedStatement ps = null;
 
