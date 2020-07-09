@@ -125,8 +125,6 @@ public class MentorHandler implements HttpHandler {
                         this.mentorService.addAwardToDatabase(award);
 
                         awards = this.mentorService.getAllAwardsOfThisMentorByUserId(mentorsId);
-                        response = this.mapper.writeValueAsString(awards);
-                        awards = this.mentorService.getAllAwardsOfThisMentorByUserId(mentorsId);
                         response = mapper.writeValueAsString(awards);
                         System.out.println("Add award - confirmed");
                         break;
