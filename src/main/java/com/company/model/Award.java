@@ -163,7 +163,7 @@ public class Award {
     }
 
     public String toString() {
-        return "Quest:\n" +
+        return "Award:\n" +
 //                "Id: " + id +
                 " Title: " + title +
                 " Description: " + description +

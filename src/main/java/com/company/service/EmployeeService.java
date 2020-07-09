@@ -44,6 +44,7 @@ public abstract class EmployeeService {
     }
 
     public void addUser(User user) {
+
         this.userDao.insert(user);
         createStudentDetails(user); // TODO: where? here?
     }

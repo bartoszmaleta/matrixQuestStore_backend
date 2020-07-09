@@ -130,6 +130,7 @@ public class AwardDaoDb implements AwardDao {
                 listOfAwards.add(new Award(id, title, description, price, imageSrc, dataCreation, mentorDetails));
             }
             rs.close();
+            conFactory.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -252,6 +253,7 @@ public class AwardDaoDb implements AwardDao {
 
                 listOfAwards.add(new Award(id, title, description, price, imageSrc, dataCreation, mentorDetails));
             }
+            conFactory.close();
             rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -301,6 +303,7 @@ public class AwardDaoDb implements AwardDao {
         try {
             ps = conFactory.getConnection().prepareStatement("DELETE FROM \"Awards\" WHERE id =" + id + ";");
             ps.executeUpdate();
+            conFactory.close();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();

@@ -347,6 +347,7 @@ public class UserDaoDb implements UserDao {
                     users.add(newUser);
                 }
             }
+            connectionFactory.close();
             rs.close();
             return users;
         } catch (SQLException e) {
@@ -412,6 +413,8 @@ public class UserDaoDb implements UserDao {
         PreparedStatement ps = null;
         try {
             ps = connectionFactory.getConnection().prepareStatement("DELETE FROM Student_Details WHERE student_id = '" + id + "';");
+//            ps.close();
+//            connectionFactory.close();
             ps.executeUpdate();
             return true;
         } catch (SQLException throwables) {
