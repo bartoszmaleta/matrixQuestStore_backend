@@ -18,6 +18,7 @@ public class ServerApp {
         server.createContext("/students", new StudentHandler());
         server.createContext("/login", new LoginHandler());
         server.createContext("/awards", new AwardsHandler());
+        server.createContext("/quests", new QuestsHandler());
         server.setExecutor(null);
         server.start();
 
