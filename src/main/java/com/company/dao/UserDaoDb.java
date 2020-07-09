@@ -13,45 +13,38 @@ public class UserDaoDb implements UserDao {
         this.connectionFactory = new ConnectionFactory();
     }
 
-    public User readUserByEmailOrLoginAndPassword(String userEmail, String userPassword) {
-        Connection c = null;
+    public User readUserByEmailAndPassword(String userEmail, String userPassword) {
+//        Connection c = null;
         User newUser;
 
         try {
             System.out.println("\nI am in readUserByNameAndPassword\n");
             ResultSet rs;
 
-            // TODO: find User by login!
-//            ResultSet rs2 = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"email\" = '" + userEmail + "' AND \"password\" = '" + userPassword + "';");
-//            ResultSet rs3 = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"login\" = '" + userEmail + "' AND \"password\" = '" + userPassword + "';");
-//
-//            System.out.println("rs2 = " + rs2);
-//            System.out.println("rs3 = " + rs3);
-//
-//            if (rs2 == null) {
-//                rs = rs3;
-//            } else {
-//                rs = rs2;
-//            }
-
-            // SIMPLIER OPTION
             rs = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"email\" = '" + userEmail + "' AND \"password\" = '" + userPassword + "';");
 
-            rs.next();
-            if (rs.getInt("role_id") == 1) {
-                return getAdmin(rs);
-            } else if (rs.getInt("role_id") == 2) {
-                return getMentor(rs);
-            } else if (rs.getInt("role_id") == 3) {
-                return getStudent(rs);
-            } else {
-                System.out.println("No user");
+            newUser = getUser(rs);
+            if (newUser != null) {
+                return newUser;
             }
-            // TODO: where close()?????
             connectionFactory.close();
             rs.close();
         } catch (Exception e) {
             System.err.println("Error! Reading user by userName and userPassword from DB failed!");
+        }
+        return null;
+    }
+
+    private User getUser(ResultSet rs) throws SQLException {
+        rs.next();
+        if (rs.getInt("role_id") == 1) {
+            return getAdmin(rs);
+        } else if (rs.getInt("role_id") == 2) {
+            return getMentor(rs);
+        } else if (rs.getInt("role_id") == 3) {
+            return getStudent(rs);
+        } else {
+            System.out.println("No user");
         }
         return null;
     }
