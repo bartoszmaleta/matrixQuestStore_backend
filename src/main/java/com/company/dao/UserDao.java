@@ -5,7 +5,7 @@ import com.company.model.user.User;
 import java.util.List;
 
 public interface UserDao extends Dao {
-    User readUserByEmailOrLoginAndPassword(String userEmail, String userPassword);
+    User readUserByEmailAndPassword(String userEmail, String userPassword);
     List<User> getStudents();
     List<User> getMentors();
     void updateUserNameById(int id, String name);
