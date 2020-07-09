@@ -16,7 +16,6 @@ public class AwardDaoDb implements AwardDao {
     }
 
 
-
     @Override
     public List<Award> getAwardsByUser(User user) {
         List<Award> awards = new ArrayList<>();
@@ -297,6 +296,15 @@ public class AwardDaoDb implements AwardDao {
 
     @Override
     public boolean delete(int id) {
+        PreparedStatement ps = null;
+
+        try {
+            ps = conFactory.getConnection().prepareStatement("DELETE FROM \"Awards\" WHERE id =" + id + ";");
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return false;
     }
 

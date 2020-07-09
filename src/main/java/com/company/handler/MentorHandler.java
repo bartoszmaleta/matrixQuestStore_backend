@@ -17,6 +17,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.*;
@@ -77,25 +78,35 @@ public class MentorHandler implements HttpHandler {
                         response = mapper.writeValueAsString(users);
                 }
             } else if (method.equals("POST")) {
+                InputStreamReader isr;
+                BufferedReader br;
+                Map<String, String> data;
+
+                Award award;
+                Date date;
+                int mentorsId;
+
+                List<Award> awards;
+
                 switch (action) {
                     case "addAward":
                         System.out.println("I am here - addAward POST");
                         //http:localhost:8003/mentors/addAward
                         // and mentorId in body!
 
-                        InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
-                        BufferedReader br = new BufferedReader(isr);
+                        isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
+                        br = new BufferedReader(isr);
 
-                        Map<String, String> data = Parsers.parseFormData(br.readLine());
+                        data = Parsers.parseFormData(br.readLine());
                         System.out.println(data);
                         System.out.println(data.get("description"));
                         System.out.println(data.get("title"));
 
-                        Award award = new Award();
+                        award = new Award();
 
-                        Date date = new Date();
+                        date = new Date();
 
-                        int mentorsId = Integer.parseInt(data.get("mentorsId"));
+                        mentorsId = Integer.parseInt(data.get("mentorsId"));
                         System.out.println(mentorsId);
 
                         award.setTitle(data.get("title"))
@@ -109,8 +120,47 @@ public class MentorHandler implements HttpHandler {
 
                         this.mentorService.addAwardToDatabase(award);
 
-                        List<Award> awards = this.mentorService.getAllAwardsOfThisMentorByUserId(mentorsId);
+                        awards = this.mentorService.getAllAwardsOfThisMentorByUserId(mentorsId);
                         response = mapper.writeValueAsString(awards);
+                        break;
+
+                }
+            } else if (method.equals("DELETE")) {
+                InputStreamReader isr;
+                BufferedReader br;
+                Map<String, String> data;
+
+                Award award;
+                Date date;
+
+                int cardIdToDelete;
+
+                int mentorsId;
+
+
+                List<Award> awards;
+
+                switch (action) {
+                    case "deleteAward":
+                        System.out.println("I am here - delete DELETE");
+                        //http:localhost:8003/mentors/deleteAward/29
+                        // and mentorId in body!
+
+                        isr = new InputStreamReader(httpExchange.getRequestBody(), StandardCharsets.UTF_8);
+                        br = new BufferedReader(isr);
+                        data = Parsers.parseFormData(br.readLine());
+                        System.out.println("data = " + data);
+                        System.out.println("data = " + data.get("cardIdToDelete"));
+
+                        award = new Award();
+                        date = new Date();
+
+                        cardIdToDelete = Integer.parseInt(data.get("cardIdToDelete")); // TODO: in frontend
+                        mentorsId = Integer.parseInt(data.get("mentorsId"));
+                        System.out.println(mentorsId);
+
+                        this.mentorService.deleteAwardById(cardIdToDelete);
+                        response = "award DELETE - done!";
 
                     default:
                         //np. http://localhost:8003/mentors
@@ -119,6 +169,7 @@ public class MentorHandler implements HttpHandler {
                         List<User> users = this.mentorService.getAllMentors();
                         response = mapper.writeValueAsString(users);
                 }
+
             }
         } catch (Exception e) {
             sendResponse(response, httpExchange, 404);
