@@ -66,7 +66,7 @@ public abstract class EmployeeService {
     }
 
     public User readUserFromDaoById(int id) {
-        return this.userDao.readUserById(id);
+        return (User) this.userDao.getById(id);
     }
 
     public void deleteStudentById(int id) {
@@ -117,6 +117,13 @@ public abstract class EmployeeService {
         List<User> mentors = this.userDao.getMentors();
         return mentors;
     }
+
+    public List<User> getAllStudents() throws FileNotFoundException {
+        List<User> students = this.userDao.getStudents();
+        return students;
+    }
+
+
 
 
 }

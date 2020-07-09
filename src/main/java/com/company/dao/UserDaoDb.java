@@ -59,6 +59,12 @@ public class UserDaoDb implements UserDao {
         int roleId = rs.getInt("role_id");
         String avatarPath = rs.getString("avatar");
 
+        // TODO:
+        String module = getStudentModule(id);
+        String mentor = getStudentMentor(id);
+        int coins = getStudentCoins(id);
+
+
         User newUser = new Student(id, name, surname, login, password, email, roleId, avatarPath);
 
         connectionFactory.close();
@@ -351,6 +357,23 @@ public class UserDaoDb implements UserDao {
 
     @Override
     public Object getById(int id) {
+        User newUser;
+
+        try {
+            System.out.println("\nI am in getById\n");
+            ResultSet rs;
+
+            rs = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"id\" = '" + id + "';");
+
+            newUser = getUser(rs);
+            if (newUser != null) {
+                return newUser;
+            }
+            connectionFactory.close();
+            rs.close();
+        } catch (Exception e) {
+            System.err.println("Error! Reading user by userName and userPassword from DB failed!");
+        }
         return null;
     }
 

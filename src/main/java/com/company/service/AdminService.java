@@ -30,9 +30,7 @@ public class AdminService extends EmployeeService {
     public void deleteUserById(int id) {
         this.userDao.delete(id);
     }
-    public User readUserFromDaoById(int id) {
-        return this.userDao.readUserById(id);
-    }
+
 //
 
     public void updateMentorsUsername(int mentorsId) {
