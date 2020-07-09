@@ -87,10 +87,12 @@ public class MentorHandler implements HttpHandler {
                 Map<String, String> data;
 
                 Award award;
+                Quest quest;
                 Date date;
                 int mentorsId;
 
                 List<Award> awards;
+                List<Quest> quests;
 
                 switch (action) {
                     case "addAward":
@@ -150,6 +152,41 @@ public class MentorHandler implements HttpHandler {
 
                         this.mentorService.deleteAwardById(cardIdToDelete);
                         response = "award DELETE - done!";
+
+                    case "addQuest":
+                        System.out.println("Im here - addQuest POST");
+                        //http:localhost:8003/mentors/addQuest
+
+                        isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
+                        br = new BufferedReader(isr);
+
+                        data = Parsers.parseFormData(br.readLine());
+                        System.out.println(data);
+                        System.out.println(data.get("description"));
+                        System.out.println(data.get("title"));
+
+                        quest = new Quest();
+                        date = new Date();
+
+                        mentorsId = Integer.parseInt(data.get("mentorsId"));
+                        System.out.println(mentorsId);
+
+                        quest.setTitle(data.get("title"))
+                                .setImageSrc(data.get("imageSrc"))
+                                .setDescription(data.get("description"))
+                                .setPrice(Integer.parseInt(data.get("price")))
+                                .setMentorId(mentorsId);
+
+                        System.out.println("toString Quest = " + quest.toString());
+
+                        this.mentorService.addQuestToDatabase(quest);
+                        quests = this.mentorService.getAllQuestsOfThisMentorByUserId(mentorsId);
+                        response = mapper.writeValueAsString(quests);
+                        System.out.println("Add quest - confirmed");
+                        break;
+
+                    case "deleteQuest":
+
                 }
 
             } else if (method.equals("DELETE")) {
