@@ -14,7 +14,13 @@ import java.util.List;
 
 public class AwardsHandler implements HttpHandler {
 
-    private AwardDao awardDao = new AwardDaoDb();
+    private AwardDao awardDao;
+    private ObjectMapper mapper;
+
+    public AwardsHandler() {
+        this.awardDao = new AwardDaoDb();
+        this.mapper = new ObjectMapper();
+    }
 
 
     @Override
@@ -23,8 +29,7 @@ public class AwardsHandler implements HttpHandler {
 
         try {
             List<Award> awards = this.awardDao.getAllElements();
-            ObjectMapper mapper = new ObjectMapper();
-            response = mapper.writeValueAsString(awards);
+            response = this.mapper.writeValueAsString(awards);
 
             exchange.getResponseHeaders().put("Content-type", Collections.singletonList("application/json"));
             exchange.getResponseHeaders().put("Access-Control-Allow-Origin", Collections.singletonList("*"));

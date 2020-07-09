@@ -24,10 +24,12 @@ import java.util.*;
 public class MentorHandler implements HttpHandler {
     private MentorService mentorService;
     private StatisticsService statisticsService;
+    private ObjectMapper mapper;
 
     public MentorHandler() {
         this.mentorService = new MentorService();
         this.statisticsService = new StatisticsService();
+        mapper = new ObjectMapper();
 
         // TODO: move to another handler
     }
@@ -37,7 +39,6 @@ public class MentorHandler implements HttpHandler {
         String url = httpExchange.getRequestURI().getRawPath();
         String[] actions = url.split("/");
         String action = (actions.length == 2) ? "" : (actions[2].matches("\\d+") ? "details" : actions[2]);
-        ObjectMapper mapper = new ObjectMapper();
         String response = "";
         String method = httpExchange.getRequestMethod(); // POST or GET
 
@@ -53,7 +54,7 @@ public class MentorHandler implements HttpHandler {
                     case "details":
                         //np. http://localhost:8003/users/details/1
                         User user = this.mentorService.readUserFromDaoById(Integer.parseInt(actions[3]));
-                        response = mapper.writeValueAsString(user);
+                        response = this.mapper.writeValueAsString(user);
                         break;
                     case "myQuests":
 //                    http://localhost:8003/mentors/myQuests/2  <--- mentorId
@@ -61,12 +62,12 @@ public class MentorHandler implements HttpHandler {
                         System.out.println("id of mentor = " + idOfMentor);
                         List<Quest> quests = this.mentorService.getAllQuestsOfThisMentorByUserId(idOfMentor);
                         System.out.println(quests);
-                        response = mapper.writeValueAsString(quests);
+                        response = this.mapper.writeValueAsString(quests);
                         System.out.println(response);
                         break;
                     case "questsByMentor": // TODO: move to another handler
                         List<QuestCountByMentor> questsCount = this.statisticsService.getQuestsCountByMentor();
-                        response = mapper.writeValueAsString(questsCount);
+                        response = this.mapper.writeValueAsString(questsCount);
                         System.out.println(response);
                         break;
                     default:
@@ -74,7 +75,7 @@ public class MentorHandler implements HttpHandler {
                         //np. http://localhost:8003/mentorsqweqwe
                         System.out.println("/mentors METHOD GET");
                         List<User> users = this.mentorService.getAllMentors();
-                        response = mapper.writeValueAsString(users);
+                        response = this.mapper.writeValueAsString(users);
                 }
             } else if (method.equals("POST")) {
                 switch (action) {
@@ -110,14 +111,14 @@ public class MentorHandler implements HttpHandler {
                         this.mentorService.addAwardToDatabase(award);
 
                         List<Award> awards = this.mentorService.getAllAwardsOfThisMentorByUserId(mentorsId);
-                        response = mapper.writeValueAsString(awards);
+                        response = this.mapper.writeValueAsString(awards);
 
                     default:
                         //np. http://localhost:8003/mentors
                         //np. http://localhost:8003/mentorsqweqwe
                         System.out.println("/mentors METHOD POST ]");
                         List<User> users = this.mentorService.getAllMentors();
-                        response = mapper.writeValueAsString(users);
+                        response = this.mapper.writeValueAsString(users);
                 }
             }
         } catch (Exception e) {

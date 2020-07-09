@@ -16,17 +16,18 @@ public class LoginHandler implements HttpHandler {
     private LoggingController loggingController; // NOT USED
     private LoginService loginService;
     private HttpResponses httpResponses;
+    private ObjectMapper mapper;
 
     public LoginHandler() {
         this.loggingController = new LoggingController();
         this.httpResponses = new HttpResponses();
         this.loginService = new LoginService();
+        this.mapper = new ObjectMapper();
     }
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         String response = "user not received";
-        ObjectMapper mapper = new ObjectMapper();
 
         String method = exchange.getRequestMethod();
         // DIFFERENT OPTION - NOT WORKS RIGHT NOW
@@ -41,7 +42,7 @@ public class LoginHandler implements HttpHandler {
                     readUserFromDaoByEmailOrPassword(data.get("email"), data.get("password"));
 //
             System.out.println("Before response = " + response);
-            response = mapper.writeValueAsString(user);
+            response = this.mapper.writeValueAsString(user);
 
             System.out.println("After response, mapperAsString = " + response);
 
@@ -84,11 +85,6 @@ public class LoginHandler implements HttpHandler {
         os.write((response.getBytes()));
         os.close();
     }
-
-
-
-
-
 
 
 

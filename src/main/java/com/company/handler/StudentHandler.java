@@ -14,6 +14,12 @@ import java.util.List;
 
 public class StudentHandler implements HttpHandler {
     private UserDao userDao = new UserDaoDb();
+    private ObjectMapper mapper;
+
+    public StudentHandler() {
+        this.userDao = new UserDaoDb();
+        this.mapper = new ObjectMapper();
+    }
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
@@ -21,8 +27,7 @@ public class StudentHandler implements HttpHandler {
 
         try {
             List<User> students = this.userDao.getStudents();
-            ObjectMapper mapper = new ObjectMapper();
-            response = mapper.writeValueAsString(students);
+            response = this.mapper.writeValueAsString(students);
 
             exchange.getResponseHeaders().put("Content-type", Collections.singletonList("application/json"));
             exchange.getResponseHeaders().put("Access-Control-Allow-Origin", Collections.singletonList("*"));
