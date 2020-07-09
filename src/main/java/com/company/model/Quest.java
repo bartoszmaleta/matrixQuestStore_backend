@@ -9,6 +9,10 @@ public class Quest {
     private int mentorId;
     private String mentorNameAndSurname;
 
+    public Quest() {
+
+    }
+
     public Quest(int id, String title, String description, int price, String imageSrc, int mentorId) {
         this.id = id;
         this.title = title;
@@ -35,61 +39,75 @@ public class Quest {
         this.mentorId = mentorId;
     }
 
+    public Quest setId(int id) {
+        this.id = id;
+        return this;
+    }
+
+    public Quest setTitle(String title) {
+        this.title = title;
+        return this;
+    }
+
+    public Quest setDescription(String description) {
+        this.description = description;
+        return this;
+    }
+
+    public Quest setPrice(int price) {
+        this.price = price;
+        return this;
+    }
+
+    public Quest setImageSrc(String imageSrc) {
+        this.imageSrc = imageSrc;
+        return this;
+    }
+
+    public Quest setMentorId(int mentorId) {
+        this.mentorId = mentorId;
+        return this;
+    }
+
+    public Quest setMentorNameAndSurname(String mentorNameAndSurname) {
+        this.mentorNameAndSurname = mentorNameAndSurname;
+        return this;
+    }
+
     public String getMentorNameAndSurname() {
         return mentorNameAndSurname;
     }
 
-    public void setMentorNameAndSurname(String mentorNameAndSurname) {
-        this.mentorNameAndSurname = mentorNameAndSurname;
-    }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public int getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
-    }
 
     public String getImageSrc() {
         return imageSrc;
     }
 
-    public void setImageSrc(String imageSrc) {
-        this.imageSrc = imageSrc;
-    }
 
     public int getMentorId() {
         return mentorId;
     }
 
-    public void setMentorId(int mentorId) {
-        this.mentorId = mentorId;
-    }
 
     public String toString() {
         return "Quest:\n" +
