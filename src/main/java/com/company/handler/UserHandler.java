@@ -17,10 +17,12 @@ import java.util.List;
 public class UserHandler implements HttpHandler {
     private final UserDao userDao;
     private final AdminService adminService;
+    private ObjectMapper mapper;
 
     public UserHandler() {
         this.userDao = new UserDaoDb();
         this.adminService = new AdminService();
+        this.mapper = new ObjectMapper();
     }
 
     @Override
@@ -28,7 +30,6 @@ public class UserHandler implements HttpHandler {
         String url = httpExchange.getRequestURI().getRawPath();
         String[] actions = url.split("/");
         String action = (actions.length == 2) ? "" : (actions[2].matches("\\d+") ? "details" : actions[2]);
-        ObjectMapper mapper = new ObjectMapper();
         String response = "";
 
         System.out.println("array methods = " + Arrays.toString(actions));
@@ -41,12 +42,12 @@ public class UserHandler implements HttpHandler {
                 case "details":
                     // http://localhost:8003/users/details/1
                     User user = this.adminService.readUserFromDaoById(Integer.parseInt(actions[3]));
-                    response = mapper.writeValueAsString(user);
+                    response = this.mapper.writeValueAsString(user);
                     break;
                 default:
                     // http://localhost:8005/users
                     List<User> users = this.userDao.getAllElements();
-                    response = mapper.writeValueAsString(users);
+                    response = this.mapper.writeValueAsString(users);
             }
             sendResponse(response, httpExchange, 200);
         } catch (Exception e) {
