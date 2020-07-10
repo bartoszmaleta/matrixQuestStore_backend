@@ -125,7 +125,6 @@ public class QuestDaoDb implements QuestDao {
 
                 listOfQuests.add(new Quest(id, title, description, price, imageSrc, mentor));
             }
-            System.out.println(listOfQuests);
             rs.close();
         } catch (SQLException e) {
             e.printStackTrace();

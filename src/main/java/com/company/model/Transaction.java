@@ -12,12 +12,38 @@ public class Transaction {
     private int price;
     private int userId;
     private Timestamp boughAt;
+    private String owner;
+
+    public Transaction(int transactionId, int userId, int awardId, int price, Timestamp boughAt) {
+        this.transactionId = transactionId;
+        this.userId = userId;
+        this.awardId = awardId;
+        this.price = price;
+        this.boughAt = boughAt;
+    }
 
     public Transaction(int userId, int awardId, int price, Timestamp boughAt) {
         this.userId = userId;
         this.awardId = awardId;
         this.price = price;
         this.boughAt = boughAt;
+    }
+
+
+    public Transaction(int transactionId, String owner, String awardTitle, int price, Timestamp boughAt) {
+        this.transactionId = transactionId;
+        this.owner = owner;
+        this.awardTitle = awardTitle;
+        this.price = price;
+        this.boughAt = boughAt;
+    }
+
+    public String toString() {
+        return this.transactionId
+                + " " + this.awardTitle
+                + " " + this.boughAt
+                + " " + this.price
+                + " " + this.owner;
     }
 
     public Transaction setBuyerId(int buyerId) {

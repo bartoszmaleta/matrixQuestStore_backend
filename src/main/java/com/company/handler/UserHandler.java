@@ -32,10 +32,6 @@ public class UserHandler implements HttpHandler {
         String action = (actions.length == 2) ? "" : (actions[2].matches("\\d+") ? "details" : actions[2]);
         String response = "";
 
-        System.out.println("action = " + action);
-
-        System.out.println("array methods = " + Arrays.toString(actions));
-
         try {
             switch (action) {
                 case "add":

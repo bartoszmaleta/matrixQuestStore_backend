@@ -152,13 +152,12 @@ public class UserDaoDb implements UserDao {
                 int roleId = rs.getInt("role_id");
                 String avatarPath = rs.getString("avatar");
 
+                // TODO: 3 queries!!!!!!!!
                 String mentorName = this.studentDetailsDao.getStudentsMentorsName(id);
                 int coins = this.studentDetailsDao.getStudentCoins(id);
                 String module = getStudentModule(id);
 
                 newUser = new Student(id, name, surname, login, password, email, roleId, avatarPath, coins, module, mentorName);
-
-//              newUser = new Student(id, name, surname, login, password, email, roleId, avatarPath);
 
                 // TODO: check this! should be okay!
 //              student = getStudent(rs); TODO: change to this, because it is enough!!!
@@ -286,7 +285,8 @@ public class UserDaoDb implements UserDao {
 
     @Override
     public int readUserIdByEmail(String email) {
-        int id = Integer.parseInt(null);
+        int id = -1;
+
         try {
             ResultSet rs = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"email\" = '" + email + "';");
 
@@ -391,7 +391,6 @@ public class UserDaoDb implements UserDao {
         User newUser;
 
         try {
-            System.out.println("\nI am in getById\n");
             ResultSet rs;
 
             rs = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"id\" = '" + id + "';");

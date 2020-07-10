@@ -13,10 +13,10 @@ import java.io.*;
 import java.util.*;
 
 public class LoginHandler implements HttpHandler {
-    private LoggingController loggingController; // NOT USED
-    private LoginService loginService;
-    private HttpResponses httpResponses;
-    private ObjectMapper mapper;
+    private final LoggingController loggingController; // NOT USED
+    private final LoginService loginService;
+    private final HttpResponses httpResponses;
+    private final ObjectMapper mapper;
 
     public LoginHandler() {
         this.loggingController = new LoggingController();
@@ -30,9 +30,6 @@ public class LoginHandler implements HttpHandler {
         String response = "user not received";
 
         String method = exchange.getRequestMethod();
-        // DIFFERENT OPTION - NOT WORKS RIGHT NOW
-//        URI uri = exchange.getRequestURI();
-//        if (method.equals("POST") && (uri.toString().equals("/login"))) {
         if (method.equals("POST")) {
             InputStreamReader isr = new InputStreamReader(exchange.getRequestBody(), "utf-8");
             BufferedReader br = new BufferedReader(isr);
@@ -41,47 +38,20 @@ public class LoginHandler implements HttpHandler {
             User user = this.loginService.
                     readUserFromDaoByEmailOrPassword(data.get("email"), data.get("password"));
 //
-            System.out.println("Before response = " + response);
             response = this.mapper.writeValueAsString(user);
-
-            System.out.println("After response, mapperAsString = " + response);
-
-//
-//            List<User> userAsList = new ArrayList<>();
-//            userAsList.add(user);
-//            System.out.println("List = " + userAsList);
-//            response = mapper.writeValueAsString(userAsList);
-//            System.out.println("mapper = " + response);
-
-            // ALL USERS
-//            UserDao userDao = new UserDaoDb();
-//            List<User> users = userDao.getAllElements();
-//            System.out.println("Before response = " + response);
-//            response = mapper.writeValueAsString(users);
-//            System.out.println("After response = " + response);
-
-//            response = "user received";
-
-            // DIFFERENT OPTION - NOT WORKS RIGHT NOW
-//            loginUser(exchange);
         } // TODO: cookie
-
-        System.out.println("Before sendReponse()");
         sendResponse(response, exchange, 200);
-
     }
 
     private void sendResponse(String response, HttpExchange httpExchange, int status) throws IOException {
         if (status == 200) {
             httpExchange.getResponseHeaders().put("Content-type", Collections.singletonList("application/json"));
             httpExchange.getResponseHeaders().put("Access-Control-Allow-Origin", Collections.singletonList("*"));
-//            httpExchange.getResponseHeaders().put("Access-Control-Allow-Origin", Collections.singletonList("true"));
         }
 
         httpExchange.sendResponseHeaders(status, response.getBytes().length);
 
         OutputStream os = httpExchange.getResponseBody();
-        System.out.println(os);
         os.write((response.getBytes()));
         os.close();
     }
@@ -105,12 +75,9 @@ public class LoginHandler implements HttpHandler {
         InputStreamReader isr = new InputStreamReader(requestBody, "utf-8");
         BufferedReader br = new BufferedReader(isr);
         String loginData = br.readLine();
-        System.out.println("loginData before split: ");
-//        loginData = loginData.substring(1, loginData.length() - 1);
 
         String[] emailAndPassword = loginData.split(",");
 
-        System.out.println("emailAndPassword Array = " + Arrays.toString(emailAndPassword));
         User user = loggingController.login(emailAndPassword[0], emailAndPassword[1]);
         return user;
     }

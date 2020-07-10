@@ -23,15 +23,9 @@ public class AdminService extends EmployeeService {
         UserView.allUsersByList(users);
     }
 
-//    public void deleteMentor(int mentorToRemoveById) {
-//        this.userDaoDb.delete(mentorToRemoveById);
-//    }
-
     public void deleteUserById(int id) {
         this.userDao.delete(id);
     }
-
-//
 
     public void updateMentorsUsername(int mentorsId) {
         String nameToUpdate = InputTaker.takeStringInputWithMessage("Enter new name: ");

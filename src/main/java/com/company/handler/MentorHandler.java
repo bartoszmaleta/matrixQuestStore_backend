@@ -61,21 +61,16 @@ public class MentorHandler implements HttpHandler {
                     case "myQuests":
 //                    http://localhost:8003/mentors/myQuests/2  <--- mentorId
                         int idOfMentor = Integer.parseInt(actions[3]);
-                        System.out.println("id of mentor = " + idOfMentor);
                         List<Quest> quests = this.mentorService.getAllQuestsOfThisMentorByUserId(idOfMentor);
-                        System.out.println(quests);
                         response = this.mapper.writeValueAsString(quests);
-                        System.out.println(response);
                         break;
                     case "questsByMentor": // TODO: move to another handler
                         List<QuestCountByMentor> questsCount = this.statisticsService.getQuestsCountByMentor();
                         response = this.mapper.writeValueAsString(questsCount);
-                        System.out.println(response);
                         break;
                     default:
                         //np. http://localhost:8003/mentors
                         //np. http://localhost:8003/mentorsqweqwe
-                        System.out.println("/mentors METHOD GET");
                         List<User> users = this.mentorService.getAllMentors();
                         response = this.mapper.writeValueAsString(users);
                 }
@@ -94,7 +89,6 @@ public class MentorHandler implements HttpHandler {
 
                 switch (action) {
                     case "addAward":
-                        System.out.println("I am here - addAward POST");
                         //http:localhost:8003/mentors/addAward
                         // and mentorId in body!
 
@@ -102,16 +96,12 @@ public class MentorHandler implements HttpHandler {
                         br = new BufferedReader(isr);
 
                         data = Parsers.parseFormData(br.readLine());
-                        System.out.println(data);
-                        System.out.println(data.get("description"));
-                        System.out.println(data.get("title"));
 
                         award = new Award();
 
                         date = new Date();
 
                         mentorsId = Integer.parseInt(data.get("mentorsId"));
-                        System.out.println(mentorsId);
 
                         award.setTitle(data.get("title"))
                                 .setImageSrc(data.get("imageSrc"))
@@ -120,54 +110,39 @@ public class MentorHandler implements HttpHandler {
                                 .setMentorId(mentorsId)
                                 .setDataCreation(new Timestamp(date.getTime()));
 
-                        System.out.println("toString Award = " + award.toString());
-
                         this.mentorService.addAwardToDatabase(award);
 
                         awards = this.mentorService.getAllAwardsOfThisMentorByUserId(mentorsId);
                         response = mapper.writeValueAsString(awards);
-                        System.out.println("Add award - confirmed");
                         break;
                     case "deleteAward":
-                        System.out.println("I am here - deleteAward, but POST method ");
                         //http:localhost:8003/mentors/deleteAward
                         // and mentorId in body!
 
                         isr = new InputStreamReader(httpExchange.getRequestBody(), StandardCharsets.UTF_8);
                         br = new BufferedReader(isr);
                         data = Parsers.parseFormData(br.readLine());
-                        System.out.println("data = " + data);
-                        System.out.println("data = " + data.get("id"));
 
-                        award = new Award();
-                        date = new Date();
                         int cardIdToDelete;     // TODO: move upwards!!!
 
                         cardIdToDelete = Integer.parseInt(data.get("id")); // TODO: in frontend
-                        System.out.println(cardIdToDelete);
                         mentorsId = Integer.parseInt(data.get("mentorsId"));
-                        System.out.println("mentorsId = " + mentorsId);
 
                         this.mentorService.deleteAwardById(cardIdToDelete);
                         response = "award DELETE - done!";
 
                     case "addQuest":
-                        System.out.println("Im here - addQuest POST");
                         //http:localhost:8003/mentors/addQuest
 
                         isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
                         br = new BufferedReader(isr);
 
                         data = Parsers.parseFormData(br.readLine());
-                        System.out.println(data);
-                        System.out.println(data.get("description"));
-                        System.out.println(data.get("title"));
 
                         quest = new Quest();
                         date = new Date();
 
                         mentorsId = Integer.parseInt(data.get("mentorsId"));
-                        System.out.println(mentorsId);
 
                         quest.setTitle(data.get("title"))
                                 .setImageSrc(data.get("imageSrc"))
@@ -175,33 +150,24 @@ public class MentorHandler implements HttpHandler {
                                 .setPrice(Integer.parseInt(data.get("price")))
                                 .setMentorId(mentorsId);
 
-                        System.out.println("toString Quest = " + quest.toString());
 
                         this.mentorService.addQuestToDatabase(quest);
                         quests = this.mentorService.getAllQuestsOfThisMentorByUserId(mentorsId);
                         response = mapper.writeValueAsString(quests);
-                        System.out.println("Add quest - confirmed");
                         break;
 
                     case "deleteQuest":
-                        System.out.println("I'm here - deteleQuest, but POST method :(");
                         //http:localhost:8003/mentors/deleteQuest
 
                         isr = new InputStreamReader(httpExchange.getRequestBody(), StandardCharsets.UTF_8);
                         br = new BufferedReader(isr);
                         data = Parsers.parseFormData(br.readLine());
-                        System.out.println("data = " + data);
-                        System.out.println("data = " + data.get("id"));
 
-                        quest = new Quest();
-                        date = new Date();
                         int questIdToDelete;
 
                         questIdToDelete = Integer.parseInt(data.get("id"));
-                        System.out.println("Id of card to delete: " + questIdToDelete);
 
                         int mentorId = Integer.parseInt(data.get("mentorsId"));
-                        System.out.println("mentorsId = " +mentorId);
 
                         this.mentorService.deleteQuestById(questIdToDelete);
                         response = "Quest successfully deleted";
@@ -211,7 +177,6 @@ public class MentorHandler implements HttpHandler {
 
             } else if (method.equals("DELETE")) {
                 // TODO: can't get here, because i get 'OPTIONS" method, despite sending DELETE
-                System.out.println("i am in DELETE");
                 InputStreamReader isr;
                 BufferedReader br;
                 Map<String, String> data;
@@ -228,22 +193,15 @@ public class MentorHandler implements HttpHandler {
 
                 switch (action) {
                     case "deleteAward":
-                        System.out.println("I am here - delete DELETE");
                         //http:localhost:8003/mentors/deleteAward
                         // and mentorId in body!
 
                         isr = new InputStreamReader(httpExchange.getRequestBody(), StandardCharsets.UTF_8);
                         br = new BufferedReader(isr);
                         data = Parsers.parseFormData(br.readLine());
-                        System.out.println("data = " + data);
-                        System.out.println("data = " + data.get("cardIdToDelete"));
-
-                        award = new Award();
-                        date = new Date();
 
                         cardIdToDelete = Integer.parseInt(data.get("cardIdToDelete")); // TODO: in frontend
                         mentorsId = Integer.parseInt(data.get("mentorsId"));
-                        System.out.println(mentorsId);
 
                         this.mentorService.deleteAwardById(cardIdToDelete);
                         response = "award DELETE - done!";
@@ -253,7 +211,6 @@ public class MentorHandler implements HttpHandler {
                     default:
                         //np. http://localhost:8003/mentors
                         //np. http://localhost:8003/mentorsqweqwe
-                        System.out.println("/mentors METHOD POST ]");
                         List<User> users = this.mentorService.getAllMentors();
                         response = this.mapper.writeValueAsString(users);
                 }
