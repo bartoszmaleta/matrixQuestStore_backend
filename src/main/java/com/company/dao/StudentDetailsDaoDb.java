@@ -1,6 +1,7 @@
 package com.company.dao;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class StudentDetailsDaoDb implements StudentDetailsDao {
@@ -21,7 +22,7 @@ public class StudentDetailsDaoDb implements StudentDetailsDao {
                     .getConnection()
                     .prepareStatement(
                             "INSERT INTO \"Student_Detailss\" (student_id) " + // TODO: drop Student_Detail
-                    "VALUES ('" + studentIdFromDao + "');"); // // TODO: Rename without "s"
+                                    "VALUES ('" + studentIdFromDao + "');"); // // TODO: Rename without "s"
 
             ps.executeUpdate();
             ps.close();
@@ -31,5 +32,59 @@ public class StudentDetailsDaoDb implements StudentDetailsDao {
             throwables.printStackTrace();
             return false;
         }
+    }
+
+    public int getStudentCoins(int id) {
+        int coins = 0;
+        try {
+            ResultSet rs = connectionFactory.executeQuery("SELECT\n" +
+                    "    sd.coins AS coins\n" +
+                    "FROM users u\n" +
+                    "LEFT JOIN \"Student_Detailss\" sd\n" +
+                    "ON u.id = sd.student_id\n" +
+                    "WHERE u.id = " + id + ";");
+
+            rs.next();
+            coins = rs.getInt("coins");
+            System.out.println("while rs = " + coins);
+
+            rs.close();
+            connectionFactory.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return coins;
+    }
+
+    public String getStudentsMentorsName(int studentId) {
+        String mentorsName = "";
+        try {
+            ResultSet rs = connectionFactory.executeQuery("SELECT\n" +
+                    "    CONCAT(u.name, ' ', u.surname) AS mentor\n" +
+                    "FROM users u\n" +
+                    "WHERE u.id = (\n" +
+                    "\n" +
+                    "SELECT\n" +
+                    "    sd.mentor_id AS mentor\n" +
+                    "FROM \"Student_Detailss\" sd\n" +
+                    "WHERE student_id = " + studentId + ");");
+            // TODO: defense from injecting!
+
+            rs.next();
+            mentorsName = rs.getString("mentor");
+            System.out.println("while rs = " + mentorsName);
+
+            rs.close();
+            connectionFactory.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return mentorsName;
+    }
+
+    @Override
+    public boolean setMentorForUser(int studentId, int mentorId) {
+//        TODO:
+        return false;
     }
 }

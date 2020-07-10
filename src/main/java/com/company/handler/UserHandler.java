@@ -17,7 +17,7 @@ import java.util.List;
 public class UserHandler implements HttpHandler {
     private final UserDao userDao;
     private final AdminService adminService;
-    private ObjectMapper mapper;
+    private final ObjectMapper mapper;
 
     public UserHandler() {
         this.userDao = new UserDaoDb();
@@ -31,6 +31,8 @@ public class UserHandler implements HttpHandler {
         String[] actions = url.split("/");
         String action = (actions.length == 2) ? "" : (actions[2].matches("\\d+") ? "details" : actions[2]);
         String response = "";
+
+        System.out.println("action = " + action);
 
         System.out.println("array methods = " + Arrays.toString(actions));
 

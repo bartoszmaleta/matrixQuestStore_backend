@@ -40,6 +40,8 @@ public class MentorHandler implements HttpHandler {
         String url = httpExchange.getRequestURI().getRawPath();
         String[] actions = url.split("/");
         String action = (actions.length == 2) ? "" : (actions[2].matches("\\d+") ? "details" : actions[2]);
+        System.out.println("action = " + action);
+
         String response = "";
         String method = httpExchange.getRequestMethod(); // POST or GET
 
@@ -51,12 +53,8 @@ public class MentorHandler implements HttpHandler {
             if (method.equals("GET")) {
 
                 switch (action) {
-//                case "add":
-//                    // TODO:
-//                    break;
                     case "details":
-                        //np. http://localhost:8003/users/details/1
-                        //np. http://localhost:8003/users/1
+                        //np. http://localhost:8003/mentors/details/2
                         User user = this.mentorService.readUserFromDaoById(Integer.parseInt(actions[3]));
                         response = this.mapper.writeValueAsString(user);
                         break;
@@ -264,12 +262,6 @@ public class MentorHandler implements HttpHandler {
             sendResponse(response, httpExchange, 404);
         }
         sendResponse(response, httpExchange, 200);
-
-
-//        httpExchange.sendResponseHeaders(200, response.length());
-//        OutputStream os = httpExchange.getResponseBody();
-//        os.write(response.getBytes());
-//        os.close();
     }
 
 
