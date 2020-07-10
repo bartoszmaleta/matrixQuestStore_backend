@@ -120,13 +120,12 @@ public abstract class EmployeeService {
     }
 
     public List<User> getAllMentors() throws FileNotFoundException {
-        List<User> mentors = this.userDao.getMentors();
-        return mentors;
+        System.out.println("qweqweqweqweqw + " + this.userDao.getMentors());
+        return this.userDao.getMentors();
     }
 
     public List<User> getAllStudents() throws FileNotFoundException {
-        List<User> students = this.userDao.getStudents();
-        return students;
+        return this.userDao.getStudents();
     }
 
 

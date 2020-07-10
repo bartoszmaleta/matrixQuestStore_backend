@@ -2,6 +2,7 @@ package com.company.service;
 
 import com.company.dao.TransactionDao;
 import com.company.dao.TransactionDaoDb;
+import com.company.model.Transaction;
 import com.company.model.statistics.TransactionCountAndTotalSumByUser;
 import com.company.view.StatisticsView;
 
@@ -19,4 +20,7 @@ public class TransactionsService {
         StatisticsView.countAndTotalByUser(stats);
     }
 
+    public List<Transaction> getTransactionsByStudentId(int studentId) {
+        return this.transactionDao.getMyTransactionsById(studentId);
+    }
 }

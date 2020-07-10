@@ -96,12 +96,62 @@ public class TransactionDaoDb implements TransactionDao {
         return transactions;
     }
 
+    @Override
+    public List<Transaction> getMyTransactionsById(int studentId) {
+        List<Transaction> transactions = new ArrayList<>();
+
+        try {
+            ResultSet rs = conFactory.executeQuery("SELECT \"Transactions\".id AS transaction_id\n" +
+                    "     , user_id\n" +
+                    "     , (CONCAT(u.name, ' ', u.surname)) AS owner\n" +
+                    "     , created_at AS date_bought\n" +
+                    "     , award_id\n" +
+                    "     , aw.title AS title\n" +
+                    "     , aw.description\n" +
+                    "     , aw.image\n" +
+                    "     , aw.creator_id\n" +
+                    "     , \"Transactions\".price AS price\n" +
+                    "    FROM \"Transactions\"\n" +
+                    "\n" +
+                    "INNER JOIN users u\n" +
+                    "ON \"Transactions\".user_id = u.id\n" +
+                    "\n" +
+                    "INNER JOIN (\n" +
+                    "    SELECT * FROM \"Awards\"\n" +
+                    "        ) aw\n" +
+                    "ON \"Transactions\".award_id = aw.id\n" +
+                    "\n" +
+                    "WHERE user_id = " + studentId + "\n" +
+                    "\n" +
+                    "ORDER BY \"Transactions\".id;");
+
+            while (rs.next()) {
+                int transactionId = rs.getInt("transaction_id");
+                String owner = rs.getString("owner");
+                String awardTitle = rs.getString("title");
+                Timestamp dataCreation = rs.getTimestamp("date_bought");
+                int price = rs.getInt("price");
+                System.out.println();
+
+                Transaction transaction = new Transaction(transactionId, owner, awardTitle, price, dataCreation);
+                System.out.println("toString = " + transaction.toString());
+                transactions.add(transaction);
+            }
+            rs.close();
+            conFactory.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return transactions;
+    }
+
 
     @Override
     public List getAllElements() {
         transactions = new ArrayList<>();
         try {
-            ResultSet rs = conFactory.executeQuery("SELECT \"Transactions\".id\n" +
+            ResultSet rs = conFactory.executeQuery("SELECT \"Transactions\".id AS transaction_id\n" +
                     "     , user_id\n" +
                     "     , (CONCAT(student.name, ' ', student.surname)) AS buyer\n" +
                     "     , created_at\n" +
