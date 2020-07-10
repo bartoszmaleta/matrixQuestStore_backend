@@ -25,12 +25,7 @@ public class TerminalView {
     }
 
     private static String multiSign(int multiplication, String sign) {
-        String out = "";
-
-        for (int i = 0; i < multiplication; i++) {
-            out += sign;
-        }
-        return out;
+        return sign.repeat(multiplication);
     }
 
     public static String repeatString(String c, int times) {

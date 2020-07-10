@@ -4,7 +4,7 @@ import com.company.model.user.User;
 
 import java.util.List;
 
-public interface UserDao extends Dao {
+public interface UserDao extends Dao<User> {
     User readUserByEmailAndPassword(String userEmail, String userPassword);
     List<User> getStudents();
     List<User> getMentors();

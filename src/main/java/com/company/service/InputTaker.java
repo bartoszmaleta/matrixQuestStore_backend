@@ -22,8 +22,7 @@ public class InputTaker {
     public static String takeStringInputWithMessageForFirstInput(String message) {
         scanner.nextLine();     // don't know why!
         System.out.println(message);
-        String name = scanner.nextLine();
-        return name;
+        return scanner.nextLine();
     }
 
     public static String takeStringInputWithoutMessage() {
