@@ -46,22 +46,15 @@ public abstract class EmployeeService {
 
         User newUser = new Student(name, surname, login, password, email, 1, avatarSource);
 
-
         this.userDao.insert(newUser);
     }
 
     public void addUser(User user) {
-        System.out.println("addUser befor");
         this.userDao.insert(user);
-        System.out.println("addUser after");
-
         createStudentDetails(user); // TODO: where? here?
     }
 
     private void createStudentDetails(User user) {
-        System.out.println("createSD");
-        System.out.println("user.getId = " + user.getId());
-        System.out.println("user.getEmail = " + user.getEmail());
         int studentIdFromDao = userDao.readUserIdByEmail(user.getEmail());
         this.studentDetailsDao.insert(studentIdFromDao);
     }
@@ -126,7 +119,6 @@ public abstract class EmployeeService {
     }
 
     public List<User> getAllMentors() throws FileNotFoundException {
-        System.out.println("qweqweqweqweqw + " + this.userDao.getMentors());
         return this.userDao.getMentors();
     }
 
@@ -136,7 +128,6 @@ public abstract class EmployeeService {
 
 
     public void addAwardByAwardIdToStudentByStudentId(int awardId, int studentId, int priceOfAward) {
-        System.out.println("EmployeeService addAward");
 
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());

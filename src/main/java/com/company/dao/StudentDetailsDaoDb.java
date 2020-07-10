@@ -16,8 +16,6 @@ public class StudentDetailsDaoDb implements StudentDetailsDao {
         PreparedStatement ps = null;
 
         try {
-            System.out.println("student id form db = " + studentIdFromDao);
-
             ps = connectionFactory
                     .getConnection()
                     .prepareStatement(
@@ -47,7 +45,6 @@ public class StudentDetailsDaoDb implements StudentDetailsDao {
 
             rs.next();
             coins = rs.getInt("coins");
-//            System.out.println("while rs = " + coins);
 
             rs.close();
             connectionFactory.close();
@@ -90,7 +87,6 @@ public class StudentDetailsDaoDb implements StudentDetailsDao {
 
             rs.next();
             mentorsName = rs.getString("mentor");
-//            System.out.println("while rs = " + mentorsName);
 
             rs.close();
             connectionFactory.close();

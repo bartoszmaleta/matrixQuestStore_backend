@@ -36,14 +36,6 @@ public class RegisterHandler implements HttpHandler {
 
             Map<String, String> data = parseFormData(br.readLine());
 
-            System.out.println("name = " + data.get("name"));
-            System.out.println("surname = " + data.get("surname"));
-            System.out.println("login = " + data.get("login"));
-            System.out.println("password = " + data.get("password"));
-            System.out.println("email = " + data.get("email"));
-            System.out.println("roleId = " + data.get("roleId"));
-            System.out.println("avatarPath = " + data.get("avatarPath"));
-
             User student = new Student();
 
             Role roleEnum = decideRole(data.get("roleId"));
@@ -57,10 +49,6 @@ public class RegisterHandler implements HttpHandler {
 //                    .setStudent()     // TODO: don't know if only student could register?
                     .setAvatarSource(data.get("avatarPath"));
 
-            System.out.println("test2");
-
-            System.out.println("toString = " + student.toString());
-            System.out.println(data);
 
             this.adminService.addUser(student);
 

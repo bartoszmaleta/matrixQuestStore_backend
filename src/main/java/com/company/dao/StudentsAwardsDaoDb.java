@@ -44,7 +44,6 @@ public class StudentsAwardsDaoDb implements StudentsAwardsDao {
 
             ps.close();
             conFactory.close();
-            System.out.println("Data inputted to DB!");
             return true;
         } catch (SQLException e) {
             e.printStackTrace();

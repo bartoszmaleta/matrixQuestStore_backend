@@ -38,15 +38,6 @@ public class Transaction {
         this.boughAt = boughAt;
     }
 
-//    public String toString() {
-//        return "Transaction:\n" +
-//                "transaction_id: " + this.transactionId +
-//                " title: " + this.awardTitle +
-//                " data_bought: " + this.boughAt +
-//                " price: " + this.price +
-//                " owner: " + this.owner;
-//    }
-
     public String toString() {
         return this.transactionId
                 + " " + this.awardTitle

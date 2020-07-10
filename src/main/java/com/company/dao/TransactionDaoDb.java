@@ -131,10 +131,8 @@ public class TransactionDaoDb implements TransactionDao {
                 String awardTitle = rs.getString("title");
                 Timestamp dataCreation = rs.getTimestamp("date_bought");
                 int price = rs.getInt("price");
-                System.out.println();
 
                 Transaction transaction = new Transaction(transactionId, owner, awardTitle, price, dataCreation);
-                System.out.println("toString = " + transaction.toString());
                 transactions.add(transaction);
             }
             rs.close();
