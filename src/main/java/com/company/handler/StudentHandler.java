@@ -3,6 +3,8 @@ package com.company.handler;
 import com.company.dao.UserDao;
 import com.company.dao.UserDaoDb;
 import com.company.model.user.Mentor;
+import com.company.model.user.Role;
+import com.company.model.user.Student;
 import com.company.model.user.User;
 import com.company.service.AdminService;
 import com.company.service.MentorService;
@@ -55,7 +57,15 @@ public class StudentHandler implements HttpHandler {
                     //np. http://localhost:8003/users/23
 
                     User student = this.adminService.readUserFromDaoById(Integer.parseInt(actions[2]));
+//                    Student student1 = (Student) student;
                     System.out.println("if length2");
+                    if (student.getRole() == Role.STUDENT) {
+                        student = (Student) student;
+                        System.out.println("student coins = " + ((Student) student).getCoins());
+                        System.out.println("student module = " + ((Student) student).getModule());
+                        System.out.println("student surname = " + ((Student) student).getSurname());
+                        System.out.println("student perosnal Mentor = " + ((Student) student).getPersonalMentor());
+                    }
                     System.out.println("student name = " + student.getName());
                     response = this.mapper.writeValueAsString(student);
                 } else {

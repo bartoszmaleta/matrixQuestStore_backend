@@ -63,3 +63,8 @@ public class    TerminalApp {
 // TODO: make userDaoDb.List<User> getMentors() --> more universal!!
 
 // TODO: Refactor helpers
+
+// TODO: defend from injecting sql
+
+// TODO: StudentDetailsDao ==>
+//  public boolean setMentorForUser(int studentId, int mentorId) {

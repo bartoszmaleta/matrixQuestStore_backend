@@ -8,9 +8,11 @@ import java.util.List;
 
 public class UserDaoDb implements UserDao {
     ConnectionFactory connectionFactory;
+    StudentDetailsDao studentDetailsDao;
 
     public UserDaoDb() {
         this.connectionFactory = new ConnectionFactory();
+        this.studentDetailsDao = new StudentDetailsDaoDb();
     }
 
     public User readUserByEmailAndPassword(String userEmail, String userPassword) {
@@ -59,18 +61,41 @@ public class UserDaoDb implements UserDao {
         int roleId = rs.getInt("role_id");
         String avatarPath = rs.getString("avatar");
 
-        // TODO:
+        String mentorName = this.studentDetailsDao.getStudentsMentorsName(id);
+        int coins = this.studentDetailsDao.getStudentCoins(id);
         String module = getStudentModule(id);
-        String mentor = getStudentMentor(id);
-        int coins = getStudentCoins(id);
 
-
-        User newUser = new Student(id, name, surname, login, password, email, roleId, avatarPath);
+        User newUser = new Student(id, name, surname, login, password, email, roleId, avatarPath, coins, module, mentorName);
 
         connectionFactory.close();
         rs.close();
 
         return newUser;
+    }
+
+    private String getStudentModule(int id) {
+        String module = "";
+        try {
+
+            ResultSet rs = connectionFactory.executeQuery("SELECT\n" +
+                    "    m.name AS module\n" +
+                    "FROM users u\n" +
+                    "LEFT JOIN \"Students_Modules\" sm\n" +
+                    "ON sm.student_id = u.id\n" +
+                    "LEFT JOIN \"Modules\" m\n" +
+                    "ON m.id = sm.module_id\n" +
+                    "WHERE u.id = " + id + ";");
+
+            while (rs.next()) {
+                module = rs.getString("module");
+                System.out.println("while rs = " + module);
+            }
+            rs.close();
+            connectionFactory.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return module;
     }
 
     private User getMentor(ResultSet rs) throws SQLException {
@@ -134,6 +159,10 @@ public class UserDaoDb implements UserDao {
                 String email = rs.getString("email");
                 int roleId = rs.getInt("role_id");
                 String avatarPath = rs.getString("avatar");
+
+                // TODO:
+//        String module = getStudentModule(id);
+//        String mentor = getStudentMentor(id);
 
                 User newUser = new Student(id, name, surname, login, password, email, roleId, avatarPath);
 
@@ -366,7 +395,9 @@ public class UserDaoDb implements UserDao {
             rs = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"id\" = '" + id + "';");
 
             newUser = getUser(rs);
+            System.out.println("surname getById = " + newUser.getSurname());
             if (newUser != null) {
+                System.out.println("surname getById2 = " + newUser.getSurname());
                 return newUser;
             }
             connectionFactory.close();
