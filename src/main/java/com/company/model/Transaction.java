@@ -4,12 +4,64 @@ import java.sql.Timestamp;
 
 public class Transaction {
     private int transactionId;
-    private final int buyerId;
-    private final String buyer;
-    private final Timestamp date;
-    private final int awardId;
-    private final String awardTitle;
+    private int buyerId;
+    private String buyer;
+    private Timestamp date;
+    private int awardId;
+    private String awardTitle;
     private int price;
+    private int userId;
+    private Timestamp boughAt;
+
+    public Transaction(int userId, int awardId, int price, Timestamp boughAt) {
+        this.userId = userId;
+        this.awardId = awardId;
+        this.price = price;
+        this.boughAt = boughAt;
+    }
+
+    public Transaction setBuyerId(int buyerId) {
+        this.buyerId = buyerId;
+        return this;
+    }
+
+    public Transaction setBuyer(String buyer) {
+        this.buyer = buyer;
+        return this;
+    }
+
+    public Transaction setDate(Timestamp date) {
+        this.date = date;
+        return this;
+    }
+
+    public Transaction setAwardId(int awardId) {
+        this.awardId = awardId;
+        return this;
+    }
+
+    public Transaction setAwardTitle(String awardTitle) {
+        this.awardTitle = awardTitle;
+        return this;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public Transaction setUserId(int userId) {
+        this.userId = userId;
+        return this;
+    }
+
+    public Timestamp getBoughAt() {
+        return boughAt;
+    }
+
+    public Transaction setBoughAt(Timestamp boughAt) {
+        this.boughAt = boughAt;
+        return this;
+    }
 
     public Transaction(int buyerId, String buyer, Timestamp date, int awardId, String awardTitle, int price) {
         this.buyerId = buyerId;

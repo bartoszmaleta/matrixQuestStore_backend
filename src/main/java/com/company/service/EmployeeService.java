@@ -1,9 +1,9 @@
 package com.company.service;
 
-import com.company.dao.StudentDetailsDao;
-import com.company.dao.StudentDetailsDaoDb;
-import com.company.dao.UserDao;
-import com.company.dao.UserDaoDb;
+import com.company.dao.*;
+import com.company.model.Award;
+import com.company.model.StudentAward;
+import com.company.model.Transaction;
 import com.company.model.user.Role;
 import com.company.model.user.Student;
 import com.company.model.user.User;
@@ -12,15 +12,22 @@ import com.company.view.TerminalView;
 import com.company.view.UserView;
 
 import java.io.FileNotFoundException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 public abstract class EmployeeService {
     private final UserDao userDao;
     private final StudentDetailsDao studentDetailsDao;
+    private final StudentsAwardsDao studentsAwardsDao;
+    private final TransactionDao transactionDao;
 
     public EmployeeService() {
         this.userDao = new UserDaoDb();
         this.studentDetailsDao = new StudentDetailsDaoDb();
+        this.studentsAwardsDao = new StudentsAwardsDaoDb();
+        this.transactionDao = new TransactionDaoDb();
+
     }
 
     public void addUserToDb(String roleString) {
@@ -44,7 +51,6 @@ public abstract class EmployeeService {
     }
 
     public void addUser(User user) {
-
         this.userDao.insert(user);
         createStudentDetails(user); // TODO: where? here?
     }
@@ -124,6 +130,17 @@ public abstract class EmployeeService {
     }
 
 
+    public void addAwardByAwardIdToStudentByStudentId(int awardId, int studentId, int priceOfAward) {
+        System.out.println("EmployeeService addAward");
 
+        Date date = new Date();
+        Timestamp timestamp = new Timestamp(date.getTime());
+        StudentAward studentAward = new StudentAward(studentId, awardId, priceOfAward, timestamp);
+        this.studentsAwardsDao.insert(studentAward);
 
+        Transaction transaction = new Transaction(studentId, awardId, priceOfAward, timestamp);
+        this.transactionDao.insert(transaction);
+
+        this.studentDetailsDao.subtractAwardPriceFromUserById(studentId, priceOfAward);
+    }
 }

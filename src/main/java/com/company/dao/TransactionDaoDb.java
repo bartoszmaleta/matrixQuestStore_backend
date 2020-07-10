@@ -151,10 +151,10 @@ public class TransactionDaoDb implements TransactionDao {
                     + "(user_id, award_id, price, created_at) "
                     + "VALUES (?, ?, ?, ?);");
 
-            ps.setInt(1, transaction.getBuyerId());
+            ps.setInt(1, transaction.getUserId());
             ps.setInt(2, transaction.getAwardId());
             ps.setInt(3, transaction.getPrice());
-            ps.setTimestamp(4, transaction.getDate());
+            ps.setTimestamp(4, transaction.getBoughAt());
 
             ps.executeUpdate();
             return true;

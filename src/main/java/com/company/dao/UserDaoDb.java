@@ -85,7 +85,7 @@ public class UserDaoDb implements UserDao {
 
             while (rs.next()) {
                 module = rs.getString("module");
-                System.out.println("while rs = " + module);
+//                System.out.println("while rs = " + module);
             }
             rs.close();
             connectionFactory.close();

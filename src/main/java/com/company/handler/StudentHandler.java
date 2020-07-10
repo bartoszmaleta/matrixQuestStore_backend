@@ -19,13 +19,10 @@ import java.util.Collections;
 import java.util.List;
 
 public class StudentHandler implements HttpHandler {
-    private final UserDao userDao;
     private final ObjectMapper mapper;
     private final AdminService adminService;
 
-
     public StudentHandler() {
-        this.userDao = new UserDaoDb();
         this.mapper = new ObjectMapper();
         this.adminService = new AdminService();
     }
@@ -70,7 +67,7 @@ public class StudentHandler implements HttpHandler {
                     response = this.mapper.writeValueAsString(student);
                 } else {
                     System.out.println("else");
-                    List<User> students = this.userDao.getStudents();
+                    List<User> students = this.adminService.getAllStudents();
                     response = this.mapper.writeValueAsString(students);
                 }
             }
