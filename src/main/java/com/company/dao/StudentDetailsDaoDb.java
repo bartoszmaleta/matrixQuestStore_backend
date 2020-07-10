@@ -26,6 +26,7 @@ public class StudentDetailsDaoDb implements StudentDetailsDao {
 
             ps.executeUpdate();
             ps.close();
+            connectionFactory.close();
             return true;
 
         } catch (SQLException throwables) {

@@ -286,7 +286,9 @@ public class UserDaoDb implements UserDao {
 
     @Override
     public int readUserIdByEmail(String email) {
-        int id = Integer.parseInt(null);
+        int id = -1;
+        System.out.println("readUserIdByEmail");
+
         try {
             ResultSet rs = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"email\" = '" + email + "';");
 

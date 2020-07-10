@@ -51,11 +51,17 @@ public abstract class EmployeeService {
     }
 
     public void addUser(User user) {
+        System.out.println("addUser befor");
         this.userDao.insert(user);
+        System.out.println("addUser after");
+
         createStudentDetails(user); // TODO: where? here?
     }
 
     private void createStudentDetails(User user) {
+        System.out.println("createSD");
+        System.out.println("user.getId = " + user.getId());
+        System.out.println("user.getEmail = " + user.getEmail());
         int studentIdFromDao = userDao.readUserIdByEmail(user.getEmail());
         this.studentDetailsDao.insert(studentIdFromDao);
     }
