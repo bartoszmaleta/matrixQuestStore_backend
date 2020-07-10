@@ -8,4 +8,6 @@ public interface StudentDetailsDao {
     String getStudentsMentorsName(int studentId);
 
     int getStudentCoins(int id);
+
+    boolean subtractAwardPriceFromUserById(int studentId, int priceOfAward);
 }

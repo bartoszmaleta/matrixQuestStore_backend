@@ -46,7 +46,7 @@ public class StudentDetailsDaoDb implements StudentDetailsDao {
 
             rs.next();
             coins = rs.getInt("coins");
-            System.out.println("while rs = " + coins);
+//            System.out.println("while rs = " + coins);
 
             rs.close();
             connectionFactory.close();
@@ -54,6 +54,23 @@ public class StudentDetailsDaoDb implements StudentDetailsDao {
             throwables.printStackTrace();
         }
         return coins;
+    }
+
+    @Override
+    public boolean subtractAwardPriceFromUserById(int studentId, int priceOfAward) {
+        PreparedStatement ps = null;
+        try {
+            ps = connectionFactory.getConnection().prepareStatement("UPDATE \"Student_Detailss\"\n" +
+                    "    SET coins = coins - " + priceOfAward + "\n" +
+                    "WHERE\n" +
+                    "    student_id = " + studentId + ";");
+            ps.executeUpdate();
+            connectionFactory.close();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public String getStudentsMentorsName(int studentId) {
@@ -72,7 +89,7 @@ public class StudentDetailsDaoDb implements StudentDetailsDao {
 
             rs.next();
             mentorsName = rs.getString("mentor");
-            System.out.println("while rs = " + mentorsName);
+//            System.out.println("while rs = " + mentorsName);
 
             rs.close();
             connectionFactory.close();
