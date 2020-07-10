@@ -51,7 +51,7 @@ public class StudentHandler implements HttpHandler {
 
         try {
             if (method.equals("GET")) {
-                if (actions.length > 1) {
+                if (actions.length > 2) {
                     System.out.println("if length");
 
                     //np. http://localhost:8003/users/23
@@ -61,12 +61,12 @@ public class StudentHandler implements HttpHandler {
                     System.out.println("if length2");
                     if (student.getRole() == Role.STUDENT) {
                         student = (Student) student;
-                        System.out.println("student coins = " + ((Student) student).getCoins());
-                        System.out.println("student module = " + ((Student) student).getModule());
-                        System.out.println("student surname = " + ((Student) student).getSurname());
-                        System.out.println("student perosnal Mentor = " + ((Student) student).getPersonalMentor());
+//                        System.out.println("student coins = " + ((Student) student).getCoins());
+//                        System.out.println("student module = " + ((Student) student).getModule());
+//                        System.out.println("student surname = " + ((Student) student).getSurname());
+//                        System.out.println("student perosnal Mentor = " + ((Student) student).getPersonalMentor());
                     }
-                    System.out.println("student name = " + student.getName());
+//                    System.out.println("student name = " + student.getName());
                     response = this.mapper.writeValueAsString(student);
                 } else {
                     System.out.println("else");
