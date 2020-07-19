@@ -10,7 +10,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class TerminalView {
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static int intScanner(String question) {
         System.out.println(question);
@@ -20,17 +20,12 @@ public class TerminalView {
             System.out.println("Wrong input! Choose only numbers!");
             answer = scanner.next();
         }
-        return Integer.valueOf(answer);
+        return Integer.parseInt(answer);
 
     }
 
     private static String multiSign(int multiplication, String sign) {
-        String out = "";
-
-        for (int i = 0; i < multiplication; i++) {
-            out += sign;
-        }
-        return out;
+        return sign.repeat(multiplication);
     }
 
     public static String repeatString(String c, int times) {

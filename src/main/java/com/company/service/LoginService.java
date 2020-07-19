@@ -11,7 +11,7 @@ public class LoginService {
         this.userDao = new UserDaoDb();
     }
 
-    public User readUserFromDaoByEmailOrPassword(String email, String password) {
+    public User readUserWithEmailAndPassword(String email, String password) {
         return this.userDao.readUserByEmailAndPassword(email, password);
     }
 }

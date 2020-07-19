@@ -5,7 +5,7 @@ import com.company.model.user.User;
 
 import java.util.List;
 
-public interface TransactionDao extends Dao {
+public interface TransactionDao extends Dao<Transaction> {
     List getTransactionsCountAndTotalSumByUser();
 
     List<Transaction> getMyTransactions(User user);

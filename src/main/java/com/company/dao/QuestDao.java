@@ -5,7 +5,7 @@ import com.company.model.user.User;
 
 import java.util.List;
 
-public interface QuestDao extends Dao{
+public interface QuestDao extends Dao<Quest> {
     List<Quest> readQuestListByMentor(User user);
     void updateQuestIdMentorById(int id, int mentorId);
     void updateQuestCoinsById(int id, int amountOfCoins);

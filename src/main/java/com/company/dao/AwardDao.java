@@ -5,7 +5,7 @@ import com.company.model.user.User;
 
 import java.util.List;
 
-public interface AwardDao extends Dao {
+public interface AwardDao extends Dao<Award> {
     void updateAwardCreatorIdById(int id, int creatorId);
     void updateAwardPriceById(int id, int price);
     void updateAwardDescriptionById(int id, String description);
