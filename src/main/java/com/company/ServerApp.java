@@ -22,7 +22,7 @@ public class ServerApp {
         server.createContext("/login", new LoginHandler());
 
         // TODO: check if working: ?????
-        server.createContext("/login", new LoginHandler(new HttpResponses(), new LoginService(), new ObjectMapper()));
+        server.createContext("/login", new LoginHandler(new LoginService(), new ObjectMapper()));
         server.createContext("/awards", new AwardsHandler());
         server.createContext("/quests", new QuestsHandler());
         server.setExecutor(null);

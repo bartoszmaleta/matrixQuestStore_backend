@@ -1,7 +1,6 @@
 package com.company.handler;
 
 import com.company.helpers.HttpResponses;
-import com.company.helpers.Parsers;
 import com.company.model.user.User;
 import com.company.service.LoginService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,12 +8,11 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 
-public class LoginHandler implements HttpHandler {
+public class LoginHandler extends HandlersParent implements HttpHandler {
     private final LoginService loginService;
-    private final HttpResponses httpResponses;
+    private HttpResponses httpResponses;
     private final ObjectMapper mapper;
 
     public LoginHandler() {
@@ -24,8 +22,7 @@ public class LoginHandler implements HttpHandler {
     }
 
     // TODO: check if working: ????
-    public LoginHandler(HttpResponses httpResponses, LoginService loginService, ObjectMapper objectMapper) {
-        this.httpResponses = httpResponses;
+    public LoginHandler(LoginService loginService, ObjectMapper objectMapper) {
         this.loginService = loginService;
         this.mapper = objectMapper;
     }
@@ -43,32 +40,13 @@ public class LoginHandler implements HttpHandler {
     }
 
     private void sendLoginResponse(HttpExchange exchange) throws IOException {
-        InputStreamReader isr = new InputStreamReader(exchange.getRequestBody(), StandardCharsets.UTF_8);
-        BufferedReader br = new BufferedReader(isr);
-        Map<String, String> data = Parsers.parseFormData(br.readLine());
+        Map<String, String> data = super.getDataMap(exchange);
 
         User user = this.loginService.
                 readUserWithEmailAndPassword(data.get("email"), data.get("password"));
 //
         String response = this.mapper.writeValueAsString(user);
         // TODO: cookie
-        sendResponse(response, exchange, 200);
-    }
-
-    private void sendResponse(String response, HttpExchange httpExchange, int status) throws IOException {
-        if (status == 200) {
-            httpExchange.getResponseHeaders().put("Content-type", Collections.singletonList("application/json"));
-            httpExchange.getResponseHeaders().put("Access-Control-Allow-Origin", Collections.singletonList("*"));
-        }
-
-        httpExchange.sendResponseHeaders(status, response.getBytes().length);
-
-        OutputStream os = httpExchange.getResponseBody();
-        os.write((response.getBytes()));
-        os.close();
-    }
-
-    private String getUserClassName(User user) {
-        return user.getClass().getSimpleName();
+        super.sendResponse(response, exchange, 200);
     }
 }
