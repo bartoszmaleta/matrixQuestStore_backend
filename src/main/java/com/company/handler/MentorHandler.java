@@ -23,9 +23,9 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class MentorHandler implements HttpHandler {
-    private MentorService mentorService;
-    private StatisticsService statisticsService;
-    private ObjectMapper mapper;
+    private final MentorService mentorService;
+    private final StatisticsService statisticsService;
+    private final ObjectMapper mapper;
 
     public MentorHandler() {
         this.mentorService = new MentorService();
