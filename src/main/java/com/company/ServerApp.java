@@ -4,6 +4,8 @@ import com.company.handler.UserHandler;
 import com.company.handler.*;
 import com.company.helpers.HttpResponses;
 import com.company.service.LoginService;
+import com.company.service.MentorService;
+import com.company.service.StatisticsService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.HttpServer;
 
@@ -18,6 +20,9 @@ public class ServerApp {
         server.createContext("/register", new RegisterHandler());
 //        server.createContext("/users", new AdminHandler());
         server.createContext("/mentors", new MentorHandler());
+
+        // TODO: check which one is working??????
+        server.createContext("/mentors", new MentorHandler(new MentorService(), new StatisticsService(), new ObjectMapper()));
         server.createContext("/students", new StudentHandler());
         server.createContext("/login", new LoginHandler());
 
