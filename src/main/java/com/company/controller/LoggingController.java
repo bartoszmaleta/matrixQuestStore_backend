@@ -118,6 +118,6 @@ public class LoggingController {
     }
 
     public User login(String email, String password) {
-        return loginService.readUserFromDaoByEmailOrPassword(email, password);
+        return loginService.readUserWithEmailAndPassword(email, password);
     }
 }

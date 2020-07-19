@@ -2,6 +2,9 @@ package com.company;
 
 import com.company.handler.UserHandler;
 import com.company.handler.*;
+import com.company.helpers.HttpResponses;
+import com.company.service.LoginService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
@@ -17,6 +20,9 @@ public class ServerApp {
         server.createContext("/mentors", new MentorHandler());
         server.createContext("/students", new StudentHandler());
         server.createContext("/login", new LoginHandler());
+
+        // TODO: check if working: ?????
+        server.createContext("/login", new LoginHandler(new HttpResponses(), new LoginService(), new ObjectMapper()));
         server.createContext("/awards", new AwardsHandler());
         server.createContext("/quests", new QuestsHandler());
         server.setExecutor(null);

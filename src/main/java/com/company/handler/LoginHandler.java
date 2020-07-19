@@ -1,6 +1,5 @@
 package com.company.handler;
 
-import com.company.controller.LoggingController;
 import com.company.helpers.HttpResponses;
 import com.company.helpers.Parsers;
 import com.company.model.user.User;
@@ -13,16 +12,21 @@ import java.io.*;
 import java.util.*;
 
 public class LoginHandler implements HttpHandler {
-    private final LoggingController loggingController; // NOT USED
     private final LoginService loginService;
     private final HttpResponses httpResponses;
     private final ObjectMapper mapper;
 
     public LoginHandler() {
-        this.loggingController = new LoggingController();
         this.httpResponses = new HttpResponses();
         this.loginService = new LoginService();
         this.mapper = new ObjectMapper();
+    }
+
+    // TODO: check if working: ????
+    public LoginHandler(HttpResponses httpResponses, LoginService loginService, ObjectMapper objectMapper) {
+        this.httpResponses = httpResponses;
+        this.loginService = loginService;
+        this.mapper = objectMapper;
     }
 
     @Override
@@ -33,10 +37,10 @@ public class LoginHandler implements HttpHandler {
         if (method.equals("POST")) {
             InputStreamReader isr = new InputStreamReader(exchange.getRequestBody(), "utf-8");
             BufferedReader br = new BufferedReader(isr);
-
             Map<String, String> data = Parsers.parseFormData(br.readLine());
+
             User user = this.loginService.
-                    readUserFromDaoByEmailOrPassword(data.get("email"), data.get("password"));
+                    readUserWithEmailAndPassword(data.get("email"), data.get("password"));
 //
             response = this.mapper.writeValueAsString(user);
         } // TODO: cookie
@@ -54,32 +58,6 @@ public class LoginHandler implements HttpHandler {
         OutputStream os = httpExchange.getResponseBody();
         os.write((response.getBytes()));
         os.close();
-    }
-
-
-
-
-    private void loginUser(HttpExchange exchange) {
-        User user = null;
-        try {
-            user = getUserData(exchange.getRequestBody());
-            httpResponses.sendResponse200(exchange, getUserClassName(user));
-            // TODO: cookie
-        } catch (Exception e) {
-            System.out.println("No user in db");
-            e.printStackTrace();
-        }
-    }
-
-    private User getUserData(InputStream requestBody) throws IOException {
-        InputStreamReader isr = new InputStreamReader(requestBody, "utf-8");
-        BufferedReader br = new BufferedReader(isr);
-        String loginData = br.readLine();
-
-        String[] emailAndPassword = loginData.split(",");
-
-        User user = loggingController.login(emailAndPassword[0], emailAndPassword[1]);
-        return user;
     }
 
     private String getUserClassName(User user) {
