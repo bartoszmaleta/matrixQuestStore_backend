@@ -9,6 +9,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class LoginHandler implements HttpHandler {
@@ -34,16 +35,23 @@ public class LoginHandler implements HttpHandler {
         String response = "user not received";
 
         String method = exchange.getRequestMethod();
-        if (method.equals("POST")) {
-            InputStreamReader isr = new InputStreamReader(exchange.getRequestBody(), "utf-8");
-            BufferedReader br = new BufferedReader(isr);
-            Map<String, String> data = Parsers.parseFormData(br.readLine());
+        if (!method.equals("POST")) {
+            sendResponse(response, exchange, 404);
+            return;
+        }
+        sendLoginResponse(exchange);
+    }
 
-            User user = this.loginService.
-                    readUserWithEmailAndPassword(data.get("email"), data.get("password"));
+    private void sendLoginResponse(HttpExchange exchange) throws IOException {
+        InputStreamReader isr = new InputStreamReader(exchange.getRequestBody(), StandardCharsets.UTF_8);
+        BufferedReader br = new BufferedReader(isr);
+        Map<String, String> data = Parsers.parseFormData(br.readLine());
+
+        User user = this.loginService.
+                readUserWithEmailAndPassword(data.get("email"), data.get("password"));
 //
-            response = this.mapper.writeValueAsString(user);
-        } // TODO: cookie
+        String response = this.mapper.writeValueAsString(user);
+        // TODO: cookie
         sendResponse(response, exchange, 200);
     }
 
