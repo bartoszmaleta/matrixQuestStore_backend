@@ -205,7 +205,7 @@ public class UserDaoDb implements UserDao {
 
     // TODO or not???
     @Override
-    public boolean edit(Object o) {
+    public boolean edit(User o) {
         return false;
     }
 
@@ -387,7 +387,7 @@ public class UserDaoDb implements UserDao {
     }
 
     @Override
-    public Object getById(int id) {
+    public User getById(int id) {
         User newUser;
 
         try {
@@ -408,8 +408,7 @@ public class UserDaoDb implements UserDao {
     }
 
     @Override
-    public boolean insert(Object o) {
-        User user = (User) o;
+    public boolean insert(User user) {
         PreparedStatement ps = null;
         Role userRole = user.getRole();
 

@@ -160,7 +160,7 @@ public class QuestDaoDb implements QuestDao {
     }
 
     @Override
-    public Object getById(int id) {
+    public Quest getById(int id) {
         listOfQuests = new ArrayList<>();
         Quest quest = null;
         try {
@@ -191,8 +191,7 @@ public class QuestDaoDb implements QuestDao {
     }
 
     @Override
-    public boolean insert(Object o) {
-        Quest quest = (Quest) o;
+    public boolean insert(Quest quest) {
         PreparedStatement ps = null;
         try {
             ps = conFactory.getConnection().prepareStatement("INSERT INTO \"Quests\" (title, description, coins, image, mentor_id)" +
@@ -212,7 +211,7 @@ public class QuestDaoDb implements QuestDao {
     }
 
     @Override
-    public boolean edit(Object o) {
+    public boolean edit(Quest quest) {
         return false;
     }
 

@@ -262,13 +262,12 @@ public class AwardDaoDb implements AwardDao {
     }
 
     @Override
-    public Object getById(int id) {
+    public Award getById(int id) {
         return null;
     }
 
     @Override
-    public boolean insert(Object o) {
-        Award award = (Award) o;
+    public boolean insert(Award award) {
         PreparedStatement ps = null;
         try {
             ps = conFactory.getConnection().prepareStatement("INSERT INTO \"Awards\" (title, description, price, image, data_creation, creator_id)" +
@@ -292,7 +291,7 @@ public class AwardDaoDb implements AwardDao {
     }
 
     @Override
-    public boolean edit(Object o) {
+    public boolean edit(Award award) {
         return false;
     }
 
