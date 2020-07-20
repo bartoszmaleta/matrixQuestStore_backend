@@ -61,8 +61,9 @@ public abstract class User {
         return id;
     }
 
-    public void setId(int id) {
+    public User setId(int id) {
         this.id = id;
+        return this;
     }
 
     public String getLogin() {
@@ -145,5 +146,13 @@ public abstract class User {
 
     public String getAvatarSource() {
         return avatarSource;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        // TODO: should be with hashcode
+        User user = (User) o;
+        return user.getId() == this.getId()
+                && user.getEmail().equals(this.getEmail());
     }
 }

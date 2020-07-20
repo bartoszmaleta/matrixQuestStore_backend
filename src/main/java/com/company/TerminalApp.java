@@ -68,3 +68,5 @@ public class    TerminalApp {
 
 // TODO: StudentDetailsDao ==>
 //  public boolean setMentorForUser(int studentId, int mentorId) {
+
+// TODO: make equals dependent on generated hashcode!!! to have better tests!
