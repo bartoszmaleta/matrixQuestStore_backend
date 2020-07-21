@@ -11,6 +11,10 @@ public class StudentDetailsDaoDb implements StudentDetailsDao {
         this.connectionFactory = new ConnectionFactory();
     }
 
+    public StudentDetailsDaoDb(ConnectionFactory connectionFactory) {
+        this.connectionFactory = connectionFactory;
+    }
+
     @Override
     public boolean insert(int studentIdFromDao) {
         PreparedStatement ps = null;

@@ -14,6 +14,10 @@ public class UserDaoDb implements UserDao {
         this.connectionFactory = new ConnectionFactory();
         this.studentDetailsDao = new StudentDetailsDaoDb();
     }
+    public UserDaoDb(ConnectionFactory connectionFactory) {
+        this.connectionFactory = connectionFactory;
+        this.studentDetailsDao = new StudentDetailsDaoDb(connectionFactory);
+    }
 
     public User readUserByEmailAndPassword(String userEmail, String userPassword) {
         User newUser;
@@ -302,28 +306,7 @@ public class UserDaoDb implements UserDao {
         }
     }
 
-    @Override
-    public User readUserById(int userId) {
-        try {
-            ResultSet rs = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"id\" = '" + userId + "';");
 
-            rs.next();
-            if (rs.getInt("role_id") == 1) {
-                return getAdmin(rs);
-            } else if (rs.getInt("role_id") == 2) {
-                return getMentor(rs);
-            } else if (rs.getInt("role_id") == 3) {
-                return getStudent(rs);
-            } else {
-                System.out.println("No user");
-            }
-            connectionFactory.close();
-            rs.close();
-        } catch (Exception e) {
-            System.err.println("Error! Reading user by userName and userPassword from DB failed!");
-        }
-        return null;
-    }
 
 
     // ---------------------------------------
