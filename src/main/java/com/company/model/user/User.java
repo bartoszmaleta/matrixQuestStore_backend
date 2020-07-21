@@ -22,7 +22,11 @@ public abstract class User {
         this.surname = surname;
         this.login = login;
         this.password = password;
-        this.email = email;
+        if (email.isEmpty()) {
+            throw new IllegalArgumentException();
+        } else {
+            this.email = email;
+        }
 //        this.role = role;
         setRoleEnum(roleId);
         this.avatarSource = avatarSource;
@@ -37,7 +41,11 @@ public abstract class User {
         this.surname = surname;
         this.login = login;
         this.password = password;
-        this.email = email;
+        if (email.isEmpty()) {
+            throw new IllegalArgumentException();
+        } else {
+            this.email = email;
+        }
 //        this.role = role;
         setRoleEnum(roleId);
         this.avatarSource = avatarSource;
