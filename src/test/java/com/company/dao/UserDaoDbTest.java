@@ -45,5 +45,40 @@ class UserDaoDbTest {
 //        assertEquals(newUser, this.userDao.readUserByEmailAndPassword("addedUser@", "pass"));
     }
 
+    @Test
+    public void should_returnTrue_when_userWithProvidedIdIsDeleted() {
+        int idUser = 0;
+        assertTrue(this.userDao.delete(idUser));
+    }
+
+    @Test
+    public void should_returnUserId_when_userEmailIsProvided() {
+        String userEmail = "tesla@";
+        int userId = 2;
+        int idUserFromDao = this.userDao.readUserIdByEmail(userEmail);
+        assertEquals(userId, idUserFromDao);
+    }
+
+//    @Test
+//    public void should_returnUserId_when_userEmailIsProvided() {
+//        String userEmail = "addedUser2@gmail.com";
+//        User newUser = new Student()
+//                .setName("XYZAdded2")
+//                .setSurname("User2")
+//                .setLogin("addUser2")
+//                .setPassword("pass")
+//                .setEmail(userEmail)
+//                .setRoleEnum(3);
+//        this.userDao.insert(newUser);
+//        int idUser = this.userDao.readUserIdByEmail(userEmail);
+//        System.out.println("idUser = " + idUser);
+//
+//        System.out.println("newUser " + newUser.toString());
+//        System.out.println("fromDaoUser " + this.userDao.getById(idUser).toString());
+//        assertEquals(newUser, this.userDao.getById(idUser));
+//        this.userDao.delete(idUser);
+//    }
+
+
 
 }

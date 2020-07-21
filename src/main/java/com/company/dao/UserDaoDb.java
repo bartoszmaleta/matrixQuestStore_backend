@@ -296,6 +296,7 @@ public class UserDaoDb implements UserDao {
 
             rs.next();
             id = rs.getInt("id");
+            System.out.println("id rs = " + id);
 
             connectionFactory.close();
             rs.close();
