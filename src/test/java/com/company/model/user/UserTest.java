@@ -13,7 +13,7 @@ public class UserTest {
     @Test
     public void should_throwException_when_emailIsNotProvided() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-                User newUser = new Student("name", "surname", "login", "pass", "", 3, "../resources/avatars/loginLogo.jpg");
+            User newUser = new Student("name", "surname", "login", "pass", "", 3, "../resources/avatars/loginLogo.jpg");
         });
     }
 
@@ -33,7 +33,7 @@ public class UserTest {
         assertEquals(Role.STUDENT, newUser.getRole());
     }
 
-//    @ParameterizedTest
+    //    @ParameterizedTest
 //    @ValueSource(numbers = {1, 2, 3})
     @Test
     public void should_setSuitableRole_when_providedUserRoleId() {
@@ -41,9 +41,15 @@ public class UserTest {
         User newUser2 = new Mentor("name", "surname", "login", "pass", "newEmail@gmail.com", 2, "../resources/avatars/loginLogo.jpg");
         User newUser3 = new Admin("name", "surname", "login", "pass", "newEmail@gmail.com", 1, "../resources/avatars/loginLogo.jpg");
 
-        assertEquals(Role.STUDENT, newUser.getRole());
-        assertEquals(Role.MENTOR, newUser2.getRole());
-        assertEquals(Role.ADMIN, newUser3.getRole());
+        assertAll("Correctly set roles to users",
+                () -> assertEquals(Role.STUDENT, newUser.getRole())
+                , () -> assertEquals(Role.MENTOR, newUser2.getRole())
+                , () -> assertEquals(Role.ADMIN, newUser3.getRole())
+        );
+
+//        assertEquals(Role.STUDENT, newUser.getRole());
+//        assertEquals(Role.MENTOR, newUser2.getRole());
+//        assertEquals(Role.ADMIN, newUser3.getRole());
     }
 
     @Test
