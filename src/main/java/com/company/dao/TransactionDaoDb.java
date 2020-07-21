@@ -186,13 +186,12 @@ public class TransactionDaoDb implements TransactionDao {
     }
 
     @Override
-    public Object getById(int id) {
+    public Transaction getById(int id) {
         return null;
     }
 
     @Override
-    public boolean insert(Object o) {
-        Transaction transaction = (Transaction) o;
+    public boolean insert(Transaction transaction) {
         PreparedStatement ps = null;
         try {
             ps = conFactory.getConnection().prepareStatement("INSERT INTO \"Transactions\" "
@@ -214,7 +213,7 @@ public class TransactionDaoDb implements TransactionDao {
     }
 
     @Override
-    public boolean edit(Object o) {
+    public boolean edit(Transaction transaction) {
         return false;
     }
 

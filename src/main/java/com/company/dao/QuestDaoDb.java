@@ -19,7 +19,7 @@ public class QuestDaoDb implements QuestDao {
     public void updateQuestTitleById(int id, String title) {
         PreparedStatement ps = null;
         try {
-            ps = conFactory.getConnection().prepareStatement("UPDATE \"Quests\" SET surname = '" + title + "' " +
+            ps = conFactory.getConnection().prepareStatement("UPDATE \"Quests\" SET title = '" + title + "' " +
                     "WHERE id=" + id + ";");
             ps.executeUpdate();
 
@@ -32,7 +32,7 @@ public class QuestDaoDb implements QuestDao {
     public void updateQuestDescriptionById(int id, String description) {
         PreparedStatement ps = null;
         try {
-            ps = conFactory.getConnection().prepareStatement("UPDATE \"Quests\" SET surname = '" + description + "' " +
+            ps = conFactory.getConnection().prepareStatement("UPDATE \"Quests\" SET description = '" + description + "' " +
                     "WHERE id=" + id + ";");
             ps.executeUpdate();
 
@@ -229,6 +229,9 @@ public class QuestDaoDb implements QuestDao {
             return false;
         }
     }
+
+
+
 
 
 //    public void addQuest(Quest quest) {
