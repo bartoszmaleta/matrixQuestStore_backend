@@ -26,11 +26,14 @@ public class UserTest {
                 .setPassword("pass")
                 .setEmail("addedUser@")
                 .setRoleEnum(3);
-        assertEquals("Added", newUser.getName());
-        assertEquals("User", newUser.getSurname());
-        assertEquals("addUser", newUser.getLogin());
-        assertEquals("addedUser@", newUser.getEmail());
-        assertEquals(Role.STUDENT, newUser.getRole());
+
+        assertAll("Correctly create User with suitable fields",
+                () -> assertEquals("Added", newUser.getName())
+                , () -> assertEquals("User", newUser.getSurname())
+                , () -> assertEquals("addUser", newUser.getLogin())
+                , () -> assertEquals("addedUser@", newUser.getEmail())
+                , () -> assertEquals(Role.STUDENT, newUser.getRole())
+        );
     }
 
     //    @ParameterizedTest
@@ -46,10 +49,6 @@ public class UserTest {
                 , () -> assertEquals(Role.MENTOR, newUser2.getRole())
                 , () -> assertEquals(Role.ADMIN, newUser3.getRole())
         );
-
-//        assertEquals(Role.STUDENT, newUser.getRole());
-//        assertEquals(Role.MENTOR, newUser2.getRole());
-//        assertEquals(Role.ADMIN, newUser3.getRole());
     }
 
     @Test
@@ -57,7 +56,6 @@ public class UserTest {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             User newUser3 = new Admin("name", "surname", "login", "pass", "newEmail@gmail.com", -1, "../resources/avatars/loginLogo.jpg");
         });
-//        assertEquals(Role.ADMIN, newUser3.getRole());
     }
 
 }
