@@ -118,7 +118,7 @@ public abstract class User {
         } else if (userNumber == 3) {
             this.role = Role.STUDENT;
         } else {
-            System.out.println("Wrong userNumber");
+            throw new IllegalArgumentException("Wrong roleId number!");
         }
         return this;
     }
