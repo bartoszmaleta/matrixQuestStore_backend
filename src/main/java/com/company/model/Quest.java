@@ -118,4 +118,12 @@ public class Quest {
                 " Img_src: " + imageSrc +
                 " Mentor_id: " + mentorId;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        Quest quest = (Quest) o;
+        return quest.getId() == (this.getId())
+                && quest.getDescription().equals(this.getDescription());
+
+    }
 }
