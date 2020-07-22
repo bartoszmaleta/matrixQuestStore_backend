@@ -60,24 +60,22 @@ public class Award {
         this.mentorId = mentorId;
     }
 
-//    public Award(int id, String title, String description, int price, String imageSrc, Timestamp dataCreation, String mentor) {
+//    public Award(int id, String title, String description, int price, String imageSrc, String mentor) {
 //        this.id = id;
 //        this.title = title;
 //        this.description = description;
 //        this.price = price;
 //        this.imageSrc = imageSrc;
-//        this.dataCreation = dataCreation;
 //        this.mentor = mentor;
 //    }
 
     // NEW
-    public Award(int id, String title, String description, int price, String imageSrc, Timestamp dataCreation, String mentorNameAndSurname) {
+    public Award(int id, String title, String description, int price, String imageSrc, String mentorNameAndSurname) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.price = price;
         this.imageSrc = imageSrc;
-        this.dataCreation = dataCreation;
         this.mentorNameAndSurname = mentorNameAndSurname;
     }
 
