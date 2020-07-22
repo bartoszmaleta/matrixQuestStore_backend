@@ -9,10 +9,10 @@ public class ConnectionFactory {
     private final String userPassword;
 
     public ConnectionFactory() {
-        this.databaseUrl = "jdbc:postgresql://ec2-54-246-85-151.eu-west-1.compute.amazonaws.com:5432/dcmgt3tfcp4n6o";
+        this.databaseUrl = "jdbc:postgresql://ec2-52-31-94-195.eu-west-1.compute.amazonaws.com:5432/dfare0vp739v70";
         this.jdbcDriver = "org.postgresql.Driver";
-        this.userLogin = "tilcavmrsuhbzj";
-        this.userPassword = "37e3925b366710ece9a679ad72d401e74bc6bb4ed1239676aaffef00ed27fc52";
+        this.userLogin = "gnoujqtgpyxews";
+        this.userPassword = "c05d60807f1a76c1447fcafb2906941992b1e529dfd0f6c468978e4ce0661ef7";
     }
 
     public ConnectionFactory(String databaseUrl, String jdbcDriver, String userLogin, String userPassword) {
