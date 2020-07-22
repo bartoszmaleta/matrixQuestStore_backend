@@ -10,10 +10,13 @@ public class UserDaoDb implements UserDao {
     ConnectionFactory connectionFactory;
     StudentDetailsDao studentDetailsDao;
 
+    // Without dependency injection
     public UserDaoDb() {
         this.connectionFactory = new ConnectionFactory();
         this.studentDetailsDao = new StudentDetailsDaoDb();
     }
+
+    // With dependency injection
     public UserDaoDb(ConnectionFactory connectionFactory) {
         this.connectionFactory = connectionFactory;
         this.studentDetailsDao = new StudentDetailsDaoDb(connectionFactory);

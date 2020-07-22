@@ -8,11 +8,13 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UserDaoDbTest {
-    ConnectionFactory connectionFactory;
-    UserDao userDao;
+    private static ConnectionFactory connectionFactory;
+    private static UserDaoDb userDao;
+//    ConnectionFactory connectionFactory;
+//    UserDao userDao;
 
     @BeforeAll
-    public void setUp() {
+    static void setUp() {
         connectionFactory = new ConnectionFactory(
                 "jdbc:postgresql://ec2-54-217-206-236.eu-west-1.compute.amazonaws.com/da8tt4mh63b7nc"
                 , "org.postgresql.Driver"
