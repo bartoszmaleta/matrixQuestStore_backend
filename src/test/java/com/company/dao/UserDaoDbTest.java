@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.sql.SQLException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UserDaoDbTest {
@@ -19,6 +21,7 @@ public class UserDaoDbTest {
                 , "pirqathgcgzhbg"
                 , "15c50442ada3956b30448ed4f67f2ec081ffedc990ade3019893a9d6b51655ed"
         );
+        System.out.println("qasdasdsad");
         userDao = new UserDaoDb(connectionFactory);
     }
 
@@ -57,15 +60,16 @@ public class UserDaoDbTest {
     @Disabled("After test db won't recover, user will still be deleted!")
     @Test
     public void should_returnTrue_when_userWithIdIsDeleted() {
-        int idUser = 15;
-        assertFalse(userDao.delete(idUser));
+        int idUser = 26;
+        assertTrue(userDao.delete(idUser));
     }
 
     @Test
     public void should_returnUserId_when_userEmailIsProvided() {
-        String userEmail = "tesla@";
-        int userId = 2;
+        String userEmail = "tesla@gmail";
+        int userId = 20;
         int idUserFromDao = userDao.readUserIdByEmail(userEmail);
+        System.out.println("id from db = " + idUserFromDao);
         assertEquals(userId, idUserFromDao);
     }
 }

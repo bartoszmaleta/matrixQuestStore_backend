@@ -18,6 +18,7 @@ public class UserDaoDb implements UserDao {
 
     // With dependency injection
     public UserDaoDb(ConnectionFactory connectionFactory) {
+        System.out.println("qweqwe");
         this.connectionFactory = connectionFactory;
         this.studentDetailsDao = new StudentDetailsDaoDb(connectionFactory);
     }
@@ -292,10 +293,15 @@ public class UserDaoDb implements UserDao {
 
     @Override
     public int readUserIdByEmail(String email) {
-        int id = -1;
+        PreparedStatement ps = null;
+
+        int id = -100; // Definitely invalid number
 
         try {
-            ResultSet rs = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"email\" = '" + email + "';");
+//            ResultSet rs = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"email\" = '" + email + "';");
+//
+            ps = connectionFactory.getConnection().prepareStatement("SELECT * FROM \"users\" WHERE \"email\" = '" + email + "';");
+            ResultSet rs = ps.executeQuery();
 
             rs.next();
             id = rs.getInt("id");
@@ -305,7 +311,7 @@ public class UserDaoDb implements UserDao {
             rs.close();
             return id;
         } catch (Exception e) {
-            System.err.println("Error! Reading user by userName and userPassword from DB failed!");
+            System.err.println("Error! Reading user by id from DB failed!");
             return id;
         }
     }

@@ -12,6 +12,7 @@ import com.company.view.TerminalView;
 import com.company.view.UserView;
 
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -49,12 +50,12 @@ public abstract class EmployeeService {
         this.userDao.insert(newUser);
     }
 
-    public void addUser(User user) {
+    public void addUser(User user) throws SQLException {
         this.userDao.insert(user);
         createStudentDetails(user); // TODO: where? here?
     }
 
-    private void createStudentDetails(User user) {
+    private void createStudentDetails(User user) throws SQLException {
         int studentIdFromDao = userDao.readUserIdByEmail(user.getEmail());
         this.studentDetailsDao.insert(studentIdFromDao);
     }

@@ -23,14 +23,13 @@ public class ConnectionFactory {
     }
 
     protected Connection con;
-    //        protected Statement stmt = null;
     protected Statement stmt = null;
     protected ResultSet rs = null;
 
     public Connection getConnection() {
         try {
             Class.forName(this.jdbcDriver);
-            this.con = DriverManager.getConnection(this.databaseUrl, userLogin, userPassword);
+            this.con = DriverManager.getConnection(this.databaseUrl, this.userLogin, this.userPassword);
         } catch (SQLException e) {
             System.out.println("Error! Cannot connect with the database.");
         } catch (ClassNotFoundException e) {
@@ -40,9 +39,11 @@ public class ConnectionFactory {
         return this.con;
     }
 
-    public ResultSet executeQuery(String sql) {
-        ConnectionFactory connectionFactory = new ConnectionFactory();
-        this.con = connectionFactory.getConnection();
+    public ResultSet executeQuery(String sql) throws SQLException {
+//        ConnectionFactory connectionFactory = new ConnectionFactory();
+//        this.con = connectionFactory.getConnection();
+        System.out.println(this.databaseUrl);
+        this.con = this.getConnection();
         try {
             this.stmt = this.con.createStatement();
             this.rs = this.stmt.executeQuery(sql);
