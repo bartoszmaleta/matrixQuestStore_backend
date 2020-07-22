@@ -15,7 +15,7 @@ import java.io.*;
 import java.sql.Timestamp;
 import java.util.*;
 
-public class MentorHandler extends HandlersParent implements HttpHandler {
+public class MentorHandler extends AbstractHandler implements HttpHandler {
     private final MentorService mentorService;
     private final StatisticsService statisticsService;
     private final ObjectMapper mapper;

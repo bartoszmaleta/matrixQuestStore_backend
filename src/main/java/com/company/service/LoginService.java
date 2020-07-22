@@ -5,7 +5,7 @@ import com.company.dao.UserDaoDb;
 import com.company.model.user.User;
 
 public class LoginService {
-    private UserDao userDao;
+    private final UserDao userDao;
 
     public LoginService() {
         this.userDao = new UserDaoDb();

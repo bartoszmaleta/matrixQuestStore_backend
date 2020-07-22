@@ -3,20 +3,18 @@ package com.company.dao;
 import com.company.model.user.Student;
 import com.company.model.user.User;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UserDaoDbTest {
-    private static ConnectionFactory connectionFactory;
     private static UserDaoDb userDao;
-//    ConnectionFactory connectionFactory;
-//    UserDao userDao;
 
     @BeforeAll
     static void setUp() {
-        connectionFactory = new ConnectionFactory(
-                "jdbc:postgresql://ec2-54-217-206-236.eu-west-1.compute.amazonaws.com/da8tt4mh63b7nc"
+        ConnectionFactory connectionFactory = new ConnectionFactory(
+                "jdbc:postgresql://ec2-54-217-206-236.eu-west-1.compute.amazonaws.com:5432/da8tt4mh63b7nc"
                 , "org.postgresql.Driver"
                 , "pirqathgcgzhbg"
                 , "15c50442ada3956b30448ed4f67f2ec081ffedc990ade3019893a9d6b51655ed"
@@ -35,7 +33,7 @@ public class UserDaoDbTest {
                 .setEmail("cristiano@")
                 .setRoleEnum(3);
 
-        assertEquals(cristiano, this.userDao.getById(29));
+        assertEquals(cristiano, userDao.getById(29));
     }
 
     @Test
@@ -47,46 +45,27 @@ public class UserDaoDbTest {
                 .setPassword("pass")
                 .setEmail("addedUser@")
                 .setRoleEnum(3);
-        assertTrue(this.userDao.insert(newUser));
-
-//        this.userDao.insert(newUser);
-//        assertEquals(newUser, this.userDao.readUserByEmailAndPassword("addedUser@", "pass"));
+        assertTrue(userDao.insert(newUser));
     }
 
     @Test
-    public void should_returnTrue_when_userWithProvidedIdIsDeleted() {
-        int idUser = 0;
-        assertTrue(this.userDao.delete(idUser));
+    public void should_returnFalse_when_userWithWrongIdIsDeleted() {
+        int idUser = -1;
+        assertFalse(userDao.delete(idUser));
+    }
+
+    @Disabled("After test db won't recover, user will still be deleted!")
+    @Test
+    public void should_returnTrue_when_userWithIdIsDeleted() {
+        int idUser = 15;
+        assertFalse(userDao.delete(idUser));
     }
 
     @Test
     public void should_returnUserId_when_userEmailIsProvided() {
         String userEmail = "tesla@";
         int userId = 2;
-        int idUserFromDao = this.userDao.readUserIdByEmail(userEmail);
+        int idUserFromDao = userDao.readUserIdByEmail(userEmail);
         assertEquals(userId, idUserFromDao);
     }
-
-//    @Test
-//    public void should_returnUserId_when_userEmailIsProvided() {
-//        String userEmail = "addedUser2@gmail.com";
-//        User newUser = new Student()
-//                .setName("XYZAdded2")
-//                .setSurname("User2")
-//                .setLogin("addUser2")
-//                .setPassword("pass")
-//                .setEmail(userEmail)
-//                .setRoleEnum(3);
-//        this.userDao.insert(newUser);
-//        int idUser = this.userDao.readUserIdByEmail(userEmail);
-//        System.out.println("idUser = " + idUser);
-//
-//        System.out.println("newUser " + newUser.toString());
-//        System.out.println("fromDaoUser " + this.userDao.getById(idUser).toString());
-//        assertEquals(newUser, this.userDao.getById(idUser));
-//        this.userDao.delete(idUser);
-//    }
-
-
-
 }
