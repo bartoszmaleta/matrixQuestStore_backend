@@ -45,4 +45,27 @@ class QuestDaoDbTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void testUpdateQuestDescriptionByIdWhenAdd(){
+        String expected = "Review your friend's code for test";
+        questDaoDb.updateQuestDescriptionById(4, "Review your friend''s code for test");
+        String actual = questDaoDb.getById(4).getDescription();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testUpdateQuestDescriptionByIdWhenRemoving(){
+        String expected = "Review your friend's code";
+        questDaoDb.updateQuestDescriptionById(4, "Review your friend''s code");
+        String actual = questDaoDb.getById(4).getDescription();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testUpdateCoinsByIdWhenBelowZero() {
+        assertThrows(IllegalArgumentException.class, () ->questDaoDb.updateQuestCoinsById(3, -14));
+    }
+
+
+
 }

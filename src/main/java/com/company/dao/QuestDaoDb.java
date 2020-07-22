@@ -43,9 +43,13 @@ public class QuestDaoDb implements QuestDao {
 
     @Override
     public void updateQuestCoinsById(int id, int amountOfCoins) {
+        if(amountOfCoins < 0) {
+            throw new IllegalArgumentException("Amount of coins can't be below 0");
+        }
+
         PreparedStatement ps = null;
         try {
-            ps = conFactory.getConnection().prepareStatement("UPDATE \"Quests\" SET surname = " + amountOfCoins +
+            ps = conFactory.getConnection().prepareStatement("UPDATE \"Quests\" SET coins = " + amountOfCoins +
                     " WHERE id=" + id + ";");
             ps.executeUpdate();
 
