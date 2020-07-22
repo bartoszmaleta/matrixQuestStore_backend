@@ -7,8 +7,8 @@ public class Mentor extends User{
 //        super(id, name, surname, login, password, email, roleId);
 //    }
 //
-//    public Mentor() {
-//    }
+    public Mentor() {
+    }
 
 
     public Mentor(int id, String name, String surname, String login, String password, String email, int roleId, String avatarSource) {
