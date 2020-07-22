@@ -12,7 +12,11 @@ public class QuestDaoDb implements QuestDao {
     ConnectionFactory conFactory;
 
     public QuestDaoDb() {
-        conFactory = new ConnectionFactory();
+        conFactory= new ConnectionFactory();
+    }
+
+    public QuestDaoDb(ConnectionFactory conFactory) {
+        this.conFactory= conFactory;
     }
 
     @Override
@@ -62,7 +66,7 @@ public class QuestDaoDb implements QuestDao {
     public void updateQuestIdMentorById(int id, int mentorId) {
         PreparedStatement ps = null;
         try {
-            ps = conFactory.getConnection().prepareStatement("UPDATE \"Quests\" SET surname = " + mentorId +
+            ps = conFactory.getConnection().prepareStatement("UPDATE \"Quests\" SET mentor_id = " + mentorId +
                     " WHERE id=" + id + ";");
             ps.executeUpdate();
 
@@ -138,7 +142,7 @@ public class QuestDaoDb implements QuestDao {
 
     // Implemented from interface DAO
     @Override
-    public List getAllElements() {
+    public List<Quest> getAllElements() {
         listOfQuests = new ArrayList<>();
         try {
             ResultSet rs = conFactory.executeQuery("SELECT \"Quests\".id, title, description, coins, image, (CONCAT(m.name, ' ', m.surname)) AS mentor FROM \"Quests\"\n" +
