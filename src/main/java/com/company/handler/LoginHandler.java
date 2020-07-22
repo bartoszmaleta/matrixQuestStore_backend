@@ -15,11 +15,11 @@ public class LoginHandler extends HandlersParent implements HttpHandler {
     private HttpResponses httpResponses;
     private final ObjectMapper mapper;
 
-    public LoginHandler() {
-        this.httpResponses = new HttpResponses();
-        this.loginService = new LoginService();
-        this.mapper = new ObjectMapper();
-    }
+//    public LoginHandler() {
+//        this.httpResponses = new HttpResponses();
+//        this.loginService = new LoginService();
+//        this.mapper = new ObjectMapper();
+//    }
 
     // TODO: check if working: ????
     public LoginHandler(LoginService loginService, ObjectMapper objectMapper) {

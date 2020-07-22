@@ -22,7 +22,11 @@ public abstract class User {
         this.surname = surname;
         this.login = login;
         this.password = password;
-        this.email = email;
+        if (email.isEmpty()) {
+            throw new IllegalArgumentException();
+        } else {
+            this.email = email;
+        }
 //        this.role = role;
         setRoleEnum(roleId);
         this.avatarSource = avatarSource;
@@ -37,7 +41,11 @@ public abstract class User {
         this.surname = surname;
         this.login = login;
         this.password = password;
-        this.email = email;
+        if (email.isEmpty()) {
+            throw new IllegalArgumentException();
+        } else {
+            this.email = email;
+        }
 //        this.role = role;
         setRoleEnum(roleId);
         this.avatarSource = avatarSource;
@@ -61,8 +69,9 @@ public abstract class User {
         return id;
     }
 
-    public void setId(int id) {
+    public User setId(int id) {
         this.id = id;
+        return this;
     }
 
     public String getLogin() {
@@ -109,7 +118,7 @@ public abstract class User {
         } else if (userNumber == 3) {
             this.role = Role.STUDENT;
         } else {
-            System.out.println("Wrong userNumber");
+            throw new IllegalArgumentException("Wrong roleId number!");
         }
         return this;
     }
@@ -145,5 +154,13 @@ public abstract class User {
 
     public String getAvatarSource() {
         return avatarSource;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        // TODO: should be with hashcode
+        User user = (User) o;
+        return user.getId() == this.getId()
+                && user.getEmail().equals(this.getEmail());
     }
 }

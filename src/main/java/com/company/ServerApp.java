@@ -1,5 +1,8 @@
 package com.company;
 
+import com.company.dao.ConnectionFactory;
+import com.company.dao.DaoConnection.ConnectionCredentials;
+import com.company.dao.UserDaoDb;
 import com.company.handler.UserHandler;
 import com.company.handler.*;
 import com.company.helpers.HttpResponses;
@@ -19,15 +22,22 @@ public class ServerApp {
         server.createContext("/users", new UserHandler());
         server.createContext("/register", new RegisterHandler());
 //        server.createContext("/users", new AdminHandler());
-        server.createContext("/mentors", new MentorHandler());
+//        server.createContext("/mentors", new MentorHandler());
 
         // TODO: check which one is working??????
         server.createContext("/mentors", new MentorHandler(new MentorService(), new StatisticsService(), new ObjectMapper()));
         server.createContext("/students", new StudentHandler());
-        server.createContext("/login", new LoginHandler());
+//        server.createContext("/login", new LoginHandler());
 
-        // TODO: check if working: ?????
+        // TODO: check if working: ????? // TODO: probably yes!!!
         server.createContext("/login", new LoginHandler(new LoginService(), new ObjectMapper()));
+
+
+
+//        server.createContext("/login", new LoginHandler(new LoginService(new UserDaoDb(new ConnectionFactory(ConnectionCredentials))), new ObjectMapper()));
+
+
+
         server.createContext("/awards", new AwardsHandler());
         server.createContext("/quests", new QuestsHandler());
         server.setExecutor(null);

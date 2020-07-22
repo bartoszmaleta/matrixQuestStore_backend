@@ -191,7 +191,8 @@ public class TransactionDaoDb implements TransactionDao {
     }
 
     @Override
-    public boolean insert(Transaction transaction) {
+    public boolean insert(Transaction o) {
+        Transaction transaction = (Transaction) o;
         PreparedStatement ps = null;
         try {
             ps = conFactory.getConnection().prepareStatement("INSERT INTO \"Transactions\" "
