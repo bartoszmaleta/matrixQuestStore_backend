@@ -42,7 +42,6 @@ public class ConnectionFactory {
     public ResultSet executeQuery(String sql) throws SQLException {
 //        ConnectionFactory connectionFactory = new ConnectionFactory();
 //        this.con = connectionFactory.getConnection();
-        System.out.println(this.databaseUrl);
         this.con = this.getConnection();
         try {
             this.stmt = this.con.createStatement();
@@ -55,8 +54,7 @@ public class ConnectionFactory {
     }
 
     public void updateQuery(String sql) {
-        ConnectionFactory connectionFactory = new ConnectionFactory();
-        this.con = connectionFactory.getConnection();
+        this.con = this.getConnection();
         try {
             stmt = con.createStatement();
             stmt.executeQuery(sql);

@@ -57,10 +57,10 @@ public class UserDaoDbTest {
         assertFalse(userDao.delete(idUser));
     }
 
-    @Disabled("After test db won't recover, user will still be deleted!")
+//    @Disabled("After test db won't recover, user will still be deleted!")
     @Test
     public void should_returnTrue_when_userWithIdIsDeleted() {
-        int idUser = 26;
+        int idUser = 27;
         assertTrue(userDao.delete(idUser));
     }
 
