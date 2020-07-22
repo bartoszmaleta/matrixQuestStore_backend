@@ -17,23 +17,32 @@ public class UserDaoDb implements UserDao {
     }
 
     // With dependency injection
-    public UserDaoDb(ConnectionFactory connectionFactory) {
-        this.connectionFactory = connectionFactory;
-        this.studentDetailsDao = new StudentDetailsDaoDb(connectionFactory);
-    }
+//    public UserDaoDb(ConnectionFactory connectionFactory) {
+//        this.connectionFactory = connectionFactory;
+//        this.studentDetailsDao = new StudentDetailsDaoDb(connectionFactory);
+//    }
 
     public User readUserByEmailAndPassword(String userEmail, String userPassword) {
         User newUser;
-
+        System.out.println(userEmail + " " + userPassword);
         try {
-            ResultSet rs;
+//            ResultSet rs = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"email\" = '" + userEmail + "' AND \"password\" = '" + userPassword + "';");
+//            ResultSet rs = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE email = " + userEmail + " AND password = " + userPassword + ";");
 
-            rs = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"email\" = '" + userEmail + "' AND \"password\" = '" + userPassword + "';");
+
+            PreparedStatement ps = connectionFactory.getConnection().prepareStatement("SELECT * FROM users WHERE email = '" + userEmail + "' AND password = '" + userPassword + "';");
+            ResultSet rs = ps.executeQuery();
+
+//            ResultSet  rs = connectionFactory.executeQuery("SELECT * FROM users WHERE email = '" + userEmail + "' AND password = '" + userPassword + "';");
+
+            System.out.println("rs id = " + rs.getInt("id"));
 
             newUser = getUser(rs);
             if (newUser != null) {
                 return newUser;
             }
+
+            System.out.println("here");
             connectionFactory.close();
             rs.close();
         } catch (Exception e) {
@@ -43,6 +52,8 @@ public class UserDaoDb implements UserDao {
     }
 
     private User getUser(ResultSet rs) throws SQLException {
+        System.out.println("here getUser");
+
         rs.next();
         if (rs.getInt("role_id") == 1) {
             return getAdmin(rs);
@@ -377,11 +388,14 @@ public class UserDaoDb implements UserDao {
     public User getById(int id) {
         User newUser;
 
+        System.out.println("id prov = " + id);
+
         try {
             ResultSet rs;
 
+            System.out.println("in try");
             rs = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"id\" = '" + id + "';");
-
+            System.out.println("id get from db = " + rs.getInt("id"));
             newUser = getUser(rs);
             if (newUser != null) {
                 return newUser;
@@ -389,7 +403,7 @@ public class UserDaoDb implements UserDao {
             connectionFactory.close();
             rs.close();
         } catch (Exception e) {
-            System.err.println("Error! Reading user by userName and userPassword from DB failed!");
+            System.err.println("Error! Reading user by id from DB failed!");
         }
         return null;
     }

@@ -5,7 +5,6 @@ import com.company.dao.DaoConnection.ConnectionCredentials;
 import com.company.dao.UserDaoDb;
 import com.company.handler.UserHandler;
 import com.company.handler.*;
-import com.company.helpers.HttpResponses;
 import com.company.service.LoginService;
 import com.company.service.MentorService;
 import com.company.service.StatisticsService;
