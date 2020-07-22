@@ -18,7 +18,6 @@ public class UserDaoDb implements UserDao {
 
     // With dependency injection
     public UserDaoDb(ConnectionFactory connectionFactory) {
-        System.out.println("qweqwe");
         this.connectionFactory = connectionFactory;
         this.studentDetailsDao = new StudentDetailsDaoDb(connectionFactory);
     }

@@ -24,7 +24,12 @@ public class ServerApp {
         server.createContext("/mentors", new MentorHandler(new MentorService(), new StatisticsService(), new ObjectMapper()));
         server.createContext("/students", new StudentHandler());
         server.createContext("/login", new LoginHandler(new LoginService(), new ObjectMapper()));
-//        server.createContext("/login", new LoginHandler(new LoginService(new UserDaoDb(new ConnectionFactory(new HerokuDatabaseCredentials))), new ObjectMapper()));
+
+        server.createContext("/login", new LoginHandler(
+                new LoginService(
+                        new UserDaoDb(
+                                new ConnectionFactory(
+                                        new HerokuDatabaseCredentials))), new ObjectMapper()));
 
         server.createContext("/awards", new AwardsHandler());
         server.createContext("/quests", new QuestsHandler());
