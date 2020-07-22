@@ -14,8 +14,8 @@ public class TestMain {
         UserDao userDao = new UserDaoDb();
 //        System.out.println(userDao.getById(18));
 //        System.out.println(userDao.getStudents());
-        System.out.println(userDao.readUserIdByEmail("linux@gmail"));
-        System.out.println(userDao.readUserByEmailAndPassword("linux@gmail", "pass"));
+        System.out.println(userDao.readUserIdByEmail("linux@"));
+        System.out.println(userDao.readUserByEmailAndPassword("linux@", "pass"));
 
 
 
