@@ -427,8 +427,8 @@ public class UserDaoDb implements UserDao {
         PreparedStatement ps = null;
         try {
             ps = connectionFactory.getConnection().prepareStatement("DELETE FROM users WHERE id = '" + id + "';");
-            ps.executeUpdate();
-            return true;
+            int affectedRows = ps.executeUpdate();
+            return affectedRows != 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;

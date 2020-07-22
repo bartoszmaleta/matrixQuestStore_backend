@@ -35,7 +35,7 @@ public class UserDaoDbTest {
                 .setEmail("cristiano@")
                 .setRoleEnum(3);
 
-        assertEquals(cristiano, this.userDao.getById(29));
+        assertEquals(cristiano, userDao.getById(29));
     }
 
     @Test
@@ -47,7 +47,7 @@ public class UserDaoDbTest {
                 .setPassword("pass")
                 .setEmail("addedUser@")
                 .setRoleEnum(3);
-        assertTrue(this.userDao.insert(newUser));
+        assertTrue(userDao.insert(newUser));
 
 //        this.userDao.insert(newUser);
 //        assertEquals(newUser, this.userDao.readUserByEmailAndPassword("addedUser@", "pass"));
@@ -55,8 +55,11 @@ public class UserDaoDbTest {
 
     @Test
     public void should_returnTrue_when_userWithProvidedIdIsDeleted() {
-        int idUser = 0;
+        int idUser = 3;
+        User byId = userDao.getById(idUser);
+        System.out.println(byId);
         assertTrue(this.userDao.delete(idUser));
+        assertFalse(this.userDao.delete(idUser));
     }
 
     @Test

@@ -11,7 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Map;
 
-public class HandlersParent {
+public abstract class AbstractHandler {
     public void sendResponse(String response, HttpExchange httpExchange, int status) throws IOException {
         if (status == 200) {
             httpExchange.getResponseHeaders().put("Content-type", Collections.singletonList("application/json"));

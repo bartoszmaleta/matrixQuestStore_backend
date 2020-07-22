@@ -10,7 +10,7 @@ import com.sun.net.httpserver.HttpHandler;
 import java.io.*;
 import java.util.*;
 
-public class LoginHandler extends HandlersParent implements HttpHandler {
+public class LoginHandler extends AbstractHandler implements HttpHandler {
     private final LoginService loginService;
     private HttpResponses httpResponses;
     private final ObjectMapper mapper;
