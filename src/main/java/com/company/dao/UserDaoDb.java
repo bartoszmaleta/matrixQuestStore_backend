@@ -10,9 +10,16 @@ public class UserDaoDb implements UserDao {
     ConnectionFactory connectionFactory;
     StudentDetailsDao studentDetailsDao;
 
+    // Without dependency injection
     public UserDaoDb() {
         this.connectionFactory = new ConnectionFactory();
         this.studentDetailsDao = new StudentDetailsDaoDb();
+    }
+
+    // With dependency injection
+    public UserDaoDb(ConnectionFactory connectionFactory) {
+        this.connectionFactory = connectionFactory;
+        this.studentDetailsDao = new StudentDetailsDaoDb(connectionFactory);
     }
 
     public User readUserByEmailAndPassword(String userEmail, String userPassword) {
@@ -292,6 +299,7 @@ public class UserDaoDb implements UserDao {
 
             rs.next();
             id = rs.getInt("id");
+            System.out.println("id rs = " + id);
 
             connectionFactory.close();
             rs.close();
@@ -302,28 +310,7 @@ public class UserDaoDb implements UserDao {
         }
     }
 
-    @Override
-    public User readUserById(int userId) {
-        try {
-            ResultSet rs = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"id\" = '" + userId + "';");
 
-            rs.next();
-            if (rs.getInt("role_id") == 1) {
-                return getAdmin(rs);
-            } else if (rs.getInt("role_id") == 2) {
-                return getMentor(rs);
-            } else if (rs.getInt("role_id") == 3) {
-                return getStudent(rs);
-            } else {
-                System.out.println("No user");
-            }
-            connectionFactory.close();
-            rs.close();
-        } catch (Exception e) {
-            System.err.println("Error! Reading user by userName and userPassword from DB failed!");
-        }
-        return null;
-    }
 
 
     // ---------------------------------------

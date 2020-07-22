@@ -186,12 +186,12 @@ public class TransactionDaoDb implements TransactionDao {
     }
 
     @Override
-    public Object getById(int id) {
+    public Transaction getById(int id) {
         return null;
     }
 
     @Override
-    public boolean insert(Object o) {
+    public boolean insert(Transaction o) {
         Transaction transaction = (Transaction) o;
         PreparedStatement ps = null;
         try {
@@ -214,7 +214,7 @@ public class TransactionDaoDb implements TransactionDao {
     }
 
     @Override
-    public boolean edit(Object o) {
+    public boolean edit(Transaction transaction) {
         return false;
     }
 
