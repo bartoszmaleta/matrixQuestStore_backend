@@ -82,7 +82,7 @@ class QuestDaoDbTest {
     public void testReadQuestListByMentor() {
         List<Quest> listForMock = new ArrayList<>(Arrays.asList(questDaoDb.getById(8), questDaoDb.getById(6)));
         QuestDaoDb mockQuestDaoDb = Mockito.mock(QuestDaoDb.class);
-        Mockito.when(questDaoDb.readQuestListByMentorById(1)).thenReturn(listForMock);
+        Mockito.when(mockQuestDaoDb.readQuestListByMentorById(1)).thenReturn(listForMock);
 
         List<Quest> mentorQuests = mockQuestDaoDb.readQuestListByMentorById(1);
         assertEquals(listForMock, mentorQuests);
