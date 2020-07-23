@@ -3,6 +3,7 @@ package com.company.model;
 import com.company.model.user.User;
 
 import java.sql.Timestamp;
+import java.util.Objects;
 
 public class Award {
     private int id;
@@ -171,5 +172,24 @@ public class Award {
                 " Img_src: " + imageSrc +
                 " Data_creation: " + dataCreation +
                 " Creator_id: " + mentorId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Award)) return false;
+        Award award = (Award) o;
+        return id == award.id &&
+                price == award.price &&
+                mentorId == award.mentorId &&
+                Objects.equals(title, award.title) &&
+                Objects.equals(description, award.description) &&
+                Objects.equals(imageSrc, award.imageSrc) &&
+                Objects.equals(mentor, award.mentor);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, description, price, imageSrc, mentorId);
     }
 }

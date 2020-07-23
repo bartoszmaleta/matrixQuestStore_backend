@@ -229,6 +229,49 @@ public class AwardDaoDb implements AwardDao {
         }
     }
 
+    public void cleanUpDatabase() {
+        PreparedStatement ps = null;
+        try {
+            ps = conFactory.getConnection().prepareStatement("ALTER TABLE \"Awards\"\n" +
+                    "DROP CONSTRAINT \"Awards_pkey\";\n" +
+                    "\n" +
+                    "ALTER TABLE \"Awards\"\n" +
+                    "DROP CONSTRAINT \"Awards_creator_id_fkey\";" +
+                    "DROP TABLE IF EXISTS \"Awards\";" +
+                    "\ncreate table \"Awards\"\n" +
+                    "(\n" +
+                    "    id            serial  not null\n" +
+                    "        constraint \"Awards_pkey\"\n" +
+                    "            primary key,\n" +
+                    "    title         text,\n" +
+                    "    description   text,\n" +
+                    "    price         integer,\n" +
+                    "    image         text,\n" +
+                    "    data_creation timestamp,\n" +
+                    "    creator_id    integer not null\n" +
+                    "        constraint \"Awards_creator_id_fkey\"\n" +
+                    "            references users\n" +
+                    "            on update cascade on delete cascade\n" +
+                    ");\n" +
+                    "\n" +
+                    "alter table \"Awards\"\n" +
+                    "    owner to gnoujqtgpyxews;\n" +
+                    "\n" +
+                    "INSERT INTO public.\"Awards\" (title, description, price, image, data_creation, creator_id) VALUES ('Martial-Art Workshop', '1h of learning java-jitsu with mentor', 60, 'morpheusCome.png', '2020-04-28 11:04:49.000000', 1);\n" +
+                    "INSERT INTO public.\"Awards\" (title, description, price, image, data_creation, creator_id) VALUES ('Plugged in', '1h of studying in simulator with friend', 50, 'simulator.jpg', '2020-04-26 11:06:37.000000', 5);\n" +
+                    "INSERT INTO public.\"Awards\" (title, description, price, image, data_creation, creator_id) VALUES ('I was blind now I see', '1h workshop of binary numbers as real lfe images', 50, 'blindsee.jpg', '2020-04-27 11:04:47.000000', 1);\n" +
+                    "INSERT INTO public.\"Awards\" (title, description, price, image, data_creation, creator_id) VALUES ('Consult The Oracle', '45 minutes of interwiev with oracle from school office', 40, 'oracle.jpg', '2020-04-27 11:06:46.000000', 2);\n" +
+                    "INSERT INTO public.\"Awards\" (title, description, price, image, data_creation, creator_id) VALUES ('Holy Trinity Help', 'Get help with your project for 1h from three mentors at the same time', 100, 'holy3.jpg', '2020-04-26 11:06:53.000000', 22);\n" +
+                    "INSERT INTO public.\"Awards\" (title, description, price, image, data_creation, creator_id) VALUES ('Mr Robot', '1h of programming the bot of your favourite mentor', 70, '01.png', '2020-04-27 11:06:32.000000', 22);\n" +
+                    "INSERT INTO public.\"Awards\" (title, description, price, image, data_creation, creator_id) VALUES ('Nokia Software', '1h programming course on oldstyle Nokia', 20, 'nokianeo.png', '2020-04-27 10:54:49.000000', 5);\n" +
+                    "INSERT INTO public.\"Awards\" (title, description, price, image, data_creation, creator_id) VALUES ('Eyewear Of Matrix', 'All mentors wear matrix sunglasses whole day test', 120, 'sunglasses.jpg', '2020-04-28 11:07:05.000000', 22);\n" +
+                    "INSERT INTO public.\"Awards\" (title, description, price, image, data_creation, creator_id) VALUES ('Hackagov', '30 min of hacking Polish National Bank''s website', 30, 'hacking.jpg', '2020-07-08 20:44:34.195000', 2);");
+            ps.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
     @Override
     public List<Award> getAllElements() {
         listOfAwards = new ArrayList<>();
@@ -310,111 +353,5 @@ public class AwardDaoDb implements AwardDao {
         return false;
     }
 
-
-//    public void readAllAwards() {
-//        try {
-//            ResultSet rs = conFactory.executeQuery("SELECT * FROM \"Awards\";");
-//            while (rs.next()) {
-//                int id = rs.getInt("id");
-//                String title = rs.getString("title");
-//                String description = rs.getString("description");
-//                int price = rs.getInt("price");
-//                String imgSrc = rs.getString("image");
-//                Timestamp dataCreation = rs.getTimestamp("data_creation");
-//                int creatorId = rs.getInt("creator_id");
-//
-//                String format = "|%1$-4s|%2$-25s|%3$-70s|%4$-7s|%5$-10s|%6$-25s|%7$-7s\n";
-//                System.out.printf(format, id, title, description, price, imgSrc, dataCreation, creatorId);
-//            }
-//            rs.close();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-//    public void readAllAwardsOrderByData() {
-//        try {
-//            ResultSet rs = conFactory.executeQuery("SELECT * FROM \"Awards\" ORDER BY data_creation;");
-//            while (rs.next()) {
-//                int id = rs.getInt("id");
-//                String title = rs.getString("title");
-//                String description = rs.getString("description");
-//                int price = rs.getInt("price");
-//                String imgSrc = rs.getString("image");
-//                Timestamp dataCreation = rs.getTimestamp("data_creation");
-//                int creatorId = rs.getInt("creator_id");
-//
-//                String format = "|%1$-4s|%2$-25s|%3$-70s|%4$-7s|%5$-10s|%6$-25s|%7$-7s\n";
-//                System.out.printf(format, id, title, description, price, imgSrc, dataCreation, creatorId);
-//            }
-//            rs.close();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-//    public void readAllAwardsOrderById() {
-//        try {
-//            ResultSet rs = conFactory.executeQuery("SELECT * FROM \"Awards\" ORDER BY id;");
-//            while (rs.next()) {
-//                int id = rs.getInt("id");
-//                String title = rs.getString("title");
-//                String description = rs.getString("description");
-//                int price = rs.getInt("price");
-//                String imgSrc = rs.getString("image");
-//                Timestamp dataCreation = rs.getTimestamp("data_creation");
-//                int creatorId = rs.getInt("creator_id");
-//
-//                String format = "|%1$-4s|%2$-25s|%3$-70s|%4$-7s|%5$-10s|%6$-25s|%7$-7s\n";
-//                System.out.printf(format, id, title, description, price, imgSrc, dataCreation, creatorId);
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-//    public void readAllAwardsOrderByPrice(String ascOrDesc) {
-//        try {
-//            ResultSet rs = conFactory.executeQuery("SELECT * FROM \"Awards\" ORDER BY price " + ascOrDesc.toUpperCase() + ";");
-//            while (rs.next()) {
-//                int id = rs.getInt("id");
-//                String title = rs.getString("title");
-//                String description = rs.getString("description");
-//                int price = rs.getInt("price");
-//                String imgSrc = rs.getString("image");
-//                Timestamp dataCreation = rs.getTimestamp("data_creation");
-//                int creatorId = rs.getInt("creator_id");
-//
-//                String format = "|%1$-4s|%2$-25s|%3$-70s|%4$-7s|%5$-10s|%6$-25s|%7$-7s\n";
-//                System.out.printf(format, id, title, description, price, imgSrc, dataCreation, creatorId);
-//            }
-//            rs.close();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-
-//    public List<Award> readAwardList() {
-//        listOfAwards = new ArrayList<>();
-//        try {
-//            ResultSet rs = conFactory.executeQuery("SELECT * FROM \"Awards\" ORDER BY id;");
-//            while (rs.next()) {
-//                int id = rs.getInt("id");
-//                String title = rs.getString("title");
-//                String description = rs.getString("description");
-//                int price = rs.getInt("price");
-//                String imageSrc = rs.getString("image");
-//                Timestamp dataCreation = rs.getTimestamp("data_creation");
-//                int creatorId = rs.getInt("creator_id");
-//
-//                listOfAwards.add(new Award(id, title, description, price, imageSrc, dataCreation, creatorId));
-//            }
-//            rs.close();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return listOfAwards;
-//    }
 }
 
