@@ -131,27 +131,27 @@ public class Quest {
                 " Mentor_id: " + mentorId;
     }
 
-//    @Override
-//    public boolean equals(Object o) {
-//        Quest quest = (Quest) o;
-//        return quest.getId() == (this.getId())
-//                && quest.getDescription().equals(this.getDescription());
-//
-//    }
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Quest)) return false;
         Quest quest = (Quest) o;
-        return id == quest.id &&
-                price == quest.price &&
-                mentorId == quest.mentorId &&
-                Objects.equals(title, quest.title) &&
-                Objects.equals(description, quest.description) &&
-                Objects.equals(imageSrc, quest.imageSrc) &&
-                Objects.equals(mentorNameAndSurname, quest.mentorNameAndSurname);
+        return quest.getId() == (this.getId())
+                && quest.getDescription().equals(this.getDescription());
+
     }
+
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (!(o instanceof Quest)) return false;
+//        Quest quest = (Quest) o;
+//        return id == quest.id &&
+//                price == quest.price &&
+//                mentorId == quest.mentorId &&
+//                Objects.equals(title, quest.title) &&
+//                Objects.equals(description, quest.description) &&
+//                Objects.equals(imageSrc, quest.imageSrc) &&
+//                Objects.equals(mentorNameAndSurname, quest.mentorNameAndSurname);
+//    }
 
     @Override
     public int hashCode() {
