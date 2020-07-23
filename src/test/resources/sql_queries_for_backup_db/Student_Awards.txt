@@ -1,0 +1,33 @@
+-- Student_Awards
+
+ALTER TABLE "Student_Awards"
+DROP CONSTRAINT "users_awards_pk";
+
+DROP TABLE "Student_Awards";
+
+create table "Students_Awards"
+(
+    id        serial  not null
+        constraint users_awards_pk
+            primary key,
+    user_id   integer not null,
+    award_id  integer not null,
+    price     integer not null,
+    bought_at text    not null
+);
+
+alter table "Students_Awards"
+    owner to pirqathgcgzhbg;
+
+create unique index users_awards_id_uindex
+    on "Students_Awards" (id);
+
+insert into public."Students_Awards" (user_id, award_id, price, bought_at) values (1, 8, 70, '2020-07-10 07:52:48.119+02');
+insert into public."Students_Awards" (user_id, award_id, price, bought_at) values (5, 7, 120, '2020-07-10 07:53:31.857+02');
+insert into public."Students_Awards" (user_id, award_id, price, bought_at) values (1, 6, 70, '2020-07-10 08:04:03.917+02');
+insert into public."Students_Awards" (user_id, award_id, price, bought_at) values (1, 5, 40, '2020-07-10 09:00:17.861+02');
+insert into public."Students_Awards" (user_id, award_id, price, bought_at) values (1, 4, 50, '2020-07-10 09:17:54.5+02');
+insert into public."Students_Awards" (user_id, award_id, price, bought_at) values (1, 3, 30, '2020-07-10 09:18:11.102+02');
+insert into public."Students_Awards" (user_id, award_id, price, bought_at) values (1, 1, 30, '2020-07-10 10:05:28.217+02');
+insert into public."Students_Awards" (user_id, award_id, price, bought_at) values (5, 2, 120, '2020-07-10 10:48:01.526+02');
+

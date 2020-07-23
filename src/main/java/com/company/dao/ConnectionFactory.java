@@ -9,6 +9,7 @@ public class ConnectionFactory {
     private final String userPassword;
 
     public ConnectionFactory() {
+        System.out.println("qweqwesssss");
         this.databaseUrl = "jdbc:postgresql://ec2-52-31-94-195.eu-west-1.compute.amazonaws.com:5432/dfare0vp739v70";
         this.jdbcDriver = "org.postgresql.Driver";
         this.userLogin = "gnoujqtgpyxews";
@@ -16,6 +17,9 @@ public class ConnectionFactory {
     }
 
     public ConnectionFactory(String databaseUrl, String jdbcDriver, String userLogin, String userPassword) {
+        System.out.println("xxxxxweqwesssss");
+
+
         this.databaseUrl = databaseUrl;
         this.jdbcDriver = jdbcDriver;
         this.userLogin = userLogin;
@@ -70,6 +74,7 @@ public class ConnectionFactory {
             // REMEMBER TO: close stmt!!!!
 //                this.stmt.close();
             this.con.close();
+            this.rs.close();
             System.out.println("Connection closed");
         } catch (SQLException e) {
             System.out.println("Error! Can't connect with the database.");

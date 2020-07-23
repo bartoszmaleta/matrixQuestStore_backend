@@ -1,0 +1,32 @@
+ALTER TABLE "Student_Modules"
+DROP CONSTRAINT "User_Modules_pkey";
+
+ALTER TABLE "Student_Modules"
+DROP CONSTRAINT "User_Modules_user_id_fkey";
+
+ALTER TABLE "Student_Modules"
+DROP CONSTRAINT "User_Modules_module_id_fkey";
+
+ALTER TABLE "Modules"
+DROP CONSTRAINT "modules_pk";
+
+ALTER TABLE "Student_Detailss"
+DROP CONSTRAINT "student_detailss_pk";
+
+ALTER TABLE "users"
+DROP CONSTRAINT "users_pk";
+
+ALTER TABLE "Student_Awards"
+DROP CONSTRAINT "users_awards_pk";
+
+
+
+
+
+
+
+
+
+
+
+

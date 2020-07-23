@@ -1,0 +1,9 @@
+DROP TABLE "Awards";
+DROP TABLE "Quests";
+DROP TABLE "Students_Awards";
+DROP TABLE "Roles";
+DROP TABLE "Transactions";
+DROP TABLE "Student_Detailss";
+DROP TABLE "Students_Modules";
+DROP TABLE "Modules";
+DROP TABLE "users";

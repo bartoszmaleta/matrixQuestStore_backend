@@ -77,7 +77,7 @@ public abstract class EmployeeService {
 
     public void deleteStudentById(int id) {
         this.userDao.deleteStudent(id);
-        this.userDao.deleteStudentDetails(id);
+//        this.userDao.deleteStudentDetails(id);
 
     }
 
