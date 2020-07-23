@@ -1,0 +1,16 @@
+-- Roles
+
+DROP TABLE "Roles";
+
+create table "Roles"
+(
+    id   serial not null,
+    role text
+);
+
+alter table "Roles"
+    owner to pirqathgcgzhbg;
+
+insert into public."Roles" (role) values ('admin');
+insert into public."Roles" (role) values ('mentor');
+insert into public."Roles" (role) values ('student');

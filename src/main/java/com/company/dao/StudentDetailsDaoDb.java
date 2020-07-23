@@ -3,6 +3,7 @@ package com.company.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class StudentDetailsDaoDb implements StudentDetailsDao {
     ConnectionFactory connectionFactory;
@@ -25,6 +26,48 @@ public class StudentDetailsDaoDb implements StudentDetailsDao {
                     .prepareStatement(
                             "INSERT INTO \"Student_Detailss\" (student_id) " + // TODO: drop Student_Detail
                                     "VALUES ('" + studentIdFromDao + "');"); // // TODO: Rename without "s"
+
+            ps.executeUpdate();
+            ps.close();
+            connectionFactory.close();
+            return true;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public List getAllElements() {
+        return null;
+    }
+
+    @Override
+    public Object getById(int id) {
+        return null;
+    }
+
+    @Override
+    public boolean insert(Object o) {
+        return false;
+    }
+
+    @Override
+    public boolean edit(Object o) {
+        return false;
+    }
+
+    @Override
+    public boolean delete (int studentId) {
+        PreparedStatement ps = null;
+
+        try {
+            ps = connectionFactory
+                    .getConnection()
+                    .prepareStatement(
+                            "DELETE FROM \"Student_Detailss\" WHERE " + //
+                                    "student_id = '" + studentId + "');"); // // TODO: Rename without "s"
 
             ps.executeUpdate();
             ps.close();

@@ -43,7 +43,7 @@ public class UserHandler implements HttpHandler {
                     response = this.mapper.writeValueAsString(user);
                     break;
                 default:
-                    // http://localhost:8005/users
+                    // http://localhost:8003/users
                     List<User> users = this.userDao.getAllElements();
                     response = this.mapper.writeValueAsString(users);
             }

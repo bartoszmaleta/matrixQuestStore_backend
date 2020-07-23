@@ -1,0 +1,32 @@
+-- Student_Modules
+ALTER TABLE "ZStudent_Modules"
+DROP CONSTRAINT "User_Modules_pkey";
+
+ALTER TABLE "Student_Modules"
+DROP CONSTRAINT "User_Modules_user_id_fkey";
+
+ALTER TABLE "Student_Modules"
+DROP CONSTRAINT "User_Modules_module_id_fkey";
+
+DROP TABLE Student_Modules;
+
+create table Students_Modules
+(
+    id            serial not null
+        constraint "User_Modules_pkey"
+            primary key,
+    student_id    integer
+        constraint "User_Modules_user_id_fkey"
+            references users,
+    module_id     integer
+        constraint "User_Modules_module_id_fkey"
+            references "Modules",
+    enrollment_at timestamp
+);
+
+alter table "Students_Modules"
+    owner to pirqathgcgzhbg;
+
+insert into public."Students_Modules" (student_id, module_id, enrollment_at) values (1, 1, '2020-07-23 18:13:48.000000');
+insert into public."Students_Modules" (student_id, module_id, enrollment_at) values (5, 2, '2020-07-23 18:14:02.000000');
+
