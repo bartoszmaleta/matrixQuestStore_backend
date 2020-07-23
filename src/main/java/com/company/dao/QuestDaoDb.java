@@ -66,7 +66,8 @@ public class QuestDaoDb implements QuestDao {
     public void updateQuestIdMentorById(int id, int mentorId) {
         PreparedStatement ps = null;
         try {
-            ps = conFactory.getConnection().prepareStatement("UPDATE \"Quests\" SET mentor_id = 5 WHERE id = 2 ;");
+            ps = conFactory.getConnection().prepareStatement("UPDATE \"Quests\" SET mentor_id = " + mentorId +
+                    "WHERE id =" + id + ";");
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -80,12 +81,7 @@ public class QuestDaoDb implements QuestDao {
     public void cleanUpDatabase(){
         PreparedStatement ps = null;
         try {
-            ps = conFactory.getConnection().prepareStatement("ALTER TABLE \"Quests\"\n" +
-                    "DROP CONSTRAINT \"Quests_pkey\";\n" +
-                    "\n" +
-                    "ALTER TABLE \"Quests\"\n" +
-                    "DROP CONSTRAINT \"Quests_mentor_id_fkey\";" +
-                    "DROP TABLE IF EXISTS \"Quests\";" +
+            ps = conFactory.getConnection().prepareStatement("DROP TABLE IF EXISTS \"Quests\";" +
                     "\ncreate table \"Quests\"\n" +
                     "(\n" +
                     "    id          serial not null\n" +
@@ -101,14 +97,14 @@ public class QuestDaoDb implements QuestDao {
                     ");\n" +
                     "\n" +
                     "alter table \"Quests\"\n" +
-                    "    owner to gnoujqtgpyxews;\n" +
+                    "    owner to pirqathgcgzhbg;\n" +
                     "\n" +
                     "INSERT INTO public.\"Quests\" (title, description, coins, image, mentor_id) VALUES ('Dodge This!', 'Dodge 5x times morning question', '5', 'dodgeThis.jpg', 2);\n" +
-                    "INSERT INTO public.\"Quests\" (title, description, coins, image, mentor_id) VALUES ('Faster than ever', 'Submit project one day earlier', '50', 'neoFly.png', 1);\n" +
+                    "INSERT INTO public.\"Quests\" (title, description, coins, image, mentor_id) VALUES ('Faster than ever', 'Submit project one day earlier', '50', 'neoFly.png', 7);\n" +
                     "INSERT INTO public.\"Quests\" (title, description, coins, image, mentor_id) VALUES ('Best Trio', 'Stand on the podium in Kahoot', '12', 'podium.jpg', 2);\n" +
                     "INSERT INTO public.\"Quests\" (title, description, coins, image, mentor_id) VALUES ('Be everywhere', 'Attendence more than 80%', '9', 'appearences.png', 2);\n" +
-                    "INSERT INTO public.\"Quests\" (title, description, coins, image, mentor_id) VALUES ('Telephone Booth Call', '3x times teleporting from telephone booth to headquarter', '30', 'telephoneBooth.png', 5);\n" +
-                    "INSERT INTO public.\"Quests\" (title, description, coins, image, mentor_id) VALUES ('Avoid bullets', 'Answer mentor''s question correctly', '666', 'dodgeBullets.jpg', 1);\n" +
+                    "INSERT INTO public.\"Quests\" (title, description, coins, image, mentor_id) VALUES ('Telephone Booth Call', '3x times teleporting from telephone booth to headquarter', '30', 'telephoneBooth.png', 2);\n" +
+                    "INSERT INTO public.\"Quests\" (title, description, coins, image, mentor_id) VALUES ('Avoid bullets', 'Answer mentor''s question correctly', '666', 'dodgeBullets.jpg', 7);\n" +
                     "INSERT INTO public.\"Quests\" (title, description, coins, image, mentor_id) VALUES ('Help friend in need', 'Review your friend''s code for test', '6', 'helpFriend.jpg', 2);\n" +
                     "INSERT INTO public.\"Quests\" (title, description, coins, image, mentor_id) VALUES ('Destroy bugs for test', 'Find and fix 3 bugs in someone else''s program', '7', 'bugs.jpg', 2);\n" +
                     "INSERT INTO public.\"Quests\" (title, description, coins, image, mentor_id) VALUES ('Defend humanity', 'Succesfully pass a checkpoint', '15', 'defendAgainstSmith.jpg', 2);");

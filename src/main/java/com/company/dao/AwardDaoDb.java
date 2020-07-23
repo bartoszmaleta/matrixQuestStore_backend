@@ -250,7 +250,7 @@ public class AwardDaoDb implements AwardDao {
                             ");\n" +
                             "\n" +
                             "alter table \"Roles\"\n" +
-                            "    owner to gnoujqtgpyxews;\n" +
+                            "    owner to pirqathgcgzhbg;\n" +
                             "\n" +
                             "insert into public.\"Roles\" (role) values ('admin');\n" +
                             "insert into public.\"Roles\" (role) values ('mentor');\n" +
@@ -271,7 +271,7 @@ public class AwardDaoDb implements AwardDao {
                             ");\n" +
                             "\n" +
                             "alter table users\n" +
-                            "    owner to gnoujqtgpyxews;\n" +
+                            "    owner to pirqathgcgzhbg;\n" +
                             "\n" +
                             "create unique index users_id_uindex\n" +
                             "    on users (id);\n" +
@@ -295,7 +295,7 @@ public class AwardDaoDb implements AwardDao {
                             ");\n" +
                             "\n" +
                             "alter table \"Student_Detailss\"\n" +
-                            "    owner to gnoujqtgpyxews;\n" +
+                            "    owner to pirqathgcgzhbg;\n" +
                             "\n" +
                             "create unique index student_detailss_id_uindex\n" +
                             "    on \"Student_Detailss\" (id);\n" +
@@ -313,7 +313,7 @@ public class AwardDaoDb implements AwardDao {
                             ");\n" +
                             "\n" +
                             "alter table \"Modules\"\n" +
-                            "    owner to gnoujqtgpyxews;\n" +
+                            "    owner to pirqathgcgzhbg;\n" +
                             "\n" +
                             "insert into public.\"Modules\" (name) values ('JAVA');\n" +
                             "insert into public.\"Modules\" (name) values ('PYTHON');\n" +
@@ -335,7 +335,7 @@ public class AwardDaoDb implements AwardDao {
                             ");\n" +
                             "\n" +
                             "alter table \"Students_Modules\"\n" +
-                            "    owner to gnoujqtgpyxews;\n" +
+                            "    owner to pirqathgcgzhbg;\n" +
                             "\n" +
                             "insert into public.\"Students_Modules\" (student_id, module_id, enrollment_at) values (1, 1, '2020-07-23 18:13:48.000000');\n" +
                             "insert into public.\"Students_Modules\" (student_id, module_id, enrollment_at) values (5, 2, '2020-07-23 18:14:02.000000');\n" +
@@ -351,7 +351,7 @@ public class AwardDaoDb implements AwardDao {
                             ");\n" +
                             "\n" +
                             "alter table \"Transactions\"\n" +
-                            "    owner to gnoujqtgpyxews;\n" +
+                            "    owner to pirqathgcgzhbg;\n" +
                             "\n" +
                             "insert into public.\"Transactions\" (user_id, award_id, price, created_at) values (1, 2, 20, '2020-07-10 09:00:17.861+02');\n" +
                             "insert into public.\"Transactions\" (user_id, award_id, price, created_at) values (1, 3, 44, '2020-07-10 09:18:11.102+02');\n" +
@@ -369,7 +369,7 @@ public class AwardDaoDb implements AwardDao {
                             ");\n" +
                             "\n" +
                             "alter table \"Students_Awards\"\n" +
-                            "    owner to gnoujqtgpyxews;\n" +
+                            "    owner to pirqathgcgzhbg;\n" +
                             "\n" +
                             "create unique index users_awards_id_uindex\n" +
                             "    on \"Students_Awards\" (id);\n" +
@@ -395,10 +395,10 @@ public class AwardDaoDb implements AwardDao {
                             ");\n" +
                             "\n" +
                             "alter table \"Quests\"\n" +
-                            "    owner to gnoujqtgpyxews;\n" +
+                            "    owner to pirqathgcgzhbg;\n" +
                             "\n" +
                             "\n" +
-                            "insert into public.\"Quests\" (title, description, coins, image, mentor_id) values ('Dodge This!', 'Dodge 5x times morning question', 5, 'dodgeThis.jpg', 1);\n" +
+                            "insert into public.\"Quests\" (title, description, coins, image, mentor_id) values ('Dodge This!', 'Dodge 5x times morning question', 5, 'dodgeThis.jpg', 2);\n" +
                             "insert into public.\"Quests\" (title, description, coins, image, mentor_id) values ('Telephone Booth Call', '3x times teleporting from telephone booth to headquarter', 30, 'telephoneBooth.png', 5);\n" +
                             "insert into public.\"Quests\" (title, description, coins, image, mentor_id) values ('Destroy bugs for test', 'Find and fix 3 bugs in someone else''s program', 7, 'bugs.jpg', 20);\n" +
                             "insert into public.\"Quests\" (title, description, coins, image, mentor_id) values ('Help friend in need', 'Review your friend''s code for test', 6, 'helpFriend.jpg', 20);\n" +
@@ -420,7 +420,7 @@ public class AwardDaoDb implements AwardDao {
                             ");\n" +
                             "\n" +
                             "alter table \"Awards\"\n" +
-                            "    owner to gnoujqtgpyxews;\n" +
+                            "    owner to pirqathgcgzhbg;\n" +
                             "\n" +
                             "\n" +
                             "insert into public.\"Awards\" (title, description, price, image, data_creation, creator_id) values ('Nokia Software', '1h programming course on oldstyle Nokia', 20, 'nokianeo.png', '2020-04-27 10:54:49.000000', 19);\n" +
@@ -443,15 +443,15 @@ public class AwardDaoDb implements AwardDao {
         PreparedStatement ps = null;
         try {
             ps = conFactory.getConnection().prepareStatement(
-                    "DROP TABLE if exists \"Awards\" cascade;\n" +
-                            "DROP TABLE if exists \"Quests\" cascade;\n" +
-                            "DROP TABLE if exists \"Students_Awards\" cascade;\n" +
-                            "DROP TABLE if exists \"Roles\" cascade;\n" +
-                            "DROP TABLE if exists \"Transactions\" cascade;\n" +
-                            "DROP TABLE if exists \"Student_Detailss\" cascade;\n" +
-                            "DROP TABLE if exists \"Students_Modules\" cascade;\n" +
-                            "DROP TABLE if exists \"Modules\" cascade;\n" +
-                            "DROP TABLE if exists \"users\" cascade;"
+                    "DROP TABLE exists \"Awards\" cascade;\n" +
+                            "DROP TABLE exists \"Quests\" cascade;\n" +
+                            "DROP TABLE exists \"Students_Awards\" cascade;\n" +
+                            "DROP TABLE exists \"Roles\" cascade;\n" +
+                            "DROP TABLE exists \"Transactions\" cascade;\n" +
+                            "DROP TABLE exists \"Student_Detailss\" cascade;\n" +
+                            "DROP TABLE exists \"Students_Modules\" cascade;\n" +
+                            "DROP TABLE exists \"Modules\" cascade;\n" +
+                            "DROP TABLE exists \"users\" cascade;"
             );
             ps.executeUpdate();
         } catch (SQLException throwables) {
@@ -493,7 +493,36 @@ public class AwardDaoDb implements AwardDao {
 
     @Override
     public Award getById(int id) {
-        return null;
+        listOfAwards = new ArrayList<>();
+        Award award = null;
+        try {
+            ResultSet rs = conFactory.executeQuery("SELECT \"Awards\".id, title, description, price, image, data_creation, creator_id, (CONCAT(c.name, ' ', c.surname)) AS creator FROM \"Awards\"\n" +
+                    "INNER JOIN (\n" +
+                    "    SELECT * FROM users WHERE role_id = 2\n" +
+                    "    ) c\n" +
+                    "ON \"Awards\".creator_id = c.id\n" +
+                    "WHERE \"Awards\".id = " +
+                    id +
+                    "ORDER BY \"Awards\".id;");
+            while (rs.next()) {
+                int idAward = rs.getInt("id");
+                String title = rs.getString("title");
+                String description = rs.getString("description");
+                int price = rs.getInt("price");
+                String imageSrc = rs.getString("image");
+                String mentorDetails = rs.getString("mentor");
+                Timestamp dataCreation = rs.getTimestamp("data_creation");
+                ;
+                int creatorId = rs.getInt("creator_id");
+
+                award = new Award(idAward, title, description, price, imageSrc, dataCreation, creatorId);
+                listOfAwards.add(award);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+//        return listOfQuests;
+        return award;
     }
 
     @Override

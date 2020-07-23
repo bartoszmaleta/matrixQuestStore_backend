@@ -21,13 +21,11 @@ class QuestDaoDbTest {
 
     @BeforeEach
     public void setup() {
-            ConnectionFactory connectionFactory = new ConnectionFactory(
+            questDaoDb = new QuestDaoDb(new ConnectionFactory(
                     "jdbc:postgresql://ec2-54-217-206-236.eu-west-1.compute.amazonaws.com:5432/da8tt4mh63b7nc"
                     , "org.postgresql.Driver"
                     , "pirqathgcgzhbg"
-                    , "15c50442ada3956b30448ed4f67f2ec081ffedc990ade3019893a9d6b51655ed"
-            );
-            questDaoDb = new QuestDaoDb();
+                    , "15c50442ada3956b30448ed4f67f2ec081ffedc990ade3019893a9d6b51655ed"));
     }
 
     @AfterEach
@@ -52,8 +50,8 @@ class QuestDaoDbTest {
     @Test
     public void testUpdateQuestTitleByIdWhenAddingText() {
         String expected = "Destroy bugs for test";
-        questDaoDb.updateQuestTitleById(8, "Destroy bugs for test");
-        String actual = questDaoDb.getById(8).getTitle();
+        questDaoDb.updateQuestTitleById(3, "Destroy bugs for test");
+        String actual = questDaoDb.getById(3).getTitle();
         assertEquals(expected, actual);
 
     }
@@ -82,9 +80,9 @@ class QuestDaoDbTest {
 
     @Test
     public void testUpdateQuestIdMentorById() {
-        questDaoDb.updateQuestIdMentorById(2, 5);
-        int actual = questDaoDb.getById(2).getMentorId();
-        assertEquals(5, actual);
+        questDaoDb.updateQuestIdMentorById(7, 2);
+        int actual = questDaoDb.getById(7).getMentorId();
+        assertEquals(2, actual);
     }
 
     @Test
@@ -126,9 +124,9 @@ class QuestDaoDbTest {
 
     @Test
     public void testInsertQuest() {
-        Quest questToAdd = new Quest(10, "Test", "Description Test", 420, "test.jpg", 22);
+        Quest questToAdd = new Quest(10, "Test", "Description Test", 420, "test.jpg", 4);
         questDaoDb.insert(questToAdd);
-        Quest actualQuest = questDaoDb.readQuestListByMentorById(22).get(0);
+        Quest actualQuest = questDaoDb.readQuestListByMentorById(4).get(0);
         assertEquals(questToAdd, actualQuest);
     }
 

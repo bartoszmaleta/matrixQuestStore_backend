@@ -11,7 +11,13 @@ class AwardDaoDbTest {
 
     @BeforeEach
     public void setup() {
-        awardDaoDb = new AwardDaoDb();
+        ConnectionFactory connectionFactory = new ConnectionFactory(
+                "jdbc:postgresql://ec2-54-217-206-236.eu-west-1.compute.amazonaws.com:5432/da8tt4mh63b7nc"
+                , "org.postgresql.Driver"
+                , "pirqathgcgzhbg"
+                , "15c50442ada3956b30448ed4f67f2ec081ffedc990ade3019893a9d6b51655ed"
+        );
+        awardDaoDb = new AwardDaoDb(connectionFactory);
 
     }
 
@@ -25,6 +31,7 @@ class AwardDaoDbTest {
     public void testUpdateAwardTitleByIdWhenAddingText() {
         String expected = "Plugged in for test";
         awardDaoDb.updateAwardTitleById(5, "Plugged in for test");
+        System.out.println(awardDaoDb.getById(5));
         String actual = awardDaoDb.getById(5).getTitle();
         assertEquals(expected, actual);
     }
