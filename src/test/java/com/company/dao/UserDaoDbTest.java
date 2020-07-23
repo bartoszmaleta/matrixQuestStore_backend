@@ -57,11 +57,38 @@ public class UserDaoDbTest {
         assertFalse(userDao.delete(idUser));
     }
 
-//    @Disabled("After test db won't recover, user will still be deleted!")
+    @Disabled("After test db won't recover, user will still be deleted!")
     @Test
     public void should_returnTrue_when_userWithIdIsDeleted() {
         int idUser = 27;
         assertTrue(userDao.delete(idUser));
+    }
+
+    @Test
+    public void should_returnFalse_when_studentWithWrongIdIsDeleted() {
+        int idUser = -1;
+        assertFalse(userDao.deleteStudent(idUser));
+    }
+
+    @Disabled("After test db won't recover, user will still be deleted!")
+    @Test
+    public void should_returnTrue_when_studentWithIdIsDeleted() {
+        int idUser = 27;
+        assertTrue(userDao.deleteStudent(idUser));
+    }
+
+    @Disabled("There is no Student_Details table in backup database.")
+    @Test
+    public void should_returnFalse_when_studentDetailsWithWrongIdIsDeleted() {
+        int idUser = -1;
+        assertFalse(userDao.deleteStudentDetails(idUser));
+    }
+
+    @Disabled("There is no Student_Details table in backup database.")
+    @Test
+    public void should_returnTrue_when_studentDetailsWithIdIsDeleted() {
+        int idUser = 27;
+        assertTrue(userDao.deleteStudentDetails(idUser));
     }
 
     @Test

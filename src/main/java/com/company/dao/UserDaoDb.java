@@ -432,8 +432,10 @@ public class UserDaoDb implements UserDao {
         PreparedStatement ps = null;
         try {
             ps = connectionFactory.getConnection().prepareStatement("DELETE FROM users WHERE id = '" + id + "';");
-            return ps.executeUpdate() != 0;
-//            return true;
+            boolean foundUserToDelete = ps.executeUpdate() != 0;
+            ps.close();
+            connectionFactory.close();
+            return foundUserToDelete;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -447,9 +449,10 @@ public class UserDaoDb implements UserDao {
             ps = connectionFactory.getConnection().prepareStatement("DELETE FROM Student_Details WHERE student_id = '" + id + "';");
             ps.executeUpdate();
 
+            boolean foundUserToDelete = ps.executeUpdate() != 0;
             ps.close();
             connectionFactory.close();
-            return true;
+            return foundUserToDelete;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             return false;
@@ -462,11 +465,10 @@ public class UserDaoDb implements UserDao {
         try {
             ps = connectionFactory.getConnection().prepareStatement("DELETE FROM users WHERE id = '" + id + "' AND " + "role_id = 3" + ";");
             ps.executeUpdate();
-
-
+            boolean foundUserToDelete = ps.executeUpdate() != 0;
             ps.close();
             connectionFactory.close();
-            return true;
+            return foundUserToDelete;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
