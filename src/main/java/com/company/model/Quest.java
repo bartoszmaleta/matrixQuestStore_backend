@@ -1,5 +1,7 @@
 package com.company.model;
 
+import java.util.Objects;
+
 public class Quest {
     private int id;
     private String title;
@@ -29,6 +31,16 @@ public class Quest {
         this.price = price;
         this.imageSrc = imageSrc;
         this.mentorNameAndSurname = mentorNameAndSurname;
+    }
+
+    public Quest(int id, String title, String description, int price, String imageSrc, String mentorNameAndSurname, int mentorId) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.imageSrc = imageSrc;
+        this.mentorNameAndSurname = mentorNameAndSurname;
+        this.mentorId = mentorId;
     }
 
     public Quest(String title, String description, int price, String imageSrc, int mentorId) {
@@ -125,5 +137,24 @@ public class Quest {
         return quest.getId() == (this.getId())
                 && quest.getDescription().equals(this.getDescription());
 
+    }
+
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (!(o instanceof Quest)) return false;
+//        Quest quest = (Quest) o;
+//        return id == quest.id &&
+//                price == quest.price &&
+//                mentorId == quest.mentorId &&
+//                Objects.equals(title, quest.title) &&
+//                Objects.equals(description, quest.description) &&
+//                Objects.equals(imageSrc, quest.imageSrc) &&
+//                Objects.equals(mentorNameAndSurname, quest.mentorNameAndSurname);
+//    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, description, price, imageSrc, mentorId, mentorNameAndSurname);
     }
 }
