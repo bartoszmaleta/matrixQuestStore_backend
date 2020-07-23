@@ -66,8 +66,7 @@ public class QuestDaoDb implements QuestDao {
     public void updateQuestIdMentorById(int id, int mentorId) {
         PreparedStatement ps = null;
         try {
-            ps = conFactory.getConnection().prepareStatement("UPDATE \"Quests\" SET mentor_id = " + mentorId +
-                    " WHERE id=" + id + ";");
+            ps = conFactory.getConnection().prepareStatement("UPDATE \"Quests\" SET mentor_id = 5 WHERE id = 2 ;");
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -84,13 +83,13 @@ public class QuestDaoDb implements QuestDao {
         String userIdStr = String.valueOf(user.getId());
         try {
 //            ResultSet rs = conFactory.executeQuery("SELECT * FROM \"Quests\" ORDER BY id;");
-            ResultSet rs = conFactory.executeQuery("SELECT \"Quests\".id, title, description, coins, image, (CONCAT(m.name, ' ', m.surname)) AS mentor FROM \"Quests\"\n" +
+            ResultSet rs = conFactory.executeQuery("SELECT \"Quests\".id, title, description, coins, image, mentor_id, (CONCAT(m.name, ' ', m.surname)) AS mentor FROM \"Quests\"\n" +
                     "INNER JOIN (\n" +
                     "    SELECT * FROM users WHERE role_id = 2\n" +
                     "    ) m\n" +
                     "ON \"Quests\".mentor_id = m.id\n" +
                     "WHERE \"Quests\".mentor_id = " +
-                    userIdStr +
+                    19 +
                     "ORDER BY \"Quests\".id;");
             while (rs.next()) {
                 int id = rs.getInt("id");
@@ -99,8 +98,10 @@ public class QuestDaoDb implements QuestDao {
                 int price = rs.getInt("coins");
                 String imageSrc = rs.getString("image");
                 String mentor = rs.getString("mentor");
+                int mentorId = rs.getInt("mentor_id");
+                System.out.println("mmmmm "+mentorId);
 
-                listOfQuests.add(new Quest(id, title, description, price, imageSrc, mentor));
+                listOfQuests.add(new Quest(id, title, description, price, imageSrc, mentor, mentorId));
             }
             rs.close();
         } catch (SQLException e) {
@@ -145,7 +146,7 @@ public class QuestDaoDb implements QuestDao {
     public List<Quest> getAllElements() {
         listOfQuests = new ArrayList<>();
         try {
-            ResultSet rs = conFactory.executeQuery("SELECT \"Quests\".id, title, description, coins, image, (CONCAT(m.name, ' ', m.surname)) AS mentor FROM \"Quests\"\n" +
+            ResultSet rs = conFactory.executeQuery("SELECT \"Quests\".id, title, description, coins, image, mentor_id, (CONCAT(m.name, ' ', m.surname)) AS mentor FROM \"Quests\"\n" +
                     "INNER JOIN (\n" +
                     "    SELECT * FROM users WHERE role_id = 2\n" +
                     "    ) m\n" +
@@ -158,8 +159,9 @@ public class QuestDaoDb implements QuestDao {
                 int price = rs.getInt("coins");
                 String imageSrc = rs.getString("image");
                 String mentor = rs.getString("mentor");
+                int mentorId = rs.getInt("mentor_id");
 
-                listOfQuests.add(new Quest(id, title, description, price, imageSrc, mentor));
+                listOfQuests.add(new Quest(id, title, description, price, imageSrc, mentor, mentorId));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -172,7 +174,7 @@ public class QuestDaoDb implements QuestDao {
         listOfQuests = new ArrayList<>();
         Quest quest = null;
         try {
-            ResultSet rs = conFactory.executeQuery("SELECT \"Quests\".id, title, description, coins, image, (CONCAT(m.name, ' ', m.surname)) AS mentor FROM \"Quests\"\n" +
+            ResultSet rs = conFactory.executeQuery("SELECT \"Quests\".id, title, description, coins, image, mentor_id, (CONCAT(m.name, ' ', m.surname)) AS mentor FROM \"Quests\"\n" +
                     "INNER JOIN (\n" +
                     "    SELECT * FROM users WHERE role_id = 2\n" +
                     "    ) m\n" +
@@ -187,8 +189,9 @@ public class QuestDaoDb implements QuestDao {
                 int price = rs.getInt("coins");
                 String imageSrc = rs.getString("image");
                 String mentor = rs.getString("mentor");
+                int mentorId = rs.getInt("mentor_id");
 
-                quest = new Quest(idQuest, title, description, price, imageSrc, mentor);
+                quest = new Quest(idQuest, title, description, price, imageSrc, mentor, mentorId);
                 listOfQuests.add(quest);
             }
         } catch (SQLException e) {
