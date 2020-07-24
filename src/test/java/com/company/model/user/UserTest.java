@@ -22,7 +22,7 @@ public class UserTest {
     @Test
     public void should_setStudentRole_when_providedUserRoleId() {
         User newUser = new Student();
-        newUser.setRoleEnum(1);
+        newUser.setRoleEnum(3);
         assertSame(newUser.getRole(), Role.STUDENT);
     }
 
