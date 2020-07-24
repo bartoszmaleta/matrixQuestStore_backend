@@ -24,4 +24,12 @@ class ParsersTest {
 
         assertEquals(expectedMap, actualMap);
     }
+
+    @Test
+    public void should_returnNull_when_providedEmptyFormDataAsString() {
+        String formData = "";
+        Map<String, String> actualMap = Parsers.parseFormData(formData);
+        assertNull(actualMap);
+    }
+
 }
