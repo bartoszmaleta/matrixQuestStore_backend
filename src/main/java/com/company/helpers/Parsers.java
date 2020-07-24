@@ -7,6 +7,7 @@ import java.util.Map;
 
 public class Parsers {
     public static Map<String, String> parseFormData(String formData) {
+        if (formData.equals("")) return null;
         Map<String, String> map = new HashMap<>();
         String[] pairs = formData.split("&");
         for (String pair : pairs) {

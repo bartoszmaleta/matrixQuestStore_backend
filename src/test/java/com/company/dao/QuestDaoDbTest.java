@@ -2,12 +2,10 @@ package com.company.dao;
 
 import com.company.model.Quest;
 import com.company.model.user.Mentor;
-import com.company.model.user.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
@@ -40,11 +38,10 @@ class QuestDaoDbTest {
     public void testGetQuestById() {
         Quest quest = new Quest()
         .setId(3)
-        .setTitle("Best Trio")
-        .setDescription("Stand on the podium in Kahoot")
-        .setPrice(12)
-        .setImageSrc("podium.jpg");
-
+        .setTitle("Destroy bugs for test")
+        .setDescription("Find and fix 3 bugs in someone else's program")
+        .setPrice(7)
+        .setImageSrc("bugs.jpg");
         assertEquals(quest, questDaoDb.getById(3));
 
     }
@@ -81,7 +78,7 @@ class QuestDaoDbTest {
     }
 
     @Test
-    public void testUpdateQuestIdMentorById() {
+    public void testUpdateQuestIdMentorById() { // TODO: change userId/mentorId, there is no mentor with id 22
         questDaoDb.updateQuestIdMentorById(2, 5);
         int actual = questDaoDb.getById(2).getMentorId();
         assertEquals(5, actual);
@@ -93,7 +90,7 @@ class QuestDaoDbTest {
         QuestDaoDb mockQuestDaoDb = Mockito.mock(QuestDaoDb.class);
         Mockito.when(mockQuestDaoDb.readQuestListByMentorById(1)).thenReturn(expectedList);
 
-        List<Quest> mentorQuests = mockQuestDaoDb.readQuestListByMentorById(1);
+        List<Quest> mentorQuests = questDaoDb.readQuestListByMentorById(1);
         assertEquals(expectedList, mentorQuests);
         Mockito.verify(mockQuestDaoDb).readQuestListByMentorById(1);
     }
@@ -125,10 +122,10 @@ class QuestDaoDbTest {
     }
 
     @Test
-    public void testInsertQuest() {
-        Quest questToAdd = new Quest(10, "Test", "Description Test", 420, "test.jpg", 22);
+    public void testInsertQuest() { // TODO: change userId/mentorId, there is no mentor with id 22
+        Quest questToAdd = new Quest(10, "Test", "Description Test", 420, "test.jpg", 2);
         questDaoDb.insert(questToAdd);
-        Quest actualQuest = questDaoDb.readQuestListByMentorById(22).get(0);
+        Quest actualQuest = questDaoDb.readQuestListByMentorById(2).get(0);
         assertEquals(questToAdd, actualQuest);
     }
 

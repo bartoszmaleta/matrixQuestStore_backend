@@ -80,7 +80,9 @@ public class QuestDaoDb implements QuestDao {
     public void cleanUpDatabase(){
         PreparedStatement ps = null;
         try {
-            ps = conFactory.getConnection().prepareStatement("ALTER TABLE \"Quests\"\n" +
+            ps = conFactory.getConnection().prepareStatement("" +
+                    "" +
+                    "ALTER TABLE \"Quests\"\n" +
                     "DROP CONSTRAINT \"Quests_pkey\";\n" +
                     "\n" +
                     "ALTER TABLE \"Quests\"\n" +

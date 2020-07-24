@@ -1,5 +1,6 @@
 package com.company.service;
 
+import com.company.dao.ConnectionFactory;
 import com.company.dao.TransactionDao;
 import com.company.dao.TransactionDaoDb;
 import com.company.model.Transaction;
@@ -10,9 +11,15 @@ import java.util.List;
 
 public class TransactionsService {
     private final TransactionDao transactionDao;
+    private ConnectionFactory connectionFactory;
 
     public TransactionsService() {
         this.transactionDao = new TransactionDaoDb();
+    }
+
+    public TransactionsService(ConnectionFactory connectionFactory) {
+        this.connectionFactory = connectionFactory;
+        this.transactionDao = new TransactionDaoDb(connectionFactory);
     }
 
     public void displayTransactionsCountsAndTotalSumByUser() {

@@ -22,14 +22,24 @@ public abstract class EmployeeService {
     private final StudentDetailsDao studentDetailsDao;
     private final StudentsAwardsDao studentsAwardsDao;
     private final TransactionDao transactionDao;
+    private ConnectionFactory connectionFactory;
+
 
     public EmployeeService() {
         this.userDao = new UserDaoDb();
         this.studentDetailsDao = new StudentDetailsDaoDb();
         this.studentsAwardsDao = new StudentsAwardsDaoDb();
         this.transactionDao = new TransactionDaoDb();
-
     }
+
+    public EmployeeService(ConnectionFactory connectionFactory) {
+        this.connectionFactory = connectionFactory;
+        this.userDao = new UserDaoDb(connectionFactory);
+        this.studentDetailsDao = new StudentDetailsDaoDb(connectionFactory);
+        this.studentsAwardsDao = new StudentsAwardsDaoDb(connectionFactory);
+        this.transactionDao = new TransactionDaoDb(connectionFactory);
+    }
+
 
     public void addUserToDb(String roleString) {
         Role userRole = decideRole(roleString);

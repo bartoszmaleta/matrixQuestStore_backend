@@ -17,11 +17,26 @@ public class MentorService extends EmployeeService {
     private final QuestDao questDao;
     private final AwardDao awardDAO;
     private final UserDao userDao;
+    private ConnectionFactory connectionFactory;
 
     public MentorService() {
         this.questDao = new QuestDaoDb();
         this.awardDAO = new AwardDaoDb();
         this.userDao = new UserDaoDb();
+    }
+
+//    public MentorService(ConnectionFactory connectionFactory) {
+//        this.connectionFactory = connectionFactory;
+//        this.userDao = new UserDaoDb(connectionFactory);
+//        this.questDao = new QuestDaoDb(connectionFactory);
+//        this.awardDAO = new AwardDaoDb(connectionFactory);
+//    }
+
+    public MentorService(ConnectionFactory connectionFactory) {
+        super(connectionFactory);
+        this.userDao = new UserDaoDb(connectionFactory);
+        this.questDao = new QuestDaoDb(connectionFactory);
+        this.awardDAO = new AwardDaoDb(connectionFactory);
     }
 
     public void addQuestToDatabase(Quest quest) {
@@ -96,7 +111,7 @@ public class MentorService extends EmployeeService {
         AwardsView.allAwardsByList(awards);
     }
 
-    public List<Award> getAllAwardsOfThisMentorByUserId(int id) throws FileNotFoundException {
+    public List<Award> getAllAwardsOfThisMentorByUserId(int id) {
         // TODO: which version????
         //        List<Award> awards = awardDAO.readAwardListByMentor(user);
 
