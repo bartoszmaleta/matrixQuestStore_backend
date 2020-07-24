@@ -34,7 +34,7 @@ class EmployeeServiceTest {
     }
 
     @Test
-    public void getAllMentors() {
+    public void should_returnAllMentors() {
         User user2 = new Mentor(2, "Nikola", "Tesla", "tesla", "pass", "tesla@gmail", 2, "../resoruce/avatars/tesla@gmail.com_logo");
         User user4 = new Mentor(4, "Warren", "Buffet", "berkshire", "pass", "berkshire@gmail", 2, "../resoruce/avatars/berkshire@gmail.com_logo");
 
@@ -47,7 +47,7 @@ class EmployeeServiceTest {
     }
 
     @Test
-    public void getAllStudents() {
+    public void should_returnAllStudents() {
         User user1 = new Student(1, "Cristiano", "Ronaldo", "cr7", "pass", "cristiano@gmail", 3, "../resoruce/avatars/cristiano@gmail.com_logo");
         User user5 = new Student(5, "Jeff", "Bezos", "amazon", "pass", "amazon@gmail", 3, "../resoruce/avatars/amazon@gmail.com_logo");
         List<User> expectedStudents = new ArrayList<>();
