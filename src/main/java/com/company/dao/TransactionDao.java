@@ -1,12 +1,13 @@
 package com.company.dao;
 
 import com.company.model.Transaction;
+import com.company.model.statistics.TransactionCountAndTotalSumByUser;
 import com.company.model.user.User;
 
 import java.util.List;
 
 public interface TransactionDao extends Dao<Transaction> {
-    List getTransactionsCountAndTotalSumByUser();
+    List<TransactionCountAndTotalSumByUser> getTransactionsCountAndTotalSumByUser();
 
     List<Transaction> getMyTransactions(User user);
 
