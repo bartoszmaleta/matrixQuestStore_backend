@@ -2,12 +2,10 @@ package com.company.dao;
 
 import com.company.model.Quest;
 import com.company.model.user.Mentor;
-import com.company.model.user.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
@@ -92,7 +90,7 @@ class QuestDaoDbTest {
         QuestDaoDb mockQuestDaoDb = Mockito.mock(QuestDaoDb.class);
         Mockito.when(mockQuestDaoDb.readQuestListByMentorById(1)).thenReturn(expectedList);
 
-        List<Quest> mentorQuests = mockQuestDaoDb.readQuestListByMentorById(1);
+        List<Quest> mentorQuests = questDaoDb.readQuestListByMentorById(1);
         assertEquals(expectedList, mentorQuests);
         Mockito.verify(mockQuestDaoDb).readQuestListByMentorById(1);
     }

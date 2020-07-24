@@ -41,7 +41,8 @@ class MentorServiceTest {
         Mockito.when(questDaoDb.readQuestListByMentorById(2))
                 .thenReturn(questsExpected);
 
-        assertEquals(questDaoDb.readQuestListByMentorById(2), mentorService.getAllQuestsOfThisMentorByUserId(2));
+        assertEquals(questDaoDb.readQuestListByMentorById(2)
+                , mentorService.getAllQuestsOfThisMentorByUserId(2));
     }
 
     @Test
@@ -57,9 +58,6 @@ class MentorServiceTest {
 
         Mockito.when(awardDaoDb.readAwardListByMentorById(2))
                 .thenReturn(awardsExpected);
-
-        List<Award> awsss = mentorService.getAllAwardsOfThisMentorByUserId(2);
-        System.out.println("qweqwe" + awsss.get(0).getMentorId());
 
         assertEquals(awardDaoDb.readAwardListByMentorById(2)
                 , mentorService.getAllAwardsOfThisMentorByUserId(2));

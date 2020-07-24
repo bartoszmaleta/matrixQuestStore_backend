@@ -43,7 +43,9 @@ class LoginServiceTest {
                 .readUserByEmailAndPassword(user.getEmail(), user.getPassword()))
                 .thenReturn(user);
         assertEquals(userDaoDb
-                .readUserByEmailAndPassword(user.getEmail(), user.getPassword()), loginService.readUserWithEmailAndPassword
-                ("cristiano@gmail", "pass"));
+                        .readUserByEmailAndPassword(user.getEmail()
+                                , user.getPassword())
+                , loginService.readUserWithEmailAndPassword
+                        ("cristiano@gmail", "pass"));
     }
 }

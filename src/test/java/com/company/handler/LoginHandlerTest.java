@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.io.IOException;
+import java.io.OutputStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,9 +21,8 @@ class LoginHandlerTest {
         // Act
 
 
-
         // Assert
-//        Mockito.verify(mockHttpExchange.getRequestMethod()).
+//        Mockito.verify(mockHttpExchange.getRequestMethod())
     }
 
 
@@ -31,6 +31,10 @@ class LoginHandlerTest {
         // Arrange
         HttpExchange mockHttpExchange = Mockito.mock(HttpExchange.class);
         Mockito.when(mockHttpExchange.getRequestMethod()).thenReturn("POST");
+        OutputStream osMock = Mockito.mock(OutputStream.class);
+
+
+
 
         // Act
 

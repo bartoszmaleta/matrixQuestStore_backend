@@ -26,7 +26,6 @@ public class UserDaoDbTest {
                 , "pirqathgcgzhbg"
                 , "15c50442ada3956b30448ed4f67f2ec081ffedc990ade3019893a9d6b51655ed"
         );
-        System.out.println("qasdasdsad");
         userDao = new UserDaoDb(connectionFactory);
 //        createTables();
     }

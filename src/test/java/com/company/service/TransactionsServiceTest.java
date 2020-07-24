@@ -36,30 +36,22 @@ class TransactionsServiceTest {
 
     @Test
     public void should_returnTransactions_when_studentIdIsProvided() {
-        User cristiano = new Student()
-                .setId(1)
-                .setName("Cristiano")
-                .setSurname("Ronaldo")
-                .setLogin("cr7")
-                .setPassword("pass")
-                .setEmail("cristiano@gmail")
-                .setAvatarSource("../resoruce/avatars/cristiano@gmail.com_logo")
-                .setRoleEnum(3);
+        User user = new Student()
+                .setId(1);
 
         List<Transaction> transactionsExpected = new ArrayList<>();
         Transaction transaction = new Transaction(1, "Cristiano Ronaldo", "I was blind now I see", 20, Timestamp.valueOf("2018-11-12 01:02:03.123456789"));
         Transaction transaction2 = new Transaction(2, "Cristiano Ronaldo", "Martial-Art Workshop", 44, Timestamp.valueOf("2018-11-11 01:02:03.123456789"));
-
         transactionsExpected.add(transaction);
         transactionsExpected.add(transaction2);
 
         Mockito.when(transactionDaoDb
-                .getMyTransactionsById(cristiano.getId()))
+                .getMyTransactionsById(user.getId()))
                 .thenReturn(transactionsExpected);
 
         assertEquals(transactionDaoDb
-                        .getMyTransactionsById(cristiano.getId())
-                , transactionsService.getTransactionsByStudentId(cristiano.getId()));
+                        .getMyTransactionsById(user.getId())
+                , transactionsService.getTransactionsByStudentId(user.getId()));
     }
 
 }
