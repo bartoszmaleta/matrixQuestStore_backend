@@ -3,14 +3,10 @@ package com.company.service;
 import com.company.dao.*;
 import com.company.model.Award;
 import com.company.model.Quest;
-import com.company.model.Transaction;
-import com.company.model.user.Student;
-import com.company.model.user.User;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
-import java.io.FileNotFoundException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,15 +15,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MentorServiceTest {
 
-    private final ConnectionFactory connectionFactory = new ConnectionFactory(
-            "jdbc:postgresql://ec2-54-217-206-236.eu-west-1.compute.amazonaws.com:5432/da8tt4mh63b7nc"
-            , "org.postgresql.Driver"
-            , "pirqathgcgzhbg"
-            , "15c50442ada3956b30448ed4f67f2ec081ffedc990ade3019893a9d6b51655ed"
-    );
-    private final MentorService mentorService = new MentorService(connectionFactory);
-    private final QuestDaoDb questDaoDb = Mockito.mock(QuestDaoDb.class);
-    private final AwardDaoDb awardDaoDb = Mockito.mock(AwardDaoDb.class);
+    private static MentorService mentorService;
+    private static QuestDaoDb questDaoDb;
+    private static AwardDaoDb awardDaoDb;
+
+    @BeforeAll
+    static void setUp() {
+        ConnectionFactory connectionFactory = new ConnectionFactory(
+                "jdbc:postgresql://ec2-54-217-206-236.eu-west-1.compute.amazonaws.com:5432/da8tt4mh63b7nc"
+                , "org.postgresql.Driver"
+                , "pirqathgcgzhbg"
+                , "15c50442ada3956b30448ed4f67f2ec081ffedc990ade3019893a9d6b51655ed"
+        );
+        mentorService = new MentorService(connectionFactory);
+        questDaoDb = Mockito.mock(QuestDaoDb.class);
+        awardDaoDb = Mockito.mock(AwardDaoDb.class);
+    }
 
 
     @Test
@@ -46,7 +49,7 @@ class MentorServiceTest {
     public void should_returnAwards_when_mentorsIdIsProvided() {
         List<Award> awardsExpected = new ArrayList<>();
         Award award = new Award(1
-                ,  "Nokia Software"
+                , "Nokia Software"
                 , "1h programming course on oldstyle Nokia"
                 , 20, "nokianeo.png"
                 , Timestamp.valueOf("2020-04-27 10:54:49.000000")
@@ -62,8 +65,6 @@ class MentorServiceTest {
         assertEquals(awardDaoDb.readAwardListByMentorById(2)
                 , mentorService.getAllAwardsOfThisMentorByUserId(2));
     }
-
-
 
 
 }
