@@ -25,8 +25,8 @@ class TransactionsServiceTest {
             , "pirqathgcgzhbg"
             , "15c50442ada3956b30448ed4f67f2ec081ffedc990ade3019893a9d6b51655ed"
     );
-    TransactionsService transactionsService = new TransactionsService(connectionFactory);
-    TransactionDaoDb transactionDaoDb = Mockito.mock(TransactionDaoDb.class);
+    private final TransactionsService transactionsService = new TransactionsService(connectionFactory);
+    private final TransactionDaoDb transactionDaoDb = Mockito.mock(TransactionDaoDb.class);
 
     @Test
     public void should_returnTransactions_when_studentIdIsProvided() {
@@ -51,8 +51,9 @@ class TransactionsServiceTest {
                 .getMyTransactionsById(cristiano.getId()))
                 .thenReturn(transactionsExpected);
 
-        assertEquals(transactionsExpected, transactionsService
-                .getTransactionsByStudentId(cristiano.getId()));
+        assertEquals(transactionDaoDb
+                .getMyTransactionsById(cristiano.getId())
+                , transactionsService.getTransactionsByStudentId(cristiano.getId()));
     }
 
 }

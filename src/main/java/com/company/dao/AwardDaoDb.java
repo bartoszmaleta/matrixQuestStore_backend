@@ -15,6 +15,10 @@ public class AwardDaoDb implements AwardDao {
         conFactory = new ConnectionFactory();
     }
 
+    public AwardDaoDb(ConnectionFactory connectionFactory) {
+        conFactory = connectionFactory;
+    }
+
 
     @Override
     public List<Award> getAwardsByUser(User user) {
@@ -110,7 +114,7 @@ public class AwardDaoDb implements AwardDao {
     public List<Award> readAwardListByMentorById(int userId) {
         listOfAwards = new ArrayList<>();
         try {
-            ResultSet rs = conFactory.executeQuery("SELECT \"Awards\".id, title, description, price, image, data_creation, (CONCAT(m.name, ' ', m.surname)) AS mentor FROM \"Awards\"\n" +
+            ResultSet rs = conFactory.executeQuery("SELECT \"Awards\".id, title, description, price, image, data_creation, creator_id, (CONCAT(m.name, ' ', m.surname)) AS mentor FROM \"Awards\"\n" +
                     "INNER JOIN (\n" +
                     "    SELECT * FROM users WHERE role_id = 2\n" +
                     "    ) m\n" +
@@ -126,8 +130,9 @@ public class AwardDaoDb implements AwardDao {
                 String imageSrc = rs.getString("image");
                 Timestamp dataCreation = rs.getTimestamp("data_creation");
                 String mentorDetails = rs.getString("mentor");
+                int creatorId = rs.getInt("creator_id");
 
-                listOfAwards.add(new Award(id, title, description, price, imageSrc, dataCreation, mentorDetails));
+                listOfAwards.add(new Award(id, title, description, price, imageSrc, dataCreation, mentorDetails, creatorId));
             }
             rs.close();
             conFactory.close();

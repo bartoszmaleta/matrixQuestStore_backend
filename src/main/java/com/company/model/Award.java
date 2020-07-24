@@ -21,6 +21,17 @@ public class Award {
     public Award() {
     }
 
+    public Award(int id, String title, String description, int price, String imageSrc, Timestamp dataCreation, String mentorDetails, int creatorId) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.imageSrc = imageSrc;
+        this.mentorNameAndSurname = mentorDetails;
+        this.mentorId = creatorId;
+        this.dataCreation = dataCreation;
+    }
+
     public String getOwnerCredentials() {
         return ownerCredentials;
     }
@@ -171,5 +182,13 @@ public class Award {
                 " Img_src: " + imageSrc +
                 " Data_creation: " + dataCreation +
                 " Creator_id: " + mentorId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        // TODO: should be with hashcode
+        Award award = (Award) o;
+        return award.getDescription().equals(this.getDescription())
+                && award.getDataCreation().equals(this.getDataCreation());
     }
 }
