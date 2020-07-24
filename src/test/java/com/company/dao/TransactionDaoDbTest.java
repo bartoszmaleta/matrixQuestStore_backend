@@ -1,465 +1,72 @@
 package com.company.dao;
 
-import com.company.model.user.*;
+import com.company.model.Transaction;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
-public class UserDaoDb implements UserDao {
-    ConnectionFactory connectionFactory;
-    StudentDetailsDao studentDetailsDao;
+import static org.junit.jupiter.api.Assertions.*;
 
-    // Without dependency injection
-    public UserDaoDb() {
-        this.connectionFactory = new ConnectionFactory();
-        this.studentDetailsDao = new StudentDetailsDaoDb();
+class TransactionDaoDbTest  {
+    private static TransactionDao transactionDao;
+    private static ConnectionFactory connectionFactory;
+
+    @BeforeAll
+    static void setUp() {
+        connectionFactory = new ConnectionFactory(
+                "jdbc:postgresql://ec2-54-217-206-236.eu-west-1.compute.amazonaws.com:5432/da8tt4mh63b7nc"
+                , "org.postgresql.Driver"
+                , "pirqathgcgzhbg"
+                , "15c50442ada3956b30448ed4f67f2ec081ffedc990ade3019893a9d6b51655ed"
+        );
+        System.out.println("qasdasdsad");
+        transactionDao = new TransactionDaoDb(connectionFactory);
+        createTables();
     }
 
-    // With dependency injection
-    public UserDaoDb(ConnectionFactory connectionFactory) {
-        this.connectionFactory = connectionFactory;
-        this.studentDetailsDao = new StudentDetailsDaoDb(connectionFactory);
+    @AfterEach
+    public void cleanUpDatabase() {
+        dropTables();
+        createTables();
     }
 
-    public User readUserByEmailAndPassword(String userEmail, String userPassword) {
-        User newUser;
-
-        try {
-            ResultSet rs;
-            rs = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"email\" = '" + userEmail + "' AND \"password\" = '" + userPassword + "';");
-            newUser = getUser(rs);
-            connectionFactory.close();
-            rs.close();
-            if (newUser != null) {
-                return newUser;
-            }
-        } catch (Exception e) {
-            System.err.println("Error! Reading user by userName and userPassword from DB failed!");
-            return null;
-        }
-        return null;
+    @Test
+    void getTransactionsCountAndTotalSumByUser() {
     }
 
-    private User getUser(ResultSet rs) throws SQLException {
-        rs.next();
-        if (rs.getInt("role_id") == 1) {
-            return getAdmin(rs);
-        } else if (rs.getInt("role_id") == 2) {
-            return getMentor(rs);
-        } else if (rs.getInt("role_id") == 3) {
-            return getStudent(rs);
-        } else {
-            System.out.println("No user");
-        }
-        return null;
+    @Test
+    void getMyTransactions() {
     }
 
-    private User getStudent(ResultSet rs) throws SQLException {
-        int id = rs.getInt("id");
-        String name = rs.getString("name");
-        String surname = rs.getString("surname");
-        String login = rs.getString("login");
-        String password = rs.getString("password");
-        String email = rs.getString("email");
-        int roleId = rs.getInt("role_id");
-        String avatarPath = rs.getString("avatar");
-
-        String mentorName = this.studentDetailsDao.getStudentsMentorsName(id);
-        int coins = this.studentDetailsDao.getStudentCoins(id);
-        String module = getStudentModule(id);
-
-        User newUser = new Student(id, name, surname, login, password, email, roleId, avatarPath, coins, module, mentorName);
-
-        connectionFactory.close();
-        rs.close();
-        return newUser;
+    @Test
+    void getMyTransactionsById() {
     }
 
-    private String getStudentModule(int id) {
-        String module = "";
-        try {
-            ResultSet rs = connectionFactory.executeQuery("SELECT\n" +
-                    "    m.name AS module\n" +
-                    "FROM users u\n" +
-                    "LEFT JOIN \"Students_Modules\" sm\n" +
-                    "ON sm.student_id = u.id\n" +
-                    "LEFT JOIN \"Modules\" m\n" +
-                    "ON m.id = sm.module_id\n" +
-                    "WHERE u.id = " + id + ";");
-
-            while (rs.next()) {
-                module = rs.getString("module");
-            }
-            rs.close();
-            connectionFactory.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return module;
+    @Test
+    void getAllElements() {
     }
 
-    private User getMentor(ResultSet rs) throws SQLException {
-        int id = rs.getInt("id");
-        String name = rs.getString("name");
-        String surname = rs.getString("surname");
-        String login = rs.getString("login");
-        String password = rs.getString("password");
-        String email = rs.getString("email");
-        int roleId = rs.getInt("role_id");
-        String avatarPath = rs.getString("avatar");
-
-        User newUser = new Mentor(id, name, surname, login, password, email, roleId, avatarPath);
-
-        connectionFactory.close();
-        rs.close();
-        return newUser;
+    @Test
+    void getById() {
     }
 
-    private User getAdmin(ResultSet rs) throws SQLException {
-        int id = rs.getInt("id");
-        String name = rs.getString("name");
-        String surname = rs.getString("surname");
-        String login = rs.getString("login");
-        String password = rs.getString("password");
-        String email = rs.getString("email");
-        int roleId = rs.getInt("role_id");
-        String avatarPath = rs.getString("avatar");
-
-        User newUser = new Admin(id, name, surname, login, password, email, roleId, avatarPath);
-
-        connectionFactory.close();
-        rs.close();
-        return newUser;
+    @Test
+    void insert() {
     }
 
-    private int decideRole(Role userRole) {
-        return switch (userRole) {
-            case ADMIN -> 1;
-            case MENTOR -> 2;
-            case STUDENT -> 3;
-        };
+    @Test
+    void edit() {
     }
 
-    public List<User> getStudents() {
-        List<User> students = new ArrayList<>();
-        try {
-            ResultSet rs = connectionFactory.executeQuery("SELECT * FROM users WHERE role_id = 3 ORDER BY id;");
-            User newUser;
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
-                String surname = rs.getString("surname");
-                String login = rs.getString("login");
-                String password = rs.getString("password");
-                String email = rs.getString("email");
-                int roleId = rs.getInt("role_id");
-                String avatarPath = rs.getString("avatar");
-
-                // TODO: 3 queries!!!!!!!!
-                String mentorName = this.studentDetailsDao.getStudentsMentorsName(id);
-                int coins = this.studentDetailsDao.getStudentCoins(id);
-                String module = getStudentModule(id);
-
-                newUser = new Student(id, name, surname, login, password, email, roleId, avatarPath, coins, module, mentorName);
-
-                // TODO: check this! should be okay!
-//              student = getStudent(rs); TODO: change to this, because it is enough!!!
-
-                students.add(newUser);
-            }
-            rs.close();
-            connectionFactory.close();
-            return students;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public List<User> getMentors() {
-        List<User> mentors = new ArrayList<>();
-        try {
-            ResultSet rs = connectionFactory.executeQuery("SELECT * FROM users WHERE role_id = 2 ORDER BY id;");
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
-                String surname = rs.getString("surname");
-                String login = rs.getString("login");
-                String password = rs.getString("password");
-                String email = rs.getString("email");
-                int roleId = rs.getInt("role_id");
-                String avatarPath = rs.getString("avatar");
-
-                User newUser = new Mentor(id, name, surname, login, password, email, roleId, avatarPath);
-
-                mentors.add(newUser);
-            }
-            rs.close();
-            connectionFactory.close();
-            return mentors;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    // ---------------------------------------
-    // EDIT
-
-    // TODO or not???
-    @Override
-    public boolean edit(User o) {
-        return false;
-    }
-
-    public void updateUserNameById(int id, String name) {
-        PreparedStatement ps = null;
-        try {
-            ps = connectionFactory.getConnection().prepareStatement("UPDATE users SET name = '" + name + "' " +
-                    "WHERE id=" + id + ";");
-            ps.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void updateUserSurnameById(int id, String surname) {
-        PreparedStatement ps = null;
-        try {
-            ps = connectionFactory.getConnection().prepareStatement("UPDATE users SET surname = '" + surname + "' " +
-                    "WHERE id=" + id + ";");
-            ps.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void updateUserLoginById(int id, String login) {
-        PreparedStatement ps = null;
-        try {
-            ps = connectionFactory.getConnection().prepareStatement("UPDATE users SET login = '" + login + "' " +
-                    "WHERE id=" + id + ";");
-            ps.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void updateUserPasswordById(int id, String password) {
-        PreparedStatement ps = null;
-        try {
-            ps = connectionFactory.getConnection().prepareStatement("UPDATE users SET password = '" + password + "' " +
-                    "WHERE id=" + id + ";");
-            ps.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void editUserEmailById(int id, String email) {
-        PreparedStatement ps = null;
-        try {
-            ps = connectionFactory.getConnection().prepareStatement("UPDATE users SET email = '" + email + "' " +
-                    "WHERE id=" + id + ";");
-            ps.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // TODO: use it in edit menu!
-    public void updateStudentAvatarPathById(int id, String avatarPath) {
-        PreparedStatement ps = null;
-        try {
-            ps = connectionFactory.getConnection().prepareStatement("UPDATE users SET avatar = '" + avatarPath + "' " +
-                    "WHERE id=" + id + ";");
-            ps.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-//    END OF EDIT SECTION ---------------------------------------
-
-    @Override
-    public int readUserIdByEmail(String email) {
-        PreparedStatement ps = null;
-        if (email.isEmpty()) {
-            return Integer.MIN_VALUE;
-        }
-        try {
-            ps = connectionFactory.getConnection().prepareStatement("SELECT * FROM \"users\" WHERE \"email\" = '" + email + "';");
-            ResultSet rs = ps.executeQuery();
-            rs.next();
-            int id = rs.getInt("id");
-            rs.close();
-            connectionFactory.close();
-            return id;
-        } catch (Exception e) {
-            System.err.println("Error! Reading user by id from DB failed!");
-            return Integer.MIN_VALUE;
-        }
+    @Test
+    void delete() {
     }
 
 
-    // ---------------------------------------
-
-    @Override
-    public List getAllElements() {
-        List<User> users = new ArrayList<>();
-        try {
-            User newUser;
-            ResultSet rs = connectionFactory.executeQuery("SELECT * FROM users ORDER BY id;");
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
-                String surname = rs.getString("surname");
-                String login = rs.getString("login");
-                String password = rs.getString("password");
-                String email = rs.getString("email");
-                int roleId = rs.getInt("role_id");
-                String avatarSource = rs.getString("avatar");
-
-                if (roleId == 1) {
-                    newUser = new Admin(id, name, surname, login, password, email, roleId, avatarSource);
-                    users.add(newUser);
-                } else if (roleId == 2) {
-                    newUser = new Mentor(id, name, surname, login, password, email, roleId, avatarSource);
-                    users.add(newUser);
-                } else if (roleId == 3) {
-                    newUser = new Student(id, name, surname, login, password, email, roleId, avatarSource);
-                    users.add(newUser);
-                }
-            }
-            connectionFactory.close();
-            rs.close();
-            return users;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    public User getById(int id) {
-        if (id < 1) return null;
-        User newUser;
-
-        try {
-            ResultSet rs;
-
-            rs = connectionFactory.executeQuery("SELECT * FROM \"users\" WHERE \"id\" = '" + id + "';");
-
-            newUser = getUser(rs);
-            connectionFactory.close();
-            rs.close();
-            return newUser;
-        } catch (Exception e) {
-            System.err.println("Error! Reading user by id from DB failed!");
-        }
-        return null;
-    }
-
-
-    @Override
-    public boolean insert(User user) {
-        PreparedStatement ps = null;
-        Role userRole = user.getRole();
-
-        int roleId = decideRole(userRole);
-
-        try {
-            ps = connectionFactory.getConnection().prepareStatement("INSERT INTO users (name, surname, login, password, email, role_id, avatar)" +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?);");
-            ps.setString(1, user.getName());
-            ps.setString(2, user.getSurname());
-            ps.setString(3, user.getLogin());
-            ps.setString(4, user.getPassword());
-            ps.setString(5, user.getEmail());
-            ps.setInt(6, roleId);
-//            ps.setInt(7, user.getUserDetailId());
-            ps.setString(7, user.getAvatarSource());
-            ps.executeUpdate();
-            ps.close();
-            return true;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    @Override
-    public boolean delete(int id) {
-        if (id < 1) return false;
-        PreparedStatement ps = null;
-        try {
-            ps = connectionFactory.getConnection().prepareStatement("DELETE FROM users WHERE id = '" + id + "';");
-            boolean foundUserToDelete = ps.executeUpdate() != 0;
-            ps.close();
-            connectionFactory.close();
-            return foundUserToDelete;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    private boolean deleteStudentDetails(int id) {
-        if (id < 1) return false;
-        PreparedStatement ps = null;
-        try {
-            ps = connectionFactory.getConnection().prepareStatement("DELETE FROM \"Student_Detailss\" WHERE student_id = '" + id + "';");
-            boolean foundUserToDelete = ps.executeUpdate() != 0;
-            ps.close();
-            connectionFactory.close();
-            return foundUserToDelete;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            return false;
-        }
-    }
-
-    // TODO: should change location to StudentsModulesDaoDb
-    private boolean deleteStudentModules(int id) {
-        if (id < 1) return false;
-        PreparedStatement ps = null;
-        try {
-            ps = connectionFactory.getConnection().prepareStatement("DELETE FROM \"Students_Modules\" WHERE student_id = '" + id + "';");
-            boolean foundUserToDelete = ps.executeUpdate() != 0;
-            ps.close();
-            connectionFactory.close();
-            return foundUserToDelete;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            return false;
-        }
-    }
-
-    @Override
-    public boolean deleteStudent(int id) {
-        if (id < 1) return false;
-
-        PreparedStatement ps = null;
-        try {
-            deleteStudentModules(id);
-            ps = connectionFactory.getConnection().prepareStatement("DELETE FROM users WHERE id = '" + id + "' AND " + "role_id = 3" + ";");
-            boolean foundUserToDelete = ps.executeUpdate() != 0;
-            deleteStudentDetails(id);
-            ps.close();
-            connectionFactory.close();
-            return foundUserToDelete;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
 
     public void dropTables() {
         PreparedStatement ps = null;
@@ -482,7 +89,7 @@ public class UserDaoDb implements UserDao {
         }
     }
 
-    public void createTables() {
+    public static void createTables() {
         PreparedStatement ps = null;
         try {
             ps = connectionFactory.getConnection().prepareStatement
