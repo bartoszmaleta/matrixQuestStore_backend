@@ -25,9 +25,16 @@ public class MentorService extends EmployeeService {
         this.userDao = new UserDaoDb();
     }
 
+//    public MentorService(ConnectionFactory connectionFactory) {
+//        this.connectionFactory = connectionFactory;
+//        this.userDao = new UserDaoDb(connectionFactory);
+//        this.questDao = new QuestDaoDb(connectionFactory);
+//        this.awardDAO = new AwardDaoDb(connectionFactory);
+//    }
+
     public MentorService(ConnectionFactory connectionFactory) {
-        this.userDao = new UserDaoDb();
-        this.connectionFactory = connectionFactory;
+        super(connectionFactory);
+        this.userDao = new UserDaoDb(connectionFactory);
         this.questDao = new QuestDaoDb(connectionFactory);
         this.awardDAO = new AwardDaoDb(connectionFactory);
     }

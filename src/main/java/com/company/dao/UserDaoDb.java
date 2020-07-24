@@ -158,6 +158,7 @@ public class UserDaoDb implements UserDao {
 
                 // TODO: 3 queries!!!!!!!!
                 String mentorName = this.studentDetailsDao.getStudentsMentorsName(id);
+                System.out.println("mentorName = " + mentorName);
                 int coins = this.studentDetailsDao.getStudentCoins(id);
                 String module = getStudentModule(id);
 

@@ -28,7 +28,7 @@ class LoginServiceTest {
     }
 
     @Test
-    public void testGetUser() {
+    public void should_returnUser_when_emailAndPasswordProvided() {
         User user = new Student()
                 .setId(1)
                 .setName("Cristiano")
@@ -42,7 +42,8 @@ class LoginServiceTest {
         Mockito.when(userDaoDb
                 .readUserByEmailAndPassword(user.getEmail(), user.getPassword()))
                 .thenReturn(user);
-        assertEquals(user, loginService.readUserWithEmailAndPassword
+        assertEquals(userDaoDb
+                .readUserByEmailAndPassword(user.getEmail(), user.getPassword()), loginService.readUserWithEmailAndPassword
                 ("cristiano@gmail", "pass"));
     }
 }

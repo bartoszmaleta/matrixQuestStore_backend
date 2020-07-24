@@ -17,6 +17,10 @@ public class StudentsAwardsDaoDb implements StudentsAwardsDao {
         this.conFactory = new ConnectionFactory();
     }
 
+    public StudentsAwardsDaoDb(ConnectionFactory connectionFactory) {
+        this.conFactory = connectionFactory;
+    }
+
 
     @Override
     public List getAllElements() {
