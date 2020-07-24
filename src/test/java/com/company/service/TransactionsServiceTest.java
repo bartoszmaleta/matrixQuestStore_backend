@@ -34,7 +34,6 @@ class TransactionsServiceTest {
         transactionsService = new TransactionsService(connectionFactory);
     }
 
-
     @Test
     public void should_returnTransactions_when_studentIdIsProvided() {
         User cristiano = new Student()

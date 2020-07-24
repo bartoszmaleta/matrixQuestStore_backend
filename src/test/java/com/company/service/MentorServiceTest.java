@@ -32,7 +32,6 @@ class MentorServiceTest {
         awardDaoDb = Mockito.mock(AwardDaoDb.class);
     }
 
-
     @Test
     public void should_returnQuests_when_mentorsIdIsProvided() {
         List<Quest> questsExpected = new ArrayList<>();
