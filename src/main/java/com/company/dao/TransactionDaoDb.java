@@ -55,6 +55,7 @@ public class TransactionDaoDb implements TransactionDao {
         return statistics;
     }
 
+    // TODO: test
     @Override
     public List<Transaction> getMyTransactions(User user) {
         List<Transaction> transactions = new ArrayList<>();

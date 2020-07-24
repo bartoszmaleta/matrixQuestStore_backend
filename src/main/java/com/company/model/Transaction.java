@@ -1,5 +1,7 @@
 package com.company.model;
 
+import com.company.model.user.User;
+
 import java.sql.Timestamp;
 
 public class Transaction {
@@ -138,5 +140,13 @@ public class Transaction {
 
     public String getAwardTitle() {
         return awardTitle;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        // TODO: should be with hashcode
+        Transaction transaction = (Transaction) o;
+        return transaction.getAwardTitle().equals(this.getAwardTitle())
+                && transaction.getBoughAt().equals(this.getBoughAt());
     }
 }

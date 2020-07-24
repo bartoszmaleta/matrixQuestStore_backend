@@ -1,0 +1,195 @@
+create table "Roles"
+(
+    id   serial not null
+        constraint roles_pk
+            primary key,
+    role text
+);
+
+alter table "Roles"
+    owner to pirqathgcgzhbg;
+
+create unique index roles_id_uindex
+    on "Roles" (id);
+
+insert into public."Roles" (role) values ('admin');
+insert into public."Roles" (role) values ('mentor');
+insert into public."Roles" (role) values ('student');
+
+create table "users"
+(
+    id       serial not null
+        constraint users_pk
+            primary key,
+    name     varchar,
+    surname  varchar,
+    login    varchar,
+    password varchar,
+    email    varchar,
+    role_id  integer,
+    avatar   varchar
+);
+
+alter table users
+    owner to pirqathgcgzhbg;
+
+create unique index users_id_uindex
+    on users (id);
+
+insert into public."users" (name, surname, login, password, email, role_id, avatar) values ('Cristiano', 'Ronaldo', 'cr7', 'pass', 'cristiano@gmail', 3, '../resoruce/avatars/cristiano@gmail.com_logo');
+insert into public."users" (name, surname, login, password, email, role_id, avatar) values ('Nikola', 'Tesla', 'tesla', 'pass', 'tesla@gmail', 2, '../resoruce/avatars/tesla@gmail.com_logo');
+insert into public."users" (name, surname, login, password, email, role_id, avatar) values ('Bill', 'Gates', 'microsoft', 'pass', 'microsoft@gmail', 1, '../resoruce/avatars/microsoft@gmail.com_logo');
+insert into public."users" (name, surname, login, password, email, role_id, avatar) values ('Warren', 'Buffet', 'berkshire', 'pass', 'berkshire@gmail', 2, '../resoruce/avatars/berkshire@gmail.com_logo');
+insert into public."users" (name, surname, login, password, email, role_id, avatar) values ('Jeff', 'Bezos', 'amazon', 'pass', 'amazon@gmail', 3, '../resoruce/avatars/amazon@gmail.com_logo');
+insert into public."users" (name, surname, login, password, email, role_id, avatar) values ('Linus', 'Torvalds', 'linux', 'pass', 'linux@gmail', 1, '../resoruce/avatars/linux@gmail.com_logo_logo');
+
+
+create table "Student_Detailss"
+(
+    id         serial not null
+        constraint student_detailss_pk
+            primary key,
+    coins      integer default 0,
+    student_id integer,
+    mentor_id  integer default 2
+);
+
+alter table "Student_Detailss"
+    owner to pirqathgcgzhbg;
+
+create unique index student_detailss_id_uindex
+    on "Student_Detailss" (id);
+
+
+insert into public."Student_Detailss" (coins, student_id, mentor_id) values (220, 1, 2);
+insert into public."Student_Detailss" (coins, student_id, mentor_id) values (600, 5, 2);
+
+create table "Modules"
+(
+    id   serial not null
+        constraint modules_pk
+            primary key,
+    name text
+);
+
+alter table "Modules"
+    owner to pirqathgcgzhbg;
+
+insert into public."Modules" (name) values ('JAVA');
+insert into public."Modules" (name) values ('PYTHON');
+insert into public."Modules" (name) values ('WEB');
+insert into public."Modules" (name) values ('ADVANCE');
+
+create table "Students_Modules"
+(
+    id            serial not null
+        constraint "User_Modules_pkey"
+            primary key,
+    student_id    integer
+        constraint "User_Modules_user_id_fkey"
+            references users,
+    module_id     integer
+        constraint "User_Modules_module_id_fkey"
+            references "Modules",
+    enrollment_at timestamp
+);
+
+alter table "Students_Modules"
+    owner to pirqathgcgzhbg;
+
+insert into public."Students_Modules" (student_id, module_id, enrollment_at) values (1, 1, '2020-07-23 18:13:48.000000');
+insert into public."Students_Modules" (student_id, module_id, enrollment_at) values (5, 2, '2020-07-23 18:14:02.000000');
+
+
+create table "Transactions"
+(
+    id         serial not null,
+    user_id    integer,
+    award_id   integer,
+    price      integer,
+    created_at text
+);
+
+alter table "Transactions"
+    owner to pirqathgcgzhbg;
+
+insert into public."Transactions" (user_id, award_id, price, created_at) values (1, 2, 20, '2018-11-12 01:02:03.123456789');
+insert into public."Transactions" (user_id, award_id, price, created_at) values (1, 3, 44, '2018-11-11 01:02:03.123456789');
+
+
+create table "Students_Awards"
+(
+    id        serial  not null
+        constraint users_awards_pk
+            primary key,
+    user_id   integer not null,
+    award_id  integer not null,
+    price     integer not null,
+    bought_at text    not null
+);
+
+alter table "Students_Awards"
+    owner to pirqathgcgzhbg;
+
+create unique index users_awards_id_uindex
+    on "Students_Awards" (id);
+
+insert into public."Students_Awards" (user_id, award_id, price, bought_at) values (1, 2, 20, '2018-11-12 01:02:03.123456789');
+insert into public."Students_Awards" (user_id, award_id, price, bought_at) values (1, 3, 44, '2018-11-11 01:02:03.123456789');
+
+
+
+create table "Quests"
+(
+    id          serial not null,
+    title       text,
+    description text,
+    coins       text,
+    image       text,
+    mentor_id   integer
+);
+
+alter table "Quests"
+    owner to pirqathgcgzhbg;
+
+
+insert into public."Quests" (title, description, coins, image, mentor_id) values ('Dodge This!', 'Dodge 5x times morning question', 5, 'dodgeThis.jpg', 1);
+insert into public."Quests" (title, description, coins, image, mentor_id) values ('Telephone Booth Call', '3x times teleporting from telephone booth to headquarter', 30, 'telephoneBooth.png', 5);
+insert into public."Quests" (title, description, coins, image, mentor_id) values ('Destroy bugs for test', 'Find and fix 3 bugs in someone else''s program', 7, 'bugs.jpg', 20);
+insert into public."Quests" (title, description, coins, image, mentor_id) values ('Help friend in need', 'Review your friend''s code for test', 6, 'helpFriend.jpg', 20);
+insert into public."Quests" (title, description, coins, image, mentor_id) values ('Avoid bullets', 'Answer mentor''s question correctly', 666, 'dodgeBullets.jpg', 20);
+insert into public."Quests" (title, description, coins, image, mentor_id) values ('Be everywhere', 'Attendence more than 80%', 9, 'appearences.png', 19);
+insert into public."Quests" (title, description, coins, image, mentor_id) values ('Faster than ever', 'Submit project one day earlier', 50, 'neoFly.png', 20);
+insert into public."Quests" (title, description, coins, image, mentor_id) values ('Best Trio', 'Stand on the podium in Kahoot', 12, 'podium.jpg', 19);
+
+
+create table "Awards"
+(
+    id            serial not null,
+    title         text,
+    description   text,
+    price         integer,
+    image         text,
+    data_creation timestamp,
+    creator_id    integer
+);
+
+alter table "Awards"
+    owner to pirqathgcgzhbg;
+
+
+insert into public."Awards" (title, description, price, image, data_creation, creator_id) values ('Nokia Software', '1h programming course on oldstyle Nokia', 20, 'nokianeo.png', '2020-04-27 10:54:49.000000', 19);
+insert into public."Awards" (title, description, price, image, data_creation, creator_id) values ('I was blind now I see', '1h workshop of binary numbers as real lfe images', 50, 'blindsee.jpg', '2020-04-27 11:04:47.000000', 20);
+insert into public."Awards" (title, description, price, image, data_creation, creator_id) values ('Martial-Art Workshop', '1h of learning java-jitsu with mentor for test', 60, 'morpheusCome.png', '2020-04-28 11:04:49.000000', 20);
+insert into public."Awards" (title, description, price, image, data_creation, creator_id) values ('Mr Robot', '1h of programming the bot of your favourite mentor', 70, '01.png', '2020-04-27 11:06:32.000000', 20);
+insert into public."Awards" (title, description, price, image, data_creation, creator_id) values ('Plugged in for test', '1h of studying in simulator with friend', 50, 'simulator.jpg', '2020-04-26 11:06:37.000000', 20);
+insert into public."Awards" (title, description, price, image, data_creation, creator_id) values ('Consult The Oracle', '45 minutes of interwiev with oracle from school office', 40, 'oracle.jpg', '2020-04-27 11:06:46.000000', 20);
+insert into public."Awards" (title, description, price, image, data_creation, creator_id) values ('Holy Trinity Help', 'Get help with your project for 1h from three mentors at the same time', 100, 'holy3.jpg', '2020-04-26 11:06:53.000000', 20);
+insert into public."Awards" (title, description, price, image, data_creation, creator_id) values ('Eyewear Of Matrix', 'All mentors wear matrix sunglasses whole day test', 120, 'sunglasses.jpg', '2020-04-28 11:07:05.000000', 19);
+insert into public."Awards" (title, description, price, image, data_creation, creator_id) values ( 'Hackagov', '30 min of hacking Polish National Bank''s website', 30, 'hacking.jpg', '2020-07-08 20:44:34.195000', 19);
+
+
+
+
+
+
