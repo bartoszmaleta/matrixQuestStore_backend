@@ -1,6 +1,6 @@
 package com.company.dao;
 
-public interface StudentDetailsDao {
+public interface StudentDetailsDao extends Dao {
     boolean insert(int studentIdFromUsersTable);
 
     boolean setMentorForUser(int studentId, int mentorId);

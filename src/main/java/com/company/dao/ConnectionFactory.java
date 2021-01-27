@@ -9,13 +9,17 @@ public class ConnectionFactory {
     private final String userPassword;
 
     public ConnectionFactory() {
-        this.databaseUrl = "jdbc:postgresql://ec2-54-246-85-151.eu-west-1.compute.amazonaws.com:5432/dcmgt3tfcp4n6o";
+        System.out.println("qweqwesssss");
+        this.databaseUrl = "jdbc:postgresql://ec2-52-31-94-195.eu-west-1.compute.amazonaws.com:5432/dfare0vp739v70";
         this.jdbcDriver = "org.postgresql.Driver";
-        this.userLogin = "tilcavmrsuhbzj";
-        this.userPassword = "37e3925b366710ece9a679ad72d401e74bc6bb4ed1239676aaffef00ed27fc52";
+        this.userLogin = "gnoujqtgpyxews";
+        this.userPassword = "c05d60807f1a76c1447fcafb2906941992b1e529dfd0f6c468978e4ce0661ef7";
     }
 
     public ConnectionFactory(String databaseUrl, String jdbcDriver, String userLogin, String userPassword) {
+        System.out.println("xxxxxweqwesssss");
+
+
         this.databaseUrl = databaseUrl;
         this.jdbcDriver = jdbcDriver;
         this.userLogin = userLogin;
@@ -23,14 +27,13 @@ public class ConnectionFactory {
     }
 
     protected Connection con;
-    //        protected Statement stmt = null;
     protected Statement stmt = null;
     protected ResultSet rs = null;
 
     public Connection getConnection() {
         try {
             Class.forName(this.jdbcDriver);
-            this.con = DriverManager.getConnection(this.databaseUrl, userLogin, userPassword);
+            this.con = DriverManager.getConnection(this.databaseUrl, this.userLogin, this.userPassword);
         } catch (SQLException e) {
             System.out.println("Error! Cannot connect with the database.");
         } catch (ClassNotFoundException e) {
@@ -40,9 +43,10 @@ public class ConnectionFactory {
         return this.con;
     }
 
-    public ResultSet executeQuery(String sql) {
-        ConnectionFactory connectionFactory = new ConnectionFactory();
-        this.con = connectionFactory.getConnection();
+    public ResultSet executeQuery(String sql) throws SQLException {
+//        ConnectionFactory connectionFactory = new ConnectionFactory();
+//        this.con = connectionFactory.getConnection();
+        this.con = this.getConnection();
         try {
             this.stmt = this.con.createStatement();
             this.rs = this.stmt.executeQuery(sql);
@@ -54,8 +58,7 @@ public class ConnectionFactory {
     }
 
     public void updateQuery(String sql) {
-        ConnectionFactory connectionFactory = new ConnectionFactory();
-        this.con = connectionFactory.getConnection();
+        this.con = this.getConnection();
         try {
             stmt = con.createStatement();
             stmt.executeQuery(sql);
@@ -71,6 +74,7 @@ public class ConnectionFactory {
             // REMEMBER TO: close stmt!!!!
 //                this.stmt.close();
             this.con.close();
+            this.rs.close();
             System.out.println("Connection closed");
         } catch (SQLException e) {
             System.out.println("Error! Can't connect with the database.");

@@ -1,0 +1,27 @@
+-- Quests
+
+DROP TABLE "Quests";
+
+create table "Quests"
+(
+    id          serial not null,
+    title       text,
+    description text,
+    coins       text,
+    image       text,
+    mentor_id   integer
+);
+
+alter table "Quests"
+    owner to pirqathgcgzhbg;
+
+
+insert into public."Quests" (title, description, coins, image, mentor_id) values ('Dodge This!', 'Dodge 5x times morning question', 5, 'dodgeThis.jpg', 1);
+insert into public."Quests" (title, description, coins, image, mentor_id) values ('Telephone Booth Call', '3x times teleporting from telephone booth to headquarter', 30, 'telephoneBooth.png', 5);
+insert into public."Quests" (title, description, coins, image, mentor_id) values ('Destroy bugs for test', 'Find and fix 3 bugs in someone else''s program', 7, 'bugs.jpg', 20);
+insert into public."Quests" (title, description, coins, image, mentor_id) values ('Help friend in need', 'Review your friend''s code for test', 6, 'helpFriend.jpg', 20);
+insert into public."Quests" (title, description, coins, image, mentor_id) values ('Avoid bullets', 'Answer mentor''s question correctly', 666, 'dodgeBullets.jpg', 20);
+insert into public."Quests" (title, description, coins, image, mentor_id) values ('Be everywhere', 'Attendence more than 80%', 9, 'appearences.png', 19);
+insert into public."Quests" (title, description, coins, image, mentor_id) values ('Faster than ever', 'Submit project one day earlier', 50, 'neoFly.png', 20);
+insert into public."Quests" (title, description, coins, image, mentor_id) values ('Best Trio', 'Stand on the podium in Kahoot', 12, 'podium.jpg', 19);
+

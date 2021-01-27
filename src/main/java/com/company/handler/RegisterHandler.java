@@ -12,6 +12,7 @@ import com.sun.net.httpserver.HttpHandler;
 import java.io.*;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,7 +51,11 @@ public class RegisterHandler implements HttpHandler {
                     .setAvatarSource(data.get("avatarPath"));
 
 
-            this.adminService.addUser(student);
+            try {
+                this.adminService.addUser(student);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
 
             response = "data saved - POST method";
         } else if (method.equals("GET")) {

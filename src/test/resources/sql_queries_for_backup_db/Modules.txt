@@ -1,0 +1,23 @@
+-- Modules
+
+ALTER TABLE Modules
+DROP CONSTRAINT "modules_pk";
+
+DROP TABLE Modules;
+
+create table "Modules"
+(
+    id   serial not null
+        constraint modules_pk
+            primary key,
+    name text
+);
+
+alter table "Modules"
+    owner to pirqathgcgzhbg;
+
+insert into public."Modules" (name) values ('JAVA');
+insert into public."Modules" (name) values ('PYTHON');
+insert into public."Modules" (name) values ('WEB');
+insert into public."Modules" (name) values ('ADVANCE');
+

@@ -12,6 +12,7 @@ import com.company.view.TerminalView;
 import com.company.view.UserView;
 
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -21,14 +22,24 @@ public abstract class EmployeeService {
     private final StudentDetailsDao studentDetailsDao;
     private final StudentsAwardsDao studentsAwardsDao;
     private final TransactionDao transactionDao;
+    private ConnectionFactory connectionFactory;
+
 
     public EmployeeService() {
         this.userDao = new UserDaoDb();
         this.studentDetailsDao = new StudentDetailsDaoDb();
         this.studentsAwardsDao = new StudentsAwardsDaoDb();
         this.transactionDao = new TransactionDaoDb();
-
     }
+
+    public EmployeeService(ConnectionFactory connectionFactory) {
+        this.connectionFactory = connectionFactory;
+        this.userDao = new UserDaoDb(connectionFactory);
+        this.studentDetailsDao = new StudentDetailsDaoDb(connectionFactory);
+        this.studentsAwardsDao = new StudentsAwardsDaoDb(connectionFactory);
+        this.transactionDao = new TransactionDaoDb(connectionFactory);
+    }
+
 
     public void addUserToDb(String roleString) {
         Role userRole = decideRole(roleString);
@@ -49,12 +60,12 @@ public abstract class EmployeeService {
         this.userDao.insert(newUser);
     }
 
-    public void addUser(User user) {
+    public void addUser(User user) throws SQLException {
         this.userDao.insert(user);
         createStudentDetails(user); // TODO: where? here?
     }
 
-    private void createStudentDetails(User user) {
+    private void createStudentDetails(User user) throws SQLException {
         int studentIdFromDao = userDao.readUserIdByEmail(user.getEmail());
         this.studentDetailsDao.insert(studentIdFromDao);
     }
@@ -76,7 +87,7 @@ public abstract class EmployeeService {
 
     public void deleteStudentById(int id) {
         this.userDao.deleteStudent(id);
-        this.userDao.deleteStudentDetails(id);
+//        this.userDao.deleteStudentDetails(id);
 
     }
 

@@ -1,0 +1,19 @@
+-- Transactions
+
+DROP TABLE "Transactions";
+
+create table "Transactions"
+(
+    id         serial not null,
+    user_id    integer,
+    award_id   integer,
+    price      integer,
+    created_at text
+);
+
+alter table "Transactions"
+    owner to pirqathgcgzhbg;
+
+insert into public."Transactions" (user_id, award_id, price, created_at) values (1, 2, 20, '2020-07-10 09:00:17.861+02');
+insert into public."Transactions" (user_id, award_id, price, created_at) values (1, 3, 44, '2020-07-10 09:18:11.102+02');
+

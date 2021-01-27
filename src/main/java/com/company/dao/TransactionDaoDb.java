@@ -13,15 +13,18 @@ import java.util.List;
 
 public class TransactionDaoDb implements TransactionDao {
 
-    private List<Transaction> transactions;
     private final ConnectionFactory conFactory;
 
     public TransactionDaoDb() {
         this.conFactory = new ConnectionFactory();
     }
 
+    public TransactionDaoDb(ConnectionFactory conFactory) {
+        this.conFactory = conFactory;
+    }
+
     @Override
-    public List getTransactionsCountAndTotalSumByUser() {
+    public List<TransactionCountAndTotalSumByUser> getTransactionsCountAndTotalSumByUser() {
         List<TransactionCountAndTotalSumByUser> statistics = new ArrayList<>();
         try {
             ResultSet rs = conFactory.executeQuery("SELECT\n" +
@@ -52,6 +55,7 @@ public class TransactionDaoDb implements TransactionDao {
         return statistics;
     }
 
+    // TODO: test
     @Override
     public List<Transaction> getMyTransactions(User user) {
         List<Transaction> transactions = new ArrayList<>();
@@ -96,6 +100,8 @@ public class TransactionDaoDb implements TransactionDao {
         return transactions;
     }
 
+
+    // TODO: test
     @Override
     public List<Transaction> getMyTransactionsById(int studentId) {
         List<Transaction> transactions = new ArrayList<>();
@@ -144,10 +150,10 @@ public class TransactionDaoDb implements TransactionDao {
         return transactions;
     }
 
-
+    // TODO: test
     @Override
-    public List getAllElements() {
-        transactions = new ArrayList<>();
+    public List<Transaction> getAllElements() {
+        List<Transaction> transactions = new ArrayList<>();
         try {
             ResultSet rs = conFactory.executeQuery("SELECT \"Transactions\".id AS transaction_id\n" +
                     "     , user_id\n" +
@@ -185,11 +191,13 @@ public class TransactionDaoDb implements TransactionDao {
         return transactions;
     }
 
+    // TODO: test
     @Override
     public Transaction getById(int id) {
         return null;
     }
 
+    // TODO: test
     @Override
     public boolean insert(Transaction o) {
         Transaction transaction = (Transaction) o;
@@ -218,6 +226,7 @@ public class TransactionDaoDb implements TransactionDao {
         return false;
     }
 
+    // TODO: test
     @Override
     public boolean delete(int id) {
         PreparedStatement ps = null;

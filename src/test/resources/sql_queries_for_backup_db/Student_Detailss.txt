@@ -1,0 +1,27 @@
+-- Student_Detailss
+
+ALTER TABLE "Student_Detailss"
+DROP CONSTRAINT "student_detailss_pk";
+
+DROP TABLE "Student_Detailss";
+
+create table "Student_Detailss"
+(
+    id         serial not null
+        constraint student_detailss_pk
+            primary key,
+    coins      integer default 0,
+    student_id integer,
+    mentor_id  integer default 2
+);
+
+alter table "Student_Detailss"
+    owner to pirqathgcgzhbg;
+
+create unique index student_detailss_id_uindex
+    on "Student_Detailss" (id);
+
+
+insert into public."Student_Detailss" (coins, student_id, mentor_id) values (220, 1, 2);
+insert into public."Student_Detailss" (coins, student_id, mentor_id) values (600, 5, 2);
+
